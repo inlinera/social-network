@@ -1,0 +1,21 @@
+const Button = {
+    colorPrimary: '#f0a44d',
+    colorPrimaryHover: '#eff041d0',
+    colorPrimaryActive: '#f0a44d',
+    colorTextDisabled: 'rgb(240, 240, 240)',
+}
+
+const Input = {
+    colorPrimary: '#646363d0',
+    colorPrimaryHover: '#f0a44d',
+    colorPrimaryActive: '#f0a44d',
+    colorText: 'rgba(255, 255, 255, 0.9)',
+    colorTextPlaceholder: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: 9,
+    colorBgContainer: '#646363d0'
+}
+
+export const config = {
+    Button,
+    Input
+}
