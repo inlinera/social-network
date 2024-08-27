@@ -1,8 +1,9 @@
 import { useEffect } from "react"
 import s from './index.module.scss'
+import { observer } from "mobx-react-lite"
 //MOBX
 import postsApi from "@/shared/store/posts-api"
-import { observer } from "mobx-react-lite"
+import authApi from "@/shared/store/auth-api"
 import { PostWidget } from "@/widgets/post"
 
 export const PostsPage = observer(() => {
@@ -10,7 +11,7 @@ export const PostsPage = observer(() => {
 
 
     useEffect(() => {
-        getPosts()
+      if (authApi.user) getPosts()
       }, [])
 
   return (

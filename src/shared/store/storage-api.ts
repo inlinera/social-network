@@ -1,6 +1,7 @@
-import { storage } from "@/app/_providers/firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { makeAutoObservable } from "mobx";
+import { storage } from "@/app/_providers/firebase"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { makeAutoObservable, runInAction } from "mobx"
+import { v4 } from 'uuid'
 
 
 class StorageApi {
@@ -9,22 +10,25 @@ class StorageApi {
     }
 
     //ALL STORAGE STATES
-    image = ''
+    image = null as any
 
     //ALL STORAGE ACTIONS
-    uploadFile = async (file: File) => {
-        const storageRef = ref(storage, `files/${file.name}`) // Create a storage reference
-      
-        try {
-          const uploadTask = await uploadBytes(storageRef, file) // Upload the file
-      
-          const downloadURL = await getDownloadURL(uploadTask.ref) // Get the download URL
-      
-          console.log("File uploaded successfully:", downloadURL)
-        } catch (error) {
-          console.error("Error uploading file:", error)
-        }
+    uploadAvatar = async (file: any) => {
+      const imgRef = ref(storage, `files/avatars/${v4()}`);
+  
+      try {
+        await uploadBytes(imgRef, file);
+        const downloadURL = await getDownloadURL(imgRef)
+  
+        runInAction(() => {
+          this.image = downloadURL
+        })
+        return this.image || downloadURL
+      } catch (e) {
+        alert(e);
       }
-}
+    }
+    }
+    
 
 export default new StorageApi()

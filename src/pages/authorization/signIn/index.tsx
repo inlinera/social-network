@@ -7,7 +7,7 @@ import AuthorizationStore from '@/shared/store/auth-api'
 import { Button, Input } from 'antd'
 
 export const SignIn = observer(() => {
-  const { signIn, errorLog } = AuthorizationStore
+  const { signIn, error } = AuthorizationStore
 
   const [userData, setUserData] = useState({
     email: '',
@@ -41,6 +41,6 @@ export const SignIn = observer(() => {
           />
           <Button type='primary' onClick={handleSubmit}>Sign In</Button>
       </form>
-      {errorLog && errorLog}
+      {error && error}
     </div>
   )})

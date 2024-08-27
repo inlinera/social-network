@@ -7,6 +7,7 @@ import { onAuthStateChanged, setPersistence,  browserLocalPersistence,
 import { doc, setDoc } from "firebase/firestore"
 // INTERFACES
 import { IUser } from "@/shared/interfaces/IUser"
+import storageApi from "./storage-api"
 
 class AuthorizationStore {
 
@@ -18,7 +19,7 @@ class AuthorizationStore {
   // ======================== AUTH ==========================
 
   //ALL AUTH STATES
-  user? = {} as IUser | null
+  user? = null as IUser | null
   loading? = true
   error? = '' as string
 
@@ -50,7 +51,8 @@ class AuthorizationStore {
 
       await setDoc(doc(db, "users", user.uid), {
         ...userData,
-        password: ""
+        password: "",
+        avatarUrl: storageApi.image
       })
 
       if (auth.currentUser) {

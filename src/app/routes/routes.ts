@@ -4,7 +4,7 @@ import { PostsPage } from "@/pages/posts/posts"
 import { UserPage } from "@/pages/user"
 
 export const publicRoutes = [
-    {path: '/', element: AuthPage}
+    {path: '/auth', element: AuthPage}
 ]
 
 export const privateRoutes = [

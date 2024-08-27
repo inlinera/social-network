@@ -17,13 +17,14 @@ const AppRouter = observer(() => {
         {
           !user ? (
             <Routes>
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/auth" />} />
               {publicRoutes.map((r) => (
                 <Route path={r.path} element={<r.element />} key={r.path} />
               ))}
             </Routes>
           ) : (
             <Routes>
+              <Route path="*" element={<Navigate to="/" />} />
               {privateRoutes.map((r) => (
                 <Route path={r.path} element={<r.element />} key={r.path} />
               ))}

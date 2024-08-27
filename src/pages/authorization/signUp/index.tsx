@@ -3,8 +3,10 @@ import s from '@/pages/authorization/_styles/index.module.scss'
 import { observer } from "mobx-react-lite"
 //MOBX
 import AuthorizationStore from '@/shared/store/auth-api'
+import storageApi from "@/shared/store/storage-api"
 //COMPONENTS
-import { Button, Input } from 'antd'
+import { Button, Input, Avatar } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
 //DATA
 import { nullUser } from "@/shared/data/null-user"
 
@@ -13,7 +15,8 @@ interface SignUpProps {
 }
 
 export const SignUp: FC<SignUpProps> = observer(({setIsReg}) => {
-  const { signUp, errorReg } = AuthorizationStore
+  const { signUp, error } = AuthorizationStore
+  const { image, uploadAvatar } = storageApi
 
   const { TextArea } = Input
 
@@ -25,10 +28,20 @@ export const SignUp: FC<SignUpProps> = observer(({setIsReg}) => {
     setUserData(nullUser)
   }
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const downloadURL = await uploadAvatar(e.target.files[0])
+      setUserData({ ...userData, avatarUrl: downloadURL })
+    }
+  }
+
   return (
     <div className={`${s.signForm} jcc aic tac grid`}>
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
+      Choose your Avatar
+      <input type="file" onChange={handleFileChange}/>
+      <Avatar size={100} icon={image ? <img src={image} alt="avatar"/> : <UserOutlined />}/>
         <div>
           <Input
             type="text"
@@ -63,7 +76,7 @@ export const SignUp: FC<SignUpProps> = observer(({setIsReg}) => {
         <Button type="primary" onClick={handleSubmit}>Sign Up</Button>
       </form>
       <button onClick={() => setIsReg(false)}>I'm already have account</button>
-      {errorReg && errorReg}
+      {error && error}
     </div>
   )
 })
