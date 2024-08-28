@@ -10,4 +10,5 @@ export const publicRoutes = [
 export const privateRoutes = [
     {path: '/', element: PostsPage},
     {path: '/user/:userId', element: UserPage}
+    
 ]

@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx"
 //FIREBASE
 import { db } from "@/app/_providers/firebase"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs, query, where } from "firebase/firestore"
 //INTERFACES
 import { IPost } from "../interfaces/IPost"
 
@@ -14,7 +14,7 @@ class PostsStore {
   // ================== POSTS ===================
 
   //ALL POSTS STATES
-  posts: IPost[] = []
+  posts?: IPost[] = []
   loading? = false
 
 
@@ -33,6 +33,25 @@ class PostsStore {
       console.error("Error fetching posts:", error)
     }
     finally {
+      this.setLoading(false)
+    }
+  }
+
+  getUserPosts = async (userId: string) => {
+    try {
+      this.setLoading(true)
+      const q = query(collection(db, "posts"), where("userId", "==", userId));
+      const querySnapshot = await getDocs(q);
+
+      runInAction(() => {
+        this.posts = querySnapshot.docs.map((doc) => ({
+          ...doc.data()!,
+          id: doc.id,
+        } as IPost))
+      })
+    } catch (error) {
+      console.error("Error fetching user posts:", error)
+    } finally {
       this.setLoading(false)
     }
   }

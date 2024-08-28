@@ -3,12 +3,12 @@
 .signForm {
     position: relative;
     width: 80%;
-    margin: 15px auto;
+    margin: $margin-content;
     padding: 15px;
     color: #fff;
     background-color: $gray-color;
     border-radius: 16px;
-    input, textarea, button {
+    * {
         margin: 6px;
     }
 }

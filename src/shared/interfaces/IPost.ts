@@ -3,5 +3,5 @@ export interface IPost {
     username: string
     value: string
     id?: string
-    likes: number
+    likes?: number
   }

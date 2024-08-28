@@ -8,6 +8,8 @@ import { doc, setDoc } from "firebase/firestore"
 // INTERFACES
 import { IUser } from "@/shared/interfaces/IUser"
 import storageApi from "./storage-api"
+// DATA
+import { defaultAvatar } from '@/shared/data/default-avatar'
 
 class AuthorizationStore {
 
@@ -52,7 +54,7 @@ class AuthorizationStore {
       await setDoc(doc(db, "users", user.uid), {
         ...userData,
         password: "",
-        avatarUrl: storageApi.image
+        avatarUrl: storageApi.image ? storageApi.image : defaultAvatar
       })
 
       if (auth.currentUser) {
@@ -63,6 +65,7 @@ class AuthorizationStore {
 
       runInAction(() => {
         this.setUser(user as IUser)
+        this.setToken(user.uid)
       })
     } catch (e: any) {
       runInAction(() => {
@@ -77,6 +80,7 @@ class AuthorizationStore {
       const { user } = await signInWithEmailAndPassword(auth, email, password)
       runInAction(() => {
         this.setUser(user as IUser)
+        this.setToken(user.uid)
       })
     } catch (e: any) {
       runInAction(() => {
@@ -90,6 +94,7 @@ class AuthorizationStore {
   setLoading = (state: boolean) => this.loading = state
   setUser = (user: IUser | null) => this.user = user
   setError = (err: string) => this.error = err
+  setToken = (token: string) => localStorage.setItem('token-wunderkids', token)
 }
 
 export default new AuthorizationStore()

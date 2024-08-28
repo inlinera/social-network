@@ -36,12 +36,14 @@ export const SignUp: FC<SignUpProps> = observer(({setIsReg}) => {
   }
 
   return (
-    <div className={`${s.signForm} jcc aic tac grid`}>
+    <div className={`${s.signForm} grid jcc aic tac`}>
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
       Choose your Avatar
+      <div className="grid jcc aic">
+      <Avatar size={90} icon={image ? <img src={image} alt="avatar"/> : <UserOutlined />} className="x-auto"/>
       <input type="file" onChange={handleFileChange}/>
-      <Avatar size={100} icon={image ? <img src={image} alt="avatar"/> : <UserOutlined />}/>
+      </div>
         <div>
           <Input
             type="text"

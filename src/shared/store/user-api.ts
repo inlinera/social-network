@@ -7,20 +7,26 @@ import { doc, getDoc } from "firebase/firestore"
 
 
 class userPageStore {
-  userInfo? = {} as IUser
-  loading? = true
-  error? = ''
 
   constructor() {
     makeAutoObservable(this)
   }
 
+  // =============== USER ===============
+
+  //ALL USER STATES
+  userInfo? = {} as IUser
+  loading? = true
+  error? = ''
+
+  //ALL USER ACTIONS
   getUser = async (id: string) => {
     this.setLoading(true)
     try {
       const res = await getDoc(doc(db, "users", id))
       runInAction(() => {
         this.setUser(res.data() as IUser)
+        console.log(res.data())
       })
     } catch (e: any) {
       this.setError(e)

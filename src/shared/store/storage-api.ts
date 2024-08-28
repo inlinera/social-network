@@ -9,6 +9,8 @@ class StorageApi {
         makeAutoObservable(this)
     }
 
+    // ============ STORAGE ==============
+
     //ALL STORAGE STATES
     image = null as any
 

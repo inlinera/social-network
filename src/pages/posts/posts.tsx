@@ -9,7 +9,6 @@ import { PostWidget } from "@/widgets/post"
 export const PostsPage = observer(() => {
     const { getPosts, posts, loading } = postsApi
 
-
     useEffect(() => {
       if (authApi.user) getPosts()
       }, [])

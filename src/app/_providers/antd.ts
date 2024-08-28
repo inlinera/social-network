@@ -15,7 +15,14 @@ const Input = {
     colorBgContainer: '#646363d0'
 }
 
+const List = {
+    itemPadding: '5px 0',
+    colorText: '#fff',
+    colorPrimary: '#f0a44d'
+}
+
 export const config = {
     Button,
-    Input
+    Input,
+    List
 }
