@@ -1,7 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx"
 //FIREBASE
 import { db } from "@/app/_providers/firebase"
-import { collection, getDocs, query, where } from "firebase/firestore"
+import { arrayRemove, arrayUnion, collection, doc, 
+  getDoc, onSnapshot, query, updateDoc, where } from "firebase/firestore"
 //INTERFACES
 import { IPost } from "../interfaces/IPost"
 
@@ -14,23 +15,25 @@ class PostsStore {
   // ================== POSTS ===================
 
   //ALL POSTS STATES
-  posts?: IPost[] = []
+  posts? = [] as IPost[]
+  userPosts? = [] as IPost[]
   loading? = false
-
 
   //ALL POSTS ACTIONS
   getPosts = async () => {
     try {
       this.setLoading(true)
-      const querySnapshot = await getDocs(collection(db, "posts"))
-      runInAction(() => {
-        this.posts = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        } as IPost))
+      const q = query(collection(db, "posts"))
+      return onSnapshot(q, (querySnapshot) => {
+        runInAction(() => {
+          this.posts = querySnapshot.docs.map((doc) => ({
+            ...doc.data()!,
+            id: doc.id,
+          }) as IPost)
+        })
       })
-    } catch (error) {
-      console.error("Error fetching posts:", error)
+    } catch (e) {
+      alert(e)
     }
     finally {
       this.setLoading(false)
@@ -40,19 +43,46 @@ class PostsStore {
   getUserPosts = async (userId: string) => {
     try {
       this.setLoading(true)
-      const q = query(collection(db, "posts"), where("userId", "==", userId));
-      const querySnapshot = await getDocs(q);
 
-      runInAction(() => {
-        this.posts = querySnapshot.docs.map((doc) => ({
-          ...doc.data()!,
-          id: doc.id,
-        } as IPost))
+      const q = query(collection(db, "posts"), where("userId", "==", userId))
+
+      return onSnapshot(q, (querySnapshot) => {
+        runInAction(() => {
+          this.userPosts = querySnapshot.docs.map((doc) => ({
+            ...doc.data()!,
+            id: doc.id,
+          }) as IPost)
+        })
       })
-    } catch (error) {
-      console.error("Error fetching user posts:", error)
-    } finally {
+    } catch (e) {
+      alert(e)
+    } 
+    finally {
       this.setLoading(false)
+    }
+  }
+
+  handlePostLike = async (liked: boolean, postId: string, userId: string) => {
+    try {
+      const postRef = doc(db, 'posts', postId)
+  
+      const postDoc = await getDoc(postRef)
+      const currentLikes = postDoc.data()?.likes || []
+      const cleanedLikes = currentLikes.filter((like: string) => like !== '')
+  
+      if (liked) {
+        await updateDoc(postRef, {
+          likes: arrayRemove(userId)
+        })
+      } else {
+        if (!cleanedLikes.includes(userId)) { 
+          await updateDoc(postRef, {
+            likes: arrayUnion(userId)
+          })
+        }
+      }
+    } catch (e) {
+      alert(e)
     }
   }
 

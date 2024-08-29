@@ -1,4 +1,5 @@
 @import './variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
 
 * {
     padding: 0;
@@ -35,9 +36,10 @@
  html,
  body {
     line-height: 1;
-    font-family: "Poppins", sans-serif;
+    font-family: "SUSE", "Poppins", sans-serif;
     font-size: 14px;
     overflow-x: hidden;
+    scroll-behavior: smooth;
  }
  
  input,

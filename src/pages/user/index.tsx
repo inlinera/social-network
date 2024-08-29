@@ -8,18 +8,18 @@ import userStore from '@/shared/store/user-api'
 import postsApi from '@/shared/store/posts-api'
 //COMPONENTS
 import { Avatar, Spin } from 'antd'
-import { PostWidget } from '@/widgets/post'
 import { FriendsPage } from './friends'
+import { PostListWidget } from '@/widgets/postList'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
-  const { getUserPosts, posts } = postsApi
+  const { getUserPosts, userPosts } = postsApi
   const { userId } = useParams()
   const { user } = authorizationApi
 
   const getUserFriends = () => {
     if (userInfo && userInfo.friends) {
-    if (userInfo?.friends.length! % 10 == 1) return `${userInfo?.friends.length} friend`
+    if (userInfo?.friends.length! % 10 == 1) return `friend`
     else return `${userInfo?.friends.length} friends`
     }
     else return 'Friends not found'
@@ -49,11 +49,10 @@ export const UserPage = observer(() => {
               <FriendsPage />
             </div>
           </div>
-          <div className={`${s.userInfo_posts} grid jcc aic`}>
-          {posts?.length 
+          <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
+          {userPosts?.length 
             ?
-            posts.map(p => <PostWidget username={p.username} value={p.value} userId={p.userId}
-            key={p.value + p.username} />)
+            <PostListWidget posts={userPosts} loading={loading}/>
             : 'User don\'t have posts'
             }
           </div>

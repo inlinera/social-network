@@ -1,7 +1,8 @@
 export interface IPost {
-    userId: string
     username: string
+    userId: string
+    userAvatar: string
     value: string
-    id?: string
-    likes?: number
+    id: string
+    likes: []
   }

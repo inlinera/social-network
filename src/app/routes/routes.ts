@@ -1,6 +1,6 @@
 //PAGES
 import { AuthPage } from "@/pages/authorization"
-import { PostsPage } from "@/pages/posts/posts"
+import { PostsPage } from "@/pages/posts/index"
 import { UserPage } from "@/pages/user"
 
 export const publicRoutes = [

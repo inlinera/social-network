@@ -14,11 +14,11 @@ const AppRouter = observer(() => {
   const token = localStorage.getItem('token-wunderkids')
 
   return (
-    <main>
+    <main className='flex jcc aic'>
       <BrowserRouter>
         <LayoutNav />
         {loading 
-        ? <Spin size='large'/>
+        ? <Spin size='large' className='z-3'/>
         : 
           token ? (
             <Routes>

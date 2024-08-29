@@ -3,7 +3,7 @@
 .userInfo {
     margin: $margin-content;
     width: 80vw;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 3fr;
     font-weight: 600;
     gap: 15px;
     .userInfo_meta {
@@ -14,7 +14,6 @@
             grid-template-columns: 100px 1fr;
             gap: 15px;
         }
-        grid-template-rows: repeat(2, 1fr);
         p {
             line-height: 1.2;
         }
@@ -23,8 +22,7 @@
         }
     }
     .userInfo_posts {
-        padding: 15px;
-        background-color: rgba(0, 0, 0, .3);
+        position: relative;
         border-radius: 10px;
     }
 }
