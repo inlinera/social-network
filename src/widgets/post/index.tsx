@@ -6,6 +6,7 @@ import { IPost } from '@/shared/interfaces/IPost'
 import { PostBtnLine } from '@/entities/postButtons'
 import { Avatar } from 'antd'
 import { LinkifyText } from '@/entities/parseText'
+import { token } from '@/shared/token/token'
 
 export const PostWidget: FC<{ post: IPost }> = ({ post }) => {
 
@@ -20,7 +21,7 @@ export const PostWidget: FC<{ post: IPost }> = ({ post }) => {
       <p>
         <LinkifyText text={post.value} />
       </p>
-      <PostBtnLine likes={post.likes} postId={post.id!} userId={post.userId} />
+      <PostBtnLine likes={post.likes} postId={post.id!} userId={token!} />
     </div>
   )
 }

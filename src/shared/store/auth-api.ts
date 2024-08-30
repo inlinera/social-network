@@ -23,16 +23,16 @@ class AuthorizationStore {
   //ALL AUTH STATES
   user? = null as IUser | null
   loading? = true
-  error? = '' as string
+  error? = ''
 
   //ALL AUTH ACTIONS
    initializeAuth = async () => {
     this.setLoading(true)
     try {
       await setPersistence(auth, browserLocalPersistence)
-      onAuthStateChanged(auth, (user) => 
-         user && this.setUser(user as IUser)
-    )
+      onAuthStateChanged(auth, (user) => {
+        this.setUser(user as IUser)
+      })
     }
     catch (e) {
       alert(`Error during sign up:, ${e}`)
@@ -50,17 +50,15 @@ class AuthorizationStore {
         userData.password!
       )
 
-      await setDoc(doc(db, "users", user.uid), {
+      await setDoc(doc(db, "users", userData.displayName), {
         ...userData,
         password: "",
         avatarUrl: storageApi.image ? storageApi.image : defaultAvatar
       })
 
-      if (auth.currentUser) {
-        await updateProfile(auth.currentUser, {
+        await updateProfile(auth.currentUser!, {
           displayName: userData.displayName,
         })
-      }
 
       runInAction(() => {
         this.setUser(user as IUser)

@@ -8,10 +8,10 @@ import AuthorizationStore from '@/shared/store/auth-api'
 import { Spin } from 'antd'
 
 import { privateRoutes, publicRoutes } from './routes'
+import { token } from '@/shared/token/token'
 
 const AppRouter = observer(() => {
   const { loading } = AuthorizationStore
-  const token = localStorage.getItem('token-wunderkids')
 
   return (
     <main className='flex jcc aic'>

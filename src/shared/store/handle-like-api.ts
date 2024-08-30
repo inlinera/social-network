@@ -8,7 +8,7 @@ class handlePostLikeApi {
         makeAutoObservable(this)
     }
 
-    // ========= LIKES ==========
+    // ============ LIKES ==============
 
     //ALL LIKES ACTIONS
     handlePostLike = async (liked: boolean, postId: string, userId: string) => {
