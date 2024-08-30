@@ -2,5 +2,8 @@
 
 
 .postListPage {
+    position: relative;
+    width: 80vw;
     margin: $margin-content;
+    justify-content: space-between;
 }

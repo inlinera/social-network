@@ -1,7 +1,9 @@
 @import '@/app/assets/styles/variables.scss';
 
-.userInfo {
+
+.userBlock {
     margin: $margin-content;
+.userInfo {
     width: 80vw;
     grid-template-columns: 1fr 3fr;
     font-weight: 600;
@@ -25,4 +27,5 @@
         position: relative;
         border-radius: 10px;
     }
+}
 }

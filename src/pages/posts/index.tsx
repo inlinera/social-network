@@ -16,7 +16,7 @@ export const PostsPage = observer(() => {
       }, [getPosts, authApi.user])
 
   return (
-    <div className={`${s.postListPage} flex fdc jcc aic`}>
+    <div className={`${s.postListPage} flex fdc aic`}>
       <PostListWidget posts={posts} loading={loading}/>
     </div>
   )

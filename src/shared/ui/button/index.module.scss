@@ -2,8 +2,16 @@
 
 .postBtn {
     max-height: 35px;
-    padding: 0 5px;
+    padding: 15px;
     font-weight: 600;
     background-color: $gray-color;
     border-radius: 10px;
+    transition: all .4s;
+    * {
+        margin: 3px;
+    }
+    &.loading {
+        transform: scale(.95);
+        background-color: gray;
+    }
 }

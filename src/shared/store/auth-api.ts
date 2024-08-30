@@ -30,10 +30,9 @@ class AuthorizationStore {
     this.setLoading(true)
     try {
       await setPersistence(auth, browserLocalPersistence)
-      onAuthStateChanged(auth, (user) => {
-      this.setUser(user as IUser)
-      console.log(this.user)
-    })
+      onAuthStateChanged(auth, (user) => 
+         user && this.setUser(user as IUser)
+    )
     }
     catch (e) {
       alert(`Error during sign up:, ${e}`)
@@ -48,8 +47,8 @@ class AuthorizationStore {
       const { user } = await createUserWithEmailAndPassword(
         auth,
         userData.email,
-        userData.password as string
-      );
+        userData.password!
+      )
 
       await setDoc(doc(db, "users", user.uid), {
         ...userData,

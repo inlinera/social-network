@@ -1,31 +1,46 @@
 import { FC, useState } from 'react'
 //MOBX
-import postsApi from '@/shared/store/posts-api'
+import handleLikeApi from '@/shared/store/handle-like-api'
 //COMPONENTS
 import { PostBtn } from '@/shared/ui/button'
 import { observer } from 'mobx-react-lite'
 import { HeartFilled, HeartOutlined } from '@ant-design/icons'
 
 
-export const PostBtnLine: FC<{ likes: [], postId: string, userId: string }> = observer((
+export const PostBtnLine: FC<{ likes: string[], postId: string, userId: string }> = observer((
     { likes, postId, userId }
     ) => {
 
-    const { handlePostLike } = postsApi
+    const { handlePostLike } = handleLikeApi
 
-    const [isLiked, setIsLiked] = useState<boolean>(likes?.includes(userId) || false)
+    const [isLiked, setIsLiked] = useState<boolean>(likes?.includes(userId))
+    const [loading, setLoading] = useState<boolean>(false)
 
-    const handleLikeStateChange = (isLiked: boolean) => {
+    const handleLikeStateChange = async (isLiked: boolean) => {
+      setLoading(true)
+      try {
         setIsLiked(!isLiked)
-        handlePostLike(isLiked, postId, userId)
+        await handlePostLike(isLiked, postId, userId)
+      } catch (e) {
+        alert(e)
+      } finally {
+        setLoading(false)
+      }
     }
 
   return (
     <div className='flex jcc aic'>
-        <PostBtn onClick={() => handleLikeStateChange(isLiked)}>
-                {isLiked ? <HeartFilled style={{fontSize: '16px'}}/> 
-                : <HeartOutlined style={{fontSize: '16px'}}/>}
-                {likes?.length}
+        <PostBtn onClick={() => handleLikeStateChange(isLiked)} loading={loading} >
+          {loading 
+          ? 'Loading'
+          : 
+          <>
+            {isLiked 
+            ? <HeartFilled style={{fontSize: '16px'}}/> 
+            : <HeartOutlined style={{fontSize: '16px'}}/>}
+            {likes?.length}
+          </>
+          }
         </PostBtn>
     </div>
   )

@@ -10,15 +10,17 @@ import { LinkifyText } from '@/entities/parseText'
 export const PostWidget: FC<{ post: IPost }> = ({ post }) => {
 
   return (
-    <div className={`${s.post} flex fdc jcc`}>
-            <Link to={`/user/${post.userId}`}>
-              <Avatar size={'default'} icon={<img src={post.userAvatar} alt='avatar'/>}/>
-              <span>{post.username}</span>
-            </Link>
-        <p>
-            <LinkifyText text={post.value}/>
-        </p>
-          <PostBtnLine likes={post.likes} postId={post.id!} userId={post.userId}/>
+    <div className={`${s.post} grid`}>
+      {post.userAvatar && (
+        <Link to={`/user/${post.userId}`} className={`${s.post_user} flex aic`}>
+          <Avatar size={'default'} src={post.userAvatar} alt='avatar'/>
+          <p>{post.username}</p>
+        </Link>
+      )}
+      <p>
+        <LinkifyText text={post.value} />
+      </p>
+      <PostBtnLine likes={post.likes} postId={post.id!} userId={post.userId} />
     </div>
   )
 }

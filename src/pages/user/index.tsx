@@ -5,7 +5,7 @@ import s from './index.module.scss'
 //MOBX
 import authorizationApi from '@/shared/store/auth-api'
 import userStore from '@/shared/store/user-api'
-import postsApi from '@/shared/store/posts-api'
+import userPostsApi from '@/shared/store/user-posts-api'
 //COMPONENTS
 import { Avatar, Spin } from 'antd'
 import { FriendsPage } from './friends'
@@ -13,7 +13,7 @@ import { PostListWidget } from '@/widgets/postList'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
-  const { getUserPosts, userPosts } = postsApi
+  const { getUserPosts, posts } = userPostsApi
   const { userId } = useParams()
   const { user } = authorizationApi
 
@@ -26,7 +26,6 @@ export const UserPage = observer(() => {
   }
 
   useEffect(() => {
-      console.log('User ID:', userId)
       if (userId) {
         getUser(userId)
         getUserPosts(userId)
@@ -34,10 +33,15 @@ export const UserPage = observer(() => {
   }, [userId, user])
 
   return (
-    <div>
+    <div className={`${s.userBlock} jcc aic flex fdc`}>
       {loading
-        ? <Spin size='large'/>
-        : <div className={`${s.userInfo} jcc grid cw`}>
+        ? 
+        <>
+        <Spin size='large'/>
+        <p style={{marginTop: '5px'}}>Loading user</p>
+        </>
+        : 
+        <div className={`${s.userInfo} jcc grid cw`}>
           <div className={`${s.userInfo_meta} grid jcc`}>
             <div className='grid aic'>
             <Avatar size={100} icon={<img src={userInfo?.avatarUrl} alt="avatar" />} />
@@ -50,9 +54,9 @@ export const UserPage = observer(() => {
             </div>
           </div>
           <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
-          {userPosts?.length 
+          {posts?.length
             ?
-            <PostListWidget posts={userPosts} loading={loading}/>
+            <PostListWidget posts={posts} loading={loading}/>
             : 'User don\'t have posts'
             }
           </div>
