@@ -3,6 +3,7 @@ const Button = {
     colorPrimaryHover: '#eff041d0',
     colorPrimaryActive: '#f0a44d',
     colorTextDisabled: 'rgb(240, 240, 240)',
+    marginXS: 0
 }
 
 const Input = {

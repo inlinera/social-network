@@ -50,6 +50,7 @@ export const SignUp: FC<SignUpProps> = observer(({setIsReg}) => {
             placeholder="name"
             value={userData.displayName}
             onChange={(e) => setUserData({ ...userData, displayName: e.target.value })}
+            maxLength={20}
           />
         </div>
         <div>

@@ -10,6 +10,7 @@
     gap: 15px;
     .userInfo_meta {
         height: max-content;
+        padding: 5px 10px;
         background-color: rgba(0, 0, 0, .2);
         border-radius: 12px;
         div {
@@ -21,6 +22,11 @@
         }
         * {
             margin: 5px;
+        }
+        .userInfo_meta_btn {
+            * {
+                margin: 0;
+            }
         }
     }
     .userInfo_posts {

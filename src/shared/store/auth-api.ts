@@ -4,7 +4,7 @@ import { auth, db } from "@/app/_providers/firebase"
 import { onAuthStateChanged, setPersistence,  browserLocalPersistence,
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   updateProfile } from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"
+import { doc, getDoc, setDoc } from "firebase/firestore"
 // INTERFACES
 import { IUser } from "@/shared/interfaces/IUser"
 import storageApi from "./storage-api"
@@ -30,8 +30,16 @@ class AuthorizationStore {
     this.setLoading(true)
     try {
       await setPersistence(auth, browserLocalPersistence)
-      onAuthStateChanged(auth, (user) => {
-        this.setUser(user as IUser)
+      onAuthStateChanged(auth, async (user) => {
+        const updatedUserDoc = await getDoc(doc(db, "users", user?.uid!));
+        const updatedUserData = updatedUserDoc.data() as IUser;
+        if (updatedUserDoc.exists()) {
+          runInAction(() => {
+            this.user = {...updatedUserData,
+              uid: user?.uid!
+            }
+          })
+        }
       })
     }
     catch (e) {

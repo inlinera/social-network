@@ -1,4 +1,5 @@
 import firebase from "firebase/compat/app"
+import { IFriend } from "./IFriend"
 
 export interface IUser extends firebase.User {
     displayName: string
@@ -6,7 +7,9 @@ export interface IUser extends firebase.User {
     password?: string
     description?: string
     isPremium: boolean
-    id?: string
-    friends: string[]
+    userId?: string
+    friends: IFriend[]
     avatarUrl: string
+    incomingReq: IFriend[]
+    outgoingReq: IFriend[]
 }
