@@ -9,35 +9,36 @@ import { Spin } from 'antd'
 
 import { privateRoutes, publicRoutes } from './routes'
 import { token } from '@/shared/token/token'
+import { useEffect } from 'react'
 
 const AppRouter = observer(() => {
-  const { loading } = AuthorizationStore
+  const { loading, initializeAuth } = AuthorizationStore
+
+  useEffect(() => {
+    initializeAuth()
+  }, [initializeAuth])
 
   return (
     <main className='flex jcc aic'>
       <BrowserRouter>
         <LayoutNav />
-        {loading 
-        ? <Spin size='large' className='z-3'/>
-        : 
-          token ? (
+        {loading
+          ? <Spin size='large' className='z-3'/>
+          : token ? 
             <Routes>
-              <Route path="/auth" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/" />} />
               {privateRoutes.map((r) => (
                 <Route path={r.path} element={<r.element />} key={r.path}/>
               ))}
             </Routes>
-          )
+          
           :
-          (
             <Routes>
-              <Route path="*" element={<Navigate to="/auth" />} />
+              <Route path='*' element={<Navigate to="/auth" />}/>
               {publicRoutes.map((r) => (
                 <Route path={r.path} element={<r.element />} key={r.path} />
               ))}
             </Routes>
-          )
-        
         }
       </BrowserRouter>
     </main>

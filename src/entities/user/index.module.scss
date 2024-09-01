@@ -1,0 +1,21 @@
+.userInfo_meta {
+    height: max-content;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, .2);
+    border-radius: 12px;
+    div {
+        grid-template-columns: 100px 1fr;
+        gap: 15px;
+    }
+    p {
+        line-height: 1.2;
+    }
+    * {
+        margin: 5px;
+    }
+    .userInfo_meta_btn {
+        * {
+            margin: 0;
+        }
+    }
+}

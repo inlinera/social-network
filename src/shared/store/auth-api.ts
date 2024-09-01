@@ -26,27 +26,25 @@ class AuthorizationStore {
   error? = ''
 
   //ALL AUTH ACTIONS
-   initializeAuth = async () => {
-    this.setLoading(true)
+  initializeAuth = async () => {
+    this.setLoading(true);
     try {
-      await setPersistence(auth, browserLocalPersistence)
+      await setPersistence(auth, browserLocalPersistence);
       onAuthStateChanged(auth, async (user) => {
-        const updatedUserDoc = await getDoc(doc(db, "users", user?.uid!));
-        const updatedUserData = updatedUserDoc.data() as IUser;
-        if (updatedUserDoc.exists()) {
-          runInAction(() => {
-            this.user = {...updatedUserData,
-              uid: user?.uid!
-            }
-          })
-        }
+          const { displayName } = user!
+          const updatedUserDoc = await getDoc(doc(db, "users", displayName!))
+          if (updatedUserDoc.exists()) {
+            const updatedUserData = updatedUserDoc.data() as IUser
+            runInAction(() => {
+              this.user = { ...updatedUserData, displayName} as IUser
+            })
+          }
+          console.log(this.user)
       })
-    }
-    catch (e) {
-      alert(`Error during sign up:, ${e}`)
-    }
-    finally {
-      this.setLoading(false)
+    } catch (e) {
+      alert(`Error during initialization: ${e}`);
+    } finally {
+      this.setLoading(false);
     }
   }
 
@@ -61,7 +59,9 @@ class AuthorizationStore {
       await setDoc(doc(db, "users", userData.displayName), {
         ...userData,
         password: "",
-        avatarUrl: storageApi.image ? storageApi.image : defaultAvatar
+        avatarUrl: storageApi.image ? storageApi.image : defaultAvatar,
+        incomingReq: [],
+        outgoingReq: []
       })
 
         await updateProfile(auth.currentUser!, {
@@ -70,7 +70,7 @@ class AuthorizationStore {
 
       runInAction(() => {
         this.setUser(user as IUser)
-        this.setToken(user.uid)
+        this.setToken(user.displayName!)
       })
     } catch (e: any) {
       runInAction(() => {
@@ -85,7 +85,7 @@ class AuthorizationStore {
       const { user } = await signInWithEmailAndPassword(auth, email, password)
       runInAction(() => {
         this.setUser(user as IUser)
-        this.setToken(user.uid)
+        this.setToken(user.displayName!)
       })
     } catch (e: any) {
       runInAction(() => {

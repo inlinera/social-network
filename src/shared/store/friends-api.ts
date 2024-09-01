@@ -1,75 +1,67 @@
-import { makeAutoObservable } from "mobx";
-import { db } from "@/app/_providers/firebase";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { makeAutoObservable } from "mobx"
+import { db } from "@/app/_providers/firebase"
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore/lite"
 
-import authApi from "./auth-api";
-import { IUser } from "../interfaces/IUser";
-
+import authApi from "./auth-api"
+import { IUser } from "../interfaces/IUser"
+import { IFriend } from "../interfaces/IFriend"
 class FriendsApi {
+  loading = false
+  error = ""
+
   constructor() {
     makeAutoObservable(this);
   }
 
-  // ============== FRIENDS ==============
-
-  // ALL FRIENDS STATES
-  loading = false;
-  error = '';
-
-  // ALL FRIENDS ACTIONS
   sendFriendRequest = async (targetUserId: string) => {
     try {
-      this.setLoading(true)
+      this.setLoading(true);
 
-      const myUserId = authApi.user?.uid!
-
-      // Logging user IDs for debugging
-      console.log("targetUserId:", targetUserId)
-      console.log("myUserId:", myUserId)
-
-      const [targetUserDoc, myUserDoc] = await Promise.all([
-        getDoc(doc(db, "users", targetUserId)),
-        getDoc(doc(db, "users", myUserId)),
+      const [targetUserData, myUserData] = await Promise.all([
+        this.getUserData(targetUserId),
+        this.getUserData(authApi.user?.uid!),
       ])
-      // Check if documents exist
-      if (!targetUserDoc.exists() || !myUserDoc.exists()) {
-        throw new Error("One or both users not found")
-      }
 
-      const targetUserData = targetUserDoc.data() as IUser;
-      const myUserData = myUserDoc.data() as IUser;
-
-      // Update both users' documents
       await Promise.all([
-        updateDoc(doc(db, "users", myUserId), {
+        updateDoc(doc(db, "users", authApi.user?.uid!), {
           outgoingReq: arrayUnion({
-            userId: targetUserDoc.id,
+            userId: targetUserId,
             displayName: targetUserData.displayName,
             avatarUrl: targetUserData.avatarUrl,
-          }),
+          } as IFriend),
         }),
         updateDoc(doc(db, "users", targetUserId), {
           incomingReq: arrayUnion({
-            userId: myUserDoc.id,
+            userId: authApi.user?.uid!,
             displayName: myUserData.displayName,
             avatarUrl: myUserData.avatarUrl,
-          }),
+          } as IFriend),
         }),
       ])
 
-      console.log("Friend requests updated")
       authApi.initializeAuth()
     } catch (e: any) {
-      this.setError(e)
-      console.error("Error sending friend request:", e)
+      this.setError(e.message)
     } finally {
       this.setLoading(false)
     }
+  };
+
+  acceptFriendRequest = async (targetUserId: string) => {
+    // ... your implementation ...
+  };
+
+  getUserData = async (userId: string) => {
+    const userDoc = await getDoc(doc(db, "users", userId))
+    if (!userDoc.exists()) {
+      throw new Error("User not found")
+    }
+    return userDoc.data() as IUser
   }
 
-  // ALL FRIENDS STATES MOVES
-  setLoading = (state: boolean) => (this.loading = state)
-  setError = (err: string) => (this.error = err)
+  setLoading = (state: boolean) => (this.loading = state);
+
+  setError = (err: string) => (this.error = err);
 }
 
-export default new FriendsApi()
+export default new FriendsApi();
