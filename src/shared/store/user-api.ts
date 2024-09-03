@@ -6,7 +6,7 @@ import { db } from "@/app/_providers/firebase"
 import { doc, getDoc } from "firebase/firestore"
 
 
-class userPageStore {
+class userApi {
 
   constructor() {
     makeAutoObservable(this)
@@ -44,4 +44,4 @@ class userPageStore {
   setError = (err: string) => this.error = err
 }
 
-export default new userPageStore()
+export default new userApi()

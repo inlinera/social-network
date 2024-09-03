@@ -22,8 +22,25 @@ const List = {
     colorPrimary: '#f0a44d'
 }
 
+const Modal = {
+    contentBg: '#353535d8',
+    headerBg: 'transparent',
+    footerBg: 'transparent',
+    titleColor: '#fff',
+    colorText: '#fff'
+}
+
+const Dropdown = {
+    colorBgElevated: 'hsla(0, 3%, 7%, 0.9)',
+    colorPrimary: '#fff',
+    colorText: '#fff',
+    paddingBlock: 8
+}
+
 export const config = {
     Button,
     Input,
-    List
+    List,
+    Modal,
+    Dropdown
 }

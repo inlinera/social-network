@@ -1,35 +1,47 @@
 import { FC } from 'react'
 import s from './index.module.scss'
 import { token } from "@/shared/token/token"
+import { observer } from 'mobx-react-lite'
 //COMPONENTS
 import { Avatar, Button } from 'antd'
 //MOBX
 import friendsApi from "@/shared/store/friends-api"
 //INTERFACES
+import { IFriend } from '@/shared/interfaces/IFriend'
 import { IUser } from '@/shared/interfaces/IUser'
-import { observer } from 'mobx-react-lite'
 
 
-export const UserBlock: FC<{ user: IUser, userInfo: IUser, userId: string }> = observer(({
-     user, userInfo, userId }) => {
-        const { sendFriendRequest } = friendsApi
+interface UserBlockProps {
+  user: IUser
+  userInfo: IUser 
+  userInfoFriend: IFriend
+  myUserInfoFriend: IFriend
+  setIsOpened: (state: boolean) => void
+}
+
+export const UserBlock: FC<UserBlockProps> = observer(({ user, userInfo,
+   userInfoFriend, myUserInfoFriend, setIsOpened }): JSX.Element => {
+
+        const {  sendFriendRequest, acceptFriendRequest } = friendsApi
 
         const getUserFriends = () => {
             if (userInfo && userInfo.friends) {
               if (userInfo?.friends.length! % 10 === 1) return `friend`
               else return `${userInfo?.friends.length} friends`
-            } else return "Friends not found"
+            }
           }
+
+          const userId = userInfo?.displayName
 
   return (
     <div className={`${s.userInfo_meta} grid jcc`}>
         <div className="grid aic">
                 <Avatar size={100} icon={<img src={userInfo?.avatarUrl} alt="avatar" />} />
                 <div className="flex aic">
-                  <p style={{ whiteSpace: "nowrap" }}>{userInfo?.displayName}</p>
-                  {token !== userId ? (
-                user?.outgoingReq.some(req => req.userId === userId) ||
-                user?.friends.some(friend => friend.userId === userId) ? (
+                  <p style={{ whiteSpace: "nowrap" }}>{userId}</p>
+                  {token !== userInfo?.displayName ? (
+                user?.outgoingReq.some(req => req.displayName === userId) ||
+                user?.friends.some(friend => friend.displayName === userId) ? (
                   <Button
                     type="primary"
                     onClick={() => console.log("q")}
@@ -37,10 +49,10 @@ export const UserBlock: FC<{ user: IUser, userInfo: IUser, userId: string }> = o
                   >
                     -
                   </Button>
-                ) : user?.incomingReq.some(req => req.userId === userId) ? (
+                ) : user?.incomingReq.some(req => req.displayName === userId) ? (
                   <Button
                     type="primary"
-                    onClick={() => sendFriendRequest(userId!)}
+                    onClick={() => acceptFriendRequest(userInfoFriend, myUserInfoFriend)}
                     className={s.userInfo_meta_btn}
                   >
                     Accept
@@ -48,7 +60,7 @@ export const UserBlock: FC<{ user: IUser, userInfo: IUser, userId: string }> = o
                 ) : (
                   <Button
                     type="primary"
-                    onClick={() => sendFriendRequest(userId!)}
+                    onClick={() => sendFriendRequest(userInfoFriend, myUserInfoFriend)}
                     className={s.userInfo_meta_btn}
                   >
                     +
@@ -61,7 +73,7 @@ export const UserBlock: FC<{ user: IUser, userInfo: IUser, userId: string }> = o
         </div>
         <div>
             <p>{userInfo?.description}</p>
-            <p>{getUserFriends()}</p>
+            <button onClick={() => setIsOpened(true)}>{getUserFriends()}</button>
         </div>
     </div>
   )

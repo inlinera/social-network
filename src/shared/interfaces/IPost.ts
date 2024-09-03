@@ -1,6 +1,5 @@
 export interface IPost {
-    username: string
-    userId: string
+    userName: string
     userAvatar: string
     value: string
     id: string

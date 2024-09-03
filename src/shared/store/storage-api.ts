@@ -16,10 +16,10 @@ class StorageApi {
 
     //ALL STORAGE ACTIONS
     uploadAvatar = async (file: any) => {
-      const imgRef = ref(storage, `files/avatars/${v4()}`);
+      const imgRef = ref(storage, `files/avatars/${v4()}`)
   
       try {
-        await uploadBytes(imgRef, file);
+        await uploadBytes(imgRef, file)
         const downloadURL = await getDownloadURL(imgRef)
   
         runInAction(() => {
@@ -27,7 +27,7 @@ class StorageApi {
         })
         return this.image || downloadURL
       } catch (e) {
-        alert(e);
+        alert(e)
       }
     }
     }

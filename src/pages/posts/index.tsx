@@ -17,7 +17,7 @@ export const PostsPage = observer(() => {
 
   return (
     <div className={`${s.postListPage} flex fdc aic`}>
-      <PostListWidget posts={posts} loading={loading}/>
+      <PostListWidget posts={posts!} loading={loading}/>
     </div>
   )
 })

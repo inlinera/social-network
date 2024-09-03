@@ -7,7 +7,7 @@ import { FC, useRef } from 'react'
 import { IPost } from '@/shared/interfaces/IPost'
 import Skeleton from 'react-loading-skeleton'
 
-export const PostListWidget: FC<{ loading?: boolean, posts?: IPost[] }> = observer(({ posts }) => {
+export const PostListWidget: FC<{ loading?: boolean, posts: IPost[] }> = observer(({ posts }) => {
 
   const containerRef = useRef<HTMLDivElement>(null)
 

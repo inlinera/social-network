@@ -13,9 +13,9 @@ export const PostWidget: FC<{ post: IPost }> = ({ post }) => {
   return (
     <div className={`${s.post} grid`}>
       {post.userAvatar && (
-        <Link to={`/user/${post.userId}`} className={`${s.post_user} flex aic`}>
+        <Link to={`/user/${post.userName}`} className={`${s.post_user} flex aic`}>
           <Avatar size={'default'} src={post.userAvatar} alt='avatar'/>
-          <p>{post.username}</p>
+          <p>{post.userName}</p>
         </Link>
       )}
       <p>

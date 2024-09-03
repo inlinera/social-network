@@ -1,7 +1,7 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import { IPost } from "../interfaces/IPost";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "@/app/_providers/firebase";
+import { makeAutoObservable, runInAction } from "mobx"
+import { IPost } from "../interfaces/IPost"
+import { collection, onSnapshot, query, where } from "firebase/firestore"
+import { db } from "@/app/_providers/firebase"
 
 
 class userPostsApi {
@@ -19,7 +19,8 @@ class userPostsApi {
     getUserPosts = async (userId: string) => {
       this.setLoading(true)
         try {
-          const q = query(collection(db, "posts"), where("userId", "==", userId))
+          console.log(userId)
+          const q = query(collection(db, "posts"), where("userName", "==", userId))
     
           return onSnapshot(q, (querySnapshot) => {
             runInAction(() => {

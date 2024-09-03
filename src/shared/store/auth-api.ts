@@ -31,12 +31,12 @@ class AuthorizationStore {
     try {
       await setPersistence(auth, browserLocalPersistence);
       onAuthStateChanged(auth, async (user) => {
-          const { displayName } = user!
+          const { displayName } = user as IUser
           const updatedUserDoc = await getDoc(doc(db, "users", displayName!))
           if (updatedUserDoc.exists()) {
             const updatedUserData = updatedUserDoc.data() as IUser
             runInAction(() => {
-              this.user = { ...updatedUserData, displayName} as IUser
+              this.user = { ...updatedUserData, displayName } as IUser
             })
           }
           console.log(this.user)
