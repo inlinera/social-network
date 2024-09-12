@@ -5,6 +5,7 @@ import { db } from "@/app/_providers/firebase"
 
 
 class userPostsApi {
+  
     constructor() {
         makeAutoObservable(this)
     }
@@ -19,9 +20,7 @@ class userPostsApi {
     getUserPosts = async (userId: string) => {
       this.setLoading(true)
         try {
-          console.log(userId)
           const q = query(collection(db, "posts"), where("userName", "==", userId))
-    
           return onSnapshot(q, (querySnapshot) => {
             runInAction(() => {
               this.posts = querySnapshot.docs.map((doc) => ({

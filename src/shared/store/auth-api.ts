@@ -27,7 +27,7 @@ class AuthorizationStore {
 
   //ALL AUTH ACTIONS
   initializeAuth = async () => {
-    this.setLoading(true);
+    this.setLoading(true)
     try {
       await setPersistence(auth, browserLocalPersistence);
       onAuthStateChanged(auth, async (user) => {
@@ -42,26 +42,22 @@ class AuthorizationStore {
           console.log(this.user)
       })
     } catch (e) {
-      alert(`Error during initialization: ${e}`);
+      alert(`Error during initialization: ${e}`)
     } finally {
-      this.setLoading(false);
+      this.setLoading(false)
     }
   }
 
   signUp = async (userData: IUser) => {
     try {
       const { user } = await createUserWithEmailAndPassword(
-        auth,
-        userData.email,
-        userData.password!
+        auth, userData.email, userData.password!
       )
 
       await setDoc(doc(db, "users", userData.displayName), {
         ...userData,
         password: "",
         avatarUrl: storageApi.image ? storageApi.image : defaultAvatar,
-        incomingReq: [],
-        outgoingReq: []
       })
 
         await updateProfile(auth.currentUser!, {

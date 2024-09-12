@@ -11,7 +11,7 @@ import { privateRoutes, publicRoutes } from './routes'
 import { token } from '@/shared/token/token'
 
 const AppRouter = observer(() => {
-  const { loading } = AuthorizationStore
+  const { loading, user } = AuthorizationStore
 
   return (
     <main className='flex jcc aic'>
@@ -19,7 +19,7 @@ const AppRouter = observer(() => {
         <LayoutNav />
         {loading
           ? <Spin size='large' className='z-3'/>
-          : token ? 
+          : user || token ? 
             <Routes>
               <Route path='*' element={<Navigate to="/"/>} />
               {privateRoutes.map((r) => (

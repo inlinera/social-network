@@ -26,7 +26,6 @@ class userApi {
       const res = await getDoc(doc(db, "users", id))
       runInAction(() => {
         this.setUser(res.data() as IUser)
-        console.log(res.data())
       })
     } catch (e: any) {
       this.setError(e)

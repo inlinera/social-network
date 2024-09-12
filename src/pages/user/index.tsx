@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import s from "./index.module.scss"
 // MOBX
 import authorizationApi from "@/shared/store/auth-api"
 import userStore from "@/shared/store/user-api"
 import userPostsApi from "@/shared/store/user-posts-api"
 // COMPONENTS
-import { Avatar, Dropdown, List, Modal, Space, Spin } from "antd"
+import { Spin } from "antd"
 import { PostListWidget } from "@/widgets/postList"
-import { UserBlock } from "@/entities/user"
+import { UserBlock } from "@/entities/user/info-block"
+import { UserModal } from "@/entities/user/modal"
+//HOOKS
 import { useGetFriends } from "@/shared/hooks/useGetFriends"
-import { IFriend } from "@/shared/interfaces/IFriend"
-import { friendsModal } from "@/shared/data/friends-modal-tab"
-import { DownOutlined } from "@ant-design/icons"
+
 
 export const UserPage = observer((): JSX.Element => {
 
@@ -24,45 +24,20 @@ export const UserPage = observer((): JSX.Element => {
 
   const [ targetUserInfo, myUserInfoFriend ] = useGetFriends(userInfo!, user!)
 
-  const [isOpened, setIsOpened] = useState(false)
+  const [ isOpened, setIsOpened ] = useState(false)
 
   useEffect(() => {
-    if (userId && user) {
-      getUser(userId)
-      getUserPosts(userId)
-    }
-    console.log(posts)
-  }, [userId, user])
-
+    getUserPosts(userId!)
+    getUser(userId!)
+    setIsOpened(false)
+  }, [userId])
 
   return (
     <div className={`${s.userBlock} jcc aic flex fdc`}>
-      <Modal title={`${userInfo?.displayName}'s Friends`} open={isOpened} 
-      onCancel={() => setIsOpened(false)} footer={null}>
-        <Dropdown menu={{ items: friendsModal }} trigger={['click']}>
-          <button>
-            <Space>
-              Choose friend type
-              <DownOutlined />
-            </Space>
-          </button>
-        </Dropdown>
-        <List
-            itemLayout="horizontal"
-            dataSource={userInfo?.friends}
-            renderItem={(item: IFriend) => (
-              <Link to={`user/${userInfo?.displayName}`}>
-                <List.Item>
-                  <List.Item.Meta
-                    style={{ alignItems: 'center', display: 'flex' }}
-                    avatar={<Avatar src={item.avatarUrl} size={40}/>}
-                    title={<span style={{whiteSpace: 'nowrap'}}>{userInfo?.displayName}</span>}
-                  />
-                </List.Item>
-              </Link>
-            )}
-          />
-      </Modal>
+
+      <UserModal userInfo={userInfo} user={user!} 
+      isOpened={isOpened} setIsOpened={setIsOpened}/>
+
       {loading ? (
         <>
           <Spin size="large" />
@@ -74,7 +49,8 @@ export const UserPage = observer((): JSX.Element => {
            userInfoFriend={targetUserInfo} myUserInfoFriend={myUserInfoFriend} 
            setIsOpened={setIsOpened}/>
           <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
-            {posts?.length! > 0 && <PostListWidget posts={posts!} loading={loading} />
+            {posts?.length! > 0 &&
+             <PostListWidget posts={posts!} />
             }
           </div>
         </div>

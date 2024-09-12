@@ -30,11 +30,16 @@ const Modal = {
     colorText: '#fff'
 }
 
-const Dropdown = {
+const Select = {
+    colorPrimary: '#f0a44d',
+    colorPrimaryHover: '#f0a44d',
     colorBgElevated: 'hsla(0, 3%, 7%, 0.9)',
-    colorPrimary: '#fff',
+    clearBg: 'hsla(0, 3%, 7%, 0.9)',
+    selectorBg: 'hsla(0, 3%, 7%, 0.9)',
     colorText: '#fff',
-    paddingBlock: 8
+    optionSelectedBg: '#f0a44d',
+    optionPadding: '8px 15px',
+    colorTextDescription: '#fff'
 }
 
 export const config = {
@@ -42,5 +47,5 @@ export const config = {
     Input,
     List,
     Modal,
-    Dropdown
+    Select
 }

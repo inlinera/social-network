@@ -21,8 +21,7 @@ class PostsStore {
   getPosts = async () => {
     this.setLoading(true)
     try {
-      const q = query(collection(db, "posts"))
-      return onSnapshot(q, (querySnapshot) => {
+      return onSnapshot(query(collection(db, "posts")), (querySnapshot) => {
         runInAction(() => {
           this.posts = querySnapshot.docs.map((doc) => ({
             ...doc.data()!,
@@ -32,8 +31,7 @@ class PostsStore {
       })
     } catch (e) {
       alert(e)
-    }
-    finally {
+    } finally {
       this.setLoading(false)
     }
   }

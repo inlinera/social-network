@@ -1,14 +1,15 @@
+
 export const friendsModal = [
     {
         label: 'Friends',
-        key: '0',
+        value: 'Friends'
       },
       {
         label: 'Outgoing Requests',
-        key: '1',
+        value: 'Outgoing Requests'
       },
       {
         label: 'Incoming Requests',
-        key: '3',
+        value: 'Incoming Requests'
       },
   ]
