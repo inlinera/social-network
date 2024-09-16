@@ -9,31 +9,37 @@ import { Spin } from 'antd'
 
 import { privateRoutes, publicRoutes } from './routes'
 import { token } from '@/shared/token/token'
+import { Content } from 'antd/es/layout/layout'
 
 const AppRouter = observer(() => {
   const { loading, user } = AuthorizationStore
 
   return (
-    <main className='flex jcc aic'>
+    <main>
       <BrowserRouter>
-        <LayoutNav />
-        {loading
-          ? <Spin size='large' className='z-3'/>
-          : user || token ? 
-            <Routes>
-              <Route path='*' element={<Navigate to="/"/>} />
-              {privateRoutes.map((r) => (
-                <Route path={r.path} element={<r.element />} key={r.path}/>
-              ))}
-            </Routes>
-          :
-            <Routes>
-              <Route path='*' element={<Navigate to="/auth" />}/>
-              {publicRoutes.map((r) => (
-                <Route path={r.path} element={<r.element />} key={r.path} />
-              ))}
-            </Routes>
-        }
+      <LayoutNav />
+      <Content style={{margin: '10px 50px 0 210px'}}>
+        {
+        loading
+            ?
+             <Spin size='large'/>
+            :
+             user || token ? 
+              <Routes>
+                <Route path='*' element={<Navigate to="/"/>} />
+                {privateRoutes.map((r) => (
+                  <Route path={r.path} element={<r.element />} key={r.path}/>
+                ))}
+              </Routes>
+            :
+              <Routes>
+                <Route path='*' element={<Navigate to="/auth" />}/>
+                {publicRoutes.map((r) => (
+                  <Route path={r.path} element={<r.element />} key={r.path} />
+                ))}
+              </Routes>
+          }
+      </Content>
       </BrowserRouter>
     </main>
   )

@@ -42,10 +42,22 @@ const Select = {
     colorTextDescription: '#fff'
 }
 
+const Menu = {
+    darkItemBg: '#353535d8',
+    darkItemSelectedBg: '#f0a44d',
+    itemMarginInline: 6,
+}
+
+const Spin = {
+    colorPrimary: '#f0a44d'
+}
+
 export const config = {
     Button,
     Input,
     List,
     Modal,
-    Select
+    Select,
+    Menu,
+    Spin
 }

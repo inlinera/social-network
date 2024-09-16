@@ -1,8 +1,5 @@
-@import '@/app/assets/styles/variables.scss';
-
 
 .userBlock {
-    margin: $margin-content;
 .userInfo {
     width: 80vw;
     grid-template-columns: 1fr 3fr;
@@ -13,4 +10,10 @@
         border-radius: 10px;
     }
 }
+}
+
+@media (max-width: 1084px) {
+    .userInfo {
+        grid-template-columns: 1fr !important;
+    }
 }

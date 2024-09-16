@@ -16,6 +16,6 @@ export const sidebarInfo = [
       {
         title: 'Teams',
         icon: TeamOutlined,
-        path: '/'
+        path: '/teams'
       },
 ]

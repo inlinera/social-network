@@ -9,6 +9,8 @@ import friendsApi from "@/shared/store/friends-api"
 //INTERFACES
 import { IFriend } from '@/shared/interfaces/IFriend'
 import { IUser } from '@/shared/interfaces/IUser'
+//ICONS
+import { MessageOutlined, SettingOutlined, UserAddOutlined } from '@ant-design/icons'
 
 
 interface UserBlockProps {
@@ -42,13 +44,9 @@ export const UserBlock: FC<UserBlockProps> = observer(({ user, userInfo,
                   {token !== userInfo?.displayName ? (
                 user?.outgoingReq.some(req => req.displayName === userId) ||
                 user?.friends.some(friend => friend.displayName === userId) ? (
-                  <Button
-                    type="primary"
-                    onClick={() => console.log("q")}
-                    className={s.userInfo_meta_btn}
-                  >
-                    -
-                  </Button>
+                    <button>
+                    <MessageOutlined style={{fontSize: '18px'}}/>
+                    </button>
                 ) : user?.incomingReq.some(req => req.displayName === userId) ? (
                   <Button
                     type="primary"
@@ -58,16 +56,14 @@ export const UserBlock: FC<UserBlockProps> = observer(({ user, userInfo,
                     Accept
                   </Button>
                 ) : (
-                  <Button
-                    type="primary"
-                    onClick={() => sendFriendRequest(userInfoFriend, myUserInfoFriend)}
-                    className={s.userInfo_meta_btn}
-                  >
-                    +
-                  </Button>
+                  <button onClick={() => sendFriendRequest(userInfoFriend, myUserInfoFriend)}>
+                    <UserAddOutlined style={{fontSize: '18px'}}/>
+                  </button>
                 )
               ) : (
-                "settings"
+                <button>
+                  <SettingOutlined style={{fontSize: '18px'}}/>
+                </button>
               )}
                 </div>
         </div>

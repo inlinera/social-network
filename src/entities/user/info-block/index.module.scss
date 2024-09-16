@@ -19,3 +19,19 @@
         }
     }
 }
+
+@media (max-width: 1084px) {
+    .userInfo_meta {
+        width: max-content;
+        margin: 0 20px;
+        grid-template-columns: 1fr;
+        div {
+            grid-template-columns: 100px 1fr;
+            gap: 15px;
+            text-align: left;
+            button {
+                grid-row: 2;
+            }
+        }
+    }
+}
