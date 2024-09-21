@@ -14,10 +14,12 @@ interface SignUpProps {
   setIsReg: (isReg: boolean) => void
 }
 
-export const SignUp: FC<SignUpProps> = observer(({setIsReg}) => {
+export const SignUp: FC<SignUpProps> = observer(({ setIsReg }) => {
+
   const { signUp, error } = AuthorizationStore
   const { image, uploadAvatar } = storageApi
 
+  //ANTD COMPONENT
   const { TextArea } = Input
 
   const [userData, setUserData] = useState(nullUser)

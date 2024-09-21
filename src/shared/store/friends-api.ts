@@ -22,17 +22,17 @@ class FriendsApi {
   sendFriendRequest = async (userInfo: IFriend, myUserInfo: IFriend) => {
     this.setLoading(true)
     try {
-      const targetUserId = userInfo?.displayName
       await Promise.all([
         updateDoc(doc(db, 'users', authApi.user?.displayName!), {
           outgoingReq: arrayUnion(userInfo)
         }),
-        updateDoc(doc(db, 'users', targetUserId), {
+        updateDoc(doc(db, 'users', userInfo?.displayName), {
           incomingReq: arrayUnion(myUserInfo)
         })
       ])
+      authApi.initializeAuth()
     } catch (e: any) {
-      alert(`${e}`)
+      alert(e)
     } finally {
       this.setLoading(false)
     }
@@ -41,19 +41,56 @@ class FriendsApi {
   acceptFriendRequest = async (userInfo: IFriend, myUserInfo: IFriend) => {
     this.setLoading(true)
     try {
-      const targetUserId = userInfo?.displayName
       await Promise.all([
        updateDoc(doc(db, 'users', authApi.user?.displayName!), {
         outgoingReq: arrayRemove(userInfo),
         friends: arrayUnion(userInfo)
        }),
-       updateDoc(doc(db, 'users', targetUserId), {
+       updateDoc(doc(db, 'users', userInfo?.displayName), {
         outgoingReq: arrayRemove(myUserInfo),
         friends: arrayUnion(myUserInfo)
        })
       ])
+      authApi.initializeAuth()
+    } catch (e) {
+      alert(e)
+    } finally {
+      this.setLoading(false)
     }
-    catch (e) {
+  }
+
+  removeFromFriends = async (userInfo: IFriend, myUserInfo: IFriend) => {
+    this.setLoading(true)
+    try {
+      await Promise.all([
+        updateDoc(doc(db, 'users', myUserInfo.displayName), {
+         friends: arrayRemove(userInfo)
+        }),
+        updateDoc(doc(db, 'users', userInfo?.displayName), {
+          friends: arrayRemove(myUserInfo)
+        })
+       ])
+       authApi.initializeAuth()
+      } catch (e: any) {
+        alert(e)
+      } finally {
+        this.setLoading(false)
+      }
+  }
+
+  removeFromIncReq = async (userInfo: IFriend, myUserInfo: IFriend) => {
+    this.setLoading(true)
+    try {
+      await Promise.all([
+        updateDoc(doc(db, 'users', myUserInfo.displayName), {
+          outgoingReq: arrayRemove(userInfo)
+        }),
+        updateDoc(doc(db, 'users', userInfo?.displayName), {
+          incomingReq: arrayRemove(myUserInfo)
+        })
+       ])
+       authApi.initializeAuth()
+    } catch (e: any) {
       alert(e)
     } finally {
       this.setLoading(false)

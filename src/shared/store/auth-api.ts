@@ -35,11 +35,8 @@ class AuthorizationStore {
           const updatedUserDoc = await getDoc(doc(db, "users", displayName!))
           if (updatedUserDoc.exists()) {
             const updatedUserData = updatedUserDoc.data() as IUser
-            runInAction(() => {
-              this.user = { ...updatedUserData, displayName } as IUser
-            })
+              this.setUser({ ...updatedUserData, displayName })
           }
-          console.log(this.user)
       })
     } catch (e) {
       alert(`Error during initialization: ${e}`)
@@ -56,12 +53,12 @@ class AuthorizationStore {
 
       await setDoc(doc(db, "users", userData.displayName), {
         ...userData,
-        password: "",
-        avatarUrl: storageApi.image ? storageApi.image : defaultAvatar,
+        password: '',
+        avatarUrl: storageApi.image ? storageApi.image : defaultAvatar
       })
 
         await updateProfile(auth.currentUser!, {
-          displayName: userData.displayName,
+          displayName: userData.displayName
         })
 
       runInAction(() => {
@@ -69,10 +66,8 @@ class AuthorizationStore {
         this.setToken(user.displayName!)
       })
     } catch (e: any) {
-      runInAction(() => {
         this.setError(e.message)
-      })
-      alert(`Error during sign up: ${e.message}`)
+        alert(`Error during sign up: ${e.message}`)
     }
   }
 
@@ -84,9 +79,7 @@ class AuthorizationStore {
         this.setToken(user.displayName!)
       })
     } catch (e: any) {
-      runInAction(() => {
-        this.setError(e.message)
-      })
+      this.setError(e.message)
       alert(`Error during sign in: ${e.message}`)
     }
   }

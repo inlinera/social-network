@@ -7,5 +7,7 @@ export const nullUser: IUser = Object({
     description: '',
     isPremium: false,
     avatarUrl: '',
-    friends: []
+    friends: [],
+    incomingReq: [],
+    outgoingReq: []
   })

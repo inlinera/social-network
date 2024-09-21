@@ -4,16 +4,19 @@ import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from "firebase/firest
 import { db } from "@/app/_providers/firebase"
 
 class HandlePostLikeApi {
+
   constructor() {
     makeAutoObservable(this)
   }
+
+  // =================== POST LIKES API =====================
 
   handlePostLike = async (liked: boolean, postId: string, userId: string) => {
     try {
       const postRef = doc(db, 'posts', postId)
       const postDoc = await getDoc(postRef)
-      const currentLikes = postDoc.data()?.likes || []
-
+      const currentLikes = postDoc.data()?.likes
+      
       if (liked) {
         await updateDoc(postRef, {
            likes: arrayRemove(userId) 

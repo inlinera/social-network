@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import s from './index.module.scss'
 //INTERFACES
 import { IPost } from '@/shared/interfaces/IPost'
-import { PostBtnLine } from '@/entities/button-list'
+import { PostBtnLine } from '@/entities/posts/button-list'
 import { Avatar } from 'antd'
 import { LinkifyText } from '@/shared/ui/parseText'
 //DATA

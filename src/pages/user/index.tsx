@@ -10,12 +10,13 @@ import userPostsApi from "@/shared/store/user-posts-api"
 import { Spin } from "antd"
 import { PostListWidget } from "@/widgets/postList"
 import { UserBlock } from "@/entities/user/info-block"
-import { UserModal } from "@/entities/user/modal"
+import { UserFriendModal } from "@/entities/user/modal/friend"
 //HOOKS
 import { useGetFriends } from "@/shared/hooks/useGetFriends"
+import { UserTeamModal } from "@/entities/user/modal/team"
 
 
-export const UserPage = observer((): JSX.Element => {
+export const UserPage = observer(() => {
 
   const { userInfo, getUser, loading, error } = userStore
   const { getUserPosts, posts } = userPostsApi
@@ -24,40 +25,52 @@ export const UserPage = observer((): JSX.Element => {
 
   const [ targetUserInfo, myUserInfoFriend ] = useGetFriends(userInfo!, user!)
 
-  const [ isOpened, setIsOpened ] = useState(false)
+  //MODALS
+  const [ isOpenedFriend, setIsOpenedFriend ] = useState(false)
+  const [ isOpenedTeam, setIsOpenedTeam ] = useState(false)
 
   useEffect(() => {
     getUserPosts(userId!)
     getUser(userId!)
-    setIsOpened(false)
+    setIsOpenedFriend(false)
   }, [userId])
 
   return (
     <div className={`${s.userBlock} jcc aic flex fdc`}>
+      {
+        userInfo 
+        ?
+          <>
+            <UserFriendModal userInfo={userInfo} user={user!} 
+            isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend}/>
 
-      <UserModal userInfo={userInfo} user={user!} 
-      isOpened={isOpened} setIsOpened={setIsOpened}/>
+            <UserTeamModal userInfo={userInfo} isOpened={isOpenedTeam}
+            setIsOpened={setIsOpenedTeam}/>
 
-      {loading ? (
-        <>
-          <Spin size="large" />
-          <p style={{ marginTop: "5px" }}>Loading user</p>
-        </>
-      ) : (
-        <div className={`${s.userInfo} jcc grid cw`}>
-          <UserBlock user={user!} userInfo={userInfo!}
-           userInfoFriend={targetUserInfo} myUserInfoFriend={myUserInfoFriend} 
-           setIsOpened={setIsOpened}/>
-          <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
-            {posts?.length! > 0 &&
-             <PostListWidget posts={posts!} />
-            }
-          </div>
-        </div>
-      )}
-      <p>
-        {error}
-      </p>
+            {loading ? (
+              <>
+                <Spin size="large" />
+                <p style={{ marginTop: "5px" }}>Loading user</p>
+              </>
+            ) : (
+              <div className={`${s.userInfo} jcc grid cw`}>
+                <UserBlock user={user!} userInfo={userInfo}
+                userInfoFriend={targetUserInfo} myUserInfoFriend={myUserInfoFriend} 
+                setIsOpenedFriend={setIsOpenedFriend}
+                setIsOpenedTeam={setIsOpenedTeam}
+                />
+                <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
+                  {posts?.length! > 0 &&
+                  <PostListWidget posts={posts} />
+                  }
+                </div>
+              </div>
+            )}
+          </>
+        :  
+          'User not found'
+      }
+      <p>{error}</p>
     </div>
   )
 })

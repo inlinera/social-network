@@ -1,23 +1,38 @@
 import { FC } from "react"
+import { observer } from "mobx-react-lite"
 //COMPONENTS
 import { Avatar, List } from "antd"
+//MOBX
+import authApi from "@/shared/store/auth-api"
+import friendsApi from "@/shared/store/friends-api"
 //INTERFACES
 import { IFriend } from "@/shared/interfaces/IFriend"
-import { IUser } from "@/shared/interfaces/IUser"
 //ICONS
-import { UserDeleteOutlined } from "@ant-design/icons"
+import { UserAddOutlined, UserDeleteOutlined } from "@ant-design/icons"
 //HOOKS
 import { useNav } from "@/shared/hooks/useNav"
 
-export const UserFriendList: FC<{ userInfo?: IUser }> = ({ userInfo }) => {
+interface UserFriendListProps {
+  array?: IFriend[]
+  listType: string
+}
 
+export const UserFriendList: FC<UserFriendListProps> = observer((
+  { array, listType }) => {
+
+  const { acceptFriendRequest, removeFromFriends, removeFromIncReq } = friendsApi
+  const { user } = authApi
 
   return (
     <List
         itemLayout="horizontal"
-        dataSource={userInfo?.friends}
+        dataSource={array}
         renderItem={(item: IFriend) => {
           const navToUserPage = useNav(`/user/${item?.displayName}`)
+
+          const userInfoFriend = item
+          const myUserInfoFriend = user as IFriend
+
           return (
             <List.Item>
             <button onClick={() => navToUserPage()}>
@@ -28,13 +43,25 @@ export const UserFriendList: FC<{ userInfo?: IUser }> = ({ userInfo }) => {
                 />
             </button>
                 <div>
-                  <button onClick={() => console.log('q')}>
-                  <UserDeleteOutlined style={{fontSize: '17px'}}/>
-                  </button>
+                  {listType == 'friend' &&
+                    <button onClick={() => removeFromFriends(userInfoFriend, myUserInfoFriend)}>
+                    <UserDeleteOutlined style={{fontSize: '17px'}}/>
+                    </button>
+                  }
+                  {listType == 'incomingRequests' &&
+                    <button onClick={() => acceptFriendRequest(userInfoFriend, myUserInfoFriend)}>
+                    <UserAddOutlined style={{fontSize: '18px'}}/>
+                    </button>
+                  }
+                  {listType == 'outgoingRequests' &&
+                    <button onClick={() => removeFromIncReq(userInfoFriend, myUserInfoFriend)}>
+                    <UserDeleteOutlined style={{fontSize: '18px'}}/>
+                    </button>
+                  }
                 </div>
             </List.Item>
         )}
       }
     />
   )
-}
+})

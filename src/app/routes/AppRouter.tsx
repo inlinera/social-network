@@ -18,7 +18,7 @@ const AppRouter = observer(() => {
     <main>
       <BrowserRouter>
       <LayoutNav />
-      <Content style={{margin: '10px 50px 0 210px'}}>
+      <Content style={{margin: '10px 50px 0 210px'}} className='jcc'>
         {
         loading
             ?

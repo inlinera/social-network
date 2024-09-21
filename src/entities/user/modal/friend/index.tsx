@@ -1,25 +1,24 @@
 import { FC, useState } from 'react'
 //COMPONENTS
 import { Modal, Select } from 'antd'
-import { UserFriendList } from '../lists/friend'
-import { UserIncFrList } from '../lists/incoming-req'
-import { UserOutFrList } from '../lists/outgoing-req'
+import { UserFriendList } from '../../lists/friend'
 //INTERFACES
 import { IUser } from '@/shared/interfaces/IUser'
 //DATA
 import { friendsModal } from '@/shared/data/friends-modal-tab'
+import authApi from '@/shared/store/auth-api'
 
-interface UserModalProps {
+interface UserFriendModalProps {
     userInfo?: IUser
-    user: IUser
     isOpened: boolean
     setIsOpened: (state: boolean) => void
 }
 
-export const UserModal: FC<UserModalProps> = ({
-     userInfo, user, isOpened, setIsOpened }) => {
+export const UserFriendModal: FC<UserFriendModalProps> = ({
+     userInfo, isOpened, setIsOpened }) => {
 
     const [ friendOption, setFriendOption ] = useState<string>('Friends')
+    const { user } = authApi
 
   return (
     <Modal title={`${userInfo?.displayName}'s Friends`} open={isOpened} 
@@ -35,20 +34,20 @@ export const UserModal: FC<UserModalProps> = ({
           <div style={{marginTop: '15px'}}>
           {
             friendOption == 'Friends' &&
-            <UserFriendList userInfo={userInfo}/>
+            <UserFriendList array={userInfo?.friends} listType='friend' />
           }
           {
             friendOption == 'Incoming Requests' &&
-            <UserIncFrList userInfo={userInfo}/>
+            <UserFriendList array={userInfo?.incomingReq} listType='incomingRequests' />
           }
           {
             friendOption == 'Outgoing Requests' &&
-            <UserOutFrList userInfo={userInfo}/>
+            <UserFriendList array={userInfo?.outgoingReq} listType='outgoingRequests' />
           }
           </div>
         </div>
         :
-          <UserFriendList userInfo={userInfo}/>
+          <UserFriendList array={userInfo?.friends!} listType=''/>
         }
       </Modal>
   )

@@ -1,5 +1,6 @@
 import firebase from "firebase/compat/app"
 import { IFriend } from "./IFriend"
+import { ITeam } from "./ITeam"
 
 export interface IUser extends firebase.User {
     displayName: string
@@ -11,4 +12,5 @@ export interface IUser extends firebase.User {
     avatarUrl: string
     incomingReq: IFriend[]
     outgoingReq: IFriend[]
+    teams: ITeam[]
 }

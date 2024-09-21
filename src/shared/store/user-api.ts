@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx"
+import { makeAutoObservable } from "mobx"
 //INTERFACES
 import { IUser } from "../interfaces/IUser"
 //FIREBASE
@@ -16,24 +16,19 @@ class userApi {
 
   //ALL USER STATES
   userInfo? = {} as IUser
-  loading? = true
+  loading = false
   error? = ''
 
   //ALL USER ACTIONS
   getUser = async (id: string) => {
     this.setLoading(true)
     try {
-      const res = await getDoc(doc(db, "users", id))
-      runInAction(() => {
-        this.setUser(res.data() as IUser)
-      })
+      const res = await getDoc(doc(db, 'users', id))
+      this.setUser(res.data() as IUser)
     } catch (e: any) {
       this.setError(e)
-      throw new Error(`An error was occured when get user: ${e}`)
     } finally {
-      runInAction(() => {
-        this.setLoading(false)
-      })
+      this.setLoading(false)
     }
   }
 

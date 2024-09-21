@@ -4,12 +4,16 @@ import handleLikeApi from '@/shared/store/handle-like-api'
 //COMPONENTS
 import { PostBtn } from '@/shared/ui/button'
 import { observer } from 'mobx-react-lite'
+//ICONS
 import { HeartFilled, HeartOutlined } from '@ant-design/icons'
 
+interface PostBtnLineProps {
+  likes: string[]
+  postId: string
+  userId: string 
+}
 
-export const PostBtnLine: FC<{ likes: string[], postId: string, userId: string }> = observer((
-    { likes, postId, userId }
-    ) => {
+export const PostBtnLine: FC<PostBtnLineProps> = observer(({ likes, postId, userId }) => {
 
     const { handlePostLike } = handleLikeApi
 

@@ -26,6 +26,7 @@ export const LayoutNav = () => {
       <Menu
           theme="dark"
           mode="horizontal"
+          items={['1'] as any}
         />
       </Header>
 
