@@ -23,7 +23,7 @@ class PostsStore {
     try {
       return onSnapshot(query(collection(db, 'posts')), (querySnapshot) => {
           this.setPosts(querySnapshot.docs.map((doc) => ({
-            ...doc.data()!,
+            ...doc.data(),
             id: doc.id,
           }) as IPost))
         })

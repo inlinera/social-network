@@ -23,15 +23,14 @@ class userPostsApi {
           const q = query(collection(db, 'posts'), where('userName', '==', userId))
           return onSnapshot(q, (querySnapshot) => 
               this.setPosts(querySnapshot.docs.map((doc) => ({
-                  ...doc.data()!,
+                  ...doc.data(),
                   id: doc.id,
                 }) as IPost)
               )
             )
         } catch (e) {
           alert(e)
-        }
-        finally {
+        } finally {
           this.setLoading(false)
         }
       }

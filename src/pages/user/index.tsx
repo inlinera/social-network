@@ -41,7 +41,7 @@ export const UserPage = observer(() => {
         userInfo 
         ?
           <>
-            <UserFriendModal userInfo={userInfo} user={user!} 
+            <UserFriendModal userInfo={userInfo}
             isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend}/>
 
             <UserTeamModal userInfo={userInfo} isOpened={isOpenedTeam}
@@ -54,7 +54,7 @@ export const UserPage = observer(() => {
               </>
             ) : (
               <div className={`${s.userInfo} jcc grid cw`}>
-                <UserBlock user={user!} userInfo={userInfo}
+                <UserBlock userInfo={userInfo}
                 userInfoFriend={targetUserInfo} myUserInfoFriend={myUserInfoFriend} 
                 setIsOpenedFriend={setIsOpenedFriend}
                 setIsOpenedTeam={setIsOpenedTeam}

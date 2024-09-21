@@ -23,7 +23,7 @@ class FriendsApi {
     this.setLoading(true)
     try {
       await Promise.all([
-        updateDoc(doc(db, 'users', authApi.user?.displayName!), {
+        updateDoc(doc(db, 'users', myUserInfo.displayName), {
           outgoingReq: arrayUnion(userInfo)
         }),
         updateDoc(doc(db, 'users', userInfo?.displayName), {
@@ -42,7 +42,7 @@ class FriendsApi {
     this.setLoading(true)
     try {
       await Promise.all([
-       updateDoc(doc(db, 'users', authApi.user?.displayName!), {
+       updateDoc(doc(db, 'users', myUserInfo.displayName), {
         outgoingReq: arrayRemove(userInfo),
         friends: arrayUnion(userInfo)
        }),
