@@ -18,7 +18,7 @@ interface InfoBlockFriendButtons {
 export const InfoBlockFriendButtons: FC<InfoBlockFriendButtons> = observer((
     { userInfo, userInfoFriend, myUserInfoFriend, userId }) => {
 
-    const {  sendFriendRequest, acceptFriendRequest, removeFromIncReq } = friendsApi
+    const {  sendFriendRequest, acceptFriendRequest, removeFromFriends } = friendsApi
     const { user } = authApi
 
   return (
@@ -38,7 +38,7 @@ export const InfoBlockFriendButtons: FC<InfoBlockFriendButtons> = observer((
                   </Button>
                 ) :
                 user?.outgoingReq.some((req: any) => req.displayName === userId) ? (
-                  <button onClick={() => removeFromIncReq(userInfoFriend, myUserInfoFriend)}>
+                  <button onClick={() => removeFromFriends(userInfoFriend, myUserInfoFriend)}>
                     <UserDeleteOutlined style={{fontSize: '18px'}}/>
                   </button>
                 ) : (

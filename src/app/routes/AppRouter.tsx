@@ -4,21 +4,25 @@ import { observer } from 'mobx-react-lite'
 import { LayoutNav } from '@/widgets/layout'
 //MOBX
 import AuthorizationStore from '@/shared/store/auth-api'
+import checkWidth from '@/shared/store/utils/check-width'
 //COMPONENTS
 import { Spin } from 'antd'
+import { Content } from 'antd/es/layout/layout'
 
 import { privateRoutes, publicRoutes } from './routes'
 import { token } from '@/shared/token/token'
-import { Content } from 'antd/es/layout/layout'
 
 const AppRouter = observer(() => {
+
   const { loading, user } = AuthorizationStore
+  const { isMobile } = checkWidth
 
   return (
     <main>
       <BrowserRouter>
       <LayoutNav />
-      <Content style={{margin: '10px 50px 0 210px'}} className='jcc'>
+      <Content style={isMobile ? {margin: '10px 0 0 0'}
+        : {margin: '10px 50px 0 210px'}} className='jcc aic flex'>
         {
         loading
             ?

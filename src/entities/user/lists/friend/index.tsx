@@ -20,7 +20,7 @@ interface UserFriendListProps {
 export const UserFriendList: FC<UserFriendListProps> = observer((
   { array, listType }) => {
 
-  const { acceptFriendRequest, removeFromFriends, removeFromIncReq } = friendsApi
+  const { acceptFriendRequest, removeFromFriends } = friendsApi
   const { user } = authApi
 
   return (
@@ -48,14 +48,14 @@ export const UserFriendList: FC<UserFriendListProps> = observer((
                     <UserDeleteOutlined style={{fontSize: '17px'}}/>
                     </button>
                   }
+                  {listType == 'outgoingRequests' &&
+                    <button onClick={() => removeFromFriends(userInfoFriend, myUserInfoFriend)}>
+                    <UserDeleteOutlined style={{fontSize: '17px'}}/>
+                    </button>
+                  }
                   {listType == 'incomingRequests' &&
                     <button onClick={() => acceptFriendRequest(userInfoFriend, myUserInfoFriend)}>
                     <UserAddOutlined style={{fontSize: '18px'}}/>
-                    </button>
-                  }
-                  {listType == 'outgoingRequests' &&
-                    <button onClick={() => removeFromIncReq(userInfoFriend, myUserInfoFriend)}>
-                    <UserDeleteOutlined style={{fontSize: '18px'}}/>
                     </button>
                   }
                 </div>

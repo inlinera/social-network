@@ -1,7 +1,21 @@
 .postsList {
     position: relative;
     width: 95%;
+    margin: 0 auto 100px auto;
     padding: 10px 15px;
     background-color: rgba(0, 0, 0, .2);
     border-radius: 16px;
+}
+
+@media(max-width: 1200px) {
+    .postsList {
+        width: 80%;
+        padding: 5px 10px
+    }
+}
+
+@media(max-width: 853px) {
+    .postsList {
+        width: 100%;
+    }
 }

@@ -7,7 +7,6 @@ export interface IUser extends firebase.User {
     email: string
     password?: string
     description?: string
-    isPremium: boolean
     friends: IFriend[]
     avatarUrl: string
     incomingReq: IFriend[]

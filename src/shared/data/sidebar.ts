@@ -1,10 +1,10 @@
-import { HomeOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
+import { HomeOutlined, MessageOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
 
 const getUser = localStorage.getItem('token-wunderkids')
 
 export const sidebarInfo = [
     {
-        title: 'My profile',
+        title: 'Profile',
         icon: UserOutlined,
         path: `user/${getUser}`
       },
@@ -12,6 +12,11 @@ export const sidebarInfo = [
         title: 'Home',
         icon: HomeOutlined,
         path: '/'
+      },
+      {
+        title: 'Chats',
+        icon: MessageOutlined,
+        path: '/chats'
       },
       {
         title: 'Teams',

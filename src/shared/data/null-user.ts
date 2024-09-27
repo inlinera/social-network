@@ -5,7 +5,6 @@ export const nullUser: IUser = Object({
     email: '',
     password: '',
     description: '',
-    isPremium: false,
     avatarUrl: '',
     friends: [],
     incomingReq: [],

@@ -42,12 +42,11 @@ class FriendsApi {
     this.setLoading(true)
     try {
       await Promise.all([
+       this.removeFromFriends(userInfo, myUserInfo),
        updateDoc(doc(db, 'users', myUserInfo.displayName), {
-        outgoingReq: arrayRemove(userInfo),
         friends: arrayUnion(userInfo)
        }),
        updateDoc(doc(db, 'users', userInfo?.displayName), {
-        outgoingReq: arrayRemove(myUserInfo),
         friends: arrayUnion(myUserInfo)
        })
       ])
@@ -64,10 +63,14 @@ class FriendsApi {
     try {
       await Promise.all([
         updateDoc(doc(db, 'users', myUserInfo.displayName), {
-         friends: arrayRemove(userInfo)
+         friends: arrayRemove(userInfo),
+         outgoingReq: arrayRemove(userInfo),
+         incomingReq: arrayRemove(userInfo)
         }),
         updateDoc(doc(db, 'users', userInfo?.displayName), {
-          friends: arrayRemove(myUserInfo)
+         friends: arrayRemove(myUserInfo),
+         incomingReq: arrayRemove(myUserInfo),
+         outgoingReq: arrayRemove(myUserInfo)
         })
        ])
        authApi.initializeAuth()
@@ -76,25 +79,6 @@ class FriendsApi {
       } finally {
         this.setLoading(false)
       }
-  }
-
-  removeFromIncReq = async (userInfo: IFriend, myUserInfo: IFriend) => {
-    this.setLoading(true)
-    try {
-      await Promise.all([
-        updateDoc(doc(db, 'users', myUserInfo.displayName), {
-          outgoingReq: arrayRemove(userInfo)
-        }),
-        updateDoc(doc(db, 'users', userInfo?.displayName), {
-          incomingReq: arrayRemove(myUserInfo)
-        })
-       ])
-       authApi.initializeAuth()
-    } catch (e: any) {
-      alert(e)
-    } finally {
-      this.setLoading(false)
-    }
   }
 
   //ALL FRIENDS STATES MOVES

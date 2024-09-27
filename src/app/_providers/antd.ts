@@ -43,9 +43,9 @@ const Select = {
 }
 
 const Menu = {
-    darkItemBg: '#353535d8',
+    darkItemBg: '#393939',
     darkItemSelectedBg: '#f0a44d',
-    itemMarginInline: 6,
+    itemMarginInline: 6
 }
 
 const Spin = {

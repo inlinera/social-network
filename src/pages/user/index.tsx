@@ -67,7 +67,7 @@ export const UserPage = observer(() => {
               </div>
             )}
           </>
-        :  
+        :
           'User not found'
       }
       <p>{error}</p>
