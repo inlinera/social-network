@@ -38,7 +38,7 @@ export const UserPage = observer(() => {
   return (
     <div className={`${s.userBlock} jcc aic flex fdc`}>
       {
-        userInfo 
+        userInfo
         ?
           <>
             <UserFriendModal userInfo={userInfo}
@@ -59,9 +59,9 @@ export const UserPage = observer(() => {
                 setIsOpenedFriend={setIsOpenedFriend}
                 setIsOpenedTeam={setIsOpenedTeam}
                 />
-                <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
+                <div className={`${s.userInfo_posts} grid`}>
                   {posts?.length! > 0 &&
-                  <PostListWidget posts={posts} />
+                  <PostListWidget posts={posts} isUserPosts={true}/>
                   }
                 </div>
               </div>

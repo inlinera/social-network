@@ -1,7 +1,10 @@
+@import '@/app/assets/styles/variables.scss';
+
 .header {
     display: flex;
     align-items: center;
     height: 50px;
+    background-color: $orange-themed-color;
 }
 
 .sider {
@@ -29,7 +32,7 @@
     z-index: 999;
     background: transparent;
     .footer__menu {
-      width: 98vw;
+      width: 96vw;
       padding: 6px;
       border-radius: 10px;
       display: flex;

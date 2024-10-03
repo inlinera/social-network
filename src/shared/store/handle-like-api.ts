@@ -16,7 +16,7 @@ class HandlePostLikeApi {
       const postRef = doc(db, 'posts', postId)
       const postDoc = await getDoc(postRef)
       const currentLikes = postDoc.data()?.likes
-      
+
       if (liked) {
         await updateDoc(postRef, {
            likes: arrayRemove(userId) 

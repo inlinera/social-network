@@ -7,23 +7,24 @@ import { Footer, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 //DATA
 import { sidebarInfo } from '@/shared/data/sidebar'
-//MOBX
-import checkWidthStore from '@/shared/store/utils/check-width'
+//HOOKS
+import { useMobile } from '@/shared/hooks/useMobile'
 
 export const LayoutNav = observer(() => {
 
-  const { isMobile } = checkWidthStore
+  const isMobile = useMobile()
 
   return (
     <Layout>
-
-      <Header className={s.header}>
-      <Menu
-          theme="dark"
-          mode="horizontal"
-          items={['1', 'yoyoyoy'] as any}
-        />
-      </Header>
+      {!isMobile &&
+        <Header className={s.header}>
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            items={[]}
+          />
+        </Header>
+      }
       <Layout>
         {!isMobile 
         ?

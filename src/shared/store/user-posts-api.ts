@@ -24,7 +24,7 @@ class userPostsApi {
           return onSnapshot(q, (querySnapshot) => 
               this.setPosts(querySnapshot.docs.map((doc) => ({
                   ...doc.data(),
-                  id: doc.id,
+                  id: doc.id
                 }) as IPost)
               )
             )
@@ -34,7 +34,7 @@ class userPostsApi {
           this.setLoading(false)
         }
       }
-
+    //ALL USER-POSTS STATE MOVES
     setLoading = (state: boolean) => this.loading = state
     setPosts = (posts: IPost[]) => this.posts = posts
 }
