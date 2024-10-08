@@ -8,6 +8,7 @@ import { Avatar } from 'antd'
 import { LinkifyText } from '@/shared/ui/parseText'
 //DATA
 import { token } from '@/shared/token/token'
+import { PostImageList } from '@/entities/posts/image/image-list'
 
 export const PostWidget: FC<{ post: IPost }> = ({ post }) => {
 
@@ -16,14 +17,32 @@ export const PostWidget: FC<{ post: IPost }> = ({ post }) => {
       {post.userAvatar 
       &&
         <Link to={`/user/${post.userName}`} className={`${s.post_user} flex aic`}>
-          <Avatar size={'default'} src={post.userAvatar} alt='avatar'/>
+          <Avatar
+          size={'default'}
+          src={post.userAvatar}
+          alt='avatar'
+          />
           <p>{post.userName}</p>
         </Link>
       }
       <p>
-        <LinkifyText text={post.value} />
+        <LinkifyText
+        text={post.value}
+        />
       </p>
-      <PostBtnLine likes={post.likes} postId={post.id!} userId={token!} />
+      {
+        post.images
+        &&
+        <PostImageList
+        images={post.images}
+        />
+      }
+      <PostBtnLine
+      likes={post.likes}
+      comments={post.comments}
+      postId={post.id!}
+      userId={token!}
+      />
     </div>
   )
 }

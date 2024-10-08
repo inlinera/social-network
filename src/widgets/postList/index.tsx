@@ -36,7 +36,6 @@ export const PostListWidget: FC<PostListWidgetProps> = ({ posts, loading, isUser
         </div>
         :
         <div>
-          <h1>Latest posts</h1>
           {posts?.map(p => <PostWidget post={p} key={p.id} />)}
         </div>
       }

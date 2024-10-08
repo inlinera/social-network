@@ -13,8 +13,6 @@ import { UserBlock } from "@/entities/user/info-block"
 import { UserFriendModal } from "@/entities/user/modal/friend"
 //HOOKS
 import { useGetFriends } from "@/shared/hooks/useGetFriends"
-import { UserTeamModal } from "@/entities/user/modal/team"
-
 
 export const UserPage = observer(() => {
 
@@ -25,9 +23,7 @@ export const UserPage = observer(() => {
 
   const [ targetUserInfo, myUserInfoFriend ] = useGetFriends(userInfo!, user!)
 
-  //MODALS
   const [ isOpenedFriend, setIsOpenedFriend ] = useState(false)
-  const [ isOpenedTeam, setIsOpenedTeam ] = useState(false)
 
   useEffect(() => {
     getUserPosts(userId!)
@@ -41,27 +37,32 @@ export const UserPage = observer(() => {
         userInfo
         ?
           <>
-            <UserFriendModal userInfo={userInfo}
-            isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend}/>
-
-            <UserTeamModal userInfo={userInfo} isOpened={isOpenedTeam}
-            setIsOpened={setIsOpenedTeam}/>
-
-            {loading ? (
+            <UserFriendModal
+            userInfo={userInfo}
+            isOpened={isOpenedFriend}
+            setIsOpened={setIsOpenedFriend}
+            />
+            {
+            loading ? (
               <>
                 <Spin size="large" />
                 <p style={{ marginTop: "5px" }}>Loading user</p>
               </>
             ) : (
               <div className={`${s.userInfo} jcc grid cw`}>
-                <UserBlock userInfo={userInfo}
-                userInfoFriend={targetUserInfo} myUserInfoFriend={myUserInfoFriend} 
+                <UserBlock
+                userInfo={userInfo}
+                userInfoFriend={targetUserInfo}
+                myUserInfoFriend={myUserInfoFriend} 
                 setIsOpenedFriend={setIsOpenedFriend}
-                setIsOpenedTeam={setIsOpenedTeam}
                 />
                 <div className={`${s.userInfo_posts} grid`}>
-                  {posts?.length! > 0 &&
-                  <PostListWidget posts={posts} isUserPosts={true}/>
+                  {
+                  posts?.length! > 0 &&
+                  <PostListWidget
+                  posts={posts}
+                  isUserPosts={true}
+                  />
                   }
                 </div>
               </div>

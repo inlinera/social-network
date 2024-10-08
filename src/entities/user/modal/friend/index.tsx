@@ -17,14 +17,18 @@ interface UserFriendModalProps {
 export const UserFriendModal: FC<UserFriendModalProps> = ({
      userInfo, isOpened, setIsOpened }) => {
 
-    const [ friendOption, setFriendOption ] = useState<string>('Friends')
+    const [ friendOption, setFriendOption ] = useState('Friends')
     const { user } = authApi
 
   return (
-    <Modal title={`${userInfo?.displayName}'s Friends`} open={isOpened} 
-      onCancel={() => setIsOpened(false)} footer={null}>
+    <Modal
+    title={`${userInfo?.displayName}'s Friends`}
+    open={isOpened}
+    onCancel={() => setIsOpened(false)}
+    footer={null}
+    >
         {userInfo?.displayName == user?.displayName
-        ? 
+        ?
         <div>
           <Select
           value={friendOption}
@@ -34,20 +38,32 @@ export const UserFriendModal: FC<UserFriendModalProps> = ({
           <div style={{marginTop: '15px'}}>
           {
             friendOption == 'Friends' &&
-            <UserFriendList array={userInfo?.friends} listType='friend' />
+            <UserFriendList
+            array={userInfo?.friends}
+            listType='friend'
+            />
           }
           {
             friendOption == 'Incoming Requests' &&
-            <UserFriendList array={userInfo?.incomingReq} listType='incomingRequests' />
+            <UserFriendList
+            array={userInfo?.incomingReq}
+            listType='incomingRequests'
+            />
           }
           {
             friendOption == 'Outgoing Requests' &&
-            <UserFriendList array={userInfo?.outgoingReq} listType='outgoingRequests' />
+            <UserFriendList
+            array={userInfo?.outgoingReq}
+            listType='outgoingRequests'
+            />
           }
           </div>
         </div>
         :
-          <UserFriendList array={userInfo?.friends!} listType=''/>
+          <UserFriendList
+          array={userInfo?.friends!}
+          listType=''
+          />
         }
       </Modal>
   )

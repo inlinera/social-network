@@ -5,15 +5,18 @@ import handleLikeApi from '@/shared/store/handle-like-api'
 import { PostBtn } from '@/shared/ui/button'
 import { observer } from 'mobx-react-lite'
 //ICONS
-import { HeartFilled, HeartOutlined } from '@ant-design/icons'
+import { CommentOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons'
+//INTERFACES
+import { IComment } from '@/shared/interfaces/IComment'
 
 interface PostBtnLineProps {
   likes: string[]
+  comments: IComment[]
   postId: string
   userId: string 
 }
 
-export const PostBtnLine: FC<PostBtnLineProps> = observer(({ likes, postId, userId }) => {
+export const PostBtnLine: FC<PostBtnLineProps> = observer(({ likes, comments, postId, userId }) => {
 
     const { handlePostLike } = handleLikeApi
 
@@ -37,14 +40,15 @@ export const PostBtnLine: FC<PostBtnLineProps> = observer(({ likes, postId, user
         <PostBtn onClick={() => handleLikeStateChange(isLiked)} loading={loading} >
           {loading 
           ? 'Loading'
-          : 
-          <>
-            {isLiked 
+          : isLiked 
             ? <HeartFilled style={{fontSize: '16px'}}/> 
-            : <HeartOutlined style={{fontSize: '16px'}}/>}
-            {likes?.length}
-          </>
+            : <HeartOutlined style={{fontSize: '16px'}}/>
           }
+          {likes?.length} 
+        </PostBtn>
+        <PostBtn>
+          <CommentOutlined />
+          {comments?.length}
         </PostBtn>
     </div>
   )

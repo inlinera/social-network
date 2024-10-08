@@ -9,7 +9,7 @@ export const useMobile = () => {
     }
     const timeout = setTimeout(() => {
       setWidth(window.innerWidth)
-    }, 200)
+    }, 300)
     setDebounceTimout(timeout)
   }
   useEffect(() => {

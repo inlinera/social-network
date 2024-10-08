@@ -14,12 +14,11 @@ interface UserBlockProps {
   userInfoFriend: IFriend
   myUserInfoFriend: IFriend
   setIsOpenedFriend: (state: boolean) => void
-  setIsOpenedTeam: (state: boolean) => void
 }
 
 export const UserBlock: FC<UserBlockProps> = observer((
   { userInfo, userInfoFriend, myUserInfoFriend,
-    setIsOpenedFriend, setIsOpenedTeam }) => {
+    setIsOpenedFriend }) => {
 
       const userId = userInfo?.displayName
 
@@ -38,8 +37,9 @@ export const UserBlock: FC<UserBlockProps> = observer((
         <div>
             <p style={{ textAlign: 'center' }}>{userInfo?.description}</p>
             <div className={s.userInfo_meta_btns}>
-            <InfoBlockModalButtons setIsOpenedFriend={setIsOpenedFriend}
-            setIsOpenedTeam={setIsOpenedTeam} />
+            <InfoBlockModalButtons
+            setIsOpenedFriend={setIsOpenedFriend}
+            />
             </div>
         </div>
     </div>

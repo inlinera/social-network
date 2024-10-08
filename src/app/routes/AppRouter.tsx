@@ -23,7 +23,7 @@ const AppRouter = observer(() => {
       <BrowserRouter>
       <LayoutNav />
       <Content style={isMobile ? {margin: '10px 0 0 0'}
-        : {margin: '10px 50px 0 210px'}} className='jcc aic flex'>
+        : {margin: '80px 50px 0 210px'}} className='jcc aic flex'>
         {
         loading
             ?

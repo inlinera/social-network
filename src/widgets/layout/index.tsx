@@ -17,7 +17,14 @@ export const LayoutNav = observer(() => {
   return (
     <Layout>
       {!isMobile &&
-        <Header className={s.header}>
+        <Header
+        className={s.header}
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          zIndex: 999
+        }}
+        >
           <Menu
             theme="dark"
             mode="horizontal"

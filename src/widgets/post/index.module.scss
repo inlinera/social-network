@@ -9,7 +9,7 @@
     border-radius: 9px;
     * {
         max-width: max-content;
-        margin: 5px;
+        margin: 7px;
         color: white;
     }
     a {
@@ -27,5 +27,8 @@
     .post {
         font-size: 15px;
         font-weight: normal;
+        * {
+            margin: 4px;
+        }
     }
 }
