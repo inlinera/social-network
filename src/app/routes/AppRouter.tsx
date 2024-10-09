@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 //LAYOUT
 import { LayoutNav } from '@/widgets/layout'
@@ -10,40 +10,30 @@ import { Content } from 'antd/es/layout/layout'
 //HOOKS
 import { useMobile } from '@/shared/hooks/useMobile'
 
-import { privateRoutes, publicRoutes } from './routes'
 import { token } from '@/shared/token/token'
+import { PrivateRouter } from './routers/PrivateRouter'
+import { PublicRouter } from './routers/PublicRouter'
 
 const AppRouter = observer(() => {
 
   const { loading, user } = AuthorizationStore
   const isMobile = useMobile()
 
+  if (loading) return <Spin size='large'/>
+
   return (
     <main>
       <BrowserRouter>
       <LayoutNav />
-      <Content style={isMobile ? {margin: '10px 0 0 0'}
-        : {margin: '80px 50px 0 210px'}} className='jcc aic flex'>
-        {
-        loading
-            ?
-             <Spin size='large'/>
-            :
-             user || token ? 
-              <Routes>
-                <Route path='*' element={<Navigate to="/"/>} />
-                {privateRoutes.map((r) => (
-                  <Route path={r.path} element={<r.element />} key={r.path}/>
-                ))}
-              </Routes>
-            :
-              <Routes>
-                <Route path='*' element={<Navigate to="/auth" />}/>
-                {publicRoutes.map((r) => (
-                  <Route path={r.path} element={<r.element />} key={r.path} />
-                ))}
-              </Routes>
-          }
+      <Content
+        style={
+          isMobile ? {margin: '10px 0 0 0'} : {margin: '80px 50px 0 210px'}
+        }
+        className='jcc aic flex'>
+        {user || token
+        ? <PrivateRouter />
+        : <PublicRouter />
+        }
       </Content>
       </BrowserRouter>
     </main>
