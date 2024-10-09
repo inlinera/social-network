@@ -19,7 +19,7 @@ export const SignIn = observer(() => {
     await signIn(userData.email, userData.password)
     setUserData({
       email: '',
-      password: '',
+      password: ''
     })
   }
 

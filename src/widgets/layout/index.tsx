@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react-lite'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import s from './index.module.scss'
 //COMPONENTS
 import { Layout, Menu } from 'antd'
@@ -10,9 +9,16 @@ import { sidebarInfo } from '@/shared/data/sidebar'
 //HOOKS
 import { useMobile } from '@/shared/hooks/useMobile'
 
-export const LayoutNav = observer(() => {
+import { token } from '@/shared/token/token'
+
+export const LayoutNav = () => {
 
   const isMobile = useMobile()
+  const currentLocation = useLocation()
+  const isUserLoc = currentLocation.pathname == `/user/${token}`
+  const selectedItems = [
+    isUserLoc ? sidebarInfo[0].path : currentLocation.pathname
+  ]
 
   return (
     <Layout>
@@ -33,7 +39,7 @@ export const LayoutNav = observer(() => {
         </Header>
       }
       <Layout>
-        {!isMobile 
+        {!isMobile
         ?
           <Sider className={s.sider} style={{
             position: 'fixed',
@@ -45,12 +51,13 @@ export const LayoutNav = observer(() => {
                 padding: '5px',
                 borderRadius: '6px'
               }}
+              selectedKeys={selectedItems}
               mode="inline"
               theme="dark"
-              items={sidebarInfo.map((item) => ({
+              items={sidebarInfo.map(item => ({
                 key: item.path,
                 icon: <item.icon />,
-                label: <Link to={item.path}>{item.title}</Link>,
+                label: <Link to={item.path}>{item.title}</Link>
               }))}
             />
           </Sider>
@@ -60,16 +67,16 @@ export const LayoutNav = observer(() => {
               className={s.footer__menu}
               mode="horizontal"
               theme="dark"
+              selectedKeys={selectedItems}
               items={sidebarInfo.map(item => ({
                 key: item.path,
                 icon: <item.icon style={{fontSize: '20px', margin: 'auto'}}/>,
-                label: <Link to={item.path}>{item.title}</Link>,
+                label: <Link to={item.path}>{item.title}</Link>
               }))}
-            />
+          />
         </Footer>
         }
         </Layout>
-
     </Layout>
   )
-})
+}
