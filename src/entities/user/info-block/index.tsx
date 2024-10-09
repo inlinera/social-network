@@ -31,7 +31,8 @@ export const UserBlock: FC<UserBlockProps> = observer((
                   <InfoBlockFriendButtons userInfo={userInfo}
                    userInfoFriend={userInfoFriend}
                    myUserInfoFriend={myUserInfoFriend}
-                   userId={userId} />
+                   userId={userId}
+                   />
                 </div>
         </div>
         <div>

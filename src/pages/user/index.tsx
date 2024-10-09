@@ -58,7 +58,7 @@ export const UserPage = observer(() => {
                 />
                 <div className={`${s.userInfo_posts} grid`}>
                   {
-                  posts?.length! > 0 &&
+                  posts?.length != 0 &&
                   <PostListWidget
                   posts={posts}
                   isUserPosts={true}

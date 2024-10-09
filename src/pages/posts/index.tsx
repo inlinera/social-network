@@ -17,7 +17,11 @@ export const PostsPage = observer(() => {
   return (
     <div className={`${s.postListPage} flex fdc aic cw`}>
       <h1>Latest posts</h1>
-      <PostListWidget posts={posts!} loading={loading} isUserPosts={false}/>
+      <PostListWidget
+      posts={posts!}
+      loading={loading}
+      isUserPosts={false}
+      />
     </div>
   )
 })

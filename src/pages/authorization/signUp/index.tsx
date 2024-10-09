@@ -24,7 +24,7 @@ export const SignUp: FC<SignUpProps> = observer(({ setIsReg }) => {
 
   const [userData, setUserData] = useState(nullUser)
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     await signUp(userData)
     setUserData(nullUser)
