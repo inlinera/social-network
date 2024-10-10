@@ -1,4 +1,3 @@
-import { BrowserRouter } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 //LAYOUT
 import { LayoutNav } from '@/widgets/layout'
@@ -19,11 +18,10 @@ const AppRouter = observer(() => {
   const { loading, user } = AuthorizationStore
   const isMobile = useMobile()
 
-  if (loading) return <Spin size='large'/>
+  if (loading) return <Spin size='large' />
 
   return (
     <main>
-      <BrowserRouter>
       <LayoutNav />
       <Content
         style={
@@ -35,7 +33,6 @@ const AppRouter = observer(() => {
         : <PublicRouter />
         }
       </Content>
-      </BrowserRouter>
     </main>
   )
 })

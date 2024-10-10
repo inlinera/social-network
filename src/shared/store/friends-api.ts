@@ -31,7 +31,7 @@ class FriendsApi {
         })
       ])
       authApi.initializeAuth()
-    } catch (e: any) {
+    } catch (e) {
       alert(e)
     } finally {
       this.setLoading(false)
@@ -74,7 +74,7 @@ class FriendsApi {
         })
        ])
        authApi.initializeAuth()
-      } catch (e: any) {
+      } catch (e) {
         alert(e)
       } finally {
         this.setLoading(false)

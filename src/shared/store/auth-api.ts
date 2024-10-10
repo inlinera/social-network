@@ -18,7 +18,7 @@ class AuthorizationStore {
     this.initializeAuth()
   }
 
-  // ======================== AUTH ==========================
+  // ======================== AUTH ========================
 
   //ALL AUTH STATES
   user? = null as IUser | null

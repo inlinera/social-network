@@ -3,24 +3,23 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { makeAutoObservable } from "mobx"
 import { v4 } from 'uuid'
 
-
 class StorageApi {
   
     constructor() {
         makeAutoObservable(this)
     }
 
-    // ============ STORAGE ==============
+    // ============ STORAGE ============
 
     //ALL STORAGE STATES
-    image = null as any
+    image = null as null | string | File
 
     //ALL STORAGE ACTIONS
-    uploadAvatar = async (file: any) => {
+    uploadAvatar = async (file: File) => {
       const imgRef = ref(storage, `files/avatars/${v4()}`)
       try {
         await uploadBytes(imgRef, file)
-        const downloadURL = await getDownloadURL(imgRef)
+        const downloadURL: string = await getDownloadURL(imgRef)
         this.setImage(downloadURL)
         return this.image || downloadURL
       } catch (e) {
@@ -29,7 +28,7 @@ class StorageApi {
     }
 
     //ALL STORAGE STATES MOVES
-    setImage = (img: any) => this.image = img
+    setImage = (img: string) => this.image = img
 }
 
 export default new StorageApi()

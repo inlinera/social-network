@@ -5,7 +5,6 @@ import { IUser } from "../interfaces/IUser"
 import { db } from "@/app/_providers/firebase"
 import { doc, getDoc } from "firebase/firestore"
 
-
 class userApi {
 
   constructor() {
@@ -25,8 +24,8 @@ class userApi {
     try {
       const res = await getDoc(doc(db, 'users', id))
       this.setUser(res.data() as IUser)
-    } catch (e: any) {
-      this.setError(e)
+    } catch (e) {
+      this.setError(e as string)
     } finally {
       this.setLoading(false)
     }

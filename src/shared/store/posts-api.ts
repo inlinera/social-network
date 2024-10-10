@@ -11,7 +11,7 @@ class PostsStore {
     makeAutoObservable(this)
   }
 
-  // ================== POSTS ===================
+  // ================== POSTS ==================
 
   //ALL POSTS STATES
   posts? = [] as IPost[]
