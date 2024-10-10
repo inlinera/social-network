@@ -9,24 +9,14 @@ interface ImageListModalProps {
 }
 
 export const ImageListModal: FC<ImageListModalProps> = ({ images, isOpened, setIsOpened }) => {
-
   const handleClose = () => setIsOpened(false)
 
   return (
-    <Modal
-    open={isOpened}
-    onOk={handleClose}
-    onCancel={handleClose}
-    footer={null}
-    >
+    <Modal open={isOpened} onOk={handleClose} onCancel={handleClose} footer={null}>
       <div>
-        {
-        images.map(i => 
-        <AntdImageComponent
-        src={i}
-        key={i}
-        />)
-        }
+        {images.map(i => (
+          <AntdImageComponent src={i} key={i} />
+        ))}
       </div>
     </Modal>
   )

@@ -12,44 +12,39 @@ import { useMobile } from '@/shared/hooks/useMobile'
 import { token } from '@/shared/token/token'
 
 export const LayoutNav = () => {
-
   const isMobile = useMobile()
   const currentLocation = useLocation()
   const isUserLoc = currentLocation.pathname == `/user/${token}`
-  const selectedItems = [
-    isUserLoc ? sidebarInfo[0].path : currentLocation.pathname
-  ]
+  const selectedItems = [isUserLoc ? sidebarInfo[0].path : currentLocation.pathname]
 
   return (
     <Layout>
-      {!isMobile &&
+      {!isMobile && (
         <Header
-        className={s.header}
-        style={{
-          position: 'fixed',
-          width: '100vw',
-          zIndex: 999
-        }}
-        >
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            items={[]}
-          />
-        </Header>
-      }
-      <Layout>
-        {!isMobile
-        ?
-          <Sider className={s.sider} style={{
+          className={s.header}
+          style={{
             position: 'fixed',
-            background: 'transparent'
-          }}>
+            width: '100vw',
+            zIndex: 999,
+          }}
+        >
+          <Menu theme="dark" mode="horizontal" items={[]} />
+        </Header>
+      )}
+      <Layout>
+        {!isMobile ? (
+          <Sider
+            className={s.sider}
+            style={{
+              position: 'fixed',
+              background: 'transparent',
+            }}
+          >
             <Menu
               style={{
                 margin: '15px 3px',
                 padding: '5px',
-                borderRadius: '6px'
+                borderRadius: '6px',
               }}
               selectedKeys={selectedItems}
               mode="inline"
@@ -57,26 +52,26 @@ export const LayoutNav = () => {
               items={sidebarInfo.map(item => ({
                 key: item.path,
                 icon: <item.icon />,
-                label: <Link to={item.path}>{item.title}</Link>
+                label: <Link to={item.path}>{item.title}</Link>,
               }))}
             />
           </Sider>
-        :
-        <Footer className={s.footer}>
-          <Menu
+        ) : (
+          <Footer className={s.footer}>
+            <Menu
               className={s.footer__menu}
               mode="horizontal"
               theme="dark"
               selectedKeys={selectedItems}
               items={sidebarInfo.map(item => ({
                 key: item.path,
-                icon: <item.icon style={{fontSize: '20px', margin: 'auto'}}/>,
-                label: <Link to={item.path}>{item.title}</Link>
+                icon: <item.icon style={{ fontSize: '20px', margin: 'auto' }} />,
+                label: <Link to={item.path}>{item.title}</Link>,
               }))}
-          />
-        </Footer>
-        }
-        </Layout>
+            />
+          </Footer>
+        )}
+      </Layout>
     </Layout>
   )
 }

@@ -13,11 +13,11 @@ interface PostBtnLineProps {
   likes: string[]
   comments: IComment[]
   postId: string
-  userId: string 
+  userId: string
 }
 
-export const PostBtnLine: FC<PostBtnLineProps> = observer(({ likes, comments, postId, userId }) => {
-
+export const PostBtnLine: FC<PostBtnLineProps> = observer(
+  ({ likes, comments, postId, userId }) => {
     const { handlePostLike } = handleLikeApi
 
     const [isLiked, setIsLiked] = useState<boolean>(likes?.includes(userId))
@@ -35,21 +35,23 @@ export const PostBtnLine: FC<PostBtnLineProps> = observer(({ likes, comments, po
       }
     }
 
-  return (
-    <div className='flex jcc aic'>
-        <PostBtn onClick={() => handleLikeStateChange(isLiked)} loading={loading} >
-          {loading 
-          ? 'Loading'
-          : isLiked 
-            ? <HeartFilled style={{fontSize: '16px'}}/> 
-            : <HeartOutlined style={{fontSize: '16px'}}/>
-          }
-          {likes?.length} 
+    return (
+      <div className="flex jcc aic">
+        <PostBtn onClick={() => handleLikeStateChange(isLiked)} loading={loading}>
+          {loading ? (
+            'Loading'
+          ) : isLiked ? (
+            <HeartFilled style={{ fontSize: '16px' }} />
+          ) : (
+            <HeartOutlined style={{ fontSize: '16px' }} />
+          )}
+          {likes?.length}
         </PostBtn>
         <PostBtn>
           <CommentOutlined />
           {comments?.length}
         </PostBtn>
-    </div>
-  )
-})
+      </div>
+    )
+  }
+)

@@ -7,7 +7,6 @@ import AuthorizationStore from '@/shared/store/auth-api'
 import { Button, Input } from 'antd'
 
 export const SignIn = observer(() => {
-  
   const { signIn, error } = AuthorizationStore
 
   const [userData, setUserData] = useState({

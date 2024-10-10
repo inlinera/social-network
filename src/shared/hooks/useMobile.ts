@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 export const useMobile = () => {
   const [width, setWidth] = useState(window.innerWidth)
@@ -19,6 +19,6 @@ export const useMobile = () => {
       clearTimeout(debounceTimeout!)
     }
   }, [debounceTimeout])
-
+  
   return width <= 768
 }

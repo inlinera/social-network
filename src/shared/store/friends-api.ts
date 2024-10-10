@@ -1,11 +1,11 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from 'mobx'
 //FIREBASE
-import { db } from "@/app/_providers/firebase"
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore"
+import { db } from '@/app/_providers/firebase'
+import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 //MOBX
-import authApi from "./auth-api"
+import authApi from './auth-api'
 //INTERFACES
-import { IFriend } from "../interfaces/IFriend"
+import { IFriend } from '../interfaces/IFriend'
 
 class FriendsApi {
 
@@ -24,11 +24,11 @@ class FriendsApi {
     try {
       await Promise.all([
         updateDoc(doc(db, 'users', myUserInfo.displayName), {
-          outgoingReq: arrayUnion(userInfo)
+          outgoingReq: arrayUnion(userInfo),
         }),
         updateDoc(doc(db, 'users', userInfo?.displayName), {
-          incomingReq: arrayUnion(myUserInfo)
-        })
+          incomingReq: arrayUnion(myUserInfo),
+        }),
       ])
       authApi.initializeAuth()
     } catch (e) {
@@ -42,13 +42,13 @@ class FriendsApi {
     this.setLoading(true)
     try {
       await Promise.all([
-       this.removeFromFriends(userInfo, myUserInfo),
-       updateDoc(doc(db, 'users', myUserInfo.displayName), {
-        friends: arrayUnion(userInfo)
-       }),
-       updateDoc(doc(db, 'users', userInfo?.displayName), {
-        friends: arrayUnion(myUserInfo)
-       })
+        this.removeFromFriends(userInfo, myUserInfo),
+        updateDoc(doc(db, 'users', myUserInfo.displayName), {
+          friends: arrayUnion(userInfo),
+        }),
+        updateDoc(doc(db, 'users', userInfo?.displayName), {
+          friends: arrayUnion(myUserInfo),
+        }),
       ])
       authApi.initializeAuth()
     } catch (e) {
@@ -63,26 +63,26 @@ class FriendsApi {
     try {
       await Promise.all([
         updateDoc(doc(db, 'users', myUserInfo.displayName), {
-         friends: arrayRemove(userInfo),
-         outgoingReq: arrayRemove(userInfo),
-         incomingReq: arrayRemove(userInfo)
+          friends: arrayRemove(userInfo),
+          outgoingReq: arrayRemove(userInfo),
+          incomingReq: arrayRemove(userInfo),
         }),
         updateDoc(doc(db, 'users', userInfo?.displayName), {
-         friends: arrayRemove(myUserInfo),
-         incomingReq: arrayRemove(myUserInfo),
-         outgoingReq: arrayRemove(myUserInfo)
-        })
-       ])
-       authApi.initializeAuth()
-      } catch (e) {
-        alert(e)
-      } finally {
-        this.setLoading(false)
-      }
+          friends: arrayRemove(myUserInfo),
+          incomingReq: arrayRemove(myUserInfo),
+          outgoingReq: arrayRemove(myUserInfo),
+        }),
+      ])
+      authApi.initializeAuth()
+    } catch (e) {
+      alert(e)
+    } finally {
+      this.setLoading(false)
+    }
   }
 
   //ALL FRIENDS STATES MOVES
-  setLoading = (state: boolean) => this.loading = state
+  setLoading = (state: boolean) => (this.loading = state)
 }
 
 export default new FriendsApi()

@@ -1,18 +1,24 @@
 import { FC } from 'react'
 import s from './index.module.scss'
 
-interface Props {
+interface LinkifyTextProps {
   text: string
 }
 
-export const LinkifyText: FC<Props> = ({ text }) => {
+export const LinkifyText: FC<LinkifyTextProps> = ({ text }) => {
   const linkifyText = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g
 
     return text.split(urlRegex).map((part, index) => {
       if (urlRegex.test(part)) {
         return (
-          <a key={index} href={part} target="_blank" rel="noopener noreferrer" className={s.link_text}>
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={s.link_text}
+          >
             {part}
           </a>
         )

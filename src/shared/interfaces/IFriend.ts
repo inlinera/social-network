@@ -1,4 +1,4 @@
 export interface IFriend {
-    displayName: string
-    avatarUrl: string
+  displayName: string
+  avatarUrl: string
 }

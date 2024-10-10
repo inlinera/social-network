@@ -1,12 +1,12 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from 'mobx'
 //INTERFACES
-import { IUser } from "../interfaces/IUser"
+import { IUser } from '../interfaces/IUser'
 //FIREBASE
-import { db } from "@/app/_providers/firebase"
-import { doc, getDoc } from "firebase/firestore"
+import { db } from '@/app/_providers/firebase'
+import { doc, getDoc } from 'firebase/firestore'
 
 class userApi {
-
+  
   constructor() {
     makeAutoObservable(this)
   }
@@ -32,9 +32,9 @@ class userApi {
   }
 
   //ALL USER STATES MOVIES
-  setUser = (user: IUser) => this.userInfo = user
-  setLoading = (loading: boolean) =>  this.loading = loading
-  setError = (err: string) => this.error = err
+  setUser = (user: IUser) => (this.userInfo = user)
+  setLoading = (loading: boolean) => (this.loading = loading)
+  setError = (err: string) => (this.error = err)
 }
 
 export default new userApi()

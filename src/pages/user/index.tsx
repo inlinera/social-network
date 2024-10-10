@@ -1,29 +1,28 @@
-import { useEffect, useState } from "react"
-import { observer } from "mobx-react-lite"
-import { useParams } from "react-router-dom"
-import s from "./index.module.scss"
+import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useParams } from 'react-router-dom'
+import s from './index.module.scss'
 // MOBX
-import authorizationApi from "@/shared/store/auth-api"
-import userStore from "@/shared/store/user-api"
-import userPostsApi from "@/shared/store/user-posts-api"
+import authorizationApi from '@/shared/store/auth-api'
+import userStore from '@/shared/store/user-api'
+import userPostsApi from '@/shared/store/user-posts-api'
 // COMPONENTS
-import { Spin } from "antd"
-import { PostListWidget } from "@/widgets/postList"
-import { UserBlock } from "@/entities/user/info-block"
-import { UserFriendModal } from "@/entities/user/modal/friend"
+import { Spin } from 'antd'
+import { PostListWidget } from '@/widgets/postList'
+import { UserBlock } from '@/entities/user/info-block'
+import { UserFriendModal } from '@/entities/user/modal/friend'
 //HOOKS
-import { useGetFriends } from "@/shared/hooks/useGetFriends"
+import { useGetFriends } from '@/shared/hooks/useGetFriends'
 
 export const UserPage = observer(() => {
-
   const { userInfo, getUser, loading, error } = userStore
   const { getUserPosts, posts } = userPostsApi
   const { user } = authorizationApi
   const { userId } = useParams()
 
-  const [ targetUserInfo, myUserInfoFriend ] = useGetFriends(userInfo!, user!)
+  const [targetUserInfo, myUserInfoFriend] = useGetFriends(userInfo!, user!)
 
-  const [ isOpenedFriend, setIsOpenedFriend ] = useState(false)
+  const [isOpenedFriend, setIsOpenedFriend] = useState(false)
 
   useEffect(() => {
     getUserPosts(userId!)
@@ -33,44 +32,35 @@ export const UserPage = observer(() => {
 
   return (
     <div className={`${s.userBlock} jcc aic flex fdc`}>
-      {
-        userInfo
-        ?
-          <>
-            <UserFriendModal
+      {userInfo ? (
+        <>
+          <UserFriendModal
             userInfo={userInfo}
             isOpened={isOpenedFriend}
             setIsOpened={setIsOpenedFriend}
-            />
-            {
-            loading ? (
-              <>
-                <Spin size="large" />
-                <p style={{ marginTop: "5px" }}>Loading user</p>
-              </>
-            ) : (
-              <div className={`${s.userInfo} jcc grid cw`}>
-                <UserBlock
+          />
+          {loading ? (
+            <>
+              <Spin size="large" />
+              <p style={{ marginTop: '5px' }}>Loading user</p>
+            </>
+          ) : (
+            <div className={`${s.userInfo} jcc grid cw`}>
+              <UserBlock
                 userInfo={userInfo}
                 userInfoFriend={targetUserInfo}
-                myUserInfoFriend={myUserInfoFriend} 
+                myUserInfoFriend={myUserInfoFriend}
                 setIsOpenedFriend={setIsOpenedFriend}
-                />
-                <div className={`${s.userInfo_posts} grid`}>
-                  {
-                  posts?.length != 0 &&
-                  <PostListWidget
-                  posts={posts}
-                  isUserPosts={true}
-                  />
-                  }
-                </div>
+              />
+              <div className={`${s.userInfo_posts} grid`}>
+                {posts?.length != 0 && <PostListWidget posts={posts} isUserPosts={true} />}
               </div>
-            )}
-          </>
-        :
-          'User not found'
-      }
+            </div>
+          )}
+        </>
+      ) : (
+        'User not found'
+      )}
       <p>{error}</p>
     </div>
   )

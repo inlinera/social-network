@@ -1,7 +1,7 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from 'mobx'
 //FIREBASE
-import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore"
-import { db } from "@/app/_providers/firebase"
+import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { db } from '@/app/_providers/firebase'
 
 class HandlePostLikeApi {
 
@@ -19,12 +19,12 @@ class HandlePostLikeApi {
 
       if (liked) {
         await updateDoc(postRef, {
-           likes: arrayRemove(userId) 
-          })
+          likes: arrayRemove(userId),
+        })
       } else if (!currentLikes.includes(userId)) {
         await updateDoc(postRef, {
-           likes: arrayUnion(userId) 
-          })
+          likes: arrayUnion(userId),
+        })
       }
     } catch (e) {
       alert(e)

@@ -8,11 +8,11 @@ import { SkeletonTheme } from 'react-loading-skeleton'
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+  <SkeletonTheme baseColor="#202020" highlightColor="#444">
     <ConfigProvider theme={{ components: config }}>
-    <BrowserRouter>
-    <AppRouter />
-    </BrowserRouter>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
     </ConfigProvider>
-    </SkeletonTheme>
+  </SkeletonTheme>
 )
