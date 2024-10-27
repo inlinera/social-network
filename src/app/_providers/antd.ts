@@ -23,7 +23,7 @@ const List = {
 }
 
 const Modal = {
-  contentBg: '#353535d8',
+  contentBg: '#393939',
   headerBg: 'transparent',
   footerBg: 'transparent',
   titleColor: '#fff',

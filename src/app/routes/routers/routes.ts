@@ -3,6 +3,7 @@ import { FunctionComponent } from 'react'
 import { AuthPage } from '@/pages/authorization'
 import { PostsPage } from '@/pages/posts/index'
 import { UserPage } from '@/pages/user'
+import { PostPage } from '@/pages/post'
 
 export type RouteT = {
   path: string
@@ -14,4 +15,5 @@ export const publicRoutes: RouteT[] = [{ path: '/auth', element: AuthPage }]
 export const privateRoutes: RouteT[] = [
   { path: '/', element: PostsPage },
   { path: '/user/:userId', element: UserPage },
+  { path: '/posts/:postId', element: PostPage },
 ]

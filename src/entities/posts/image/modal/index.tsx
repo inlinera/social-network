@@ -1,6 +1,7 @@
 import { AntdImageComponent } from '@/shared/ui/image'
 import { Modal } from 'antd'
 import { FC } from 'react'
+import s from './index.module.scss'
 
 interface ImageListModalProps {
   images: string[]
@@ -13,7 +14,7 @@ export const ImageListModal: FC<ImageListModalProps> = ({ images, isOpened, setI
 
   return (
     <Modal open={isOpened} onOk={handleClose} onCancel={handleClose} footer={null}>
-      <div>
+      <div className={`${s.image_list} grid`}>
         {images.map(i => (
           <AntdImageComponent src={i} key={i} />
         ))}

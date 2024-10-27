@@ -9,7 +9,7 @@ export const LinkifyText: FC<LinkifyTextProps> = ({ text }) => {
   const linkifyText = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g
 
-    return text.split(urlRegex).map((part, index) => {
+    return text?.split(urlRegex).map((part, index) => {
       if (urlRegex.test(part)) {
         return (
           <a

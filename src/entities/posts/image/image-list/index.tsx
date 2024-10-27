@@ -10,7 +10,7 @@ export const PostImageList: FC<PostImageListProps> = ({ images }) => {
   const [isOpened, setIsOpened] = useState(false)
 
   return (
-    <>
+    <div className={`${s.image_list} grid`}>
       <ImageListModal images={images} isOpened={isOpened} setIsOpened={setIsOpened} />
       <div>
         {images.length >= 3 ? (
@@ -26,6 +26,6 @@ export const PostImageList: FC<PostImageListProps> = ({ images }) => {
           images.map(i => <img src={i} alt={i} key={i + Math.random()} className={s.images} />)
         )}
       </div>
-    </>
+    </div>
   )
 }

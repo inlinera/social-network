@@ -6,5 +6,5 @@ interface AntdImageComponentProps {
 }
 
 export const AntdImageComponent: FC<AntdImageComponentProps> = ({ src }) => {
-  return <Image width={200} src={src} />
+  return <Image height={160} src={src} />
 }
