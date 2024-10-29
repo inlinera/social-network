@@ -1,0 +1,19 @@
+@import '@/app/assets/styles/variables.scss';
+
+.add_post_block {
+  width: 100%;
+  min-height: 100px;
+  height: auto;
+  padding: 10px;
+  background-color: $post-color;
+  border-radius: 16px;
+  .add_post_block_input {
+    width: 75%;
+    * {
+      margin: 5px;
+    }
+  }
+  .add_post_block__buttons {
+    margin: 15px;
+  }
+}

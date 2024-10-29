@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 //MOBX
 import handleLikeApi from '@/shared/store/handle-like-api'
 //COMPONENTS
-import { PostBtn } from '@/shared/ui/button'
+import { PostBtn } from '@/shared/ui/buttons/post-button'
 import { observer } from 'mobx-react-lite'
 import { Link } from 'react-router-dom'
 //ICONS

@@ -13,6 +13,7 @@ import { UserBlock } from '@/entities/user/info-block'
 import { UserFriendModal } from '@/entities/user/modal/friend'
 //HOOKS
 import { useGetFriends } from '@/shared/hooks/useGetFriends'
+import { AddPostBlockEntity } from '@/entities/user/add-post-block'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
@@ -53,6 +54,7 @@ export const UserPage = observer(() => {
                 setIsOpenedFriend={setIsOpenedFriend}
               />
               <div className={`${s.userInfo_posts} grid`}>
+                <AddPostBlockEntity />
                 {posts?.length != 0 && <PostListWidget posts={posts} isUserPosts={true} />}
               </div>
             </div>

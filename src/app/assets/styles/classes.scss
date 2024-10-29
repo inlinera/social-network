@@ -1,39 +1,47 @@
-.jcc {
-    justify-content: center;
-}
-
-.aic {
-    align-items: center;
-}
-
-.tac {
-    text-align: center;
-}
-
 .flex {
-    display: flex;
-}
-
-.fdc {
-    flex-direction: column;
+  display: flex;
 }
 
 .grid {
-    display: grid;
+  display: grid;
+}
+
+.jcc {
+  justify-content: center;
+}
+
+.aic {
+  align-items: center;
+}
+
+.tac {
+  text-align: center;
+}
+
+.fdc {
+  flex-direction: column;
 }
 
 .cb {
-    color: #000;
+  color: #000;
 }
 
 .cw {
-    color: #fff;
+  color: #fff;
+}
+
+.cg {
+  color: #d1d1d1;
 }
 
 .x-auto {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .z-3 {
-    z-index: 3;
+  z-index: 3;
+}
+
+.fz10 {
+  font-size: 10px;
 }
