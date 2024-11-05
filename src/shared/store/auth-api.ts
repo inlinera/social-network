@@ -17,7 +17,6 @@ import storageApi from './storage-api'
 import { defaultAvatar } from '@/shared/data/default-avatar'
 
 class AuthorizationStore {
-  
   constructor() {
     makeAutoObservable(this)
     this.initializeAuth()
@@ -37,7 +36,7 @@ class AuthorizationStore {
       await setPersistence(auth, browserLocalPersistence)
       onAuthStateChanged(auth, async user => {
         const { displayName } = user as IUser
-        const updatedUserDoc = await getDoc(doc(db, 'users', displayName!))
+        const updatedUserDoc = await getDoc(doc(db, 'users', displayName))
         if (updatedUserDoc.exists()) {
           const updatedUserData = updatedUserDoc.data() as IUser
           this.setUser({ ...updatedUserData, displayName })
@@ -57,17 +56,14 @@ class AuthorizationStore {
         userData.email,
         userData.password!
       )
-
       await setDoc(doc(db, 'users', userData.displayName), {
         ...userData,
         password: '',
         avatarUrl: storageApi.image ? storageApi.image : defaultAvatar,
       })
-
       await updateProfile(auth.currentUser!, {
         displayName: userData.displayName,
       })
-
       runInAction(() => {
         this.setUser(user as IUser)
         this.setToken(user.displayName!)
@@ -83,7 +79,7 @@ class AuthorizationStore {
       const { user } = await signInWithEmailAndPassword(auth, email, password)
       runInAction(() => {
         this.setUser(user as IUser)
-        this.setToken(user.displayName!)
+        this.setToken(user?.displayName!)
       })
     } catch (e: any) {
       this.setError(e.message)

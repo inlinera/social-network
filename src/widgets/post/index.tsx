@@ -10,16 +10,20 @@ import { PostImageList } from '@/entities/posts/image/image-list'
 import { PostBtnLine } from '@/entities/posts/button-list'
 import { Avatar } from 'antd'
 import { LinkifyText } from '@/shared/ui/parseText'
+import { DropdownMenuEntity } from '@/entities/posts/dropdown-menu'
 
 export const PostWidget: FC<{ post: IPost }> = ({ post }) => {
   return (
     <div className={`${s.post} grid`}>
-      {post.userAvatar && (
-        <Link to={`/user/${post.userName}`} className={`${s.post_user} flex aic`}>
-          <Avatar size={'default'} src={post.userAvatar} alt="avatar" />
-          <p>{post.userName}</p>
-        </Link>
-      )}
+      <div className={`${s.post__upperblock} flex aic`}>
+        {post.userAvatar && (
+          <Link to={`/user/${post.userName}`} className={`${s.post_user} flex aic`}>
+            <Avatar size={'default'} src={post.userAvatar} alt="avatar" />
+            <p>{post.userName}</p>
+          </Link>
+        )}
+        <DropdownMenuEntity postId={post.id} />
+      </div>
       <p>
         <LinkifyText text={post.value} />
       </p>

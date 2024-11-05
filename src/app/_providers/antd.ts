@@ -52,6 +52,11 @@ const Spin = {
   colorPrimary: '#f0a44d',
 }
 
+const Dropdown = {
+  colorBgElevated: '#393939',
+  colorText: '#fff',
+}
+
 export const config = {
   Button,
   Input,
@@ -60,4 +65,5 @@ export const config = {
   Select,
   Menu,
   Spin,
+  Dropdown,
 }
