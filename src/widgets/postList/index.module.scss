@@ -1,16 +1,10 @@
 .postsList {
-    position: relative;
-    width: 95%;
-    margin: 0 auto 100px auto;
-    padding: 10px 15px;
-    border-radius: 16px;
-    h1 {
-        font-size: 17px;
-    }
-}
-
-@media(max-width: 853px) {
-    .postsList {
-        width: 100%;
-    }
+  position: relative;
+  width: 100%;
+  margin: 0 auto 100px auto;
+  padding: 10px 15px;
+  border-radius: 16px;
+  h1 {
+    font-size: 17px;
+  }
 }

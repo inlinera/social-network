@@ -4,17 +4,17 @@ import { token } from '../token/token'
 export const sidebarInfo = [
   {
     title: 'Profile',
-    icon: UserOutlined,
+    icon: <UserOutlined />,
     path: `user/${token}`,
   },
   {
     title: 'Home',
-    icon: HomeOutlined,
+    icon: <HomeOutlined />,
     path: '/',
   },
   {
     title: 'Chats',
-    icon: MessageOutlined,
+    icon: <MessageOutlined />,
     path: '/chats',
   },
 ]

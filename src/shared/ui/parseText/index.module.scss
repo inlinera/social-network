@@ -1,9 +1,9 @@
 @import '@/app/assets/styles/variables.scss';
 
 .link_text {
-    color: rgb(150, 164, 255);
-    transition: all .2s;
-    &:hover {
-        color: $orange-color;
-    }
+  color: rgb(150, 164, 255);
+  transition: all 0.2s;
+  &:hover {
+    color: $red-color;
+  }
 }

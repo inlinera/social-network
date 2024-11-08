@@ -1,0 +1,51 @@
+@import '@/app/assets/styles/variables.scss';
+
+$hover-color: #777777d8;
+
+.toggle {
+  background-color: $hover-color;
+}
+
+.sider {
+  position: fixed;
+  height: 100vh;
+  width: inherit;
+  min-width: 200px;
+  max-width: 500px;
+  padding-top: 60px;
+  inset-inline-start: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .sider_sidebar {
+    width: 100%;
+    height: max-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: $post-color;
+    .sider_sidebar__button {
+      margin: 2px;
+      padding: 5px;
+      font-weight: 600;
+      border-radius: 15px;
+      transition: all 0.4s;
+      text-align: left;
+      * {
+        margin: 3px;
+        font-size: 15px;
+      }
+      svg {
+        color: $red-color;
+      }
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+  }
+}

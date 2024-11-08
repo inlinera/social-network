@@ -14,7 +14,7 @@ export const PostsPage = observer(() => {
   }, [])
 
   return (
-    <div className={`${s.postListPage} flex fdc aic cw`}>
+    <div className={`${s.postListPage} flex fdc aic jcc cw`}>
       <h1>Latest posts</h1>
       <PostListWidget posts={posts!} loading={loading} isUserPosts={false} />
     </div>

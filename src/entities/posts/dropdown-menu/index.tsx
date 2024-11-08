@@ -4,11 +4,12 @@ import { Dropdown } from 'antd'
 
 interface DropdownMenuEntityInterface {
   postId: string
+  setIsEditing: (state: boolean) => void
 }
 
-export const DropdownMenuEntity = ({ postId }: DropdownMenuEntityInterface) => {
+export const DropdownMenuEntity = ({ postId, setIsEditing }: DropdownMenuEntityInterface) => {
   return (
-    <Dropdown menu={{ items: items(postId) }} trigger={['click']}>
+    <Dropdown menu={{ items: items(postId, setIsEditing) }} trigger={['click']}>
       <button>
         <MoreOutlined />
       </button>

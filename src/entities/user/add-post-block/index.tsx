@@ -1,6 +1,6 @@
 import s from './index.module.scss'
 //COMPONENTS
-import { OrangeButtonUI } from '@/shared/ui/buttons/orange-button'
+import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { Input } from 'antd'
 import { Link } from 'react-router-dom'
 import createPostApi from '@/shared/store/create-post-api'
@@ -32,7 +32,7 @@ export const AddPostBlockEntity = () => {
         />
       </div>
       <div className={`${s.add_post_block__buttons} flex fdc aic`}>
-        <OrangeButtonUI onClick={handleSubmit}>Add new post</OrangeButtonUI>
+        <RedButtonUI onClick={handleSubmit}>Add new post</RedButtonUI>
         <Link to={'/rules'} className="cg fz10">
           Content rules*
         </Link>

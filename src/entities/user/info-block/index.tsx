@@ -23,7 +23,10 @@ export const UserBlock: FC<UserBlockProps> = observer(
     return (
       <div className={`${s.userInfo_meta} grid jcc`}>
         <div className="grid aic">
-          <Avatar size={100} icon={<img src={userInfo?.avatarUrl} alt="avatar" />} />
+          <Avatar
+            size={100}
+            icon={<img src={userInfo?.avatarUrl} alt="avatar" draggable={false} />}
+          />
           <div className="flex aic">
             <p style={{ whiteSpace: 'nowrap' }}>{userId}</p>
             <InfoBlockFriendButtons

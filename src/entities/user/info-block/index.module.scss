@@ -1,31 +1,33 @@
+@import '@/app/assets/styles/variables.scss';
+
 .userInfo_meta {
-    height: max-content;
-    padding: 5px 25px;
-    margin: 0 35px;
-    background-color: rgba(0, 0, 0, .2);
-    border-radius: 12px;
-    font-weight: 500;
-    div {
-        grid-template-columns: 100px 1fr;
-        gap: 15px;
-    }
-    p {
-        line-height: 1.2;
-    }
-    * {
-        margin: 5px;
-    }
+  height: max-content;
+  padding: 5px 25px;
+  margin: 0 35px;
+  background-color: $post-color;
+  border-radius: 12px;
+  font-weight: 500;
+  div {
+    grid-template-columns: 100px 1fr;
+    gap: 15px;
+  }
+  p {
+    line-height: 1.2;
+  }
+  * {
+    margin: 5px;
+  }
 }
 
 @media (max-width: 1084px) {
-    .userInfo_meta {
-        width: 80%;
-        margin: 5px auto;
-        div {
-            grid-template-columns: 100px auto;
-            grid-template-rows: 1fr;
-            gap: 15px;
-            word-break: break-all;
-        }
+  .userInfo_meta {
+    width: 80%;
+    margin: 5px auto;
+    div {
+      grid-template-columns: 100px auto;
+      grid-template-rows: 1fr;
+      gap: 15px;
+      word-break: break-all;
     }
+  }
 }

@@ -1,19 +1,18 @@
-
 .userBlock {
-.userInfo {
-    width: 80vw;
+  .userInfo {
+    width: 100%;
     grid-template-columns: 1fr 3fr;
     font-weight: 600;
     gap: 15px;
     .userInfo_posts {
-        position: relative;
-        border-radius: 10px;
+      position: relative;
+      border-radius: 10px;
     }
-}
+  }
 }
 
 @media (max-width: 1084px) {
-    .userInfo {
-        grid-template-columns: 1fr !important;
-    }
+  .userInfo {
+    grid-template-columns: 1fr !important;
+  }
 }

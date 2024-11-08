@@ -43,7 +43,9 @@ export const UserPage = observer(() => {
           {loading ? (
             <>
               <Spin size="large" />
-              <p style={{ marginTop: '5px' }}>Loading user</p>
+              <p style={{ marginTop: '5px' }} className="cw">
+                Loading user
+              </p>
             </>
           ) : (
             <div className={`${s.userInfo} jcc grid cw`}>
@@ -53,7 +55,7 @@ export const UserPage = observer(() => {
                 myUserInfoFriend={myUserInfoFriend}
                 setIsOpenedFriend={setIsOpenedFriend}
               />
-              <div className={`${s.userInfo_posts} grid`}>
+              <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
                 <AddPostBlockEntity />
                 {posts?.length != 0 && <PostListWidget posts={posts} isUserPosts={true} />}
               </div>
