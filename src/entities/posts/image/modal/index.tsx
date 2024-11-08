@@ -1,6 +1,5 @@
 import { AntdImageComponent } from '@/shared/ui/image'
 import { Modal } from 'antd'
-import { FC } from 'react'
 import s from './index.module.scss'
 
 interface ImageListModalProps {
@@ -9,7 +8,7 @@ interface ImageListModalProps {
   setIsOpened: (state: boolean) => void
 }
 
-export const ImageListModal: FC<ImageListModalProps> = ({ images, isOpened, setIsOpened }) => {
+export const ImageListModal = ({ images, isOpened, setIsOpened }: ImageListModalProps) => {
   const handleClose = () => setIsOpened(false)
 
   return (

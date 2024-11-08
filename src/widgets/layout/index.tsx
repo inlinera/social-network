@@ -1,6 +1,5 @@
 import s from './index.module.scss'
 //COMPONENTS
-import { Layout } from 'antd'
 import { HeaderUi } from './ui/header'
 import { SidebarUI } from './ui/sidebar'
 //HOOKS
@@ -10,11 +9,9 @@ export const LayoutNav = () => {
   const isMobile = useMobile()
 
   return (
-    <Layout className={s.layout}>
+    <div className={s.layout}>
       {!isMobile && <HeaderUi />}
-      <Layout>
-        <SidebarUI />
-      </Layout>
-    </Layout>
+      <SidebarUI />
+    </div>
   )
 }

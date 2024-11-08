@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 //MOBX
 import handleLikeApi from '@/shared/store/handle-like-api'
 //COMPONENTS
@@ -17,8 +17,8 @@ interface PostBtnLineProps {
   userId: string
 }
 
-export const PostBtnLine: FC<PostBtnLineProps> = observer(
-  ({ likes, comments, postId, userId }) => {
+export const PostBtnLine = observer(
+  ({ likes, comments, postId, userId }: PostBtnLineProps) => {
     const { handlePostLike } = handleLikeApi
     const [loading, setLoading] = useState<boolean>(false)
 

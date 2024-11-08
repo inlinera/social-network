@@ -5,7 +5,6 @@ import { LayoutNav } from '@/widgets/layout'
 import AuthorizationStore from '@/shared/store/auth-api'
 //COMPONENTS
 import { Spin } from 'antd'
-import { Content } from 'antd/es/layout/layout'
 //HOOKS
 import { useMobile } from '@/shared/hooks/useMobile'
 
@@ -22,12 +21,12 @@ const AppRouter = observer(() => {
   return (
     <main>
       <LayoutNav />
-      <Content
+      <div
         style={isMobile ? { margin: '10px 0 0 0' } : { margin: '80px 50px 0 210px' }}
         className="jcc aic flex"
       >
         {user || token ? <PrivateRouter /> : <PublicRouter />}
-      </Content>
+      </div>
     </main>
   )
 })

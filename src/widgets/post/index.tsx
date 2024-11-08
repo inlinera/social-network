@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import s from './index.module.scss'
 //INTERFACES
@@ -13,7 +13,7 @@ import { LinkifyText } from '@/shared/ui/parseText'
 import { DropdownMenuEntity } from '@/entities/posts/dropdown-menu'
 import editPostApi from '@/shared/store/edit-post-api'
 
-export const PostWidget: FC<{ post: IPost }> = ({ post }) => {
+export const PostWidget = ({ post }: { post: IPost }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [postVal, setPostVal] = useState(post.value)
 

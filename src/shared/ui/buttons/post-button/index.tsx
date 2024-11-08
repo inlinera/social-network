@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FC, ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 import s from './index.module.scss'
 
 interface PostBtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -6,7 +6,7 @@ interface PostBtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean
 }
 
-export const PostBtn: FC<PostBtnProps> = ({ children, loading, ...props }) => {
+export const PostBtn = ({ children, loading, ...props }: PostBtnProps) => {
   return (
     <button className={`${s.postBtn} ${loading && s.loading} flex aic`} {...props}>
       <span>{loading ? 'Loading' : children}</span>

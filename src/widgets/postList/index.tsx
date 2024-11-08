@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react'
+import { useRef } from 'react'
 import s from './index.module.scss'
 import 'react-loading-skeleton/dist/skeleton.css'
 //COMPONENTS
@@ -14,7 +14,7 @@ interface PostListWidgetProps {
   isUserPosts?: boolean
 }
 
-export const PostListWidget: FC<PostListWidgetProps> = ({ posts, loading, isUserPosts }) => {
+export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const width = (containerRef.current?.clientWidth as number) - 20 || '95%'

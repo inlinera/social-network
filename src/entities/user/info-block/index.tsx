@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
 //COMPONENTS
@@ -16,8 +15,8 @@ interface UserBlockProps {
   setIsOpenedFriend: (state: boolean) => void
 }
 
-export const UserBlock: FC<UserBlockProps> = observer(
-  ({ userInfo, userInfoFriend, myUserInfoFriend, setIsOpenedFriend }) => {
+export const UserBlock = observer(
+  ({ userInfo, userInfoFriend, myUserInfoFriend, setIsOpenedFriend }: UserBlockProps) => {
     const userId = userInfo?.displayName
 
     return (

@@ -1,11 +1,10 @@
-import { FC } from 'react'
 import s from './index.module.scss'
 
 interface LinkifyTextProps {
   text: string
 }
 
-export const LinkifyText: FC<LinkifyTextProps> = ({ text }) => {
+export const LinkifyText = ({ text }: LinkifyTextProps) => {
   const linkifyText = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g
 

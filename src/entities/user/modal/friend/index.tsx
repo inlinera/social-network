@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 //COMPONENTS
 import { Modal, Select } from 'antd'
 import { UserFriendList } from '../../lists/friend'
@@ -15,11 +15,7 @@ interface UserFriendModalProps {
   setIsOpened: (state: boolean) => void
 }
 
-export const UserFriendModal: FC<UserFriendModalProps> = ({
-  userInfo,
-  isOpened,
-  setIsOpened,
-}) => {
+export const UserFriendModal = ({ userInfo, isOpened, setIsOpened }: UserFriendModalProps) => {
   const [friendOption, setFriendOption] = useState('Friends')
   const { user } = authApi
 

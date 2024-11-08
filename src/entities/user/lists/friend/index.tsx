@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { observer } from 'mobx-react-lite'
 //COMPONENTS
 import { Avatar, List } from 'antd'
@@ -17,7 +16,7 @@ interface UserFriendListProps {
   listType: string
 }
 
-export const UserFriendList: FC<UserFriendListProps> = observer(({ array, listType }) => {
+export const UserFriendList = observer(({ array, listType }: UserFriendListProps) => {
   const { acceptFriendRequest, removeFromFriends } = friendsApi
   const { user } = authApi
 

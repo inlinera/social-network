@@ -1,10 +1,10 @@
+import { useEffect } from 'react'
 import s from './index.module.scss'
+import { observer } from 'mobx-react-lite'
 //MOBX
 import postsApi from '@/shared/store/posts-api'
 //COMPONENTS
 import { PostListWidget } from '@/widgets/postList'
-import { useEffect } from 'react'
-import { observer } from 'mobx-react-lite'
 
 export const PostsPage = observer(() => {
   const { getPosts, posts, loading } = postsApi

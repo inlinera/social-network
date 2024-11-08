@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import s from './index.module.scss'
 import { ImageListModal } from '../modal'
 
@@ -6,7 +6,7 @@ interface PostImageListProps {
   images: string[]
 }
 
-export const PostImageList: FC<PostImageListProps> = ({ images }) => {
+export const PostImageList = ({ images }: PostImageListProps) => {
   const [isOpened, setIsOpened] = useState(false)
 
   return (

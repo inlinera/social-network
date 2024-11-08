@@ -1,5 +1,8 @@
+import { observer } from 'mobx-react-lite'
+//INTERFACES
 import { IFriend } from '@/shared/interfaces/IFriend'
 import { IUser } from '@/shared/interfaces/IUser'
+//MOBX
 import authApi from '@/shared/store/auth-api'
 import friendsApi from '@/shared/store/friends-api'
 import { token } from '@/shared/token/token'
@@ -10,8 +13,6 @@ import {
   UserDeleteOutlined,
 } from '@ant-design/icons'
 import { Button } from 'antd'
-import { observer } from 'mobx-react-lite'
-import { FC } from 'react'
 
 interface InfoBlockFriendButtons {
   userInfo?: IUser
@@ -20,8 +21,8 @@ interface InfoBlockFriendButtons {
   userId?: string
 }
 
-export const InfoBlockFriendButtons: FC<InfoBlockFriendButtons> = observer(
-  ({ userInfo, userInfoFriend, myUserInfoFriend, userId }) => {
+export const InfoBlockFriendButtons = observer(
+  ({ userInfo, userInfoFriend, myUserInfoFriend, userId }: InfoBlockFriendButtons) => {
     const { sendFriendRequest, acceptFriendRequest, removeFromFriends } = friendsApi
     const { user } = authApi
 
