@@ -1,15 +1,20 @@
+const postColor = 'rgba(30, 30, 30, 0.95)'
+const redColor = '#e63946'
+const grayColor = '#353535d8'
+const bodyColor = '#0e0e0e'
+
 const Button = {
-  colorPrimary: '#f0a44d',
-  colorPrimaryHover: '#eff041d0',
-  colorPrimaryActive: '#f0a44d',
+  colorPrimary: redColor,
+  colorPrimaryHover: redColor,
+  colorPrimaryActive: redColor,
   colorTextDisabled: 'rgb(240, 240, 240)',
   marginXS: 0,
 }
 
 const Input = {
-  colorPrimary: '#646363d0',
-  colorPrimaryHover: '#f0a44d',
-  colorPrimaryActive: '#f0a44d',
+  colorPrimary: redColor,
+  colorPrimaryHover: redColor,
+  colorPrimaryActive: redColor,
   colorText: 'rgba(255, 255, 255, 0.9)',
   colorTextPlaceholder: 'rgba(255, 255, 255, 0.5)',
   borderRadius: 9,
@@ -19,11 +24,11 @@ const Input = {
 const List = {
   itemPadding: '5px 0',
   colorText: '#fff',
-  colorPrimary: '#f0a44d',
+  colorPrimary: redColor,
 }
 
 const Modal = {
-  contentBg: '#393939',
+  contentBg: postColor,
   headerBg: 'transparent',
   footerBg: 'transparent',
   titleColor: '#fff',
@@ -31,29 +36,29 @@ const Modal = {
 }
 
 const Select = {
-  colorPrimary: '#f0a44d',
-  colorPrimaryHover: '#f0a44d',
-  colorBgElevated: 'hsla(0, 3%, 7%, 0.9)',
-  clearBg: 'hsla(0, 3%, 7%, 0.9)',
-  selectorBg: 'hsla(0, 3%, 7%, 0.9)',
+  colorPrimary: redColor,
+  colorPrimaryHover: redColor,
+  colorBgElevated: bodyColor,
+  clearBg: bodyColor,
+  selectorBg: bodyColor,
   colorText: '#fff',
-  optionSelectedBg: '#f0a44d',
+  optionSelectedBg: redColor,
   optionPadding: '8px 15px',
   colorTextDescription: '#fff',
 }
 
 const Menu = {
-  darkItemBg: '#393939',
-  darkItemSelectedBg: '#f0a44d',
+  darkItemBg: redColor,
+  darkItemSelectedBg: redColor,
   itemMarginInline: 6,
 }
 
 const Spin = {
-  colorPrimary: '#f0a44d',
+  colorPrimary: redColor,
 }
 
 const Dropdown = {
-  colorBgElevated: '#393939',
+  colorBgElevated: grayColor,
   colorText: '#fff',
 }
 
