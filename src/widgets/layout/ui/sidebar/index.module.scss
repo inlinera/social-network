@@ -14,12 +14,11 @@ $hover-color: #777777d8;
   max-width: 500px;
   padding-top: 60px;
   inset-inline-start: 0;
-  top: 0;
-  bottom: 0;
   overflow: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
   scroll-behavior: none;
+  z-index: 9999;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -28,7 +27,7 @@ $hover-color: #777777d8;
     height: max-content;
     padding: 5px;
     border-radius: 10px;
-    background-color: $post-color;
+    background-color: $body-color;
     .sider_sidebar__button {
       margin: 2px;
       padding: 5px;
@@ -47,5 +46,33 @@ $hover-color: #777777d8;
         background-color: $hover-color;
       }
     }
+  }
+}
+
+@mixin bgtransparent {
+  background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .sider {
+    width: 100vw;
+    height: max-content;
+    bottom: 0;
+    .sider_sidebar {
+      position: absolute;
+      bottom: 0;
+      flex-direction: row;
+      justify-content: space-around;
+      border-radius: 0;
+      .sider_sidebar__button {
+        flex-direction: column;
+        &:hover {
+          @include bgtransparent;
+        }
+      }
+    }
+  }
+  .toggle {
+    @include bgtransparent;
   }
 }
