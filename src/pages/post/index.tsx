@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 //INTERFACES
@@ -7,8 +8,7 @@ import { IPost } from '@/shared/interfaces/IPost'
 import postApi from '@/shared/store/post-api'
 //COMPONENTS
 import { PostWidget } from '@/widgets/post'
-import { PostCommentsList } from '@/entities/posts/comments'
-import { useEffect } from 'react'
+import { PostCommentsList } from '@/entities/posts/index'
 //HOOKS
 import { useParams } from 'react-router-dom'
 

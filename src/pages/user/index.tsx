@@ -9,11 +9,11 @@ import userPostsApi from '@/shared/store/user-posts-api'
 // COMPONENTS
 import { Spin } from 'antd'
 import { PostListWidget } from '@/widgets/postList'
-import { UserBlock } from '@/entities/user/info-block'
-import { UserFriendModal } from '@/entities/user/modal/friend'
+import { UserBlock } from '@/entities/user/index'
+import { UserFriendModal } from '@/entities/user/index'
+import { AddPostBlockEntity } from '@/entities/user/index'
 //HOOKS
 import { useGetFriends } from '@/shared/hooks/useGetFriends'
-import { AddPostBlockEntity } from '@/entities/user/add-post-block'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore

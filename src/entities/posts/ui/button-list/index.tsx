@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { observer } from 'mobx-react-lite'
 //MOBX
 import handleLikeApi from '@/shared/store/handle-like-api'
 //COMPONENTS
 import { PostBtn } from '@/shared/ui/buttons/post-button'
-import { observer } from 'mobx-react-lite'
 import { Link } from 'react-router-dom'
 //ICONS
 import { CommentOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons'
@@ -21,6 +21,7 @@ export const PostBtnLine = observer(
   ({ likes, comments, postId, userId }: PostBtnLineProps) => {
     const { handlePostLike } = handleLikeApi
     const [loading, setLoading] = useState<boolean>(false)
+    const tempSize = { fontSize: '16px' }
 
     const handleLikeStateChange = async () => {
       setLoading(true)
@@ -39,9 +40,9 @@ export const PostBtnLine = observer(
           {loading ? (
             'Loading'
           ) : likes?.includes(userId) ? (
-            <HeartFilled style={{ fontSize: '16px' }} />
+            <HeartFilled style={tempSize} />
           ) : (
-            <HeartOutlined style={{ fontSize: '16px' }} />
+            <HeartOutlined style={tempSize} />
           )}
           {likes?.length}
         </PostBtn>

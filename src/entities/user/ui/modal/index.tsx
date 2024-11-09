@@ -1,13 +1,14 @@
 import { useState } from 'react'
 //COMPONENTS
 import { Modal, Select } from 'antd'
-import { UserFriendList } from '../../lists/friend'
+import { UserFriendList } from '../lists'
 //INTERFACES
 import { IUser } from '@/shared/interfaces/IUser'
+import { IFriend } from '@/shared/interfaces/IFriend'
 //DATA
 import { friendsModal } from '@/shared/data/friends-modal-tab'
+//MOBX
 import authApi from '@/shared/store/auth-api'
-import { IFriend } from '@/shared/interfaces/IFriend'
 
 interface UserFriendModalProps {
   userInfo?: IUser

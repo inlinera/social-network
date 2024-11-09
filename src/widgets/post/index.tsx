@@ -6,11 +6,12 @@ import { IPost } from '@/shared/interfaces/IPost'
 //DATA
 import { token } from '@/shared/token/token'
 //COMPONENTS
-import { PostImageList } from '@/entities/posts/image/image-list'
-import { PostBtnLine } from '@/entities/posts/button-list'
+import { PostImageList } from '@/entities/posts/index'
+import { PostBtnLine } from '@/entities/posts/index'
+import { DropdownMenuEntity } from '@/entities/posts/index'
 import { Avatar } from 'antd'
 import { LinkifyText } from '@/shared/ui/parseText'
-import { DropdownMenuEntity } from '@/entities/posts/dropdown-menu'
+//MOBX
 import editPostApi from '@/shared/store/edit-post-api'
 
 export const PostWidget = ({ post }: { post: IPost }) => {

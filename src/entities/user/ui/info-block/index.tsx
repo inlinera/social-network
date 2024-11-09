@@ -2,8 +2,8 @@ import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
 //COMPONENTS
 import { Avatar } from 'antd'
-import { InfoBlockModalButtons } from './buttons/modal-buttons'
-import { InfoBlockFriendButtons } from './buttons/friend-buttons'
+import { InfoBlockModalButtons } from './ui/buttons/modal'
+import { InfoBlockFriendButtons } from './ui/buttons/friend'
 //INTERFACES
 import { IFriend } from '@/shared/interfaces/IFriend'
 import { IUser } from '@/shared/interfaces/IUser'
