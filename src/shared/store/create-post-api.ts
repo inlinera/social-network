@@ -12,6 +12,7 @@ class CreatePostApi {
 
   createPost = async (value: string, images?: string[]) => {
     const newPostRef = doc(collection(db, 'posts'))
+
     return await setDoc(
       newPostRef,
       {
@@ -22,6 +23,7 @@ class CreatePostApi {
         likes: [],
         images: images ? images : [],
         comments: [] as IComment[],
+        time: new Date().getTime(),
       } as IPost,
       { merge: true }
     )

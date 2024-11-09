@@ -21,6 +21,7 @@ export const SidebarUI = () => {
             <button
               className={`${s.sider_sidebar__button} flex aic ${isExists && s.toggle}`}
               onClick={() => navigate()}
+              key={e.path}
             >
               {e.icon}
               {e.title}

@@ -14,11 +14,10 @@ $hover-color: #777777d8;
   max-width: 500px;
   padding-top: 60px;
   inset-inline-start: 0;
-  overflow: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
   scroll-behavior: none;
-  z-index: 9999;
+  z-index: 100;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -60,6 +59,7 @@ $hover-color: #777777d8;
     bottom: 0;
     .sider_sidebar {
       position: absolute;
+      width: 100vw;
       bottom: 0;
       flex-direction: row;
       justify-content: space-around;

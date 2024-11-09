@@ -18,8 +18,12 @@
     min-width: 100%;
     justify-content: space-between;
     a {
-      font-size: 13px;
-      font-weight: 400;
+      p {
+        font-size: 15px;
+      }
+      span {
+        color: #d3d3d3;
+      }
     }
   }
   .post_user {

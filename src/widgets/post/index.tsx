@@ -19,15 +19,27 @@ export const PostWidget = ({ post }: { post: IPost }) => {
 
   const { submitChanges } = editPostApi
 
+  const ruDate = Intl.DateTimeFormat()
+  const postDate = new Date(post.time)
+  const date =
+    ruDate.format(postDate) + ' в ' + postDate.getHours() + ':' + postDate.getMinutes()
+
   return (
     <div className={`${s.post} grid`}>
       <div className={`${s.post__upperblock} flex aic`}>
-        {post.userAvatar && (
-          <Link to={`/user/${post.userName}`} className={`${s.post_user} flex aic`}>
-            <Avatar size={'default'} src={post.userAvatar} alt="avatar" />
-            <p>{post.userName}</p>
-          </Link>
-        )}
+        <div className="flex fdc">
+          {post.userAvatar && (
+            <>
+              <Link to={`/user/${post.userName}`} className={`${s.post_user} flex aic`}>
+                <Avatar size={'default'} src={post.userAvatar} alt="avatar" />
+                <div className="flex fdc">
+                  <p>{post.userName}</p>
+                  <span className="fz10">{date}</span>
+                </div>
+              </Link>
+            </>
+          )}
+        </div>
         <DropdownMenuEntity postId={post.id} setIsEditing={setIsEditing} />
       </div>
       {isEditing ? (

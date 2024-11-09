@@ -8,4 +8,5 @@ export interface IPost {
   likes: []
   images?: string[]
   comments: IComment[]
+  time: number
 }
