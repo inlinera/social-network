@@ -9,4 +9,5 @@ export interface IPost {
   images?: string[]
   comments: IComment[]
   time: number
+  tags: string[]
 }

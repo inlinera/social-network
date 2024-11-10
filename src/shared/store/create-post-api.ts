@@ -10,7 +10,7 @@ class CreatePostApi {
     makeAutoObservable(this)
   }
 
-  createPost = async (value: string, images?: string[]) => {
+  createPost = async (value: string, tags: string[], images?: string[]) => {
     const newPostRef = doc(collection(db, 'posts'))
 
     return await setDoc(
@@ -24,6 +24,7 @@ class CreatePostApi {
         images: images ? images : [],
         comments: [] as IComment[],
         time: new Date().getTime(),
+        tags: tags,
       } as IPost,
       { merge: true }
     )

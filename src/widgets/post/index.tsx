@@ -11,6 +11,7 @@ import { PostBtnLine } from '@/entities/posts/index'
 import { DropdownMenuEntity } from '@/entities/posts/index'
 import { Avatar } from 'antd'
 import { LinkifyText } from '@/shared/ui/parseText'
+import { PostTagEntity } from '@/entities/posts/ui/tags'
 //MOBX
 import editPostApi from '@/shared/store/edit-post-api'
 
@@ -22,8 +23,7 @@ export const PostWidget = ({ post }: { post: IPost }) => {
 
   const ruDate = Intl.DateTimeFormat()
   const postDate = new Date(post.time)
-  const date =
-    ruDate.format(postDate) + ' в ' + postDate.getHours() + ':' + postDate.getMinutes()
+  const date = ruDate.format(post.time)
 
   return (
     <div className={`${s.post} grid`}>
@@ -35,7 +35,9 @@ export const PostWidget = ({ post }: { post: IPost }) => {
                 <Avatar size={'default'} src={post.userAvatar} alt="avatar" />
                 <div className="flex fdc">
                   <p>{post.userName}</p>
-                  <span className="fz10">{date}</span>
+                  <span className="fz10">
+                    {date + ' в ' + postDate.getHours() + ':' + postDate.getMinutes()}
+                  </span>
                 </div>
               </Link>
             </>
@@ -56,6 +58,7 @@ export const PostWidget = ({ post }: { post: IPost }) => {
       <div className={s.post_images}>
         {post.images && <PostImageList images={post.images} />}
       </div>
+      <PostTagEntity tags={post.tags} />
       <PostBtnLine
         likes={post.likes}
         comments={post.comments}

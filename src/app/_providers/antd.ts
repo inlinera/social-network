@@ -45,6 +45,7 @@ const Select = {
   optionSelectedBg: redColor,
   optionPadding: '8px 15px',
   colorTextDescription: '#fff',
+  optionSelectedColor: '#fff',
 }
 
 const Menu = {
