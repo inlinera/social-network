@@ -7,9 +7,8 @@
     background-color: rgb(77, 77, 77);
     border-radius: 10px;
   }
-
-  .images {
-    width: 100%;
+  .image {
+    max-width: 80%;
     max-height: 170px;
     border-radius: 10px;
   }
@@ -21,7 +20,7 @@
       min-width: 95px;
       height: 95px;
     }
-    .images {
+    .image {
       height: 95px;
     }
   }

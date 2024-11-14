@@ -45,26 +45,28 @@ export const PostWidget = ({ post }: { post: IPost }) => {
         </div>
         <DropdownMenuEntity postId={post.id} setIsEditing={setIsEditing} />
       </div>
-      {isEditing ? (
-        <div>
-          <input value={postVal} onChange={e => setPostVal(e.target.value)} />
-          <button onClick={() => submitChanges(postVal, setIsEditing)}>done</button>
+      <div className={s.post__mainblock}>
+        {isEditing ? (
+          <div>
+            <input value={postVal} onChange={e => setPostVal(e.target.value)} />
+            <button onClick={() => submitChanges(postVal, setIsEditing)}>done</button>
+          </div>
+        ) : (
+          <p>
+            <LinkifyText text={post.value} />
+          </p>
+        )}
+        <div className={s.post__images}>
+          {post.images && <PostImageList images={post.images} />}
         </div>
-      ) : (
-        <p>
-          <LinkifyText text={post.value} />
-        </p>
-      )}
-      <div className={s.post_images}>
-        {post.images && <PostImageList images={post.images} />}
+        <PostTagEntity tags={post.tags} />
+        <PostBtnLine
+          likes={post.likes}
+          comments={post.comments}
+          postId={post.id}
+          userId={token!}
+        />
       </div>
-      <PostTagEntity tags={post.tags} />
-      <PostBtnLine
-        likes={post.likes}
-        comments={post.comments}
-        postId={post.id}
-        userId={token!}
-      />
     </div>
   )
 }

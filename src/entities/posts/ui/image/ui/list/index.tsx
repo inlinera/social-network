@@ -16,14 +16,14 @@ export const PostImageList = ({ images }: PostImageListProps) => {
         {images.length >= 3 ? (
           <div>
             {images.slice(0, 3).map(i => (
-              <img src={i} alt={i} key={i + Math.random()} className={s.images} />
+              <img src={i} alt={i} key={i} className={s.image} />
             ))}
             <button className={s.other_images} onClick={() => setIsOpened(true)}>
               +{images.length - 3}
             </button>
           </div>
         ) : (
-          images.map(i => <img src={i} alt={i} key={i + Math.random()} className={s.images} />)
+          images.map(i => <img src={i} alt={i} key={i} className={s.image} />)
         )}
       </div>
     </div>

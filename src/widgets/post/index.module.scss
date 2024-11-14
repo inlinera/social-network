@@ -11,7 +11,7 @@
   border-radius: 9px;
   * {
     max-width: max-content;
-    margin: 6px;
+    margin: 5px;
     color: white;
   }
   .post__upperblock {
@@ -26,14 +26,25 @@
       }
     }
   }
+  .post__mainblock {
+    margin: 4px 0;
+    min-width: 100%;
+    * {
+      margin: 2px;
+    }
+    .post__images {
+      * {
+        margin: 4px;
+      }
+      *:first-child {
+        margin: 4px 4px 4px 0;
+      }
+    }
+  }
   .post_user {
     * {
       margin: 0 5px;
     }
-  }
-  .post_images {
-    padding: 0;
-    margin: 0;
   }
 }
 
