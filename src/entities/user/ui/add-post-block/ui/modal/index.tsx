@@ -17,6 +17,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     event.preventDefault()
+    if (!value) return
     createPost(value, selectedTags as string[])
     setValue('')
     setSelectedTags([])
@@ -49,6 +50,8 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
               style={{ width: 120, height: 'inherit' }}
               options={postTags}
               onChange={(value: SelectProps['options']) => setSelectedTags(value)}
+              maxLength={4}
+              maxCount={4}
             />
           </div>
           <RedButtonUI onClick={handleSubmit}>Send</RedButtonUI>
