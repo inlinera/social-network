@@ -9,7 +9,7 @@ export const AddPostBlockEntity = () => {
   const [isOpened, setIsOpened] = useState(false)
 
   return (
-    <>
+    <div className={s.add_post}>
       <UserAddPostModal isOpened={isOpened} setIsOpened={setIsOpened} />
       <div className={`${s.add_post_block} flex jcc aic`}>
         <div className={s.add_post_block_input}>
@@ -22,6 +22,6 @@ export const AddPostBlockEntity = () => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   )
 }

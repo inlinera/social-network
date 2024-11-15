@@ -26,7 +26,7 @@ export const UserBlock = observer(
             size={100}
             icon={<img src={userInfo?.avatarUrl} alt="avatar" draggable={false} />}
           />
-          <div className="flex aic">
+          <div className={`flex aic`}>
             <p style={{ whiteSpace: 'nowrap' }}>{userId}</p>
             <InfoBlockFriendButtons
               userInfo={userInfo}
@@ -36,8 +36,9 @@ export const UserBlock = observer(
             />
           </div>
         </div>
-        <div>
-          <p style={{ textAlign: 'center' }}>{userInfo?.description}</p>
+        <div className={`${s.userInfo_meta_someInfo}`}>
+          <i>Description:</i>
+          <p>{userInfo?.description}</p>
           <div className={s.userInfo_meta_btns}>
             <InfoBlockModalButtons setIsOpenedFriend={setIsOpenedFriend} />
           </div>

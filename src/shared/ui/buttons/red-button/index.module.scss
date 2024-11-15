@@ -1,6 +1,7 @@
 @import '@/app/assets/styles/variables.scss';
 
 .button {
+  width: max-content;
   margin: 5px;
   padding: 10px 15px;
   background-color: $red-color;
