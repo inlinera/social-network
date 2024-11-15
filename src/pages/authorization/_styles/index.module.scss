@@ -1,13 +1,9 @@
-@import '@/app/assets/styles/variables.scss';
-
 .signForm {
-    position: relative;
-    width: 80%;
-    padding: 15px;
-    color: #fff;
-    background-color: $gray-color;
-    border-radius: 16px;
-    * {
-        margin: 6px;
-    }
+  position: relative;
+  min-width: inherit;
+  padding: 15px;
+  color: #fff;
+  * {
+    margin: 6px;
+  }
 }

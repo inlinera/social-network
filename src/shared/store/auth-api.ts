@@ -35,6 +35,7 @@ class AuthorizationStore {
     try {
       await setPersistence(auth, browserLocalPersistence)
       onAuthStateChanged(auth, async user => {
+        if (!user) return
         const { displayName } = user as IUser
         const updatedUserDoc = await getDoc(doc(db, 'users', displayName))
         if (updatedUserDoc.exists()) {

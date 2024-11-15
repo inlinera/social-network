@@ -10,7 +10,7 @@ export type RouteT = {
   element: FunctionComponent
 }
 
-export const publicRoutes: RouteT[] = [{ path: '/auth', element: AuthPage }]
+export const publicRoutes: RouteT[] = [{ path: '*', element: AuthPage }]
 
 export const privateRoutes: RouteT[] = [
   { path: '/', element: PostsPage },

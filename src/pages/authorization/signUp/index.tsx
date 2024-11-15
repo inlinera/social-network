@@ -1,11 +1,13 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import s from '@/pages/authorization/_styles/index.module.scss'
 import { observer } from 'mobx-react-lite'
 //MOBX
 import AuthorizationStore from '@/shared/store/auth-api'
 import storageApi from '@/shared/store/storage-api'
 //COMPONENTS
-import { Button, Input, Avatar } from 'antd'
+import { Input, Avatar } from 'antd'
+import { RedButtonUI } from '@/shared/ui/buttons/red-button'
+//ICONS
 import { UserOutlined } from '@ant-design/icons'
 //DATA
 import { nullUser } from '@/shared/data/null-user'
@@ -14,7 +16,7 @@ interface SignUpProps {
   setIsReg: (isReg: boolean) => void
 }
 
-export const SignUp: FC<SignUpProps> = observer(({ setIsReg }) => {
+export const SignUp = observer(({ setIsReg }: SignUpProps) => {
   const { signUp, error } = AuthorizationStore
   const { image, uploadAvatar } = storageApi
 
@@ -81,9 +83,7 @@ export const SignUp: FC<SignUpProps> = observer(({ setIsReg }) => {
             style={{ height: 120, resize: 'none' }}
           />
         </div>
-        <Button type="primary" onClick={handleSubmit}>
-          Sign Up
-        </Button>
+        <RedButtonUI onClick={handleSubmit}>Sign Up</RedButtonUI>
       </form>
       <button onClick={() => setIsReg(false)}>I'm already have account</button>
       {error && error}
