@@ -1,3 +1,4 @@
+import s from './index.module.scss'
 import { PostTagUi } from './ui/tag'
 
 interface PostTagEntityProps {
@@ -6,7 +7,7 @@ interface PostTagEntityProps {
 
 export const PostTagEntity = ({ tags }: PostTagEntityProps) => {
   return (
-    <div className="flex">
+    <div className={`${s.tagsMap} flex`}>
       {tags && tags.map((t: string) => <PostTagUi name={t} key={t} />)}
     </div>
   )

@@ -1,6 +1,7 @@
 @import '@/app/assets/styles/variables.scss';
 
 .post {
+  position: relative;
   width: inherit;
   margin: 15px auto;
   padding: 10px;
@@ -28,7 +29,8 @@
   }
   .post__mainblock {
     margin: 4px 0;
-    min-width: 100%;
+    width: 100%;
+    overflow-x: auto;
     * {
       margin: 2px;
     }
