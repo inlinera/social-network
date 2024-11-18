@@ -4,7 +4,6 @@ import { makeAutoObservable } from 'mobx'
 import { v4 } from 'uuid'
 
 class StorageApi {
-  
   constructor() {
     makeAutoObservable(this)
   }
@@ -12,7 +11,7 @@ class StorageApi {
   // ============ STORAGE ============
 
   //ALL STORAGE STATES
-  image = null as null | string | File
+  image? = null as null | string | File
 
   //ALL STORAGE ACTIONS
   uploadAvatar = async (file: File) => {

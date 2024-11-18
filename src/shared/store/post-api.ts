@@ -10,14 +10,14 @@ class postApi {
     makeAutoObservable(this)
   }
 
-  // =============== POST ===============
+  // ===================== POST =====================
 
-  //ALL POST STATES
+  // POST STATES
   post? = {} as IPost
   loading = false
   error? = ''
 
-  //ALL POST ACTIONS
+  // POST ACTIONS
   getPost = async (id: string) => {
     this.setLoading(true)
     try {
@@ -32,8 +32,8 @@ class postApi {
     }
   }
 
-  //ALL POST STATES MOVIES
-  setPost = (user: IPost) => (this.post = user)
+  // POST STATE MOVES
+  setPost = (post: IPost) => (this.post = post)
   setLoading = (loading: boolean) => (this.loading = loading)
   setError = (err: string) => (this.error = err)
 }

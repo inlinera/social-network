@@ -4,18 +4,17 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
 
 class userPostsApi {
-  
   constructor() {
     makeAutoObservable(this)
   }
 
-  // =========== USER-POSTS ==============
+  // ====================== USER-POSTS ======================
 
-  //ALL USER-POSTS STATES
+  // USER_POSTS STATES
   posts? = [] as IPost[]
   loading = false
 
-  //ALL USER-POSTS ACTIONS
+  // USER_POSTS ACTIONS
   getUserPosts = async (userId: string) => {
     this.setLoading(true)
     try {
@@ -37,7 +36,7 @@ class userPostsApi {
       this.setLoading(false)
     }
   }
-  //ALL USER-POSTS STATE MOVES
+  // USER_POSTS STATE MOVES
   setLoading = (state: boolean) => (this.loading = state)
   setPosts = (posts: IPost[]) => (this.posts = posts)
 }

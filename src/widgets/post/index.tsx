@@ -32,7 +32,12 @@ export const PostWidget = ({ post }: { post: IPost }) => {
           {post.userAvatar && (
             <>
               <Link to={`/user/${post.userName}`} className={`${s.post_user} flex aic`}>
-                <Avatar size={'default'} src={post.userAvatar} alt="avatar" />
+                <Avatar
+                  size={'default'}
+                  src={post.userAvatar}
+                  alt="avatar"
+                  draggable={false}
+                />
                 <div className="flex fdc">
                   <p>{post.userName}</p>
                   <span className="fz10">

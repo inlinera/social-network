@@ -8,7 +8,7 @@ class DeletePostApi {
   }
 
   // DELETE POST API STATES
-  loading? = false
+  loading = false
 
   // DELETE POST ACTION
   deletePost = async (id: string) => {

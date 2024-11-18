@@ -12,19 +12,11 @@ class HandlePostLikeApi {
 
   handlePostLike = async (liked: boolean, postId: string, userId: string) => {
     try {
-      console.log('postId:', postId) // Check postId
       const postRef = doc(db, 'posts', postId)
-      console.log('postRef:', postRef) // Check postRef
-
       const postDoc = await getDoc(postRef)
-      console.log('postDoc:', postDoc) // Check postDoc
 
       if (postDoc.exists()) {
-        console.log('postDoc.data():', postDoc.data()) // Check postDoc.data()
-
         const currentLikes = postDoc.data().likes
-        console.log('currentLikes:', currentLikes) // Check currentLikes
-
         if (liked) {
           await updateDoc(postRef, {
             likes: arrayRemove(userId),

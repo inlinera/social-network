@@ -26,8 +26,8 @@ class AuthorizationStore {
 
   //ALL AUTH STATES
   user? = null as IUser | null
-  loading? = true
-  error? = ''
+  loading = false
+  error = ''
 
   //ALL AUTH ACTIONS
   initializeAuth = async () => {

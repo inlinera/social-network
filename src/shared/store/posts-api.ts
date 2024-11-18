@@ -6,7 +6,6 @@ import { collection, onSnapshot, query } from 'firebase/firestore'
 import { IPost } from '../interfaces/IPost'
 
 class PostsStore {
-
   constructor() {
     makeAutoObservable(this)
   }
@@ -15,7 +14,7 @@ class PostsStore {
 
   //ALL POSTS STATES
   posts? = [] as IPost[]
-  loading? = false
+  loading = false
 
   //ALL POSTS ACTIONS
   getPosts = async () => {

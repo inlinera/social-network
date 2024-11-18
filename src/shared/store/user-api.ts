@@ -6,19 +6,18 @@ import { db } from '@/app/_providers/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 
 class userApi {
-  
   constructor() {
     makeAutoObservable(this)
   }
 
   // =============== USER ===============
 
-  //ALL USER STATES
+  // USER STATES
   userInfo? = {} as IUser
   loading = false
-  error? = ''
+  error = ''
 
-  //ALL USER ACTIONS
+  // USER ACTIONS
   getUser = async (id: string) => {
     this.setLoading(true)
     try {
@@ -31,7 +30,7 @@ class userApi {
     }
   }
 
-  //ALL USER STATES MOVIES
+  //USER STATE MOVIES
   setUser = (user: IUser) => (this.userInfo = user)
   setLoading = (loading: boolean) => (this.loading = loading)
   setError = (err: string) => (this.error = err)
