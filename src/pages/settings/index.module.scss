@@ -1,0 +1,29 @@
+@import '@/app/assets/styles/variables.scss';
+
+.mainSettings {
+  width: 100%;
+  div {
+    border: 2px solid $gray-color;
+  }
+  .mainSettings__buttons {
+    width: 100%;
+    border-radius: 13px 13px 0 0;
+    button {
+      margin: 3px;
+      padding: 5px 10px;
+      border-radius: 13px;
+      transition: all 0.4s;
+      &:hover {
+        background-color: rgb(99, 99, 99);
+      }
+    }
+  }
+  .mainSettings__info {
+    height: 500px;
+    width: 100%;
+    border-radius: 0 0 13px 13px;
+  }
+  .active {
+    background-color: rgb(99, 99, 99);
+  }
+}

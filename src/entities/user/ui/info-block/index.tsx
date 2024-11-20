@@ -17,8 +17,6 @@ interface UserBlockProps {
 
 export const UserBlock = observer(
   ({ userInfo, userInfoFriend, myUserInfoFriend, setIsOpenedFriend }: UserBlockProps) => {
-    const userId = userInfo?.displayName
-
     return (
       <div className={`${s.userInfo_meta} grid jcc`}>
         <div className="grid aic">
@@ -27,12 +25,11 @@ export const UserBlock = observer(
             icon={<img src={userInfo?.avatarUrl} alt="avatar" draggable={false} />}
           />
           <div className={`flex aic`}>
-            <p style={{ whiteSpace: 'nowrap' }}>{userId}</p>
+            <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
             <InfoBlockFriendButtons
               userInfo={userInfo}
               userInfoFriend={userInfoFriend}
               myUserInfoFriend={myUserInfoFriend}
-              userId={userId}
             />
           </div>
         </div>

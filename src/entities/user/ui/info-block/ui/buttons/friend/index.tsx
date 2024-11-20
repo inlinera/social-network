@@ -5,54 +5,66 @@ import { IUser } from '@/shared/interfaces/IUser'
 //MOBX
 import authApi from '@/shared/store/auth-api'
 import friendsApi from '@/shared/store/friends-api'
-import { token } from '@/shared/token/token'
+//ICONS
 import {
   MessageOutlined,
   SettingOutlined,
   UserAddOutlined,
   UserDeleteOutlined,
 } from '@ant-design/icons'
-import { Button } from 'antd'
+//COMPONENTS
+import { RedButtonUI } from '@/shared/ui/buttons/red-button'
+import { Link } from 'react-router-dom'
 
 interface InfoBlockFriendButtons {
   userInfo?: IUser
   userInfoFriend: IFriend
   myUserInfoFriend: IFriend
-  userId?: string
 }
 
 export const InfoBlockFriendButtons = observer(
-  ({ userInfo, userInfoFriend, myUserInfoFriend, userId }: InfoBlockFriendButtons) => {
+  ({ userInfo, userInfoFriend, myUserInfoFriend }: InfoBlockFriendButtons) => {
     const { sendFriendRequest, acceptFriendRequest, removeFromFriends } = friendsApi
     const { user } = authApi
 
+    const userId = userInfo?.displayName
+
+    const isMyPage = user?.displayName !== userInfo?.displayName
+
+    const isUserFriend = user?.friends.some((friend: IFriend) => friend.displayName === userId)
+
+    const isUserExistIncReq = user?.incomingReq.some(
+      (req: IFriend) => req.displayName === userId
+    )
+    const isUserExistOutReq = user?.outgoingReq.some(
+      (req: IFriend) => req.displayName === userId
+    )
+    const tempStyle = { fontSize: '18px', color: '#fff' }
+
     return (
       <div>
-        {token !== userInfo?.displayName ? (
-          user?.friends.some((friend: IFriend) => friend.displayName === userId) ? (
+        {isMyPage ? (
+          isUserFriend ? (
             <button>
-              <MessageOutlined style={{ fontSize: '18px' }} />
+              <MessageOutlined style={tempStyle} />
             </button>
-          ) : user?.incomingReq.some((req: IFriend) => req.displayName === userId) ? (
-            <Button
-              type="primary"
-              onClick={() => acceptFriendRequest(userInfoFriend, myUserInfoFriend)}
-            >
+          ) : isUserExistIncReq ? (
+            <RedButtonUI onClick={() => acceptFriendRequest(userInfoFriend, myUserInfoFriend)}>
               Accept
-            </Button>
-          ) : user?.outgoingReq.some((req: IFriend) => req.displayName === userId) ? (
+            </RedButtonUI>
+          ) : isUserExistOutReq ? (
             <button onClick={() => removeFromFriends(userInfoFriend, myUserInfoFriend)}>
-              <UserDeleteOutlined style={{ fontSize: '18px' }} />
+              <UserDeleteOutlined style={tempStyle} />
             </button>
           ) : (
             <button onClick={() => sendFriendRequest(userInfoFriend, myUserInfoFriend)}>
-              <UserAddOutlined style={{ fontSize: '18px' }} />
+              <UserAddOutlined style={tempStyle} />
             </button>
           )
         ) : (
-          <button>
-            <SettingOutlined style={{ fontSize: '18px' }} />
-          </button>
+          <Link to={'/settings'}>
+            <SettingOutlined style={tempStyle} />
+          </Link>
         )}
       </div>
     )
