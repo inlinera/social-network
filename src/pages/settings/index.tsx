@@ -12,6 +12,7 @@ export const SettingsPage = () => {
           <button
             className={`${activeType == t.type && s.active} cw`}
             onClick={() => setActiveType(t.type)}
+            key={t.type}
           >
             {t.name}
           </button>

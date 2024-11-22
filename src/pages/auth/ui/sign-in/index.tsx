@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import s from '@/pages/authorization/_styles/index.module.scss'
+import s from '@/pages/auth/ui/_styles/index.module.scss'
 //MOBX
 import AuthorizationStore from '@/shared/store/auth-api'
 //COMPONENTS

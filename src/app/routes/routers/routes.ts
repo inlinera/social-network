@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 //PAGES
-import { AuthPage } from '@/pages/authorization'
+import { AuthPage } from '@/pages/auth'
 import { PostsPage } from '@/pages/posts/index'
 import { UserPage } from '@/pages/user'
 import { PostPage } from '@/pages/post'
