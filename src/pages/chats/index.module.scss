@@ -1,0 +1,16 @@
+@import '@/app/assets/styles/variables.scss';
+
+.chatsPage {
+  width: 100%;
+  color: #fff;
+  .chatElement {
+    width: 100%;
+    padding: 25px 15px;
+    border-radius: 16px;
+    background-color: $post-color;
+    cursor: pointer;
+    * {
+      margin: 2px;
+    }
+  }
+}

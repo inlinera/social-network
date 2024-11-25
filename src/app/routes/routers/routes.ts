@@ -5,6 +5,7 @@ import { PostsPage } from '@/pages/posts/index'
 import { UserPage } from '@/pages/user'
 import { PostPage } from '@/pages/post'
 import { SettingsPage } from '@/pages/settings'
+import { ChatsPage } from '@/pages/chats'
 
 export type RouteT = {
   path: string
@@ -18,4 +19,5 @@ export const privateRoutes: RouteT[] = [
   { path: '/user/:userId', element: UserPage },
   { path: '/posts/:postId', element: PostPage },
   { path: '/settings', element: SettingsPage },
+  { path: '/chats', element: ChatsPage },
 ]
