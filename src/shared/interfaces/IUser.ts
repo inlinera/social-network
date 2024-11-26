@@ -10,4 +10,5 @@ export interface IUser extends firebase.User {
   avatarUrl: string
   incomingReq: IFriend[]
   outgoingReq: IFriend[]
+  chats: string[]
 }

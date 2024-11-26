@@ -1,3 +1,5 @@
+import { IFriend } from './IFriend'
+
 interface IMessage {
   message: string
   time: number
@@ -6,5 +8,5 @@ interface IMessage {
 
 export interface IChat {
   messages: IMessage[]
-  people: string[]
+  people: IFriend[]
 }
