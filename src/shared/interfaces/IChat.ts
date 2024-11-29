@@ -1,6 +1,6 @@
 import { IFriend } from './IFriend'
 
-interface IMessage {
+export interface IMessage {
   message: string
   time: number
   userId: string

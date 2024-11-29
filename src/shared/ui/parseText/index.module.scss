@@ -3,6 +3,7 @@
 .link_text {
   color: rgb(150, 164, 255);
   transition: all 0.2s;
+  word-break: break-all;
   &:hover {
     color: $red-color;
   }

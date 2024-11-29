@@ -21,6 +21,8 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
 
   const { userInfo } = userApi
 
+  const postsMap = posts?.map(p => <PostWidget post={p} key={p.id} />)
+
   return (
     <div className={`${s.postsList} flex fdc cw`} ref={containerRef}>
       {loading || posts?.length == 0 ? (
@@ -35,16 +37,10 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
       ) : isUserPosts ? (
         <div>
           <h1>{userInfo?.displayName}'s posts</h1>
-          {posts?.map(p => (
-            <PostWidget post={p} key={p.id} />
-          ))}
+          {postsMap}
         </div>
       ) : (
-        <div>
-          {posts?.map(p => (
-            <PostWidget post={p} key={p.id} />
-          ))}
-        </div>
+        <div>{postsMap}</div>
       )}
     </div>
   )
