@@ -7,11 +7,11 @@ import authorizationApi from '@/shared/store/auth-api'
 import userStore from '@/shared/store/user-api'
 import userPostsApi from '@/shared/store/user-posts-api'
 // COMPONENTS
-import { Spin } from 'antd'
 import { PostListWidget } from '@/widgets/postList'
 import { UserBlock } from '@/entities/user/index'
 import { UserFriendModal } from '@/entities/user/index'
 import { AddPostBlockEntity } from '@/entities/user/index'
+import { LoadingUI } from '@/shared/ui/loading'
 //HOOKS
 import { useGetFriends } from '@/shared/hooks/useGetFriends'
 
@@ -41,12 +41,7 @@ export const UserPage = observer(() => {
             setIsOpened={setIsOpenedFriend}
           />
           {loading ? (
-            <>
-              <Spin size="large" />
-              <p style={{ marginTop: '5px' }} className="cw">
-                Loading user
-              </p>
-            </>
+            <LoadingUI>User is loading...</LoadingUI>
           ) : (
             <div className={`${s.userInfo} jcc grid cw`}>
               <UserBlock

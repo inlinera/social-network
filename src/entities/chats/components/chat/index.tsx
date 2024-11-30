@@ -5,6 +5,7 @@ import { Avatar } from 'antd'
 import authApi from '@/shared/store/auth-api'
 import { useMobile } from '@/shared/hooks/useMobile'
 import { observer } from 'mobx-react-lite'
+import { ChatMessageUI } from './ui/message'
 
 export interface ChatWindowProps {
   people?: IFriend
@@ -34,11 +35,7 @@ export const ChatWindow = observer(({ people, messages, setChat }: ChatWindowPro
             <i>Here was started your chat with {people?.displayName}</i>
             {messages?.map(m => {
               const isThisMessageMy = m.userId == user?.displayName
-              return (
-                <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`}>
-                  <p>{m.message}</p>
-                </div>
-              )
+              return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} />
             })}
           </div>
           <input type="text" className={`${s.chatWindow__bottomBlock}`} />

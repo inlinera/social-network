@@ -28,22 +28,6 @@
     i {
       margin: 10px;
     }
-    div {
-      max-width: 290px;
-      margin: 10px;
-    }
-    .myMessage {
-      align-self: flex-end;
-      padding: 10px;
-      background-color: $red-color;
-      border-radius: 11px 11px 0 11px;
-    }
-    .notMyMessage {
-      align-self: flex-start;
-      padding: 10px;
-      background-color: $post-color;
-      border-radius: 11px 11px 11px 0;
-    }
     &::-webkit-scrollbar {
       width: 6px;
     }
@@ -73,7 +57,7 @@
     z-index: 9999999;
     border-radius: 0;
     .chat {
-      height: max-content;
+      height: inherit;
     }
   }
 }

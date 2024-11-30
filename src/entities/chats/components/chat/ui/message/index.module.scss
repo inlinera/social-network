@@ -1,0 +1,21 @@
+@import '@/app/assets/styles/variables.scss';
+
+@mixin defaultStyle {
+  max-width: 290px;
+  margin: 10px;
+}
+
+.myMessage {
+  @include defaultStyle;
+  align-self: flex-end;
+  padding: 10px;
+  background-color: $red-color;
+  border-radius: 11px 11px 0 11px;
+}
+.notMyMessage {
+  @include defaultStyle;
+  align-self: flex-start;
+  padding: 10px;
+  background-color: $post-color;
+  border-radius: 11px 11px 11px 0;
+}
