@@ -7,7 +7,7 @@ import authorizationApi from '@/shared/store/auth-api'
 import userStore from '@/shared/store/user-api'
 import userPostsApi from '@/shared/store/user-posts-api'
 // COMPONENTS
-import { PostListWidget } from '@/widgets/postList'
+import { PostListWidget } from '@/widgets/posts'
 import { UserBlock } from '@/entities/user/index'
 import { UserFriendModal } from '@/entities/user/index'
 import { AddPostBlockEntity } from '@/entities/user/index'

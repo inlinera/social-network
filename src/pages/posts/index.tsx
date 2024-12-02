@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 //MOBX
 import postsApi from '@/shared/store/posts-api'
 //COMPONENTS
-import { PostListWidget } from '@/widgets/postList'
+import { PostListWidget } from '@/widgets/posts'
 
 export const PostsPage = observer(() => {
   const { getPosts, posts, loading } = postsApi

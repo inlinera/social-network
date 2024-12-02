@@ -1,0 +1,8 @@
+@import '@/app/assets/styles/variables.scss';
+
+.contextMenu {
+  position: absolute;
+  padding: 10px 15px;
+  background-color: $gray-color;
+  z-index: 9999999999999999;
+}

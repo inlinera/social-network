@@ -13,12 +13,12 @@ import { PostCommentsList } from '@/entities/posts/index'
 import { useParams } from 'react-router-dom'
 
 export const PostPage = observer(() => {
-  const { getPost, post, loading, error } = postApi
+  const { getPost, post, error } = postApi
 
   const { postId } = useParams()
 
   useEffect(() => {
-    getPost(postId as string)
+    getPost(postId!)
   }, [])
 
   if (error) return 'Error'
@@ -31,7 +31,6 @@ export const PostPage = observer(() => {
           <PostCommentsList comments={post?.comments as IComment[]} />
         </>
       )}
-      {loading && 'loading'}
     </div>
   )
 })

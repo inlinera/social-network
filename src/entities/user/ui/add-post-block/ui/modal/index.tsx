@@ -1,9 +1,14 @@
 import { useState } from 'react'
+//MOBX
+import createPostApi from '@/shared/store/create-post-api'
+//COMPONENTS
+import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { Modal, Select, SelectProps } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
-import createPostApi from '@/shared/store/create-post-api'
-import { RedButtonUI } from '@/shared/ui/buttons/red-button'
+//DATA
 import { postTags } from '@/shared/data/post-tags'
+//HOOKS
+import { useFormatInput } from '@/shared/hooks/useFormatInput'
 
 interface UserAddPostModalProps {
   isOpened: boolean
@@ -12,13 +17,15 @@ interface UserAddPostModalProps {
 
 export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProps) => {
   const { createPost } = createPostApi
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<string>()
   const [selectedTags, setSelectedTags] = useState<SelectProps['options'] | string[]>([])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     event.preventDefault()
-    if (!value) return
-    createPost(value, selectedTags as string[])
+    if (!value) return alert('Please input something')
+    const val = useFormatInput(value)
+    if (!val) return alert("Post can't contain only spaces!")
+    createPost(val, selectedTags as string[])
     setValue('')
     setSelectedTags([])
   }
