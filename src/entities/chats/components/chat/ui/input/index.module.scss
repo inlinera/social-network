@@ -1,0 +1,24 @@
+@import '@/app/assets/styles/variables.scss';
+
+.input {
+  position: relative;
+  width: 100%;
+  .inputUi {
+    width: 100%;
+    padding: 10px 15px;
+    padding-right: 60px;
+    color: $default;
+    border: 2px solid $post-color;
+    text-wrap: wrap;
+    border-radius: 10px;
+  }
+  .inputEnd {
+    position: absolute;
+    right: 0;
+    margin: 10px;
+    z-index: 99;
+    * {
+      margin: 1px;
+    }
+  }
+}

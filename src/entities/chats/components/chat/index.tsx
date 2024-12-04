@@ -6,6 +6,8 @@ import authApi from '@/shared/store/auth-api'
 import { useMobile } from '@/shared/hooks/useMobile'
 import { observer } from 'mobx-react-lite'
 import { ChatMessageUI } from './ui/message'
+import { ChatInputUI } from './ui/input'
+import { ArrowLeftOutlined, LeftOutlined, MoreOutlined } from '@ant-design/icons'
 
 export interface ChatWindowProps {
   people?: IFriend
@@ -23,12 +25,26 @@ export const ChatWindow = observer(({ people, messages, setChat }: ChatWindowPro
     <div className={`${s.chatWindow} flex fdc ${!isExists && 'jcc aic'}`}>
       {isExists ? (
         <>
-          <div className={`${s.chatWindow__upperblock} flex aic`}>
-            {isMobile && <button onClick={() => setChat(null)}>Back</button>}
+          <div className={`${s.chatWindow__upperblock} flex aic jcsb`}>
             <div className="flex aic">
-              <Avatar size={'large'} src={people?.avatarUrl} alt="avatar" draggable={false} />
-              <h3 className="fz17">{people?.displayName}</h3>
+              {isMobile && (
+                <button onClick={() => setChat(null)} className="fz17">
+                  <ArrowLeftOutlined />
+                </button>
+              )}
+              <div className={`${s.chatWindow__upperblock__info} flex aic`}>
+                <Avatar
+                  size={'large'}
+                  src={people?.avatarUrl}
+                  alt="avatar"
+                  draggable={false}
+                />
+                <h3>{people?.displayName}</h3>
+              </div>
             </div>
+            <button className="fz17">
+              <MoreOutlined />
+            </button>
           </div>
           <div className={`${s.chat} flex fdc jcc aic`}>
             <br /> <br /> <br />
@@ -38,7 +54,7 @@ export const ChatWindow = observer(({ people, messages, setChat }: ChatWindowPro
               return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} />
             })}
           </div>
-          <input type="text" className={`${s.chatWindow__bottomBlock}`} />
+          <ChatInputUI />
         </>
       ) : (
         'Choose the chat'

@@ -1,8 +1,11 @@
-@import '@/app/assets/styles/variables.scss';
-
 .contextMenu {
   position: absolute;
   padding: 10px 15px;
-  background-color: $gray-color;
+  background-color: rgba(30, 30, 30);
+  border-radius: 10px;
   z-index: 9999999999999999;
+  button {
+    padding: 3px;
+    text-align: left;
+  }
 }

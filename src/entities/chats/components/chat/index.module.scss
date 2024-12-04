@@ -8,10 +8,14 @@
   background-color: rgb(17, 17, 17);
   border-radius: 16px;
   .chatWindow__upperblock {
+    border-bottom: 1px solid $post-color;
     * {
       margin: 0 5px;
     }
-    div {
+    .chatWindow__upperblock__info {
+      margin: 5px 0;
+      padding: 2px;
+      font-size: 15px;
       border-radius: 5px;
       transition: all 0.2s;
       cursor: pointer;

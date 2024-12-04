@@ -1,15 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import s from './index.module.scss'
 import { useMobile } from '@/shared/hooks/useMobile'
+import { ContextMenuItem } from '@/shared/data/chats/context'
 
 interface ContextMenuUIProps {
   items: ContextMenuItem[]
   children: React.ReactNode
-}
-
-export interface ContextMenuItem {
-  name: string
-  onClick: () => void
 }
 
 export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
@@ -21,7 +17,7 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
   //HANDLERS
   const menuHandler = (e: React.MouseEvent) => {
     e.preventDefault()
-    setIsVisible(true)
+    setIsVisible(!isVisible)
     setPos({ x: e.clientX, y: e.clientY })
   }
   const clickHandler = (e: MouseEvent) => {
@@ -35,7 +31,6 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
 
   //SHOW CONTEXTMENU
   useEffect(() => {
-    console.log('111')
     const handleClick = (e: MouseEvent) => clickHandler(e)
     if (isVisible) {
       document.addEventListener('click', handleClick)
@@ -54,12 +49,13 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
       {isVisible && (
         <div
           style={{ left: pos.x, top: pos.y }}
-          className={`${s.contextMenu}`}
+          className={`${s.contextMenu} flex fdc`}
           ref={contextRef}
           onClick={e => e.stopPropagation()}
         >
           {items.map(i => (
-            <button onClick={i.onClick} key={i.name}>
+            <button onClick={i.onClick} key={i.name} className="flex aic">
+              {i.icon}
               {i.name}
             </button>
           ))}
