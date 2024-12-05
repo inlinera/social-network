@@ -9,4 +9,5 @@ export interface IMessage {
 export interface IChat {
   messages: IMessage[]
   people: IFriend[]
+  chatId: string
 }

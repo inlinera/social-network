@@ -54,7 +54,14 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
           onClick={e => e.stopPropagation()}
         >
           {items.map(i => (
-            <button onClick={i.onClick} key={i.name} className="flex aic">
+            <button
+              onClick={() => {
+                if (i.onClick) i.onClick()
+                setIsVisible(false)
+              }}
+              key={i.name}
+              className="flex aic"
+            >
               {i.icon}
               {i.name}
             </button>

@@ -1,3 +1,4 @@
+import { IMessage } from '@/shared/interfaces/IChat'
 import { CopyOutlined, DeleteOutlined, EditOutlined, EnterOutlined } from '@ant-design/icons'
 
 export interface ContextMenuItem {
@@ -6,7 +7,17 @@ export interface ContextMenuItem {
   onClick: () => void
 }
 
-export const items: ContextMenuItem[] = [
+const copy = (s: string) =>
+  navigator.clipboard
+    .writeText(s)
+    .then(() => {
+      alert('Скопировано')
+    })
+    .catch(() => {
+      alert(`Текст не скопирован`)
+    })
+
+export const items = (data: IMessage): ContextMenuItem[] => [
   {
     icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
     name: 'Reply',
@@ -15,7 +26,7 @@ export const items: ContextMenuItem[] = [
   {
     icon: <CopyOutlined />,
     name: 'Copy',
-    onClick: () => console.log('Copy'),
+    onClick: () => copy(data.message),
   },
   {
     icon: <EditOutlined />,

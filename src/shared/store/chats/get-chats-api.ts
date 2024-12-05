@@ -21,15 +21,26 @@ class getChatsApi {
     this.setLoading(true)
     try {
       const q = query(collection(db, 'chats'), where('people', 'array-contains', user))
-      return onSnapshot(q, querySnapshot =>
-        this.setChats(querySnapshot.docs.map(doc => doc.data() as IChat))
-      )
+      return onSnapshot(q, querySnapshot => {
+        console.log('Query Snapshot Docs: ', querySnapshot.docs)
+        this.setChats(
+          querySnapshot.docs.map(
+            doc =>
+              ({
+                chatId: doc.id,
+                ...doc.data(),
+              } as IChat)
+          )
+        )
+      })
     } catch (e) {
+      console.error('Error fetching chats: ', e)
       alert(e)
     } finally {
       this.setLoading(false)
     }
   }
+
   // GET CHATS STATE MOVES
   setLoading = (state: boolean) => (this.loading = state)
   setChats = (chats: IChat[]) => (this.chats = chats)

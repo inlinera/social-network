@@ -3,6 +3,10 @@
 @mixin defaultStyle {
   max-width: 290px;
   margin: 10px;
+  p {
+    text-wrap: wrap;
+    word-wrap: break-word;
+  }
 }
 
 .myMessage {
