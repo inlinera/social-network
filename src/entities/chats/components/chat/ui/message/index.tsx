@@ -10,12 +10,16 @@ interface ChatMessageUIProps {
 }
 
 export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) => {
+  const msgDate = new Date(message?.time)
   return (
     <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`}>
-      <ContextMenuUI items={items(message)}>
+      <ContextMenuUI items={isThisMessageMy ? items(message).my : items(message).notMy}>
         <p>
           <LinkifyText text={message.message} />
         </p>
+        <i className="fz10">
+          {msgDate.getHours()}:{msgDate.getMinutes()}
+        </i>
       </ContextMenuUI>
     </div>
   )

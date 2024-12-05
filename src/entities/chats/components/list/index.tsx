@@ -14,7 +14,7 @@ export const ChatsList = observer(() => {
   const { user } = authApi
   const { chats, loading } = getChatsApi
   const { getChat } = chatState
-  const sliceStr = (str: string, m = 6) => (str.length > m ? str.slice(0, m) + '...' : str)
+  const sliceStr = (str: string, m = 6) => (str?.length > m ? str.slice(0, m) + '...' : str)
 
   return (
     <div className={`${s.chatsList} flex fdc aic`}>
@@ -24,7 +24,7 @@ export const ChatsList = observer(() => {
         chats?.map((chat: IChat) => {
           const chatUser = chat.people.find(p => p.displayName !== user?.displayName)
           const lastMessage = chat.messages[chat.messages.length - 1]
-          const msgDate = new Date(lastMessage.time)
+          const msgDate = new Date(lastMessage?.time)
           return (
             <div
               className={`${s.chatElement} flex aic jcsb`}
@@ -35,10 +35,12 @@ export const ChatsList = observer(() => {
                 <Avatar size={50} src={chatUser?.avatarUrl} alt="avatar" draggable={false} />
                 <div className="flex fdc">
                   <h4>@{chatUser?.displayName}</h4>
-                  <p>{sliceStr(lastMessage.message)}</p>
+                  <p>{sliceStr(lastMessage?.message) || '......'}</p>
                 </div>
               </div>
-              <span>{msgDate.getHours() + ':' + msgDate.getMinutes()}</span>
+              <span>
+                {lastMessage?.time && msgDate.getHours() + ':' + msgDate.getMinutes()}
+              </span>
             </div>
           )
         })

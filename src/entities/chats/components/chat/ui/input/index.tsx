@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import s from './index.module.scss'
 //HOOKS
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
@@ -7,11 +6,13 @@ import authApi from '@/shared/store/api/user/auth/auth-api'
 import sendMsgApi from '@/shared/store/api/chats/chat/actions/send-msg-api'
 //ICONS
 import { PaperClipOutlined, SendOutlined } from '@ant-design/icons'
+import valueState from '@/shared/store/functional/chat/input/value-state'
+import { observer } from 'mobx-react-lite'
 
-export const ChatInputUI = () => {
+export const ChatInputUI = observer(() => {
   const { user } = authApi
   const { sendMessage } = sendMsgApi
-  const [val, setVal] = useState('')
+  const { val, setVal } = valueState
   const messageInfo = {
     userId: user?.displayName!,
     message: useFormatInput(val),
@@ -46,4 +47,4 @@ export const ChatInputUI = () => {
       </div>
     </div>
   )
-}
+})

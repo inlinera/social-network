@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import chatState from '@/shared/store/api/chats/chat/get-chat-api'
+import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 //HOOKS
 import { useMobile } from '@/shared/hooks/useMobile'
 //COMPONENTS
@@ -11,10 +11,11 @@ import { ChatInputUI } from './ui/input'
 import { Avatar } from 'antd'
 //ICONS
 import { ArrowLeftOutlined, MoreOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
 export const ChatWindow = observer(() => {
   const { user } = authApi
-  const { chat, setChat } = chatState
+  const { chat, setChat } = getChatApi
   const isMobile = useMobile()
 
   if (isMobile && !chat) return
@@ -31,7 +32,10 @@ export const ChatWindow = observer(() => {
                   <ArrowLeftOutlined />
                 </button>
               )}
-              <div className={`${s.chatWindow__upperblock__info} flex aic`}>
+              <Link
+                className={`${s.chatWindow__upperblock__info} flex aic`}
+                to={`/user/${chattingUser?.displayName}`}
+              >
                 <Avatar
                   size={'large'}
                   src={chattingUser?.avatarUrl}
@@ -39,7 +43,7 @@ export const ChatWindow = observer(() => {
                   draggable={false}
                 />
                 <h3>{chattingUser?.displayName}</h3>
-              </div>
+              </Link>
             </div>
             <button className="fz17">
               <MoreOutlined />

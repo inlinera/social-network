@@ -13,7 +13,7 @@ export interface IChatState {
   setChat: (_: IChatState | null) => void
 }
 
-class ChatState {
+class GetChatApi {
   constructor() {
     makeAutoObservable(this)
   }
@@ -46,4 +46,4 @@ class ChatState {
   setChat = (chat: IChat | null) => (this.chat = chat)
 }
 
-export default new ChatState()
+export default new GetChatApi()
