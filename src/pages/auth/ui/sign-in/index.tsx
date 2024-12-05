@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import s from '@/pages/auth/ui/_styles/index.module.scss'
 //MOBX
-import AuthorizationStore from '@/shared/store/auth-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 //COMPONENTS
 import { Button, Input } from 'antd'
 
 export const SignIn = observer(() => {
-  const { signIn, error } = AuthorizationStore
+  const { signIn, error } = authApi
 
   const [userData, setUserData] = useState({
     email: '',

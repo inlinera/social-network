@@ -1,9 +1,9 @@
 import { db } from '@/app/_providers/firebase'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
-import { IPost } from '../interfaces/IPost'
-import authApi from './auth-api.ts'
-import { IComment } from '../interfaces/IComment'
+import { IPost } from '@/shared/interfaces/IPost'
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import { IComment } from '@/shared/interfaces/IComment'
 
 class CreatePostApi {
   constructor() {

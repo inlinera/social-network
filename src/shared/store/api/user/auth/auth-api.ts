@@ -12,7 +12,7 @@ import {
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 // INTERFACES
 import { IUser } from '@/shared/interfaces/IUser'
-import storageApi from './storage-api'
+import storageApi from '../../storage/storage-api'
 // DATA
 import { defaultAvatar } from '@/shared/data/default-avatar'
 

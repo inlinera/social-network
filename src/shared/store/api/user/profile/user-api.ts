@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 //INTERFACES
-import { IUser } from '../interfaces/IUser'
+import { IUser } from '@/shared/interfaces/IUser'
 //FIREBASE
 import { db } from '@/app/_providers/firebase'
 import { doc, getDoc } from 'firebase/firestore'

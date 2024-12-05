@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 //MOBX
-import handleLikeApi from '@/shared/store/handle-like-api'
+import handleLikeApi from '@/shared/store/api/posts/post/details/handle-like-api'
 //COMPONENTS
 import { PostBtn } from '@/shared/ui/buttons/post-button'
 import { Link } from 'react-router-dom'

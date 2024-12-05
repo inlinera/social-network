@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite'
 import { IFriend } from '@/shared/interfaces/IFriend'
 import { IUser } from '@/shared/interfaces/IUser'
 //MOBX
-import authApi from '@/shared/store/auth-api'
-import friendsApi from '@/shared/store/friends-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import friendsApi from '@/shared/store/api/user/friends/friends-api'
 //ICONS
 import {
   MessageOutlined,

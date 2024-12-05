@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import { db } from '@/app/_providers/firebase'
 import { collection, onSnapshot, query } from 'firebase/firestore'
 //INTERFACES
-import { IPost } from '../interfaces/IPost'
+import { IPost } from '@/shared/interfaces/IPost'
 
 class PostsStore {
   constructor() {

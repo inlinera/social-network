@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 //MOBX
-import authApi from '@/shared/store/auth-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 import chatState from '@/shared/store/functional/chat/chat-state'
 //HOOKS
 import { useMobile } from '@/shared/hooks/useMobile'

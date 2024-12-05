@@ -3,8 +3,8 @@ import s from './index.module.scss'
 //HOOKS
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
 //MOBX
-import authApi from '@/shared/store/auth-api'
-import sendMsgApi from '@/shared/store/chats/chat/send-msg-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import sendMsgApi from '@/shared/store/api/chats/chat/send-msg-api'
 import chatState from '@/shared/store/functional/chat/chat-state'
 //ICONS
 import { PaperClipOutlined, SendOutlined } from '@ant-design/icons'

@@ -3,12 +3,11 @@ import { makeAutoObservable } from 'mobx'
 import { db } from '@/app/_providers/firebase'
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 //MOBX
-import authApi from './auth-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 //INTERFACES
-import { IFriend } from '../interfaces/IFriend'
+import { IFriend } from '@/shared/interfaces/IFriend'
 
 class FriendsApi {
-
   constructor() {
     makeAutoObservable(this)
   }

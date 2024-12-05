@@ -8,7 +8,7 @@ import { IFriend } from '@/shared/interfaces/IFriend'
 //DATA
 import { friendsModal } from '@/shared/data/friends-modal-tab'
 //MOBX
-import authApi from '@/shared/store/auth-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 interface UserFriendModalProps {
   userInfo?: IUser

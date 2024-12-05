@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 //LAYOUT
 import { LayoutNav } from '@/widgets/layout'
 //MOBX
-import AuthorizationStore from '@/shared/store/auth-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 //COMPONENTS
 import { Spin } from 'antd'
 //HOOKS
@@ -13,7 +13,7 @@ import { PrivateRouter } from './routers/PrivateRouter'
 import { PublicRouter } from './routers/PublicRouter'
 
 const AppRouter = observer(() => {
-  const { loading, user } = AuthorizationStore
+  const { loading, user } = authApi
   const isMobile = useMobile()
 
   if (loading) return <Spin size="large" />

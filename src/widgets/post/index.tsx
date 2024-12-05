@@ -13,7 +13,7 @@ import { Avatar } from 'antd'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/ui/tags'
 //MOBX
-import editPostApi from '@/shared/store/edit-post-api'
+import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
 
 export const PostWidget = ({ post }: { post: IPost }) => {
   const [isEditing, setIsEditing] = useState(false)

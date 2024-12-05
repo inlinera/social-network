@@ -2,8 +2,8 @@ import { useState } from 'react'
 import s from '@/pages/auth/ui/_styles/index.module.scss'
 import { observer } from 'mobx-react-lite'
 //MOBX
-import AuthorizationStore from '@/shared/store/auth-api'
-import storageApi from '@/shared/store/storage-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import storageApi from '@/shared/store/api/storage/storage-api'
 //COMPONENTS
 import { Input, Avatar } from 'antd'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
@@ -17,7 +17,7 @@ interface SignUpProps {
 }
 
 export const SignUp = observer(({ setIsReg }: SignUpProps) => {
-  const { signUp, error } = AuthorizationStore
+  const { signUp, error } = authApi
   const { image, uploadAvatar } = storageApi
 
   //ANTD COMPONENT

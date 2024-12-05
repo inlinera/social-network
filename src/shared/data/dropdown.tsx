@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { ItemType } from 'antd/es/menu/interface'
-import deletePostApi from '../store/delete-post-api'
+import deletePostApi from '../store/api/posts/post/actions/delete-post-api'
 
 const style = { fontSize: '15px' }
 

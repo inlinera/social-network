@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 //MOBX
-import authApi from '@/shared/store/auth-api'
-import getChatsApi from '@/shared/store/chats/get-chats-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import getChatsApi from '@/shared/store/api/chats/get-chats-api'
 import chatState, { IChatState } from '@/shared/store/functional/chat/chat-state'
 //COMPONENTS
 import { LoadingUI } from '@/shared/ui/loading'

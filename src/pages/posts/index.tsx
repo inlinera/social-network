@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
 //MOBX
-import postsApi from '@/shared/store/posts-api'
+import postsApi from '@/shared/store/api/posts/posts-api'
 //COMPONENTS
 import { PostListWidget } from '@/widgets/posts'
 

@@ -2,8 +2,8 @@ import { observer } from 'mobx-react-lite'
 //COMPONENTS
 import { Avatar, List } from 'antd'
 //MOBX
-import authApi from '@/shared/store/auth-api'
-import friendsApi from '@/shared/store/friends-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import friendsApi from '@/shared/store/api/user/friends/friends-api'
 //INTERFACES
 import { IFriend } from '@/shared/interfaces/IFriend'
 //ICONS

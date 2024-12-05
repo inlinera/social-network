@@ -3,9 +3,9 @@ import { observer } from 'mobx-react-lite'
 import { useParams } from 'react-router-dom'
 import s from './index.module.scss'
 // MOBX
-import authorizationApi from '@/shared/store/auth-api'
-import userStore from '@/shared/store/user-api'
-import userPostsApi from '@/shared/store/user-posts-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import userStore from '@/shared/store/api/user/profile/user-api'
+import userPostsApi from '@/shared/store/api/user/profile/user-posts-api'
 // COMPONENTS
 import { PostListWidget } from '@/widgets/posts'
 import { UserBlock } from '@/entities/user/index'
@@ -18,7 +18,7 @@ import { useGetFriends } from '@/shared/hooks/useGetFriends'
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
   const { getUserPosts, posts } = userPostsApi
-  const { user } = authorizationApi
+  const { user } = authApi
   const { userId } = useParams()
 
   const [targetUserInfo, myUserInfoFriend] = useGetFriends(userInfo!, user!)

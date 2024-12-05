@@ -5,7 +5,7 @@ import s from './index.module.scss'
 import { IComment } from '@/shared/interfaces/IComment'
 import { IPost } from '@/shared/interfaces/IPost'
 //MOBX
-import postApi from '@/shared/store/post-api'
+import postApi from '@/shared/store/api/posts/post/post-api'
 //COMPONENTS
 import { PostWidget } from '@/widgets/post'
 import { PostCommentsList } from '@/entities/posts/index'

@@ -6,7 +6,7 @@ import { PostWidget } from '@/widgets/post'
 import { IPost } from '@/shared/interfaces/IPost'
 import Skeleton from 'react-loading-skeleton'
 //MOBX
-import userApi from '@/shared/store/user-api'
+import userApi from '@/shared/store/api/user/profile/user-api'
 
 interface PostListWidgetProps {
   posts?: IPost[]

@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { IPost } from '../interfaces/IPost'
+import { IPost } from '@/shared/interfaces/IPost'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
 

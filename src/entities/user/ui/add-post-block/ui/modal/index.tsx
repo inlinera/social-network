@@ -1,6 +1,6 @@
 import { useState } from 'react'
 //MOBX
-import createPostApi from '@/shared/store/create-post-api'
+import createPostApi from '@/shared/store/api/posts/post/actions/create-post-api'
 //COMPONENTS
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { Modal, Select, SelectProps } from 'antd'
