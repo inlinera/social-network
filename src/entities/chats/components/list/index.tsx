@@ -3,7 +3,7 @@ import s from './index.module.scss'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import getChatsApi from '@/shared/store/api/chats/get-chats-api'
-import chatState, { IChatState } from '@/shared/store/functional/chat/chat-state'
+import chatState from '@/shared/store/api/chats/chat/get-chat-api'
 //COMPONENTS
 import { LoadingUI } from '@/shared/ui/loading'
 import { Avatar } from 'antd'
@@ -13,7 +13,7 @@ import { IChat } from '@/shared/interfaces/IChat'
 export const ChatsList = observer(() => {
   const { user } = authApi
   const { chats, loading } = getChatsApi
-  const { setChat } = chatState
+  const { getChat } = chatState
   const sliceStr = (str: string, m = 6) => (str.length > m ? str.slice(0, m) + '...' : str)
 
   return (
@@ -25,20 +25,11 @@ export const ChatsList = observer(() => {
           const chatUser = chat.people.find(p => p.displayName !== user?.displayName)
           const lastMessage = chat.messages[chat.messages.length - 1]
           const msgDate = new Date(lastMessage.time)
-          console.log(chat.chatId)
-          const chatInfo = {
-            people: {
-              displayName: chatUser?.displayName!,
-              avatarUrl: chatUser?.avatarUrl!,
-            },
-            messages: chat.messages,
-            chatId: chat.chatId,
-          }
           return (
             <div
               className={`${s.chatElement} flex aic jcsb`}
               key={chat.messages[0]?.time}
-              onClick={() => setChat(chatInfo as IChatState)}
+              onClick={() => getChat(chat.chatId)}
             >
               <div className="flex">
                 <Avatar size={50} src={chatUser?.avatarUrl} alt="avatar" draggable={false} />

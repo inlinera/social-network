@@ -22,7 +22,6 @@ class getChatsApi {
     try {
       const q = query(collection(db, 'chats'), where('people', 'array-contains', user))
       return onSnapshot(q, querySnapshot => {
-        console.log('Query Snapshot Docs: ', querySnapshot.docs)
         this.setChats(
           querySnapshot.docs.map(
             doc =>

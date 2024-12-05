@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import chatState from '@/shared/store/functional/chat/chat-state'
+import chatState from '@/shared/store/api/chats/chat/get-chat-api'
 //HOOKS
 import { useMobile } from '@/shared/hooks/useMobile'
 //COMPONENTS
@@ -18,6 +18,7 @@ export const ChatWindow = observer(() => {
   const isMobile = useMobile()
 
   if (isMobile && !chat) return
+  const chattingUser = chat?.people.filter(p => p.displayName != authApi.user?.displayName)[0]
 
   return (
     <div className={`${s.chatWindow} flex fdc ${!chat && 'jcc aic'}`}>
@@ -33,19 +34,19 @@ export const ChatWindow = observer(() => {
               <div className={`${s.chatWindow__upperblock__info} flex aic`}>
                 <Avatar
                   size={'large'}
-                  src={chat.people?.avatarUrl}
+                  src={chattingUser?.avatarUrl}
                   alt="avatar"
                   draggable={false}
                 />
-                <h3>{chat.people?.displayName}</h3>
+                <h3>{chattingUser?.displayName}</h3>
               </div>
             </div>
             <button className="fz17">
               <MoreOutlined />
             </button>
           </div>
-          <div className={`${s.chat} flex fdc jcc aic`}>
-            <i>Here was started your chat with {chat.people?.displayName}</i>
+          <div className={`${s.chat} flex fdc aic`}>
+            <i>Here was started your chat with {chattingUser?.displayName}</i>
             {chat.messages?.map(m => {
               const isThisMessageMy = m.userId == user?.displayName
               return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} />

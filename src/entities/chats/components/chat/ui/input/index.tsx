@@ -4,14 +4,12 @@ import s from './index.module.scss'
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import sendMsgApi from '@/shared/store/api/chats/chat/send-msg-api'
-import chatState from '@/shared/store/functional/chat/chat-state'
+import sendMsgApi from '@/shared/store/api/chats/chat/actions/send-msg-api'
 //ICONS
 import { PaperClipOutlined, SendOutlined } from '@ant-design/icons'
 
 export const ChatInputUI = () => {
   const { user } = authApi
-  const { chat } = chatState
   const { sendMessage } = sendMsgApi
   const [val, setVal] = useState('')
   const messageInfo = {
@@ -21,7 +19,7 @@ export const ChatInputUI = () => {
 
   const send = () => {
     if (!messageInfo.message) return alert('pls enter something to input')
-    sendMessage({ time: new Date().getTime(), ...messageInfo }, chat?.chatId!)
+    sendMessage({ time: new Date().getTime(), ...messageInfo })
     setVal('')
   }
 
