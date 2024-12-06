@@ -1,6 +1,11 @@
+//HOOKS
+import { useCopyText } from '@/shared/hooks/useCopyText'
+//INTERFACES
 import { IMessage } from '@/shared/interfaces/IChat'
+//MOBX
 import deleteMsgApi from '@/shared/store/api/chats/chat/actions/delete-msg-api'
 import inputState from '@/shared/store/functional/chat/input/input-state'
+//ICONS
 import { CopyOutlined, DeleteOutlined, EditOutlined, EnterOutlined } from '@ant-design/icons'
 
 export interface ContextMenu {
@@ -13,34 +18,26 @@ export interface ContextMenuItem {
   name: string
   onClick: () => void
 }
-
+//FUNCTIONAL
 const { setIsDefault, setVal, setActionMsg } = inputState
-
-const copy = (s: string) =>
-  navigator.clipboard
-    .writeText(s)
-    .then(() => {
-      alert('Скопировано')
-    })
-    .catch(() => {
-      alert(`Текст не скопирован`)
-    })
-
+//API
 const { deleteMessage } = deleteMsgApi
 
 export const items = (msg: IMessage) => {
+  const reply = {
+    icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
+    name: 'Reply',
+    onClick: () => console.log('Reply'),
+  }
+  const copy = {
+    icon: <CopyOutlined />,
+    name: 'Copy',
+    onClick: () => useCopyText(msg.message),
+  }
   return {
     my: [
-      {
-        icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
-        name: 'Reply',
-        onClick: () => console.log('Reply'),
-      },
-      {
-        icon: <CopyOutlined />,
-        name: 'Copy',
-        onClick: () => copy(msg.message),
-      },
+      reply,
+      copy,
       {
         icon: <EditOutlined />,
         name: 'Edit',
@@ -56,12 +53,6 @@ export const items = (msg: IMessage) => {
         onClick: () => deleteMessage(msg),
       },
     ],
-    notMy: [
-      {
-        icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
-        name: 'Reply',
-        onClick: () => console.log('Reply'),
-      },
-    ],
+    notMy: [reply, copy],
   }
 }
