@@ -1,6 +1,7 @@
 import { IFriend } from './IFriend'
 
 export interface IMessage {
+  id: string
   message: string
   time: number
   userId: string

@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
+import { Link } from 'react-router-dom'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
@@ -11,7 +12,6 @@ import { ChatInputUI } from './ui/input'
 import { Avatar } from 'antd'
 //ICONS
 import { ArrowLeftOutlined, MoreOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
 
 export const ChatWindow = observer(() => {
   const { user } = authApi
@@ -53,7 +53,7 @@ export const ChatWindow = observer(() => {
             <i>Here was started your chat with {chattingUser?.displayName}</i>
             {chat.messages?.map(m => {
               const isThisMessageMy = m.userId == user?.displayName
-              return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} />
+              return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} key={m.id} />
             })}
           </div>
           <ChatInputUI />

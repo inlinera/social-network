@@ -1,8 +1,6 @@
 import { IMessage } from '@/shared/interfaces/IChat'
 import deleteMsgApi from '@/shared/store/api/chats/chat/actions/delete-msg-api'
-import editMsgApi from '@/shared/store/api/chats/chat/actions/edit-msg-api'
-import authApi from '@/shared/store/api/user/auth/auth-api'
-import valueState from '@/shared/store/functional/chat/input/value-state'
+import inputState from '@/shared/store/functional/chat/input/input-state'
 import { CopyOutlined, DeleteOutlined, EditOutlined, EnterOutlined } from '@ant-design/icons'
 
 export interface ContextMenu {
@@ -16,6 +14,8 @@ export interface ContextMenuItem {
   onClick: () => void
 }
 
+const { setIsDefault, setVal, setActionMsg } = inputState
+
 const copy = (s: string) =>
   navigator.clipboard
     .writeText(s)
@@ -27,9 +27,8 @@ const copy = (s: string) =>
     })
 
 const { deleteMessage } = deleteMsgApi
-const { editMessage } = editMsgApi
 
-export const items = (data: IMessage) => {
+export const items = (msg: IMessage) => {
   return {
     my: [
       {
@@ -40,22 +39,21 @@ export const items = (data: IMessage) => {
       {
         icon: <CopyOutlined />,
         name: 'Copy',
-        onClick: () => copy(data.message),
+        onClick: () => copy(msg.message),
       },
       {
         icon: <EditOutlined />,
         name: 'Edit',
-        onClick: () =>
-          editMessage({
-            userId: authApi.user?.displayName!,
-            time: new Date().getTime(),
-            message: valueState.val,
-          }),
+        onClick: () => {
+          setIsDefault(false)
+          setVal(msg.message)
+          setActionMsg(msg)
+        },
       },
       {
         icon: <DeleteOutlined />,
         name: 'Delete',
-        onClick: () => deleteMessage(data),
+        onClick: () => deleteMessage(msg),
       },
     ],
     notMy: [

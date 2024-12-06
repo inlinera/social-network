@@ -1,22 +1,54 @@
 @import '@/app/assets/styles/variables.scss';
 
-.input {
+.editing {
   position: relative;
   width: 100%;
+  margin-bottom: 5px;
+  padding: 15px 7px;
+  background-color: $post-color;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  i {
+    margin: 2px;
+    color: $red-color;
+  }
+
+  button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 7px;
+  }
+
+  &::selection {
+    background-color: transparent;
+  }
+}
+.editing_load {
+  transform: scale(0.95);
+  transition: all 0.2s;
+}
+
+.input {
+  position: relative;
+  width: inherit;
+
   .inputUi {
     width: 100%;
     padding: 10px 15px;
     padding-right: 60px;
     color: $default;
     border: 2px solid $post-color;
-    text-wrap: wrap;
     border-radius: 10px;
   }
+
   .inputEnd {
     position: absolute;
     right: 0;
     margin: 10px;
     z-index: 99;
+
     * {
       margin: 1px;
     }

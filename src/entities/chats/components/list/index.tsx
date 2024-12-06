@@ -9,12 +9,12 @@ import { LoadingUI } from '@/shared/ui/loading'
 import { Avatar } from 'antd'
 //INTERFACES
 import { IChat } from '@/shared/interfaces/IChat'
+import { useSliceStr } from '@/shared/hooks/useSliceStr'
 
 export const ChatsList = observer(() => {
   const { user } = authApi
   const { chats, loading } = getChatsApi
   const { getChat } = chatState
-  const sliceStr = (str: string, m = 6) => (str?.length > m ? str.slice(0, m) + '...' : str)
 
   return (
     <div className={`${s.chatsList} flex fdc aic`}>
@@ -35,7 +35,7 @@ export const ChatsList = observer(() => {
                 <Avatar size={50} src={chatUser?.avatarUrl} alt="avatar" draggable={false} />
                 <div className="flex fdc">
                   <h4>@{chatUser?.displayName}</h4>
-                  <p>{sliceStr(lastMessage?.message) || '......'}</p>
+                  <p>{useSliceStr(lastMessage?.message, 6) || '......'}</p>
                 </div>
               </div>
               <span>
