@@ -28,15 +28,32 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
       }
     }
   }
+  const contextHandler = (e: Event) => {
+    if ((e as CustomEvent<string>).detail != children) setIsVisible(false)
+  }
 
   //SHOW CONTEXTMENU
   useEffect(() => {
     const handleClick = (e: MouseEvent) => clickHandler(e)
     if (isVisible) {
       document.addEventListener('click', handleClick)
-      return () => document.removeEventListener('click', handleClick)
-    } else return
+      document.addEventListener('MenuOpen', contextHandler)
+      return () => {
+        document.removeEventListener('click', handleClick)
+        document.removeEventListener('MenuOpen', contextHandler)
+      }
+    }
+    return
   }, [clickHandler])
+
+  useEffect(() => {
+    if (!isVisible || isMobile) return
+    document.dispatchEvent(
+      new CustomEvent<string>('MenuOpen', {
+        detail: children as string,
+      })
+    )
+  }, [children, isVisible, isMobile])
 
   return (
     <>
