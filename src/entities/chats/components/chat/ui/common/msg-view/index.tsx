@@ -5,5 +5,10 @@ interface ChatCommonMsgViewUiProps {
 }
 
 export const ChatCommonMsgViewUi = ({ children }: ChatCommonMsgViewUiProps) => {
-  return <div className={`${s.editing}`}>{children}</div>
+  return (
+    <div className={`${s.editing} flex`}>
+      <div className={s.leftBlock} />
+      <div>{children}</div>
+    </div>
+  )
 }

@@ -18,7 +18,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
       {message.reply && (
         <ChatCommonMsgViewUi>
           <h4>@{message.reply.userId}</h4>
-          <p>{useSliceStr(message.reply.message, 6)}</p>
+          <p>{useSliceStr(message.reply.message, 9)}</p>
         </ChatCommonMsgViewUi>
       )}
       <ContextMenuUI items={isThisMessageMy ? items(message).my : items(message).notMy}>
@@ -26,7 +26,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
           <LinkifyText text={message.message} />
         </p>
         <i className="fz10">
-          {msgDate.getHours()}:{msgDate.getMinutes()}
+          {msgDate.getHours()}:{msgDate.getMinutes()}, {msgDate.getDate()}/{msgDate.getMonth()}
         </i>
       </ContextMenuUI>
     </div>

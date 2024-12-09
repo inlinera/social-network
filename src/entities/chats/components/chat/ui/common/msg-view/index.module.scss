@@ -8,4 +8,15 @@
   background-color: $post-color;
   border-radius: 10px;
   cursor: pointer;
+  overflow: hidden;
+  .leftBlock {
+    height: 30px;
+    width: 5px;
+    margin-right: 5px;
+    border-radius: 6px;
+    background-color: $red-color;
+  }
+  ::selection {
+    background-color: transparent;
+  }
 }

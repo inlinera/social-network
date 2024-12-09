@@ -9,9 +9,10 @@ import { useMobile } from '@/shared/hooks/useMobile'
 //COMPONENTS
 import { ChatMessageUI } from './ui/message'
 import { ChatInputUI } from './ui/input'
-import { Avatar } from 'antd'
+import { Avatar, Dropdown } from 'antd'
 //ICONS
 import { ArrowLeftOutlined, MoreOutlined } from '@ant-design/icons'
+import { items } from '@/shared/data/chats/dropdown'
 
 export const ChatWindow = observer(() => {
   const { user } = authApi
@@ -42,16 +43,18 @@ export const ChatWindow = observer(() => {
                   alt="avatar"
                   draggable={false}
                 />
-                <h3>{chattingUser?.displayName}</h3>
+                <h3>@{chattingUser?.displayName}</h3>
               </Link>
             </div>
-            <button className="fz17">
-              <MoreOutlined />
-            </button>
+            <Dropdown menu={{ items: items() }} trigger={['click']}>
+              <button className="fz17">
+                <MoreOutlined />
+              </button>
+            </Dropdown>
           </div>
           <div className={`${s.chat} flex fdc aic`}>
             <i>Here was started your chat with {chattingUser?.displayName}</i>
-            {chat.messages?.map(m => {
+            {chat.messages.map(m => {
               const isThisMessageMy = m.userId == user?.displayName
               return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} key={m.id} />
             })}
