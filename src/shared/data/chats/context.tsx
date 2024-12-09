@@ -19,7 +19,7 @@ export interface ContextMenuItem {
   onClick: () => void
 }
 //FUNCTIONAL
-const { setIsDefault, setVal, setActionMsg } = inputState
+const { setState, setVal, setActionMsg } = inputState
 //API
 const { deleteMessage } = deleteMsgApi
 
@@ -27,7 +27,10 @@ export const items = (msg: IMessage) => {
   const reply = {
     icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
     name: 'Reply',
-    onClick: () => console.log('Reply'),
+    onClick: () => {
+      setState('reply')
+      setActionMsg(msg)
+    },
   }
   const copy = {
     icon: <CopyOutlined />,
@@ -42,7 +45,7 @@ export const items = (msg: IMessage) => {
         icon: <EditOutlined />,
         name: 'Edit',
         onClick: () => {
-          setIsDefault(false)
+          setState('edit')
           setVal(msg.message)
           setActionMsg(msg)
         },

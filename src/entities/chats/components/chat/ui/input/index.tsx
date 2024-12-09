@@ -23,26 +23,27 @@ export const ChatInputUI = observer(() => {
   const { sendMessage } = sendMsgApi
   const { editMessage } = editMsgApi
   const { val, setVal } = InputState
-  const { isDefault, setIsDefault } = InputState
-  const { actionMsg, setActionMsg } = InputState
+  const { state } = InputState
+  const { actionMsg } = InputState
+  const { $null } = InputState
 
   const send = () => {
     const msg = {
       userId: user?.displayName,
       message: useFormatInput(val),
       time: new Date().getTime(),
-      id: isDefault ? v4() : actionMsg?.id,
+      id: state == 'edit' ? actionMsg?.id : v4(),
+      reply: state == 'reply' ? actionMsg : state == 'edit' ? actionMsg?.reply : null,
     } as IMessage
 
     if (!msg.message) return alert('Пожалуйста, введите сообщение')
 
-    if (isDefault) {
+    if (state == 'default' || state == 'reply') {
       sendMessage(msg)
     } else {
       editMessage(msg)
-      setIsDefault(true)
     }
-    setVal('')
+    $null()
   }
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -50,24 +51,17 @@ export const ChatInputUI = observer(() => {
   }
 
   useEffect(() => {
-    if (isDefault || !inputRef.current) return
+    if (state == 'default' || !inputRef.current) return
     inputRef.current?.focus()
-  }, [isDefault])
+  }, [state])
 
   return (
     <div>
-      {(!isDefault || actionMsg) && (
+      {state != 'default' && actionMsg && (
         <ChatCommonMsgViewUi>
           <div className={s.prev}>
             <i>Message:</i> {useSliceStr(actionMsg?.message!, 15)}
-            <button
-              className="fz17"
-              onClick={() => {
-                setActionMsg(null)
-                setIsDefault(true)
-                setVal('')
-              }}
-            >
+            <button className="fz17" onClick={$null}>
               <CloseOutlined />
             </button>
           </div>

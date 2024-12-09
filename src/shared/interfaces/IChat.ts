@@ -5,6 +5,7 @@ export interface IMessage {
   message: string
   time: number
   userId: string
+  reply: IMessage
 }
 
 export interface IChat {
