@@ -5,45 +5,11 @@
   padding: 5px;
   background-color: rgb(17, 17, 17);
   border-radius: 16px;
-  .chatElement {
-    min-width: max-content;
-    height: 100px;
-    cursor: pointer;
-    h4 {
-      font-size: 17px;
-    }
-    p {
-      color: #a5a5a5;
-    }
-    * {
-      margin: 3px;
-    }
-    ::selection {
-      background-color: transparent;
-    }
-  }
-}
-
-@media (max-width: 1024px) {
-  .chatsList {
-    .chatElement {
-      h4 {
-        font-size: 15px !important;
-      }
-      p {
-        font-size: 13px !important;
-      }
-    }
-  }
 }
 
 @media (max-width: 768px) {
   .chatsList {
     width: 100% !important;
     background-color: transparent !important;
-    .chatElement {
-      width: inherit;
-      justify-content: space-around;
-    }
   }
 }

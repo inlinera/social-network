@@ -1,0 +1,27 @@
+.chat {
+  margin: 10px;
+  padding: 10px 5px 10px 5px;
+  height: inherit;
+  overflow-y: auto;
+  i {
+    margin: 10px;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #c5c5c5;
+    border-radius: 15px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chat {
+    height: inherit;
+  }
+}

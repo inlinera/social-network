@@ -1,0 +1,25 @@
+.chatElement {
+  min-width: max-content;
+  height: 100px;
+  cursor: pointer;
+  h4 {
+    font-size: 1.2rem;
+  }
+  p {
+    color: #a5a5a5;
+    font-size: 1rem;
+  }
+  * {
+    margin: 3px;
+  }
+  ::selection {
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 768px) {
+  .chatElement {
+    width: inherit;
+    justify-content: space-around;
+  }
+}

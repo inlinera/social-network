@@ -3,18 +3,15 @@ import s from './index.module.scss'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import getChatsApi from '@/shared/store/api/chats/get-chats-api'
-import chatState from '@/shared/store/api/chats/chat/get-chat-api'
 //COMPONENTS
 import { LoadingUI } from '@/shared/ui/loading'
-import { Avatar } from 'antd'
+import { ChatComponent } from './components/chat'
 //INTERFACES
 import { IChat } from '@/shared/interfaces/IChat'
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
 
 export const ChatsList = observer(() => {
   const { user } = authApi
   const { chats, loading } = getChatsApi
-  const { getChat } = chatState
 
   return (
     <div className={`${s.chatsList} flex fdc aic`}>
@@ -26,22 +23,12 @@ export const ChatsList = observer(() => {
           const lastMessage = chat.messages[chat.messages.length - 1]
           const msgDate = new Date(lastMessage?.time)
           return (
-            <div
-              className={`${s.chatElement} flex aic jcsb`}
-              key={chat.messages[0]?.time}
-              onClick={() => getChat(chat.chatId)}
-            >
-              <div className="flex">
-                <Avatar size={50} src={chatUser?.avatarUrl} alt="avatar" draggable={false} />
-                <div className="flex fdc">
-                  <h4>@{chatUser?.displayName}</h4>
-                  <p>{useSliceStr(lastMessage?.message, 6) || '......'}</p>
-                </div>
-              </div>
-              <span>
-                {lastMessage?.time && msgDate.getHours() + ':' + msgDate.getMinutes()}
-              </span>
-            </div>
+            <ChatComponent
+              chat={chat}
+              chatUser={chatUser!}
+              lastMessage={lastMessage}
+              msgDate={msgDate}
+            />
           )
         })
       )}
