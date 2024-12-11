@@ -15,7 +15,7 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'react-hooks/exhaustive-deps': 0,
-    'no-var': 'error',,
+    'no-var': 'error',
     'react-hooks/rules-of-hooks': 0
   },
 }
