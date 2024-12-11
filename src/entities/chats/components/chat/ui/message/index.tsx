@@ -13,6 +13,13 @@ interface ChatMessageUIProps {
 
 export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) => {
   const msgDate = new Date(message?.time)
+  const time = {
+    mon: msgDate.getMonth(),
+    d: msgDate.getDate(),
+    hr: msgDate.getHours(),
+    min: msgDate.getMinutes(),
+  }
+  const addZero = (_: string) => (_.length == 1 ? `0${_}` : _)
   return (
     <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`}>
       {message.reply && (
@@ -26,7 +33,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
           <LinkifyText text={message.message} />
         </p>
         <i className="fz10">
-          {msgDate.getHours()}:{msgDate.getMinutes()}, {msgDate.getDate()}/{msgDate.getMonth()}
+          {time.hr}:{addZero(`${time.min}`)}, {addZero(`${time.d}`)}/{addZero(`${time.mon}`)}
         </i>
       </ContextMenuUI>
     </div>

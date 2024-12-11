@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import s from './index.module.scss'
 import 'react-loading-skeleton/dist/skeleton.css'
 //COMPONENTS
-import { PostWidget } from '@/widgets/post'
+import { PostWidget } from '@/entities/posts/components/post'
 import { IPost } from '@/shared/interfaces/IPost'
 import Skeleton from 'react-loading-skeleton'
 //MOBX

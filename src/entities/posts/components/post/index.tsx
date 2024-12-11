@@ -11,7 +11,7 @@ import { PostBtnLine } from '@/entities/posts/index'
 import { DropdownMenuEntity } from '@/entities/posts/index'
 import { Avatar } from 'antd'
 import { LinkifyText } from '@/shared/ui/parseText'
-import { PostTagEntity } from '@/entities/posts/ui/tags'
+import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
 //MOBX
 import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
 

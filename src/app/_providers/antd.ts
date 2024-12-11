@@ -61,6 +61,7 @@ const Spin = {
 const Dropdown = {
   colorBgElevated: grayColor,
   colorText: '#fff',
+  zIndexPopup: 100,
 }
 
 export const config = {

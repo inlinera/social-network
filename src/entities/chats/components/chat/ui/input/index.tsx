@@ -60,7 +60,7 @@ export const ChatInputUI = observer(() => {
       {state != 'default' && actionMsg && (
         <ChatCommonMsgViewUi>
           <div className={s.prev}>
-            <i>Message:</i>
+            <b>Message:</b>
             <p>{useSliceStr(actionMsg?.message!, 15)}</p>
             <button className="fz17" onClick={$null}>
               <CloseOutlined />
