@@ -14,6 +14,7 @@ import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
 //MOBX
 import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
+import TextArea from 'antd/es/input/TextArea'
 
 export const PostWidget = ({ post }: { post: IPost }) => {
   const [isEditing, setIsEditing] = useState(false)
@@ -53,8 +54,10 @@ export const PostWidget = ({ post }: { post: IPost }) => {
       <div className={s.post__mainblock}>
         {isEditing ? (
           <div>
-            <input value={postVal} onChange={e => setPostVal(e.target.value)} />
-            <button onClick={() => submitChanges(postVal, setIsEditing)}>done</button>
+            <TextArea rows={6} value={postVal} onChange={e => setPostVal(e.target.value)} />
+            <button onClick={() => submitChanges({ ...post, value: postVal }, setIsEditing)}>
+              done
+            </button>
           </div>
         ) : (
           <p>

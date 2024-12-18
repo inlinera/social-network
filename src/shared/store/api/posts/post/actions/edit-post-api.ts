@@ -1,3 +1,6 @@
+import { db } from '@/app/_providers/firebase'
+import { IPost } from '@/shared/interfaces/IPost'
+import { doc, updateDoc } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
 
 class EditPostApi {
@@ -5,9 +8,9 @@ class EditPostApi {
     makeAutoObservable(this)
   }
 
-  submitChanges = (value: string, setIsEditing: (state: boolean) => void) => {
+  submitChanges = async (post: IPost, setIsEditing: (state: boolean) => void) => {
     try {
-      console.log(value)
+      await updateDoc(doc(db, 'posts', post.id), { ...post })
       setIsEditing(false)
     } catch (e) {
       alert(e)

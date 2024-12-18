@@ -14,16 +14,16 @@
 }
 
 .myMessage {
-  @include defaultStyle;
   align-self: flex-end;
   padding: 10px;
   background-color: $red-color;
   border-radius: 11px 11px 0 11px;
+  @include defaultStyle;
 }
 .notMyMessage {
-  @include defaultStyle;
   align-self: flex-start;
   padding: 10px;
   background-color: $post-color;
   border-radius: 11px 11px 11px 0;
+  @include defaultStyle;
 }
