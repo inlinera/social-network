@@ -16,11 +16,21 @@
       &:hover {
         background-color: rgb(99, 99, 99);
       }
+      &::selection {
+        background-color: transparent;
+      }
     }
   }
   .mainSettings__info {
     height: 300px;
     width: 100%;
+    padding: 5px 10px;
+    .info__setting {
+      align-items: start;
+      margin: 3px;
+      padding: 5px 10px;
+      border-bottom: 1px solid $gray-color;
+    }
   }
   .active {
     background-color: rgb(99, 99, 99);
