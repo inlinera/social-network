@@ -1,34 +1,40 @@
-import React, { useState } from 'react'
+import React from 'react'
+import FontSizeState from '@/shared/store/functional/settings/visual/font-size'
+import ThemeState from '@/shared/store/functional/settings/visual/theme'
+import { useSliceStr } from '@/shared/hooks/useSliceStr'
 
 export interface ISetting {
   name: string
   content?: IContent[]
+  code: number
 }
 
-interface IContent {
+export interface IContent {
   name: string
-  value?: string | number
+  value?: string | number | React.ReactNode
   info?: React.ReactNode
   content?: React.ReactNode
 }
 
 export const items = (): ISetting[] => {
-  const [fz, setFz] = useState(14)
+  const { fz, setFz } = FontSizeState
+  const { dark, setDark } = ThemeState
   return [
     {
       name: 'Безопасность',
+      code: 0,
     },
     {
       name: 'Вид',
       content: [
         {
           name: 'font-size',
-          value: fz,
+          value: `${fz}px`,
           content: (
             <input
               type="range"
               min="12"
-              max="20"
+              max="18"
               style={{ color: '#fff' }}
               value={fz}
               onChange={e => setFz(+e.target.value)}
@@ -37,11 +43,16 @@ export const items = (): ISetting[] => {
         },
         {
           name: 'theme',
-          value: 'dark',
-          content: <button>Change theme</button>,
+          value: `${dark ? 'Dark' : 'Light'}`,
+          content: <button onClick={() => setDark(!dark)}>Change theme</button>,
         },
         {
           name: 'wallpaper(chat)',
+          value: (
+            <a href="/" target="_blank">
+              {useSliceStr('tg/@duckowa/dev', 16)}
+            </a>
+          ),
           info: (
             <div className="fz10">
               <span style={{ color: '#e63946' }}>*</span>
@@ -51,9 +62,11 @@ export const items = (): ISetting[] => {
           content: <div></div>,
         },
       ],
+      code: 1,
     },
     {
       name: 'Конфиденциальность',
+      code: 2,
     },
   ]
 }
