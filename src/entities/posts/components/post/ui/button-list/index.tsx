@@ -35,7 +35,7 @@ export const PostBtnLine = observer(
     }
 
     return (
-      <div className="flex jcc aic">
+      <div className="flex aic">
         <PostBtn onClick={() => handleLikeStateChange()} loading={loading}>
           {loading ? (
             'Loading'

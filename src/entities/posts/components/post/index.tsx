@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import s from './index.module.scss'
@@ -12,22 +13,22 @@ import { DropdownMenuEntity } from '@/entities/posts/index'
 import { Avatar } from 'antd'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
+import TextArea from 'antd/es/input/TextArea'
 //MOBX
 import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
-import TextArea from 'antd/es/input/TextArea'
 
-export const PostWidget = ({ post }: { post: IPost }) => {
+export const PostWidget = observer(({ post }: { post: IPost }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [postVal, setPostVal] = useState(post.value)
 
-  const { submitChanges } = editPostApi
+  const { submitChanges, loading } = editPostApi
 
   const ruDate = Intl.DateTimeFormat()
   const postDate = new Date(post.time)
   const date = ruDate.format(post.time)
 
   return (
-    <div className={`${s.post} grid`}>
+    <div className={`${s.post} flex fdc`}>
       <div className={`${s.post__upperblock} flex aic`}>
         <div className="flex fdc">
           {post.userAvatar && (
@@ -53,9 +54,17 @@ export const PostWidget = ({ post }: { post: IPost }) => {
       </div>
       <div className={s.post__mainblock}>
         {isEditing ? (
-          <div>
-            <TextArea rows={6} value={postVal} onChange={e => setPostVal(e.target.value)} />
-            <button onClick={() => submitChanges({ ...post, value: postVal }, setIsEditing)}>
+          <div className={`${s.editPost} flex fdc`}>
+            <TextArea
+              className={s.editPost__textarea}
+              rows={6}
+              value={postVal}
+              onChange={e => setPostVal(e.target.value)}
+            />
+            <button
+              onClick={() => submitChanges({ ...post, value: postVal }, setIsEditing)}
+              disabled={loading}
+            >
               done
             </button>
           </div>
@@ -77,4 +86,4 @@ export const PostWidget = ({ post }: { post: IPost }) => {
       </div>
     </div>
   )
-}
+})

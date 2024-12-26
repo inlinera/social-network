@@ -20,9 +20,16 @@
   outline: none;
 }
 
-a:focus,
-a:active {
-  outline: none;
+a {
+  text-decoration: none;
+  &:active,
+  &:focus {
+    outline: none;
+  }
+  &:visited,
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 nav,
@@ -58,15 +65,6 @@ button {
 button::-moz-focus-inner {
   padding: 0;
   border: 0;
-}
-
-a,
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
 }
 
 ul li {
