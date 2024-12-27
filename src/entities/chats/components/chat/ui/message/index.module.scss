@@ -8,7 +8,7 @@
     word-wrap: break-word;
   }
   i {
-    color: #b1b1b1;
+    color: var(--g-color);
     font-weight: 600;
   }
 }
@@ -17,12 +17,14 @@
   align-self: flex-end;
   padding: 10px;
   background-color: $red-color;
+  color: #fff;
   border-radius: 11px 11px 0 11px;
   @include defaultStyle;
 }
 .notMyMessage {
   align-self: flex-start;
   padding: 10px;
+  color: var(--default);
   background-color: var(--post-color);
   border-radius: 11px 11px 11px 0;
   @include defaultStyle;

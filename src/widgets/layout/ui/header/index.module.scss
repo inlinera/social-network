@@ -19,8 +19,9 @@
     border-radius: 10px;
     border: 1px solid #000;
     background-color: var(--post-color);
+    color: var(--default);
     &::placeholder {
-      color: #e4e4e4ef;
+      color: var(--g-color);
     }
   }
 }

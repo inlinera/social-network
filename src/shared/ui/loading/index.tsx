@@ -1,3 +1,4 @@
+import s from './index.module.scss'
 import { Spin } from 'antd'
 
 interface LoadingUIProps {
@@ -8,7 +9,7 @@ export const LoadingUI = ({ children }: LoadingUIProps) => {
   return (
     <>
       <Spin size="large" />
-      <p style={{ marginTop: '5px' }} className="cw">
+      <p style={{ marginTop: '5px' }} className={s.loading}>
         {children}
       </p>
     </>
