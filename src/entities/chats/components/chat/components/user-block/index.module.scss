@@ -1,7 +1,7 @@
 @import '@/app/assets/styles/variables.scss';
 
 .chatWindow_user {
-  border-bottom: 1px solid $post-color;
+  border-bottom: 1px solid var(--post-color);
   * {
     margin: 0 5px;
   }
@@ -9,12 +9,12 @@
     margin: 5px 0;
     padding: 2px;
     font-size: 15px;
-    color: $default;
+    color: var(--default);
     border-radius: 5px;
     transition: all 0.2s;
     cursor: pointer;
     &:hover {
-      background-color: $gray-color;
+      background-color: var(--gray-color);
     }
   }
 }

@@ -2,8 +2,16 @@
 // @import '@/app/assets/styles/variables.scss';
 
 //COLORS
-$body-color: #0e0e0e;
-$post-color: rgba(30, 30, 30, 0.95);
 $red-color: #e63946;
-$gray-color: #353535d8;
-$default: #fff;
+body[data-theme='true'] {
+  --body-color: #0e0e0e;
+  --post-color: rgba(30, 30, 30, 0.95);
+  --gray-color: #353535;
+  --default: #fff;
+}
+body[data-theme='false'] {
+  --body-color: #8f8f8f;
+  --post-color: rgba(219, 219, 219, 0.95);
+  --gray-color: #9e9e9e;
+  --default: #000;
+}

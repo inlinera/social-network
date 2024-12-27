@@ -21,7 +21,6 @@ export const PostBtnLine = observer(
   ({ likes, comments, postId, userId }: PostBtnLineProps) => {
     const { handlePostLike } = handleLikeApi
     const [loading, setLoading] = useState<boolean>(false)
-    const tempSize = { fontSize: '16px' }
 
     const handleLikeStateChange = async () => {
       setLoading(true)
@@ -37,13 +36,7 @@ export const PostBtnLine = observer(
     return (
       <div className="flex aic">
         <PostBtn onClick={() => handleLikeStateChange()} loading={loading}>
-          {loading ? (
-            'Loading'
-          ) : likes?.includes(userId) ? (
-            <HeartFilled style={tempSize} />
-          ) : (
-            <HeartOutlined style={tempSize} />
-          )}
+          {loading ? 'Loading' : likes?.includes(userId) ? <HeartFilled /> : <HeartOutlined />}
           {likes?.length}
         </PostBtn>
         <Link to={`/posts/${postId}`}>

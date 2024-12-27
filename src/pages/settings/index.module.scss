@@ -2,17 +2,17 @@
 
 .mainSettings {
   width: 100%;
-  color: $default;
-  border: 2px solid $gray-color;
+  color: var(--default);
+  border: 2px solid var(--gray-color);
   border-radius: 13px;
   .mainSettings__buttons {
     width: 100%;
     padding: 5px;
-    border-bottom: 2px solid $gray-color;
+    border-bottom: 2px solid var(--gray-color);
     button {
       margin: 3px;
       padding: 5px 10px;
-      color: $default;
+      color: var(--default);
       font-weight: 600;
       border-radius: 13px;
       background-color: rgb(44, 44, 44);
@@ -33,7 +33,7 @@
       align-items: start;
       margin: 3px;
       padding: 5px 10px;
-      border-bottom: 1px solid $gray-color;
+      border-bottom: 1px solid var(--gray-color);
     }
   }
   .active {

@@ -8,7 +8,14 @@ interface PostBtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const PostBtn = ({ children, loading, ...props }: PostBtnProps) => {
   return (
-    <button className={`${s.postBtn} ${loading && s.loading} flex aic`} {...props}>
+    <button
+      className={`${s.postBtn} ${loading && s.loading} flex aic`}
+      {...props}
+      style={{
+        fontSize: document.body.style.fontSize,
+        padding: parseInt(document.body.style.fontSize) - 5,
+      }}
+    >
       <span>{loading ? 'Loading' : children}</span>
     </button>
   )

@@ -25,8 +25,8 @@
     width: 100%;
     padding: 10px 15px;
     padding-right: 60px;
-    color: $default;
-    border: 2px solid $post-color;
+    color: var(--default);
+    border: 2px solid var(--post-color);
     border-radius: 10px;
   }
 

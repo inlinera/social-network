@@ -26,7 +26,7 @@ $hover-color: #777777d8;
     height: max-content;
     padding: 5px;
     border-radius: 10px;
-    background-color: $body-color;
+    background-color: var(--body-color);
     .sider_sidebar__button {
       margin: 2px;
       padding: 5px;
@@ -34,6 +34,7 @@ $hover-color: #777777d8;
       border-radius: 15px;
       transition: all 0.4s;
       text-align: left;
+      color: var(--default);
       * {
         margin: 3px;
         font-size: 15px;

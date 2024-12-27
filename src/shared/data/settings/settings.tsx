@@ -1,7 +1,9 @@
 import React from 'react'
 import s from './settings.module.scss'
+//MOBX
 import FontSizeState from '@/shared/store/functional/settings/visual/font-size'
 import ThemeState from '@/shared/store/functional/settings/visual/theme'
+//HOOKS
 import { useFontSize } from '@/shared/hooks/settings/useFontSize'
 
 export interface ISetting {
@@ -35,7 +37,7 @@ export const items = (): ISetting[] => {
             <input
               type="range"
               min="12"
-              max="18"
+              max="17"
               className={s.rangeInput}
               value={fz}
               onChange={e => setFz(+e.target.value)}

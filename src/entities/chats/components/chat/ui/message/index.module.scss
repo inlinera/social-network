@@ -23,7 +23,7 @@
 .notMyMessage {
   align-self: flex-start;
   padding: 10px;
-  background-color: $post-color;
+  background-color: var(--post-color);
   border-radius: 11px 11px 11px 0;
   @include defaultStyle;
 }

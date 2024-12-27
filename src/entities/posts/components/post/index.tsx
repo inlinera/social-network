@@ -41,7 +41,7 @@ export const PostWidget = observer(({ post }: { post: IPost }) => {
                   draggable={false}
                 />
                 <div className="flex fdc">
-                  <p>{post.userName}</p>
+                  <p style={{ fontSize: document.body.style.fontSize }}>{post.userName}</p>
                   <span className="fz10">
                     {date + ' в ' + postDate.getHours() + ':' + postDate.getMinutes()}
                   </span>
@@ -69,7 +69,7 @@ export const PostWidget = observer(({ post }: { post: IPost }) => {
             </button>
           </div>
         ) : (
-          <p>
+          <p style={{ fontSize: document.body.style.fontSize }}>
             <LinkifyText text={post.value} />
           </p>
         )}
