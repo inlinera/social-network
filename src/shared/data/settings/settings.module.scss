@@ -1,0 +1,13 @@
+@import '@/app/assets/styles/variables.scss';
+
+.rangeInput {
+  accent-color: $red-color;
+  cursor: pointer;
+}
+.themeButton {
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 13px;
+  background-color: $red-color;
+  transition: all 0.3s;
+}

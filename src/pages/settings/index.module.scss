@@ -2,19 +2,23 @@
 
 .mainSettings {
   width: 100%;
+  color: $default;
   border: 2px solid $gray-color;
   border-radius: 13px;
-  color: $default;
   .mainSettings__buttons {
     width: 100%;
+    padding: 5px;
     border-bottom: 2px solid $gray-color;
     button {
       margin: 3px;
       padding: 5px 10px;
+      color: $default;
+      font-weight: 600;
       border-radius: 13px;
+      background-color: rgb(44, 44, 44);
       transition: all 0.4s;
       &:hover {
-        background-color: rgb(99, 99, 99);
+        background-color: $red-color;
       }
       &::selection {
         background-color: transparent;
@@ -33,6 +37,6 @@
     }
   }
   .active {
-    background-color: rgb(99, 99, 99);
+    background-color: $red-color !important;
   }
 }

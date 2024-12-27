@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import s from './index.module.scss'
-import { IContent, items } from '@/shared/data/settings/settings-list'
 import { observer } from 'mobx-react-lite'
+import s from './index.module.scss'
+
+import { IContent, items } from '@/shared/data/settings/settings'
 
 export const SettingsPage = observer(() => {
   const [activeType, setActiveType] = useState(0)
@@ -11,7 +12,7 @@ export const SettingsPage = observer(() => {
       <div className={`${s.mainSettings__buttons}`}>
         {items().map(t => (
           <button
-            className={`${activeType == t.code && s.active} cw`}
+            className={`${activeType == t.code && s.active}`}
             onClick={() => setActiveType(t.code)}
             key={t.name}
           >
@@ -20,14 +21,14 @@ export const SettingsPage = observer(() => {
         ))}
       </div>
       <div className={`${s.mainSettings__info}`}>
-        {items()[activeType]?.content?.map((item: IContent, id: number) => (
-          <div className={`${s.info__setting} flex fdc`} key={id}>
+        {items()[activeType]?.content?.map((item: IContent) => (
+          <div className={`${s.info__setting} flex fdc`} key={item.name}>
             <div>
               <span>{item.name}: </span>
               <span>{item.value}</span>
               {item.info && item.info}
             </div>
-            {item.content && item.content}
+            <div>{item.content && item.content}</div>
           </div>
         ))}
       </div>

@@ -30,7 +30,7 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
           count={5}
           duration={1}
           width={width}
-          height={150}
+          height={170}
           style={{ marginTop: '15px' }}
           borderRadius={'0.5rem'}
         />

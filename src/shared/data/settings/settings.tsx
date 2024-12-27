@@ -1,7 +1,8 @@
 import React from 'react'
+import s from './settings.module.scss'
 import FontSizeState from '@/shared/store/functional/settings/visual/font-size'
 import ThemeState from '@/shared/store/functional/settings/visual/theme'
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
+import { useFontSize } from '@/shared/hooks/settings/useFontSize'
 
 export interface ISetting {
   name: string
@@ -35,31 +36,22 @@ export const items = (): ISetting[] => {
               type="range"
               min="12"
               max="18"
-              style={{ color: '#fff' }}
+              className={s.rangeInput}
               value={fz}
               onChange={e => setFz(+e.target.value)}
+              onTouchEnd={() => useFontSize(fz).edit()}
+              onMouseUp={() => useFontSize(fz).edit()}
             />
           ),
         },
         {
           name: 'theme',
           value: `${dark ? 'Dark' : 'Light'}`,
-          content: <button onClick={() => setDark(!dark)}>Change theme</button>,
-        },
-        {
-          name: 'wallpaper(chat)',
-          value: (
-            <a href="/" target="_blank">
-              {useSliceStr('tg/@duckowa/dev', 16)}
-            </a>
+          content: (
+            <button className={s.themeButton} onClick={() => setDark(!dark)}>
+              Change theme
+            </button>
           ),
-          info: (
-            <div className="fz10">
-              <span style={{ color: '#e63946' }}>*</span>
-              <i>Phone only</i>
-            </div>
-          ),
-          content: <div></div>,
         },
       ],
       code: 1,
