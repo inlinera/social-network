@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import { action, makeAutoObservable } from 'mobx'
 import Settings, { ISettings } from '../../start-app'
 
 class FontSizeState {
@@ -8,12 +8,16 @@ class FontSizeState {
 
   // =================== FONT SIZE STATE ===================
   fz = 14
-  setFz = (_: number) => {
+  setFz = action((_: number) => {
     this.fz = _
+    this.$()
+  })
+  $ = () => {
     localStorage.setItem(
       '2la-settings',
       JSON.stringify({ ...JSON.parse(Settings._!), fz: this.fz } as ISettings)
     )
+    document.body.style.fontSize = `${this.fz}px`
   }
 }
 
