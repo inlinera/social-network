@@ -12,4 +12,5 @@ export interface IChat {
   messages: IMessage[]
   people: IFriend[]
   chatId: string
+  pinned: IMessage[]
 }

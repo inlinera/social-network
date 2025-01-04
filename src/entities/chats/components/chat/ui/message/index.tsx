@@ -5,6 +5,7 @@ import { items } from '@/shared/data/chats/context'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { ChatCommonMsgViewUi } from '../common/msg-view'
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
+import fontSize from '@/shared/store/functional/settings/visual/font-size'
 
 interface ChatMessageUIProps {
   isThisMessageMy: boolean
@@ -20,6 +21,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
     min: msgDate.getMinutes(),
   }
   const addZero = (_: string) => (_.length == 1 ? `0${_}` : _)
+  const { fz } = fontSize
   return (
     <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`}>
       {message.reply && (
@@ -32,10 +34,10 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
         <p>
           <LinkifyText text={message.message} />
         </p>
-        <i className="fz10">
-          {time.hr}:{addZero(`${time.min}`)}, {addZero(`${time.d}`)}/{addZero(`${time.mon}`)}
-        </i>
       </ContextMenuUI>
+      <b style={{ fontSize: fz - 5 }}>
+        {time.hr}:{addZero(`${time.min}`)}, {addZero(`${time.d}`)}/{addZero(`${time.mon}`)}
+      </b>
     </div>
   )
 }

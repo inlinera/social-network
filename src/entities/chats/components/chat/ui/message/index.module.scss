@@ -7,10 +7,6 @@
     text-wrap: wrap;
     word-wrap: break-word;
   }
-  i {
-    color: var(--g-color);
-    font-weight: 600;
-  }
 }
 
 .myMessage {
@@ -25,7 +21,7 @@
   align-self: flex-start;
   padding: 10px;
   color: var(--default);
-  background-color: var(--post-color);
+  background-color: var(--gray-color);
   border-radius: 11px 11px 11px 0;
   @include defaultStyle;
 }
