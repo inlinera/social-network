@@ -28,6 +28,7 @@ export const ChatsList = observer(() => {
               chatUser={chatUser!}
               lastMessage={lastMessage}
               msgDate={msgDate}
+              key={chat.chatId}
             />
           )
         })

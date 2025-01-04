@@ -23,9 +23,9 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
   const addZero = (_: string) => (_.length == 1 ? `0${_}` : _)
   const { fz } = fontSize
   return (
-    <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`}>
+    <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`} id={message.id}>
       {message.reply && (
-        <ChatCommonMsgViewUi>
+        <ChatCommonMsgViewUi id={message.reply.id}>
           <h4>@{message.reply.userId}</h4>
           <p>{useSliceStr(message.reply.message, 9)}</p>
         </ChatCommonMsgViewUi>

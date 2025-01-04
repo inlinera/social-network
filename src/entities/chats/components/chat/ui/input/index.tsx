@@ -58,7 +58,7 @@ export const ChatInputUI = observer(() => {
   return (
     <div>
       {state != 'default' && actionMsg && (
-        <ChatCommonMsgViewUi>
+        <ChatCommonMsgViewUi id={actionMsg.id}>
           <div className={s.prev}>
             <b>Message:</b>
             <p>{useSliceStr(actionMsg?.message!, 15)}</p>

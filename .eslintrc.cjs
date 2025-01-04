@@ -16,6 +16,7 @@ module.exports = {
     ],
     'react-hooks/exhaustive-deps': 0,
     'no-var': 'error',
-    'react-hooks/rules-of-hooks': 0
+    'react-hooks/rules-of-hooks': 0,
+    '@typescript-eslint/no-non-null-asserted-optional-chain': 0
   },
 }

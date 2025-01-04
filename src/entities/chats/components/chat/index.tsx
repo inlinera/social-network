@@ -9,24 +9,33 @@ import { useMobile } from '@/shared/hooks/useMobile'
 import { ChatInputUI } from './ui/input'
 import { ChatUserBlock } from './components/user-block'
 import { ChatMessagesBlock } from './components/messages'
+import { chatState } from '@/shared/store/functional/chat/content'
+import { PinnedMsgsList } from './components/pinnedMsgsList'
 
 export const ChatWindow = observer(() => {
   const { chat } = getChatApi
   const isMobile = useMobile()
 
   if (isMobile && !chat) return
+  const { isChat } = chatState
   const chattingUser = chat?.people.filter(p => p.displayName != authApi.user?.displayName)[0]
 
   return (
     <div className={`${s.chatWindow} flex fdc ${!chat && 'jcc aic'}`}>
       {chat ? (
         <>
-          <ChatUserBlock chattingUser={chattingUser!} />
-          <ChatMessagesBlock chattingUser={chattingUser!} />
-          <ChatInputUI />
+          {isChat ? (
+            <>
+              <ChatUserBlock chattingUser={chattingUser!} />
+              <ChatMessagesBlock chattingUser={chattingUser!} />
+              <ChatInputUI />
+            </>
+          ) : (
+            <PinnedMsgsList pin={chat?.pinned} />
+          )}
         </>
       ) : (
-        'Choose the chat'
+        <b>Choose the chat</b>
       )}
     </div>
   )
