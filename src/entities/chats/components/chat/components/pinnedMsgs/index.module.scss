@@ -1,13 +1,19 @@
+@import '@/app/assets/styles/variables.scss';
+
 .pinnedMsgs {
   width: 100%;
-  padding: 5px 10px;
+  padding: 0px 10px;
   background-color: (--body-color);
   color: var(--default);
+  vertical-align: middle;
   .pinnedMsgs__msg {
-    padding: 5px 15px;
+    padding: 3px 15px;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.4s;
+    p[data-penis='pin'] {
+      color: $red-color;
+    }
     &:hover {
       background-color: var(--gray-color);
     }
