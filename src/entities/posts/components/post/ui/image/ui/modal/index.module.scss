@@ -1,13 +1,10 @@
 .image_list {
-  padding: 15px;
+  position: relative;
   grid-template-columns: repeat(2, 1fr);
-}
-
-@media (max-width: 768px) {
-  .image_list {
-    grid-template-columns: 1fr;
-    * {
-      height: auto !important;
-    }
+  gap: 5px;
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }

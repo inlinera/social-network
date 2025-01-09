@@ -10,22 +10,28 @@ export const PostImageList = ({ images }: PostImageListProps) => {
   const [isOpened, setIsOpened] = useState(false)
 
   return (
-    <div className={`${s.image_list} grid`}>
+    <>
       <ImageListModal images={images} isOpened={isOpened} setIsOpened={setIsOpened} />
-      <div>
-        {images.length >= 3 ? (
-          <div>
-            {images.slice(0, 3).map(i => (
-              <img src={i} alt={i} key={i} className={s.image} />
-            ))}
-            <button className={s.other_images} onClick={() => setIsOpened(true)}>
-              +{images.length - 3}
-            </button>
+      <div
+        className={`${
+          images.length == 1
+            ? s.oneElement
+            : images.length == 2
+            ? s.twoElement
+            : s.threeElement
+        } grid`}
+      >
+        {images.slice(0, 2).map(i => (
+          <div className={s.imageWrapper}>
+            <img src={i} alt={i} key={i} className={s.image} />
           </div>
-        ) : (
-          images.map(i => <img src={i} alt={i} key={i} className={s.image} />)
+        ))}
+        {images.length > 2 && (
+          <button className={s.more} onClick={() => setIsOpened(true)}>
+            +{images.length - 2}
+          </button>
         )}
       </div>
-    </div>
+    </>
   )
 }
