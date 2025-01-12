@@ -31,8 +31,10 @@ export const UserPage = observer(() => {
     setIsOpenedFriend(false)
   }, [userId])
 
-  return (
-    <div className={`${s.userBlock} jcc aic flex fdc`}>
+  return loading ? (
+    <LoadingUI>User is loading...</LoadingUI>
+  ) : (
+    <div className={`${s.userBlock} flex fdc jcc aic`}>
       {userInfo ? (
         <>
           <UserFriendModal
@@ -40,22 +42,18 @@ export const UserPage = observer(() => {
             isOpened={isOpenedFriend}
             setIsOpened={setIsOpenedFriend}
           />
-          {loading ? (
-            <LoadingUI>User is loading...</LoadingUI>
-          ) : (
-            <div className={`${s.userInfo} jcc grid cw`}>
-              <UserBlock
-                userInfo={userInfo}
-                userInfoFriend={targetUserInfo}
-                myUserInfoFriend={myUserInfoFriend}
-                setIsOpenedFriend={setIsOpenedFriend}
-              />
-              <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
-                <AddPostBlockEntity />
-                {posts?.length != 0 && <PostListWidget posts={posts} isUserPosts={true} />}
-              </div>
+          <div className={`${s.userInfo} grid jcc cw`}>
+            <UserBlock
+              userInfo={userInfo}
+              userInfoFriend={targetUserInfo}
+              myUserInfoFriend={myUserInfoFriend}
+              setIsOpenedFriend={setIsOpenedFriend}
+            />
+            <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
+              <AddPostBlockEntity />
+              {posts?.length != 0 && <PostListWidget posts={posts} isUserPosts={true} />}
             </div>
-          )}
+          </div>
         </>
       ) : (
         'User not found'

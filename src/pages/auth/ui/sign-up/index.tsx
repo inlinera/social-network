@@ -18,7 +18,7 @@ interface SignUpProps {
 
 export const SignUp = observer(({ setIsReg }: SignUpProps) => {
   const { signUp, error } = authApi
-  const { image, uploadAvatar } = storageApi
+  const { image, uploadImage } = storageApi
 
   //ANTD COMPONENT
   const { TextArea } = Input
@@ -33,7 +33,7 @@ export const SignUp = observer(({ setIsReg }: SignUpProps) => {
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const downloadURL = await uploadAvatar(e.target.files[0])
+      const downloadURL = await uploadImage(e.target.files[0], 'avatars')
       setUserData({ ...userData, avatarUrl: downloadURL as string })
     }
   }

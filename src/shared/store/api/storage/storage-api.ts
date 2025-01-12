@@ -14,8 +14,8 @@ class StorageApi {
   image? = null as null | string | File
 
   //ALL STORAGE ACTIONS
-  uploadAvatar = async (file: File) => {
-    const imgRef = ref(storage, `files/avatars/${v4()}`)
+  uploadImage = async (file: File, dir: string) => {
+    const imgRef = ref(storage, `files/${dir}/${v4()}`)
     try {
       await uploadBytes(imgRef, file)
       const downloadURL: string = await getDownloadURL(imgRef)

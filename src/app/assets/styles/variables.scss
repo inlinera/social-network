@@ -5,14 +5,14 @@
 $red-color: #e63946;
 body[data-theme='true'] {
   --body-color: #0e0e0e;
-  --post-color: rgba(30, 30, 30, 0.95);
+  --post-color: rgba(30, 30, 30);
   --gray-color: #353535;
   --g-color: #bdbdbd;
   --default: #fff;
 }
 body[data-theme='false'] {
   --body-color: #c0c0c0;
-  --post-color: rgba(219, 219, 219, 0.95);
+  --post-color: rgba(219, 219, 219);
   --gray-color: #bbbbbb;
   --g-color: rgb(102, 102, 102);
   --default: #000;

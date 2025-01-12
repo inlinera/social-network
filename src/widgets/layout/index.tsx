@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite'
-import s from './index.module.scss'
 //COMPONENTS
 import { HeaderUi } from './ui/header'
 import { SidebarUI } from './ui/sidebar'
@@ -10,9 +9,9 @@ export const LayoutNav = observer(() => {
   const isMobile = useMobile()
 
   return (
-    <div className={s.layout}>
+    <>
       {!isMobile && <HeaderUi />}
       <SidebarUI />
-    </div>
+    </>
   )
 })

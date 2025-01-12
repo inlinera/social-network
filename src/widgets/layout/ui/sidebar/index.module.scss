@@ -12,7 +12,7 @@ $hover-color: #777777d8;
   width: inherit;
   min-width: 200px;
   max-width: 500px;
-  padding-top: 60px;
+  left: 0;
   inset-inline-start: 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -56,6 +56,7 @@ $hover-color: #777777d8;
 @media (max-width: 768px) {
   .sider {
     width: 100vw;
+    padding: 0;
     height: max-content;
     bottom: 0;
     .sider_sidebar {
