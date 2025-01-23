@@ -5,12 +5,12 @@
   min-width: 300px;
   min-height: 300px;
   color: var(--default);
+  font-family: 'Russo One', sans-serif;
   border-radius: 12px;
   background-color: var(--post-color);
   .imgBlock {
     position: relative;
     width: 7%;
-    padding: 3px;
     align-items: flex-start;
     border-radius: 12px 0 0 12px;
     background-image: url('@/app/assets/images/bg.jpg');
@@ -62,6 +62,9 @@
       font-weight: 200;
     }
     .imgBlock {
+      div {
+        font-size: 10px;
+      }
       button {
         padding: 4px;
       }

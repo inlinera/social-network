@@ -18,7 +18,7 @@ export const AuthEntity = ({ isReg, setIsReg }: AuthEntityProps) => {
   return (
     <div className={`${s.authEntity} flex`}>
       <div className={`${s.imgBlock} flex fdc jcc aic ${isActive ? s.active : ''}`}>
-        <div className="flex fdc jcc aic">
+        <div className="flex fdc jcc aic tac">
           {isActive && (
             <div>
               <h4>Войти иначе</h4>

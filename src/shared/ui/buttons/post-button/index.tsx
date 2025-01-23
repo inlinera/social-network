@@ -1,8 +1,7 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react'
+import { ButtonHTMLAttributes } from 'react'
 import s from './index.module.scss'
 
 interface PostBtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode
   loading?: boolean
 }
 

@@ -25,7 +25,7 @@ export const PinnedMsgsList = ({ pin }: PinnedMsgsProps) => {
           <ArrowLeftOutlined /> <span>Back</span>
         </button>
       </div>
-      <div className={`${s.pinnedMsgsList__main} felx fdc`}>
+      <div className={`${s.pinnedMsgsList__main} flex fdc`}>
         {pin.map(msg => {
           return (
             <div
