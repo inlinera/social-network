@@ -1,10 +1,6 @@
-import React from 'react'
 import s from './index.module.scss'
 
-interface RedButtonUIProps {
-  children: React.ReactNode
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
-}
+interface RedButtonUIProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const RedButtonUI = ({ children, ...params }: RedButtonUIProps) => {
   return (

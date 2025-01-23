@@ -20,7 +20,7 @@ class StorageApi {
       await uploadBytes(imgRef, file)
       const downloadURL: string = await getDownloadURL(imgRef)
       this.setImage(downloadURL)
-      return this.image || downloadURL
+      return downloadURL
     } catch (e) {
       alert(e)
     }

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import createPostApi from '@/shared/store/api/posts/post/actions/create-post-api'
 //COMPONENTS
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
-import { Modal, Select, Upload, UploadFile, UploadProps } from 'antd'
+import { Modal, Select, Upload, UploadFile } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 //DATA
 import { postTags } from '@/shared/data/post-tags'
@@ -30,34 +30,29 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
     const val = useFormatInput(value)
     if (!val) return alert("Post can't contain only spaces!")
 
-    const imageUrls = imgList.map(file => file.url)?.filter(url => url)
+    // Получаем только URL изображений
+    const imageUrls = imgList.map(file => file.url).filter(url => url)
 
-    createPost(val, selectedTags, imageUrls as string[])
+    // Создаем пост с контентом, тегами и URL изображений
+    await createPost(val, selectedTags, imageUrls as string[])
+
+    // Сбрасываем состояние
     setValue('')
     setSelectedTags([])
     setImgList([])
+    setIsOpened(false) // Закрываем модальное окно после отправки
   }
 
-  const handleChange: UploadProps['onChange'] = async ({ fileList }) => {
-    const newFileList: UploadFile[] = await Promise.all(
-      fileList.map(async file => {
-        if (file.status === 'done') {
-          return { ...file, url: file.response.url }
-        }
-        return file
-      })
-    )
-
-    setImgList(newFileList)
-  }
-
-  const beforeUpload = async (file: File) => {
+  const handleChange = async (file: File) => {
     const url = await uploadImage(file, 'photos')
+    if (!url) {
+      throw new Error('Изображение не было загружено')
+    }
     const newFile: UploadFile = {
+      name: `${imgList.length + 1}`,
+      status: 'done',
+      url: url,
       uid: v4(),
-      name: file.name,
-      status: url ? 'done' : 'error',
-      url: url as string,
     }
     setImgList(prev => [...prev, newFile])
   }
@@ -85,10 +80,10 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
           <Upload
             listType="picture-card"
             fileList={imgList}
-            onChange={handleChange}
-            beforeUpload={beforeUpload} // Используем beforeUpload для загрузки изображения
+            onChange={file => handleChange(file.file.response)}
             onRemove={file => {
               setImgList(prev => prev.filter(item => item.uid !== file.uid))
+              // DELETE IMAGE FROM FIREBASE
             }}
           >
             {imgList.length >= 8 ? null : <button type="button">Add Image</button>}

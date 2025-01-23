@@ -1,7 +1,9 @@
-const postColor = 'rgba(30, 30, 30, 0.95)'
+const isDark = Boolean(document.body.getAttribute('data-theme')) == true
+
 const redColor = '#e63946'
-const grayColor = '#353535d8'
-const bodyColor = '#0e0e0e'
+const postColor = isDark ? 'rgba(30, 30, 30)' : 'rgba(219, 219, 219)'
+const grayColor = isDark ? '#353535' : '#bbbbbb'
+const bodyColor = isDark ? '#0e0e0e' : '#c0c0c0'
 
 const Button = {
   colorPrimary: redColor,

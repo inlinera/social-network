@@ -3,6 +3,9 @@
 
 //COLORS
 $red-color: #e63946;
+html {
+  --red-color: #e63946;
+}
 body[data-theme='true'] {
   --body-color: #0e0e0e;
   --post-color: rgba(30, 30, 30);

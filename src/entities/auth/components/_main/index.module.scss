@@ -1,0 +1,70 @@
+.authEntity {
+  position: relative;
+  width: 60vw;
+  height: 40vh;
+  min-width: 300px;
+  min-height: 300px;
+  color: var(--default);
+  border-radius: 12px;
+  background-color: var(--post-color);
+  .imgBlock {
+    position: relative;
+    width: 7%;
+    padding: 3px;
+    align-items: flex-start;
+    border-radius: 12px 0 0 12px;
+    background-image: url('@/app/assets/images/bg.jpg');
+    transition: all 0.5s;
+    div {
+      position: absolute;
+      width: 100%;
+      top: 10px;
+      font-size: 13px;
+    }
+    button {
+      margin-left: 90%;
+      padding: 6px;
+      background-color: var(--post-color);
+      border: 1px solid var(--body-color);
+      border-radius: 100%;
+      transition: all 0.5s;
+      svg {
+        color: var(--default);
+        transition: all 0.7s;
+      }
+      &:hover {
+        background-color: var(--default);
+        svg {
+          color: var(--red-color);
+        }
+      }
+    }
+    &.active {
+      width: 25%;
+    }
+  }
+  h1 {
+    margin-bottom: 10px;
+  }
+  .authEntity__content {
+    form {
+      width: 90%;
+    }
+    flex: 1;
+    padding: 15px 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .authEntity {
+    * {
+      font-size: 11px !important;
+      font-weight: 200;
+    }
+    .imgBlock {
+      button {
+        padding: 4px;
+      }
+    }
+  }
+}
