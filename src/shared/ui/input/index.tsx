@@ -7,11 +7,11 @@ interface InputUiProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const InputUi = ({ setVal, maxLength, ...props }: InputUiProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (maxLength && e.target.value.length == maxLength) {
-      navigator.vibrate(50)
-      alert(`Максимально допустимое кол-во символов в данном поле: ${maxLength}`)
-    } else {
+    if (maxLength && e.target.value.length < maxLength) {
       setVal(e.target.value)
+    } else {
+      navigator.vibrate(50)
+      alert(`Максимально допустимое кол-во символов в данном поле: ${maxLength! - 1}`)
     }
   }
 

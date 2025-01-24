@@ -5,8 +5,11 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { PostWidget } from '@/entities/posts/components/post'
 import { IPost } from '@/shared/interfaces/IPost'
 import Skeleton from 'react-loading-skeleton'
+import { CommentUi } from '@/entities/posts/components/comments/ui/comment'
+import { Link } from 'react-router-dom'
 //MOBX
 import userApi from '@/shared/store/api/user/profile/user-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 interface PostListWidgetProps {
   posts?: IPost[]
@@ -20,8 +23,35 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
   const width = (containerRef.current?.clientWidth as number) - 20 || '95%'
 
   const { userInfo } = userApi
+  const { user } = authApi
 
-  const postsMap = posts?.map(p => <PostWidget post={p} key={p.id} />)
+  const postsMap = posts?.map((p, arrId) => {
+    const isEven2 = arrId % 2 == 0
+    return (
+      <>
+        <PostWidget post={p} key={p.id} />
+        {isEven2 &&
+          !isUserPosts &&
+          (p.comments?.[0] ? (
+            <CommentUi userName={p.comments[0].userName} content={p.comments[0].content} />
+          ) : (
+            <CommentUi
+              content={
+                <>
+                  {user ? (
+                    <Link to={`/posts/${p.id}`}>Напишите комментарий первыми ;)</Link>
+                  ) : (
+                    <>
+                      Напишите первыми. <Link to={'/auth'}>Зарегистрироваться</Link>
+                    </>
+                  )}
+                </>
+              }
+            />
+          ))}
+      </>
+    )
+  })
 
   return (
     <div className={`${s.postsList} flex fdc cw`} ref={containerRef}>

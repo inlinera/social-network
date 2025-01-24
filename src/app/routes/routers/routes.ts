@@ -12,12 +12,16 @@ export type RouteT = {
   element: FunctionComponent
 }
 
-export const publicRoutes: RouteT[] = [{ path: '*', element: AuthPage }]
+export const publicRoutes: RouteT[] = [
+  { path: '*', element: AuthPage },
+  { path: '/', element: PostsPage },
+  { path: '/user/:userId', element: UserPage },
+]
 
 export const privateRoutes: RouteT[] = [
   { path: '/', element: PostsPage },
   { path: '/user/:userId', element: UserPage },
+  { path: '/chats', element: ChatsPage },
   { path: '/posts/:postId', element: PostPage },
   { path: '/settings', element: SettingsPage },
-  { path: '/chats', element: ChatsPage },
 ]

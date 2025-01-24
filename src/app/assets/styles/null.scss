@@ -21,6 +21,7 @@
 }
 
 a {
+  color: var(--red-color);
   text-decoration: none;
   &:active,
   &:focus {
@@ -117,6 +118,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  color: var(--default);
   main {
     flex: 1;
     margin: 50px 0 0 200px;

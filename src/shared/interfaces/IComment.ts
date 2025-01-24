@@ -1,4 +1,4 @@
 export interface IComment {
-  userName: string
-  content: string
+  userName?: string
+  content: string | React.ReactNode
 }
