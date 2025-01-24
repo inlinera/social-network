@@ -35,12 +35,12 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
           borderRadius={'0.5rem'}
         />
       ) : isUserPosts ? (
-        <div>
+        <>
           <h1>{userInfo?.displayName}'s posts</h1>
           {postsMap}
-        </div>
+        </>
       ) : (
-        <div>{postsMap}</div>
+        postsMap
       )}
     </div>
   )

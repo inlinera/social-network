@@ -12,7 +12,7 @@ export const SidebarUI = () => {
   const selectedItems = [isUserLoc ? sidebarInfo[0].path : currentLocation.pathname]
 
   return (
-    <nav className={`${s.sider} flex cw`}>
+    <nav className={`${s.sider} flex`}>
       <div className={`${s.sider_sidebar} flex fdc jcc`}>
         {sidebarInfo.map(e => {
           const isExists = selectedItems[0] == e.path
