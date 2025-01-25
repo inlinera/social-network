@@ -28,7 +28,7 @@ export const PostPage = observer(() => {
       {post && (
         <>
           <PostWidget post={post as IPost} />
-          <PostCommentsList comments={post?.comments as IComment[]} />
+          <PostCommentsList comments={post?.comments as IComment[]} postId={`${postId}`} />
         </>
       )}
     </div>
