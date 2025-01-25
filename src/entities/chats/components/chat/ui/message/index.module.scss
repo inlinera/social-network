@@ -1,8 +1,9 @@
 @import '@/app/assets/styles/variables.scss';
 
 @mixin defaultStyle {
+  width: max-content;
   max-width: 290px;
-  margin: 10px;
+  margin: 10px 0;
   p {
     text-wrap: wrap;
     word-wrap: break-word;
@@ -10,18 +11,22 @@
 }
 
 .myMessage {
-  align-self: flex-end;
-  padding: 10px;
-  background-color: $red-color;
-  color: #fff;
-  border-radius: 11px 11px 0 11px;
   @include defaultStyle;
+  align-self: flex-end;
+  div[data-id='msg'] {
+    padding: 10px;
+    background-color: $red-color;
+    color: #fff;
+    border-radius: 11px 11px 0 11px;
+  }
 }
 .notMyMessage {
-  align-self: flex-start;
-  padding: 10px;
-  color: var(--default);
-  background-color: var(--gray-color);
-  border-radius: 11px 11px 11px 0;
   @include defaultStyle;
+  align-self: flex-start;
+  div[data-id='msg'] {
+    padding: 10px;
+    color: var(--default);
+    background-color: var(--gray-color);
+    border-radius: 11px 11px 11px 0;
+  }
 }

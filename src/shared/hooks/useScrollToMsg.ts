@@ -10,10 +10,11 @@ export const useScrollToMsg = (id: string) => {
     setTimeout(() => {
       const targetElement = document.getElementById(`${id}`)
       if (!targetElement) return alert('Message is not found')
-      targetElement.classList.add('highlighted')
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      const tgtMsgEl = targetElement.querySelector("div[data-id='msg']")
+      tgtMsgEl?.classList.add('highlighted')
+      tgtMsgEl?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       setTimeout(() => {
-        targetElement.classList.remove('highlighted')
+        tgtMsgEl?.classList.remove('highlighted')
       }, 1100)
     }, 10)
   }

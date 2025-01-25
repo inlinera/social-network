@@ -17,8 +17,10 @@ export const ChatMessagesBlock = ({ chattingUser }: ChatMessagesBlockProps) => {
   return (
     <>
       {(chat?.pinned.length as number) > 0 && <PinnedMsgs pin={chat?.pinned as IMessage[]} />}
-      <div className={`${s.chat} flex fdc aic`}>
-        <i>Here was started your chat with {chattingUser?.displayName}</i>
+      <div className={`${s.chat} flex fdc`}>
+        <div className="flex jcc aic">
+          <b>Here was started your chat with {chattingUser?.displayName}</b>
+        </div>
         {chat?.messages.map(m => {
           const isThisMessageMy = m.userId == user?.displayName
           return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} key={m.id} />
