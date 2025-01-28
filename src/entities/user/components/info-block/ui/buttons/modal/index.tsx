@@ -9,6 +9,7 @@ interface InfoBlockButtons {
 export const InfoBlockModalButtons = ({ setIsOpenedFriend }: InfoBlockButtons) => {
   return (
     <div className={s.userInfo_meta_btns}>
+      <b>Birthday: 20.20.2020</b>
       <button onClick={() => setIsOpenedFriend(true)}>
         <UserOutlined />
         Friends

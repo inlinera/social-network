@@ -11,4 +11,5 @@ export interface IUser extends firebase.User {
   incomingReq: IFriend[]
   outgoingReq: IFriend[]
   chats: string[]
+  areFriendsVisible: boolean
 }

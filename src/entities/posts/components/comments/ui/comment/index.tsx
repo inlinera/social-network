@@ -6,9 +6,9 @@ import { Trash } from 'lucide-react'
 import deleteCommentApi from '@/shared/store/api/posts/post/details/comment/delete-comment-api'
 
 interface CommentUiProps {
-  userName: string
+  userName?: string
   content: string | React.ReactNode
-  postId: string
+  postId?: string
 }
 
 export const CommentUi = ({ userName, content, postId }: CommentUiProps) => {
@@ -25,7 +25,7 @@ export const CommentUi = ({ userName, content, postId }: CommentUiProps) => {
         <p>{content}</p>
       </div>
       <div className="flex aic">
-        <button onClick={() => deleteComment({ userName, content }, postId)}>
+        <button onClick={() => deleteComment({ userName, content }, `${postId}`)}>
           <Trash style={{ width: tempBtnSize, height: tempBtnSize }} />
         </button>
       </div>

@@ -1,10 +1,14 @@
-import React from 'react'
+import { useState } from 'react'
 import s from './settings.module.scss'
 //MOBX
 import FontSizeState from '@/shared/store/functional/settings/visual/font-size'
 import ThemeState from '@/shared/store/functional/settings/visual/theme'
 //HOOKS
 import { useFontSize } from '@/shared/hooks/settings/useFontSize'
+import { InputUi } from '@/shared/ui/input'
+// MOBX
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import EditPrivacySettings from '@/shared/store/api/user/profile/details/change-privacy-api'
 
 export interface ISetting {
   name: string
@@ -22,16 +26,57 @@ export interface IContent {
 export const items = (): ISetting[] => {
   const { fz, setFz } = FontSizeState
   const { dark, setDark } = ThemeState
+  const { user } = authApi
+  const { editField } = EditPrivacySettings
+  const [isNameVisible, setIsNameVisible] = useState(true)
+  const [isBirthdayVisible, setIsBirthdayVisible] = useState(true)
+  const [areFriendsVisible, setAreFriendsVisible] = useState(user?.areFriendsVisible)
+  const [pass, setPass] = useState('')
+
+  const isVisible = (_: boolean) => (_ ? 'Видно' : 'Скрыто')
   return [
     {
       name: 'Безопасность',
+      content: [
+        {
+          name: 'Сменить пароль',
+          content: (
+            <div className="flex jcc aic">
+              <InputUi
+                value={pass}
+                setVal={setPass}
+                minLength={6}
+                maxLength={25}
+                placeholder="Enter new password..."
+              />
+              <button className={s.themeButton}>Change</button>
+            </div>
+          ),
+        },
+        {
+          name: 'Выйти из аккаунта',
+          content: (
+            <button className={s.themeButton} onClick={() => console.log('@duckowa')}>
+              Exit
+            </button>
+          ),
+        },
+        {
+          name: 'Удалить аккаунт',
+          content: (
+            <button className={s.themeButton} onClick={() => console.log('@duckowa')}>
+              Delete
+            </button>
+          ),
+        },
+      ],
       code: 0,
     },
     {
       name: 'Вид',
       content: [
         {
-          name: 'font-size',
+          name: 'Размер шрифта',
           value: `${fz}px`,
           content: (
             <input
@@ -47,8 +92,8 @@ export const items = (): ISetting[] => {
           ),
         },
         {
-          name: 'theme',
-          value: `${dark ? 'Dark' : 'Light'}`,
+          name: 'Тема',
+          value: `${dark ? 'Темная' : 'Светлая'}`,
           content: (
             <button className={s.themeButton} onClick={() => setDark(!dark)}>
               Change theme
@@ -60,6 +105,66 @@ export const items = (): ISetting[] => {
     },
     {
       name: 'Конфиденциальность',
+      content: [
+        {
+          name: 'Тип аккаунта',
+          value: 'Открытый',
+          content: (
+            <button className={s.themeButton} onClick={() => console.log('@duckowa')}>
+              Change
+            </button>
+          ),
+        },
+        {
+          name: 'Видимость имени',
+          value: isVisible(isNameVisible),
+          content: (
+            <button
+              className={s.themeButton}
+              onClick={() => {
+                setIsNameVisible(!isNameVisible)
+                // editField(isBirthdayVisible, `isBirthdayVisible`)
+              }}
+            >
+              Change
+            </button>
+          ),
+        },
+        {
+          name: 'Видимость дня рождения',
+          value: isVisible(isBirthdayVisible),
+          content: (
+            <button
+              className={s.themeButton}
+              onClick={() => {
+                setIsBirthdayVisible(!isBirthdayVisible)
+                // editField(isBirthdayVisible, `isBirthdayVisible`)
+              }}
+            >
+              Change
+            </button>
+          ),
+        },
+        {
+          name: 'Видимость друзей',
+          value: isVisible(Boolean(areFriendsVisible)),
+          content: (
+            <button
+              className={s.themeButton}
+              onClick={() => {
+                try {
+                  editField(Boolean(!areFriendsVisible), `areFriendsVisible`)
+                  setAreFriendsVisible(!areFriendsVisible)
+                } catch {
+                  alert('Error, pls try again later')
+                }
+              }}
+            >
+              Change
+            </button>
+          ),
+        },
+      ],
       code: 2,
     },
   ]

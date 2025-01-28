@@ -7,6 +7,7 @@ interface InputUiProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const InputUi = ({ setVal, maxLength, ...props }: InputUiProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!maxLength) return setVal(e.target.value)
     if (maxLength && e.target.value.length < maxLength) {
       setVal(e.target.value)
     } else {

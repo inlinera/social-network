@@ -4,43 +4,45 @@ import { observer } from 'mobx-react-lite'
 import { Avatar } from 'antd'
 import { InfoBlockModalButtons } from './ui/buttons/modal'
 import { InfoBlockFriendButtons } from './ui/buttons/friend'
-//INTERFACES
-import { IFriend } from '@/shared/interfaces/IFriend'
-import { IUser } from '@/shared/interfaces/IUser'
+// MOBX
+import authApi from '@/shared/store/api/user/auth/auth-api'
+import userApi from '@/shared/store/api/user/profile/user-api'
 
 interface UserBlockProps {
-  userInfo?: IUser
-  userInfoFriend: IFriend
-  myUserInfoFriend: IFriend
-  setIsOpenedFriend: (state: boolean) => void
+  setIsOpenedFriend: (_: boolean) => void
 }
 
-export const UserBlock = observer(
-  ({ userInfo, userInfoFriend, myUserInfoFriend, setIsOpenedFriend }: UserBlockProps) => {
-    return (
-      <div className={`${s.userInfo_meta} grid jcc`}>
-        <div className="grid aic">
-          <Avatar
-            size={100}
-            icon={<img src={userInfo?.avatarUrl} alt="avatar" draggable={false} />}
+export const UserBlock = observer(({ setIsOpenedFriend }: UserBlockProps) => {
+  const { user } = authApi
+  const { userInfo } = userApi
+  return (
+    <div className={`${s.userInfo_meta} flex fdc jcc`}>
+      <div className="flex aic">
+        <Avatar
+          size={100}
+          icon={<img src={userInfo?.avatarUrl} alt="avatar" draggable={false} />}
+        />
+        <div className={`flex aic`}>
+          <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
+          <InfoBlockFriendButtons
+            userInfo={userInfo}
+            userInfoFriend={{
+              displayName: `${userInfo?.displayName}`,
+              avatarUrl: `${userInfo?.avatarUrl}`,
+            }}
+            myUserInfoFriend={user!}
           />
-          <div className={`flex aic`}>
-            <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
-            <InfoBlockFriendButtons
-              userInfo={userInfo}
-              userInfoFriend={userInfoFriend}
-              myUserInfoFriend={myUserInfoFriend}
-            />
-          </div>
-        </div>
-        <div className={`${s.userInfo_meta_someInfo}`}>
-          <i>Description:</i>
-          <p>{userInfo?.description}</p>
-          <div className={s.userInfo_meta_btns}>
-            <InfoBlockModalButtons setIsOpenedFriend={setIsOpenedFriend} />
-          </div>
         </div>
       </div>
-    )
-  }
-)
+      <div className={`${s.userInfo_meta_someInfo}`}>
+        <i>Description:</i>
+        <p>{userInfo?.description}</p>
+        <div className={s.userInfo_meta_btns}>
+          {(userInfo?.areFriendsVisible || user?.displayName == userInfo?.displayName) && (
+            <InfoBlockModalButtons setIsOpenedFriend={setIsOpenedFriend} />
+          )}
+        </div>
+      </div>
+    </div>
+  )
+})

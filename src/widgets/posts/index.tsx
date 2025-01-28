@@ -33,7 +33,11 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
         {isEven2 &&
           !isUserPosts &&
           (p.comments?.[0] ? (
-            <CommentUi userName={p.comments[0].userName} content={p.comments[0].content} />
+            <CommentUi
+              userName={`${p.comments[0].userName}`}
+              postId={p.id}
+              content={p.comments[0].content}
+            />
           ) : (
             <CommentUi
               content={
@@ -66,7 +70,7 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
         />
       ) : isUserPosts ? (
         <>
-          <h1>{userInfo?.displayName}'s posts</h1>
+          <h1>@{userInfo?.displayName}'s posts</h1>
           {postsMap}
         </>
       ) : (

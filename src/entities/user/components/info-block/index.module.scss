@@ -1,9 +1,9 @@
 @import '@/app/assets/styles/variables.scss';
 
 .userInfo_meta {
+  width: 100%;
   height: max-content;
   padding: 5px 25px;
-  margin: 0 35px;
   background-color: var(--post-color);
   border-radius: 12px;
   font-weight: 500;

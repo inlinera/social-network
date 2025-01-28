@@ -12,16 +12,11 @@ import { UserBlock } from '@/entities/user/index'
 import { UserFriendModal } from '@/entities/user/index'
 import { AddPostBlockEntity } from '@/entities/user/index'
 import { LoadingUI } from '@/shared/ui/loading'
-//HOOKS
-import { useGetFriends } from '@/shared/hooks/useGetFriends'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
   const { getUserPosts, posts } = userPostsApi
-  const { user } = authApi
   const { userId } = useParams()
-
-  const [targetUserInfo, myUserInfoFriend] = useGetFriends(userInfo!, user!)
 
   const [isOpenedFriend, setIsOpenedFriend] = useState(false)
 
@@ -43,15 +38,10 @@ export const UserPage = observer(() => {
             setIsOpened={setIsOpenedFriend}
           />
           <div className={`${s.userInfo} grid jcc cw`}>
-            <UserBlock
-              userInfo={userInfo}
-              userInfoFriend={targetUserInfo}
-              myUserInfoFriend={myUserInfoFriend}
-              setIsOpenedFriend={setIsOpenedFriend}
-            />
+            <UserBlock setIsOpenedFriend={setIsOpenedFriend} />
             <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
-              <AddPostBlockEntity />
-              {posts?.length != 0 && <PostListWidget posts={posts} isUserPosts={true} />}
+              {userInfo.displayName == authApi.user?.displayName && <AddPostBlockEntity />}
+              {posts?.length != 0 && <PostListWidget posts={posts} isUserPosts />}
             </div>
           </div>
         </>
