@@ -28,10 +28,12 @@ export const items = (): ISetting[] => {
   const { dark, setDark } = ThemeState
   const { user } = authApi
   const { editField } = EditPrivacySettings
-  const [isNameVisible, setIsNameVisible] = useState(true)
-  const [isBirthdayVisible, setIsBirthdayVisible] = useState(true)
+  const [isNameVisible, setIsNameVisible] = useState(user?.isNameVisible)
+  const [isBirthdayVisible, setIsBirthdayVisible] = useState(user?.isBirthdayVisible)
   const [areFriendsVisible, setAreFriendsVisible] = useState(user?.areFriendsVisible)
   const [pass, setPass] = useState('')
+
+  console.log(isNameVisible, isBirthdayVisible, areFriendsVisible)
 
   const isVisible = (_: boolean) => (_ ? 'Видно' : 'Скрыто')
   return [
@@ -117,13 +119,13 @@ export const items = (): ISetting[] => {
         },
         {
           name: 'Видимость имени',
-          value: isVisible(isNameVisible),
+          value: isVisible(Boolean(isNameVisible)),
           content: (
             <button
               className={s.themeButton}
               onClick={() => {
+                editField(Boolean(!isNameVisible), `isNameVisible`)
                 setIsNameVisible(!isNameVisible)
-                // editField(isBirthdayVisible, `isBirthdayVisible`)
               }}
             >
               Change
@@ -132,13 +134,13 @@ export const items = (): ISetting[] => {
         },
         {
           name: 'Видимость дня рождения',
-          value: isVisible(isBirthdayVisible),
+          value: isVisible(Boolean(isBirthdayVisible)),
           content: (
             <button
               className={s.themeButton}
               onClick={() => {
+                editField(Boolean(!isBirthdayVisible), `isBirthdayVisible`)
                 setIsBirthdayVisible(!isBirthdayVisible)
-                // editField(isBirthdayVisible, `isBirthdayVisible`)
               }}
             >
               Change

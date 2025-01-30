@@ -4,14 +4,15 @@ import { InputUi } from '@/shared/ui/input'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 // MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { observer } from 'mobx-react-lite'
 
-export const AuthLoginEntity = () => {
+export const AuthLoginEntity = observer(() => {
   const { signIn } = authApi
   const [mail, setMail] = useState('')
   const [password, setPassword] = useState('')
   const handleSumbit = (e: React.FormEvent) => {
     e.preventDefault()
-    return signIn(mail, password)
+    signIn(mail, password)
   }
   return (
     <form onSubmit={handleSumbit}>
@@ -32,4 +33,4 @@ export const AuthLoginEntity = () => {
       <RedButtonUI>Войти</RedButtonUI>
     </form>
   )
-}
+})

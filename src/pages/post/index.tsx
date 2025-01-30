@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 //INTERFACES
-import { IComment } from '@/shared/interfaces/IComment'
 import { IPost } from '@/shared/interfaces/IPost'
 //MOBX
 import postApi from '@/shared/store/api/posts/post/post-api'
@@ -25,11 +24,13 @@ export const PostPage = observer(() => {
 
   return (
     <div className={s.postPage}>
-      {post && (
+      {post?.value ? (
         <>
           <PostWidget post={post as IPost} />
-          <PostCommentsList comments={post?.comments as IComment[]} postId={`${postId}`} />
+          <PostCommentsList comments={post?.comments} postId={`${postId}`} />
         </>
+      ) : (
+        'Post is not found'
       )}
     </div>
   )

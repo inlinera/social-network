@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import s from './index.module.scss'
 //INTERFACES
 import { IPost } from '@/shared/interfaces/IPost'
-//DATA
-import { token } from '@/shared/token/token'
 //COMPONENTS
 import { PostImageList } from '@/entities/posts/index'
 import { PostBtnLine } from '@/entities/posts/index'
@@ -16,16 +14,26 @@ import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
 import TextArea from 'antd/es/input/TextArea'
 //MOBX
 import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
+// HOOKS
+import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 export const PostWidget = observer(({ post }: { post: IPost }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [postVal, setPostVal] = useState(post.value)
+  const [avatar, setAvatar] = useState('')
 
+  const { user } = authApi
   const { submitChanges, loading } = editPostApi
 
   const ruDate = Intl.DateTimeFormat()
   const postDate = new Date(post.time)
   const date = ruDate.format(post.time)
+  const avatarUrl = async () => {
+    const url = await useGetAvatar(post.userName)
+    setAvatar(url)
+  }
+  avatarUrl()
 
   return (
     <div className={`${s.post} flex fdc`}>
@@ -34,12 +42,7 @@ export const PostWidget = observer(({ post }: { post: IPost }) => {
           {post.userAvatar && (
             <>
               <Link to={`/user/${post.userName}`} className={`${s.post_user} flex aic`}>
-                <Avatar
-                  size={'default'}
-                  src={post.userAvatar}
-                  alt="avatar"
-                  draggable={false}
-                />
+                <Avatar size={'large'} src={avatar} alt="avatar" draggable={false} />
                 <div className="flex fdc">
                   <p style={{ fontSize: document.body.style.fontSize }}>{post.userName}</p>
                   <span className="fz10">
@@ -81,7 +84,7 @@ export const PostWidget = observer(({ post }: { post: IPost }) => {
           likes={post.likes}
           comments={post.comments}
           postId={post.id}
-          userId={token!}
+          userId={`${user?.displayName}`}
         />
       </div>
     </div>

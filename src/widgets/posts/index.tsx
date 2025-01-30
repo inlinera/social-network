@@ -28,8 +28,8 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
   const postsMap = posts?.map((p, arrId) => {
     const isEven2 = arrId % 2 == 0
     return (
-      <>
-        <PostWidget post={p} key={p.id} />
+      <div key={p.id}>
+        <PostWidget post={p} />
         {isEven2 &&
           !isUserPosts &&
           (p.comments?.[0] ? (
@@ -53,7 +53,7 @@ export const PostListWidget = ({ posts, loading, isUserPosts }: PostListWidgetPr
               }
             />
           ))}
-      </>
+      </div>
     )
   })
 

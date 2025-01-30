@@ -7,7 +7,6 @@ import Settings from '@/shared/store/functional/start-app'
 //COMPONENTS
 import { Spin } from 'antd'
 
-import { token } from '@/shared/token/token'
 import { PrivateRouter } from './routers/PrivateRouter'
 import { PublicRouter } from './routers/PublicRouter'
 
@@ -23,7 +22,7 @@ const AppRouter = observer(() => {
   return (
     <main>
       <LayoutNav />
-      <div>{user || token ? <PrivateRouter /> : <PublicRouter />}</div>
+      <div>{user ? <PrivateRouter /> : <PublicRouter />}</div>
     </main>
   )
 })

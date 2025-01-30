@@ -92,7 +92,7 @@ class AuthorizationStore {
   setLoading = (state: boolean) => (this.loading = state)
   setUser = (user: IUser | null) => (this.user = user)
   setError = (err: string) => (this.error = err)
-  setToken = (token: string) => localStorage.setItem('token-wunderkids', token)
+  setToken = (token: string) => localStorage.setItem('2la-token', token)
 }
 
 export default new AuthorizationStore()

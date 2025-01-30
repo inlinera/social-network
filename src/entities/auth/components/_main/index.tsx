@@ -7,14 +7,16 @@ import { AuthRegEntity } from '../sign-up'
 import { CommonRouteBlock } from './common/routes'
 // ICONS
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { observer } from 'mobx-react-lite'
 
 interface AuthEntityProps {
   isReg: boolean
   setIsReg: (_: boolean) => void
 }
 
-export const AuthEntity = ({ isReg, setIsReg }: AuthEntityProps) => {
+export const AuthEntity = observer(({ isReg, setIsReg }: AuthEntityProps) => {
   const [isActive, setIsActive] = useState(false)
+
   return (
     <div className={`${s.authEntity} flex`}>
       <div className={`${s.imgBlock} flex fdc jcc aic ${isActive ? s.active : ''}`}>
@@ -46,4 +48,4 @@ export const AuthEntity = ({ isReg, setIsReg }: AuthEntityProps) => {
       </div>
     </div>
   )
-}
+})

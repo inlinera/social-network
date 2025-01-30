@@ -45,7 +45,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
         </ContextMenuUI>
       </div>
       <b style={{ fontSize: fz - 5 }}>
-        {time.hr}:{addZero(`${time.min}`)}, {addZero(`${time.d}`)}/{addZero(`${time.mon}`)}
+        {time.hr}:{addZero(`${time.min}`)}, {addZero(`${time.d}`)}/{addZero(`${time.mon + 1}`)}
       </b>
     </div>
   )

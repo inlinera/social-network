@@ -22,8 +22,8 @@ export const PostImageList = ({ images }: PostImageListProps) => {
         } grid`}
       >
         {images.slice(0, 2).map(i => (
-          <div className={s.imageWrapper}>
-            <img src={i} alt={i} key={i} className={s.image} />
+          <div className={s.imageWrapper} key={i}>
+            <img src={i} alt={i} className={s.image} />
           </div>
         ))}
         {images.length > 2 && (

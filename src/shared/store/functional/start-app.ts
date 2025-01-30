@@ -16,7 +16,6 @@ class Settings {
 
   // =================== START APP FUNCTIONS ===================
   start = (_ = this._) => {
-    console.log(_)
     try {
       if (_) return this?.$change(JSON.parse(_))
       else {
@@ -27,7 +26,6 @@ class Settings {
         }
         this?.$change(defaultSettings)
         localStorage.setItem('2la-settings', JSON.stringify(defaultSettings))
-        console.log(localStorage.getItem('2la-settings'))
       }
     } catch (e) {
       console.error(e)

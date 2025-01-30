@@ -19,6 +19,7 @@ export const publicRoutes: RouteT[] = [
 ]
 
 export const privateRoutes: RouteT[] = [
+  { path: '*', element: PostsPage },
   { path: '/', element: PostsPage },
   { path: '/user/:userId', element: UserPage },
   { path: '/chats', element: ChatsPage },

@@ -1,1 +1,1 @@
-export const token = localStorage.getItem('token-wunderkids')
+export const token = localStorage.getItem('2la-token')
