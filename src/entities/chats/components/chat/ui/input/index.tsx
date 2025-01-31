@@ -9,8 +9,8 @@ import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import sendMsgApi from '@/shared/store/api/chats/chat/actions/send-msg-api'
-import editMsgApi from '@/shared/store/api/chats/chat/actions/edit-msg-api'
+import sendMsgApi from '@/shared/store/api/chats/chat/details/send-msg-api'
+import editMsgApi from '@/shared/store/api/chats/chat/details/edit-msg-api'
 import InputState from '@/shared/store/functional/chat/input/input-state'
 //ICONS
 import { CloseOutlined, PaperClipOutlined, SendOutlined } from '@ant-design/icons'

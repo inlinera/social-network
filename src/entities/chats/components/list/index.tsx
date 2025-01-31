@@ -15,7 +15,7 @@ export const ChatsList = observer(() => {
 
   return (
     <div className={`${s.chatsList} flex fdc aic`}>
-      {loading || chats?.length == 0 ? (
+      {loading ? (
         <LoadingUI>Chats are loading...</LoadingUI>
       ) : (
         chats?.map((chat: IChat) => {
@@ -33,6 +33,7 @@ export const ChatsList = observer(() => {
           )
         })
       )}
+      {!loading && !chats?.[0] && 'error fetching chats'}
     </div>
   )
 })

@@ -9,7 +9,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth'
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, onSnapshot, setDoc } from 'firebase/firestore'
 // INTERFACES
 import { IUser } from '@/shared/interfaces/IUser'
 import storageApi from '../../storage/storage-api'
@@ -37,11 +37,13 @@ class AuthorizationStore {
       onAuthStateChanged(auth, async user => {
         if (!user) return
         const { displayName } = user as IUser
-        const updatedUserDoc = await getDoc(doc(db, 'users', displayName))
-        if (updatedUserDoc.exists()) {
-          const updatedUserData = updatedUserDoc.data() as IUser
-          this.setUser({ ...updatedUserData, displayName })
-        }
+        const userDocRef = doc(db, 'users', displayName)
+        onSnapshot(userDocRef, doc => {
+          if (doc.exists()) {
+            const updatedUserData = doc.data() as IUser
+            this.setUser({ ...updatedUserData, displayName })
+          }
+        })
       })
     } catch (e) {
       alert(`Error during initialization: ${e}`)

@@ -15,7 +15,6 @@ export const ChatsPage = observer(() => {
     if (user?.displayName && user?.avatarUrl) {
       getChats({
         displayName: user.displayName,
-        avatarUrl: user.avatarUrl,
       })
     }
   }, [user?.displayName])

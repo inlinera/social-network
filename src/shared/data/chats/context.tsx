@@ -3,9 +3,9 @@ import { useCopyText } from '@/shared/hooks/useCopyText'
 //INTERFACES
 import { IMessage } from '@/shared/interfaces/IChat'
 //MOBX
-import deleteMsgApi from '@/shared/store/api/chats/chat/actions/delete-msg-api'
-import pinMsgApi from '@/shared/store/api/chats/chat/actions/pin-msg-api'
-import unpinMsgApi from '@/shared/store/api/chats/chat/actions/unpin-msg-api'
+import deleteMsgApi from '@/shared/store/api/chats/chat/details/delete-msg-api'
+import pinMsgApi from '@/shared/store/api/chats/chat/details/pin-msg-api'
+import unpinMsgApi from '@/shared/store/api/chats/chat/details/unpin-msg-api'
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 import inputState from '@/shared/store/functional/chat/input/input-state'
 //ICONS

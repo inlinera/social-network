@@ -34,7 +34,6 @@ export const UserBlock = observer(({ setIsOpenedFriend }: UserBlockProps) => {
         />
         <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
         <InfoBlockFriendButtons
-          userInfo={userInfo}
           userInfoFriend={{
             displayName: `${userInfo?.displayName}`,
           }}

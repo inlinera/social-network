@@ -12,14 +12,22 @@ import { useMobile } from '@/shared/hooks/useMobile'
 import { IFriend } from '@/shared/interfaces/IFriend'
 //MOBX
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
+import { memo, useState } from 'react'
+import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 
 interface ChatUserBlockProps {
   chattingUser: IFriend
 }
 
-export const ChatUserBlock = ({ chattingUser }: ChatUserBlockProps) => {
+export const ChatUserBlock = memo(({ chattingUser }: ChatUserBlockProps) => {
   const { setChat } = getChatApi
   const isMobile = useMobile()
+  const [avatar, setAvatar] = useState('')
+  const avatarUrl = async () => {
+    const url = await useGetAvatar(chattingUser.displayName)
+    setAvatar(url)
+  }
+  avatarUrl()
 
   return (
     <div className={`${s.chatWindow_user} flex aic jcsb`}>
@@ -33,20 +41,15 @@ export const ChatUserBlock = ({ chattingUser }: ChatUserBlockProps) => {
           className={`${s.chatWindow_user__info} flex aic`}
           to={`/user/${chattingUser?.displayName}`}
         >
-          <Avatar
-            size={'large'}
-            src={chattingUser?.avatarUrl}
-            alt="avatar"
-            draggable={false}
-          />
+          <Avatar size={'large'} src={avatar} alt="avatar" draggable={false} />
           <h3>@{chattingUser?.displayName}</h3>
         </Link>
       </div>
-      <Dropdown menu={{ items: items() }} trigger={['click']}>
+      <Dropdown menu={{ items: items(chattingUser.displayName) }} trigger={['click']}>
         <button className="fz17">
           <MoreOutlined />
         </button>
       </Dropdown>
     </div>
   )
-}
+})

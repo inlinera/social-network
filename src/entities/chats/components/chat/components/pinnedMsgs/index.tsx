@@ -2,7 +2,7 @@ import { IMessage } from '@/shared/interfaces/IChat'
 import s from './index.module.scss'
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
 import { BarsOutlined, CloseOutlined } from '@ant-design/icons'
-import unpinMsgApi from '@/shared/store/api/chats/chat/actions/unpin-msg-api'
+import unpinMsgApi from '@/shared/store/api/chats/chat/details/unpin-msg-api'
 import { chatState } from '@/shared/store/functional/chat/content'
 import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
 
