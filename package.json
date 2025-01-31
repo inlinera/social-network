@@ -15,6 +15,7 @@
     "@types/uuid": "^10.0.0",
     "antd": "^5.20.2",
     "axios": "^1.7.5",
+    "date-fns": "^4.1.0",
     "firebase": "^10.13.0",
     "lucide-react": "^0.473.0",
     "mobx": "^6.13.1",

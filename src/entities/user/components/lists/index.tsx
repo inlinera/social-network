@@ -10,6 +10,8 @@ import { IFriend } from '@/shared/interfaces/IFriend'
 import { UserAddOutlined, UserDeleteOutlined } from '@ant-design/icons'
 //HOOKS
 import { useNav } from '@/shared/hooks/useNav'
+import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
+import { useState } from 'react'
 
 interface UserFriendListProps {
   array?: IFriend[]
@@ -26,16 +28,20 @@ export const UserFriendList = observer(({ array, listType }: UserFriendListProps
       dataSource={array}
       renderItem={(item: IFriend) => {
         const navToUserPage = useNav(`/user/${item?.displayName}`)
-
+        const [avatar, setAvatar] = useState('')
         const userInfoFriend = item
         const myUserInfoFriend = user as IFriend
-
+        const avatarUrl = async () => {
+          const url = await useGetAvatar(item.displayName)
+          setAvatar(url)
+        }
+        avatarUrl()
         return (
           <List.Item>
             <button onClick={() => navToUserPage()}>
               <List.Item.Meta
                 style={{ alignItems: 'center', display: 'flex' }}
-                avatar={<Avatar src={item.avatarUrl} size={40} />}
+                avatar={<Avatar src={avatar} size={40} />}
                 title={<span style={{ whiteSpace: 'nowrap' }}>{item?.displayName}</span>}
               />
             </button>

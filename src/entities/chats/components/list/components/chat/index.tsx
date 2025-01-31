@@ -1,16 +1,17 @@
+import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import s from './index.module.scss'
 //HOOKS
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
 //INTERFACES
 import { IChat, IMessage } from '@/shared/interfaces/IChat'
-import { IFriend } from '@/shared/interfaces/IFriend'
 //MOBX
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 //COMPONENTS
 import { Avatar } from 'antd'
+import { useState } from 'react'
 
 interface ChatComponentProps {
-  chatUser: IFriend
+  chatUser: string
   lastMessage: IMessage
   msgDate: Date
   chat: IChat
@@ -23,6 +24,12 @@ export const ChatComponent = ({
   chat,
 }: ChatComponentProps) => {
   const { getChat } = getChatApi
+  const [avatar, setAvatar] = useState('')
+  const avatarUrl = async () => {
+    const url = await useGetAvatar(chatUser)
+    setAvatar(url)
+  }
+  avatarUrl()
 
   return (
     <div
@@ -31,9 +38,9 @@ export const ChatComponent = ({
       onClick={() => getChat(chat.chatId)}
     >
       <div className="flex">
-        <Avatar size={50} src={chatUser?.avatarUrl} alt="avatar" draggable={false} />
+        <Avatar size={50} src={avatar} alt="avatar" draggable={false} />
         <div className="flex fdc">
-          <h4>@{chatUser?.displayName}</h4>
+          <h4>@{chatUser}</h4>
           <p>{useSliceStr(lastMessage?.message, 6) || '......'}</p>
         </div>
       </div>
