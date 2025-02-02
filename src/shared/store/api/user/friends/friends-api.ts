@@ -21,6 +21,7 @@ class FriendsApi {
   sendFriendRequest = async (userInfo: IFriend, myUserInfo: IFriend) => {
     this.setLoading(true)
     try {
+      this.removeFromFriends(userInfo)
       await Promise.all([
         updateDoc(doc(db, 'users', myUserInfo.displayName), {
           outgoingReq: arrayUnion(userInfo),
@@ -29,7 +30,6 @@ class FriendsApi {
           incomingReq: arrayUnion(myUserInfo),
         }),
       ])
-      authApi.initializeAuth()
     } catch (e) {
       alert(e)
     } finally {
@@ -40,16 +40,13 @@ class FriendsApi {
   acceptFriendRequest = async (userInfo: IFriend, myUserInfo: IFriend) => {
     this.setLoading(true)
     try {
-      await Promise.all([
-        this.removeFromFriends(userInfo, myUserInfo),
-        updateDoc(doc(db, 'users', myUserInfo.displayName), {
-          friends: arrayUnion(userInfo),
-        }),
-        updateDoc(doc(db, 'users', userInfo?.displayName), {
-          friends: arrayUnion(myUserInfo),
-        }),
-      ])
-      authApi.initializeAuth()
+      this.removeFromFriends(userInfo)
+      await updateDoc(doc(db, 'users', myUserInfo.displayName), {
+        friends: arrayUnion(userInfo),
+      })
+      await updateDoc(doc(db, 'users', userInfo?.displayName), {
+        friends: arrayUnion(myUserInfo),
+      })
     } catch (e) {
       alert(e)
     } finally {
@@ -57,22 +54,24 @@ class FriendsApi {
     }
   }
 
-  removeFromFriends = async (userInfo: IFriend, myUserInfo: IFriend) => {
+  removeFromFriends = async (userInfo: IFriend) => {
     this.setLoading(true)
     try {
-      await Promise.all([
-        updateDoc(doc(db, 'users', myUserInfo.displayName), {
-          friends: arrayRemove(userInfo),
-          outgoingReq: arrayRemove(userInfo),
-          incomingReq: arrayRemove(userInfo),
-        }),
-        updateDoc(doc(db, 'users', userInfo?.displayName), {
-          friends: arrayRemove(myUserInfo),
-          incomingReq: arrayRemove(myUserInfo),
-          outgoingReq: arrayRemove(myUserInfo),
-        }),
-      ])
-      authApi.initializeAuth()
+      const myUserInfo: IFriend = {
+        displayName: `${authApi.user?.displayName}`,
+      }
+      await updateDoc(doc(db, 'users', myUserInfo.displayName), {
+        friends: arrayRemove(userInfo),
+        outgoingReq: arrayRemove(userInfo),
+        incomingReq: arrayRemove(userInfo),
+      })
+      console.log(userInfo, myUserInfo)
+      await updateDoc(doc(db, 'users', userInfo?.displayName), {
+        friends: arrayRemove(myUserInfo),
+        incomingReq: arrayRemove(myUserInfo),
+        outgoingReq: arrayRemove(myUserInfo),
+      })
+      console.log('deleted')
     } catch (e) {
       alert(e)
     } finally {

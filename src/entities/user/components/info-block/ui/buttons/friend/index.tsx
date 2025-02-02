@@ -74,7 +74,7 @@ export const InfoBlockFriendButtons = observer(
               Accept
             </RedButtonUI>
           ) : isUserExistOutReq ? (
-            <button onClick={() => removeFromFriends(userInfoFriend, myUserInfoFriend)}>
+            <button onClick={() => removeFromFriends(userInfoFriend)}>
               <UserDeleteOutlined style={tempStyle} />
             </button>
           ) : (

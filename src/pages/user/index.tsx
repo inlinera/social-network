@@ -32,11 +32,7 @@ export const UserPage = observer(() => {
     <div className={`${s.userBlock} flex fdc jcc aic`}>
       {userInfo ? (
         <>
-          <UserFriendModal
-            userInfo={userInfo}
-            isOpened={isOpenedFriend}
-            setIsOpened={setIsOpenedFriend}
-          />
+          <UserFriendModal isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend} />
           <div className={`${s.userInfo} grid jcc cw`}>
             <UserBlock setIsOpenedFriend={setIsOpenedFriend} />
             <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
@@ -46,7 +42,7 @@ export const UserPage = observer(() => {
           </div>
         </>
       ) : (
-        'User not found'
+        'User is not found'
       )}
       <p>{error}</p>
     </div>

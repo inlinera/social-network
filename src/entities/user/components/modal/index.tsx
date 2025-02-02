@@ -2,22 +2,21 @@ import { useState } from 'react'
 //COMPONENTS
 import { Modal, Select } from 'antd'
 import { UserFriendList } from '../lists'
-//INTERFACES
-import { IUser } from '@/shared/interfaces/IUser'
-import { IFriend } from '@/shared/interfaces/IFriend'
 //DATA
 import { friendsModal } from '@/shared/data/friends-modal-tab'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { observer } from 'mobx-react-lite'
+import userApi from '@/shared/store/api/user/profile/user-api'
 
 interface UserFriendModalProps {
-  userInfo?: IUser
   isOpened: boolean
   setIsOpened: (state: boolean) => void
 }
 
-export const UserFriendModal = ({ userInfo, isOpened, setIsOpened }: UserFriendModalProps) => {
-  const [friendOption, setFriendOption] = useState('Friends')
+export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendModalProps) => {
+  const [friendOption, setFriendOption] = useState(0)
+  const { userInfo } = userApi
   const { user } = authApi
 
   return (
@@ -27,28 +26,16 @@ export const UserFriendModal = ({ userInfo, isOpened, setIsOpened }: UserFriendM
       onCancel={() => setIsOpened(false)}
       footer={null}
     >
-      {userInfo?.displayName == user?.displayName ? (
-        <div>
-          <Select
-            value={friendOption}
-            onChange={value => setFriendOption(value)}
-            options={friendsModal}
-          />
-          <div style={{ marginTop: '15px' }}>
-            {friendOption == 'Friends' && (
-              <UserFriendList array={userInfo?.friends} listType="friend" />
-            )}
-            {friendOption == 'Incoming Requests' && (
-              <UserFriendList array={userInfo?.incomingReq} listType="incomingRequests" />
-            )}
-            {friendOption == 'Outgoing Requests' && (
-              <UserFriendList array={userInfo?.outgoingReq} listType="outgoingRequests" />
-            )}
-          </div>
-        </div>
-      ) : (
-        <UserFriendList array={userInfo?.friends as IFriend[]} listType="" />
+      {userInfo?.displayName == user?.displayName && (
+        <Select
+          value={friendsModal()[friendOption].label}
+          onChange={val => setFriendOption(+val)}
+          options={friendsModal()}
+        />
       )}
+      <div style={{ marginTop: '15px' }}>
+        <UserFriendList arr={friendsModal()[friendOption].arr} listType={friendOption} />
+      </div>
     </Modal>
   )
-}
+})
