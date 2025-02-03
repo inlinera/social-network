@@ -49,7 +49,12 @@ export const PostCommentsList = ({ comments, postId }: PostCommentsListProps) =>
         <b>{commVal.length}/200</b>
       </div>
       {comments?.map(c => (
-        <CommentUi userName={c.userName!} content={c.content} postId={postId} />
+        <CommentUi
+          userName={c.userName!}
+          content={c.content}
+          postId={postId}
+          key={c.content + `${c.userName}`}
+        />
       ))}
     </div>
   )

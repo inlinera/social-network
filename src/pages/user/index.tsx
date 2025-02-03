@@ -11,7 +11,6 @@ import { PostListWidget } from '@/widgets/posts'
 import { UserBlock } from '@/entities/user/index'
 import { UserFriendModal } from '@/entities/user/index'
 import { AddPostBlockEntity } from '@/entities/user/index'
-import { LoadingUI } from '@/shared/ui/loading'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
@@ -26,18 +25,18 @@ export const UserPage = observer(() => {
     setIsOpenedFriend(false)
   }, [userId])
 
-  return loading ? (
-    <LoadingUI>User is loading...</LoadingUI>
-  ) : (
+  return (
     <div className={`${s.userBlock} flex fdc jcc aic`}>
       {userInfo ? (
         <>
           <UserFriendModal isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend} />
           <div className={`${s.userInfo} grid jcc cw`}>
-            <UserBlock setIsOpenedFriend={setIsOpenedFriend} />
+            <UserBlock setIsOpenedFriend={setIsOpenedFriend} loading={loading} />
             <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
               {userInfo.displayName == authApi.user?.displayName && <AddPostBlockEntity />}
-              {posts?.length != 0 && <PostListWidget posts={posts} isUserPosts />}
+              {posts?.length != 0 && (
+                <PostListWidget posts={posts} isUserPosts loading={loading} />
+              )}
             </div>
           </div>
         </>

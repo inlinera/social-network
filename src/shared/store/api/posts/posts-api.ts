@@ -13,7 +13,7 @@ class PostsStore {
   // ================== POSTS ==================
 
   //ALL POSTS STATES
-  posts? = [] as IPost[]
+  posts? = null as IPost[] | null
   loading = false
 
   //ALL POSTS ACTIONS
@@ -40,7 +40,7 @@ class PostsStore {
 
   //ALL POSTS STATES MOVIES
   setLoading = (state: boolean) => (this.loading = state)
-  setPosts = (posts: IPost[]) => (this.posts = posts)
+  setPosts = (posts: IPost[] | null) => (this.posts = posts)
 }
 
 export default new PostsStore()

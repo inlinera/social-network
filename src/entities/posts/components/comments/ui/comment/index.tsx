@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import { Trash } from 'lucide-react'
 // MOBX
 import deleteCommentApi from '@/shared/store/api/posts/post/details/comment/delete-comment-api'
-import { Avatar } from 'antd'
 import { useState } from 'react'
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
+import { AvatarUI } from '@/shared/ui/avatar'
 
 interface CommentUiProps {
   userName?: string
@@ -26,7 +26,7 @@ export const CommentUi = ({ userName, content, postId }: CommentUiProps) => {
   return (
     <div className={`${s.comment} flex jcsb`}>
       <div className="flex jcc aic">
-        <div>{userName && <Avatar size={'default'} src={avatar} draggable={false} />}</div>
+        <div>{userName && <AvatarUI src={avatar} loading={avatar == ''} size={35} />}</div>
         <div className="flex fdc">
           {userName && (
             <Link to={`/user/${userName}`}>

@@ -7,17 +7,20 @@ import { IChat, IMessage } from '@/shared/interfaces/IChat'
 //MOBX
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 //COMPONENTS
-import { Avatar } from 'antd'
 import { useState } from 'react'
+import { TextUi } from '@/shared/ui/text'
+import { AvatarUI } from '@/shared/ui/avatar'
 
 interface ChatComponentProps {
-  chatUser: string
-  lastMessage: IMessage
-  msgDate: Date
-  chat: IChat
+  loading: boolean
+  chatUser?: string
+  lastMessage?: IMessage
+  msgDate?: Date
+  chat?: IChat
 }
 
 export const ChatComponent = ({
+  loading,
   chatUser,
   lastMessage,
   msgDate,
@@ -26,7 +29,7 @@ export const ChatComponent = ({
   const { getChat } = getChatApi
   const [avatar, setAvatar] = useState('')
   const avatarUrl = async () => {
-    const url = await useGetAvatar(chatUser)
+    const url = await useGetAvatar(`${chatUser}`)
     setAvatar(url)
   }
   avatarUrl()
@@ -34,17 +37,23 @@ export const ChatComponent = ({
   return (
     <div
       className={`${s.chatElement} flex aic jcsb`}
-      key={chat.messages[0]?.time}
-      onClick={() => getChat(chat.chatId)}
+      key={chat?.messages[0]?.time}
+      onClick={() => getChat(`${chat?.chatId}`)}
     >
       <div className="flex">
-        <Avatar size={50} src={avatar} alt="avatar" draggable={false} />
+        <AvatarUI loading={avatar == ''} src={avatar} size={50} />
         <div className="flex fdc">
-          <h4>@{chatUser}</h4>
-          <p>{useSliceStr(lastMessage?.message, 6) || '......'}</p>
+          <TextUi loading={loading} lines={1}>
+            <h4>@{chatUser}</h4>
+          </TextUi>
+          <TextUi loading={loading} lines={1}>
+            <p>{useSliceStr(`${lastMessage?.message}`, 6) || ''}</p>
+          </TextUi>
         </div>
       </div>
-      <span>{lastMessage?.time && msgDate.getHours() + ':' + msgDate.getMinutes()}</span>
+      <TextUi loading={loading} lines={1}>
+        <span>{lastMessage?.time && msgDate?.getHours() + ':' + msgDate?.getMinutes()}</span>
+      </TextUi>
     </div>
   )
 }
