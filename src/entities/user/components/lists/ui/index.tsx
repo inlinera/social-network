@@ -3,8 +3,11 @@ import { useNav } from '@/shared/hooks/useNav'
 import { IFriend } from '@/shared/interfaces/IFriend'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import friendsApi from '@/shared/store/api/user/friends/friends-api'
+import userApi from '@/shared/store/api/user/profile/user-api'
+import { AvatarUI } from '@/shared/ui/avatar'
+import { TextUi } from '@/shared/ui/text'
 import { UserAddOutlined, UserDeleteOutlined } from '@ant-design/icons'
-import { Avatar, List } from 'antd'
+import { List } from 'antd'
 import { useState } from 'react'
 
 interface UserFriendProps {
@@ -15,6 +18,7 @@ interface UserFriendProps {
 export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
   const { acceptFriendRequest, removeFromFriends } = friendsApi
   const { user } = authApi
+  const { userInfo } = userApi
   const [avatar, setAvatar] = useState('')
   const avatarUrl = async () => {
     const url = await useGetAvatar(item.displayName)
@@ -27,12 +31,16 @@ export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
       <button onClick={() => nav()}>
         <List.Item.Meta
           style={{ alignItems: 'center', display: 'flex' }}
-          avatar={<Avatar src={avatar} size={40} />}
-          title={<span style={{ whiteSpace: 'nowrap' }}>{item?.displayName}</span>}
+          avatar={<AvatarUI loading={avatar == ''} src={avatar} size={50} />}
+          title={
+            <TextUi lines={1} loading={avatar == ''}>
+              <span style={{ whiteSpace: 'nowrap' }}>{item?.displayName}</span>
+            </TextUi>
+          }
         />
       </button>
       <div>
-        {(listType === 0 || listType === 1) && (
+        {user?.displayName == userInfo?.displayName && (listType === 0 || listType === 1) && (
           <button onClick={() => removeFromFriends(item)}>
             <UserDeleteOutlined style={{ fontSize: '17px' }} />
           </button>

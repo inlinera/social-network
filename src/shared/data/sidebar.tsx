@@ -7,7 +7,7 @@ export const sidebarInfo = () => {
     {
       title: 'Profile',
       icon: <UserOutlined />,
-      path: `user/${user?.displayName}`,
+      path: user ? `user/${user?.displayName}` : `/auth`,
     },
     {
       title: 'Home',

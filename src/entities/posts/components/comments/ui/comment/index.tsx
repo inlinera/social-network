@@ -7,6 +7,8 @@ import deleteCommentApi from '@/shared/store/api/posts/post/details/comment/dele
 import { useState } from 'react'
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { AvatarUI } from '@/shared/ui/avatar'
+import { TextUi } from '@/shared/ui/text'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 interface CommentUiProps {
   userName?: string
@@ -17,6 +19,7 @@ interface CommentUiProps {
 export const CommentUi = ({ userName, content, postId }: CommentUiProps) => {
   const tempBtnSize = parseInt(document.body.style.fontSize)
   const { deleteComment } = deleteCommentApi
+  const { user } = authApi
   const [avatar, setAvatar] = useState('')
   const avatarUrl = async () => {
     const url = await useGetAvatar(`${userName}`)
@@ -30,16 +33,22 @@ export const CommentUi = ({ userName, content, postId }: CommentUiProps) => {
         <div className="flex fdc">
           {userName && (
             <Link to={`/user/${userName}`}>
-              <b>@{userName}</b>
+              <TextUi lines={1} loading={avatar == ''}>
+                <b>@{userName}</b>
+              </TextUi>
             </Link>
           )}
-          <p>{content}</p>
+          <TextUi lines={1} loading={avatar == ''}>
+            <p>{content}</p>
+          </TextUi>
         </div>
       </div>
       <div className="flex aic">
-        <button onClick={() => deleteComment({ userName, content }, `${postId}`)}>
-          <Trash style={{ width: tempBtnSize, height: tempBtnSize }} />
-        </button>
+        {user?.displayName == userName && (
+          <button onClick={() => deleteComment({ userName, content }, `${postId}`)}>
+            <Trash style={{ width: tempBtnSize, height: tempBtnSize }} />
+          </button>
+        )}
       </div>
     </div>
   )
