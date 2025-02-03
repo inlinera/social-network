@@ -1,0 +1,23 @@
+.carousel-ui {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--default);
+    border-radius: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--gray-color);
+    border-radius: 10px;
+    padding: 5px;
+  }
+  .carousel-image {
+    position: relative;
+    margin: 5px;
+  }
+}

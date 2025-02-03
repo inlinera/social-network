@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import s from './index.module.scss'
 //MOBX
 import createPostApi from '@/shared/store/api/posts/post/actions/create-post-api'
 //COMPONENTS
@@ -10,6 +11,7 @@ import { postTags } from '@/shared/data/post-tags'
 //HOOKS
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import storageApi from '@/shared/store/api/storage/storage-api'
+import { CarouselUI } from '@/shared/ui/carousel'
 
 interface UserAddPostModalProps {
   isOpened: boolean
@@ -40,6 +42,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
   const handleUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     console.log(files)
+    if (!files) return
     const url = await uploadImage(files?.[files.length - 1]!, 'photos')
     console.log(url)
     if (!url) return alert('cannot upload img')
@@ -55,23 +58,32 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
       centered
       closeIcon={null}
     >
-      <form className="flex fdc aic jcc" onSubmit={handleSubmit}>
-        <TextArea
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          placeholder="Enter post content"
-          maxLength={300}
-          rows={5}
-          showCount
-          style={{ margin: '20px' }}
-        />
-        <div>
-          <h4>Images:</h4>
-          <input type="file" id="file" accept="image/*" hidden onChange={handleUpdate} />
-          <label htmlFor="file">Choose Img</label>
-          {imgList.map(img => (
-            <img src={img} alt="img" key={img} />
-          ))}
+      <form onSubmit={handleSubmit} className={`${s.modal} flex fdc jcc`}>
+        <div className="flex fdc aic">
+          <TextArea
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            placeholder="Enter post content"
+            maxLength={300}
+            rows={5}
+            showCount
+            style={{ margin: '20px' }}
+          />
+          <div className="flex fdc aic jcc">
+            <h4>Images:</h4>
+            <input
+              type="file"
+              id="file"
+              accept="image/*"
+              hidden
+              onChange={handleUpdate}
+              multiple
+            />
+            <label htmlFor="file">Choose Img</label>
+          </div>
+        </div>
+        <div className={`${s.carousel}`}>
+          <CarouselUI images={imgList} height={200} borderRadius={16} />
         </div>
         <div className="flex aic jcsb" style={{ width: '100%' }}>
           <div>
