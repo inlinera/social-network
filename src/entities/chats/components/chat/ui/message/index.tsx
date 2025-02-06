@@ -11,6 +11,7 @@ import { ChatCommonMsgViewUi } from '../common/msg-view'
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
 // MOBX
 import fontSize from '@/shared/store/functional/settings/visual/font-size'
+import { ImageUI } from '@/shared/ui/image'
 
 interface ChatMessageUIProps {
   isThisMessageMy: boolean
@@ -29,7 +30,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
   const { fz } = fontSize
   return (
     <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`} id={message.id}>
-      <div data-id="msg">
+      <div data-id="msg" className="flex aic jcc fdc">
         <ContextMenuUI items={isThisMessageMy ? items(message).my : items(message).notMy}>
           {message.reply && (
             <div onClick={e => e.stopPropagation()}>
@@ -39,6 +40,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
               </ChatCommonMsgViewUi>
             </div>
           )}
+          {message.image && <ImageUI src={message.image} alt="" borderRadius={10} />}
           <p>
             <LinkifyText text={message.message} />
           </p>

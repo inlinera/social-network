@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
 import { v4 } from 'uuid'
@@ -16,6 +16,7 @@ import InputState from '@/shared/store/functional/chat/input/input-state'
 import { CloseOutlined, PaperClipOutlined, SendOutlined } from '@ant-design/icons'
 //COMPONENTS
 import { ChatCommonMsgViewUi } from '../common/msg-view'
+import storageApi from '@/shared/store/api/storage/storage-api'
 
 export const ChatInputUI = observer(() => {
   const { user } = authApi
@@ -27,6 +28,9 @@ export const ChatInputUI = observer(() => {
   const { actionMsg } = InputState
   const { $null } = InputState
 
+  const { uploadImage } = storageApi
+  const [img, setImg] = useState('')
+
   const send = () => {
     const msg = {
       userId: user?.displayName,
@@ -34,20 +38,33 @@ export const ChatInputUI = observer(() => {
       time: new Date().getTime(),
       id: state == 'edit' ? actionMsg?.id : v4(),
       reply: state == 'reply' ? actionMsg : state == 'edit' ? actionMsg?.reply : null,
+      image: img && img,
     } as IMessage
 
     if (!msg.message) return alert('Пожалуйста, введите сообщение')
 
-    if (state == 'default' || state == 'reply') {
+    if (state != 'edit') {
       sendMessage(msg)
     } else {
       editMessage(msg)
     }
+    setImg('')
     $null()
   }
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == 'Enter') send()
+  }
+
+  const handleUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    console.log(files)
+    if (!files) return
+    const url = await uploadImage(files?.[0]!, 'photos')
+    console.log(url)
+    if (!url) return alert('cannot upload img')
+    setImg(url)
+    console.log(img)
   }
 
   useEffect(() => {
@@ -79,9 +96,10 @@ export const ChatInputUI = observer(() => {
           onKeyDown={e => onKeyPress(e)}
         />
         <div className={`${s.inputEnd} flex aic`}>
-          <button className="fz17">
+          <input type="file" id="file" accept="image/*" hidden onChange={handleUpdate} />
+          <label htmlFor="file" className="fz17">
             <PaperClipOutlined style={{ color: 'gray' }} />
-          </button>
+          </label>
           <button className="fz17" onClick={send}>
             <SendOutlined />
           </button>

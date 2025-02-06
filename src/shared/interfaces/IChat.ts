@@ -6,6 +6,7 @@ export interface IMessage {
   time: number
   userId: string
   reply: IMessage
+  image?: string
 }
 
 export interface IChat {
