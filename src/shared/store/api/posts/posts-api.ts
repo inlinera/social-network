@@ -1,7 +1,15 @@
 import { makeAutoObservable } from 'mobx'
 //FIREBASE
 import { db } from '@/app/_providers/firebase'
-import { collection, onSnapshot, query } from 'firebase/firestore'
+import {
+  collection,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  QueryDocumentSnapshot,
+  startAfter,
+} from 'firebase/firestore'
 //INTERFACES
 import { IPost } from '@/shared/interfaces/IPost'
 
@@ -13,23 +21,39 @@ class PostsStore {
   // ================== POSTS ==================
 
   //ALL POSTS STATES
-  posts? = null as IPost[] | null
+  posts = null as IPost[] | null
   loading = false
+  lastDoc = null as QueryDocumentSnapshot | null
 
   //ALL POSTS ACTIONS
-  getPosts = async () => {
+  getPosts = async (fetchMore?: boolean) => {
+    if (this.loading) return
     this.setLoading(true)
     try {
-      return onSnapshot(query(collection(db, 'posts')), querySnapshot => {
-        this.setPosts(
-          querySnapshot.docs.map(
-            doc =>
-              ({
-                ...doc.data(),
-                id: doc.id,
-              } as IPost)
-          )
+      if (!fetchMore) {
+        fetchMore = false
+      }
+      const q = query(
+        collection(db, 'posts'),
+        orderBy('time', 'desc'),
+        ...(fetchMore && this.lastDoc ? [startAfter(this.lastDoc)] : []),
+        limit(8)
+      )
+
+      onSnapshot(q, querySnapshot => {
+        if (querySnapshot.empty) return alert('ты ебанутый? а ничо то что посты закончились')
+        const newPosts = querySnapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id,
+        })) as IPost[]
+
+        this.lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
+
+        const uniquePosts = newPosts.filter(
+          newPost => !this.posts?.some(post => post.id === newPost.id)
         )
+
+        this.setPosts(fetchMore ? [...this.posts!, ...uniquePosts] : newPosts)
       })
     } catch (e) {
       alert(e)
