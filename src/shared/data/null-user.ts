@@ -6,7 +6,12 @@ export const nullUser: IUser = Object({
   password: '',
   description: '',
   avatarUrl: '',
+  birthday: '',
   friends: [],
   incomingReq: [],
   outgoingReq: [],
+  chats: [],
+  isNameVisible: true,
+  isBirthdayVisible: true,
+  areFriendsVisible: true,
 })

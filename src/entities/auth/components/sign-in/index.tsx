@@ -10,9 +10,14 @@ export const AuthLoginEntity = observer(() => {
   const { signIn } = authApi
   const [mail, setMail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordWarn, setPasswordWarn] = useState('')
   const handleSumbit = (e: React.FormEvent) => {
     e.preventDefault()
-    signIn(mail, password)
+    if (password.trim().length < 6) {
+      return setPasswordWarn('Password should contain 6 and more symbols')
+    }
+    setPasswordWarn('')
+    signIn(mail.trim(), password.trim())
   }
   return (
     <form onSubmit={handleSumbit}>
@@ -29,6 +34,9 @@ export const AuthLoginEntity = observer(() => {
           setVal={setPassword}
           placeholder={'Ваш пароль...'}
         />
+        <i className="cr" style={{ fontSize: parseInt(document.body.style.fontSize) - 3 }}>
+          {passwordWarn}
+        </i>
       </div>
       <RedButtonUI>Войти</RedButtonUI>
     </form>
