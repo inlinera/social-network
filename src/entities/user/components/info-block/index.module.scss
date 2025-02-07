@@ -3,20 +3,20 @@
 .userInfo_meta {
   width: 100%;
   height: max-content;
-  padding: 5px 25px;
+  padding: 5px 20px;
   background-color: var(--post-color);
   border-radius: 12px;
   font-weight: 500;
+  * {
+    margin: 5px;
+    color: var(--default);
+  }
   div {
     grid-template-columns: 100px 1fr;
     gap: 15px;
   }
   p {
     line-height: 1.2;
-  }
-  * {
-    margin: 5px;
-    color: var(--default);
   }
   .userInfo_meta_someInfo {
     * {
@@ -39,7 +39,7 @@
 
 @media (max-width: 1084px) {
   .userInfo_meta {
-    width: 80%;
+    width: 90%;
     margin: 5px auto;
     div {
       grid-template-columns: 100px auto;

@@ -8,7 +8,6 @@ interface PostImageListProps {
 
 export const PostImageList = ({ images }: PostImageListProps) => {
   const [isOpened, setIsOpened] = useState(false)
-
   return (
     <>
       <ImageListModal images={images} isOpened={isOpened} setIsOpened={setIsOpened} />

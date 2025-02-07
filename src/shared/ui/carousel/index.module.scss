@@ -1,7 +1,8 @@
 .carousel-ui {
-  width: 100%;
+  position: relative;
+  width: 100% !important;
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow-x: auto !important;
   scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {

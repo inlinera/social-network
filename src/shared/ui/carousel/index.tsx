@@ -8,6 +8,7 @@ interface CarouselUIProps extends React.HTMLAttributes<HTMLDivElement> {
   setImages?: (_: string[]) => void
   height: string | number
   borderRadius?: string | number
+  edit?: boolean
 }
 
 export const CarouselUI = ({
@@ -15,6 +16,7 @@ export const CarouselUI = ({
   images,
   setImages,
   height,
+  edit,
   ...props
 }: CarouselUIProps) => {
   const { deleteImage } = storageApi
@@ -24,22 +26,24 @@ export const CarouselUI = ({
         if (!img) return
         return (
           <div className={`${s['carousel-ui-image']} flex`}>
-            <div className="flex">
-              <button className="flex jcc aic" type="button">
-                <a href={img} target="_blank" className="flex jcc aic">
-                  <Eye />
-                </a>
-              </button>
-              <button
-                className="flex jcc aic"
-                type="button"
-                onClick={() =>
-                  deleteImage(img).then(() => setImages?.(images.filter(url => url != img)))
-                }
-              >
-                <Trash />
-              </button>
-            </div>
+            {edit && (
+              <div className="flex">
+                <button className="flex jcc aic" type="button">
+                  <a href={img} target="_blank" className="flex jcc aic">
+                    <Eye />
+                  </a>
+                </button>
+                <button
+                  className="flex jcc aic"
+                  type="button"
+                  onClick={() =>
+                    deleteImage(img).then(() => setImages?.(images.filter(url => url != img)))
+                  }
+                >
+                  <Trash />
+                </button>
+              </div>
+            )}
             <ImageUI
               key={img}
               src={img}

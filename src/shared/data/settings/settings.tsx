@@ -26,12 +26,13 @@ export interface IContent {
 export const items = (): ISetting[] => {
   const { fz, setFz } = FontSizeState
   const { dark, setDark } = ThemeState
-  const { user } = authApi
+  const { user, changePassword } = authApi
   const { editField } = EditPrivacySettings
   const [isNameVisible, setIsNameVisible] = useState(user?.isNameVisible)
   const [isBirthdayVisible, setIsBirthdayVisible] = useState(user?.isBirthdayVisible)
   const [areFriendsVisible, setAreFriendsVisible] = useState(user?.areFriendsVisible)
   const [pass, setPass] = useState('')
+  const [currPass, setCurrPass] = useState('')
 
   console.log(isNameVisible, isBirthdayVisible, areFriendsVisible)
 
@@ -43,15 +44,34 @@ export const items = (): ISetting[] => {
         {
           name: 'Сменить пароль',
           content: (
-            <div className="flex jcc aic">
+            <div className="flex fdc">
               <InputUi
-                value={pass}
-                setVal={setPass}
+                value={currPass}
+                setVal={setCurrPass}
                 minLength={6}
                 maxLength={25}
-                placeholder="Enter new password..."
+                placeholder="Enter current password..."
               />
-              <button className={s.themeButton}>Change</button>
+              <div className="flex jcc aic">
+                <InputUi
+                  value={pass}
+                  setVal={setPass}
+                  minLength={6}
+                  maxLength={25}
+                  placeholder="Enter new password..."
+                />
+                <button
+                  className={s.themeButton}
+                  onClick={() =>
+                    changePassword(pass, currPass).then(() => {
+                      setPass('')
+                      setCurrPass('')
+                    })
+                  }
+                >
+                  Change
+                </button>
+              </div>
             </div>
           ),
         },

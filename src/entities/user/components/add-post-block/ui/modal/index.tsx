@@ -12,6 +12,7 @@ import { postTags } from '@/shared/data/post-tags'
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import storageApi from '@/shared/store/api/storage/storage-api'
 import { CarouselUI } from '@/shared/ui/carousel'
+import { ImagePlus } from 'lucide-react'
 
 interface UserAddPostModalProps {
   isOpened: boolean
@@ -69,18 +70,6 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
             showCount
             style={{ margin: '20px' }}
           />
-          <div className="flex fdc aic jcc">
-            <h4>Images:</h4>
-            <input
-              type="file"
-              id="file"
-              accept="image/*"
-              hidden
-              onChange={handleUpdate}
-              multiple
-            />
-            <label htmlFor="file">Choose Img</label>
-          </div>
         </div>
         {imgList.length > 0 && (
           <div className={`${s.carousel}`}>
@@ -89,6 +78,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
               height={200}
               borderRadius={16}
               setImages={setImgList}
+              edit
             />
           </div>
         )}
@@ -105,6 +95,17 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
             />
           </div>
           <div className="flex aic">
+            <input
+              type="file"
+              id="file"
+              accept="image/*"
+              hidden
+              onChange={handleUpdate}
+              multiple
+            />
+            <label htmlFor="file" className="flex jcc aic" title="Add Image">
+              <ImagePlus />
+            </label>
             <RedButtonUI onClick={handleSubmit}>Send</RedButtonUI>
           </div>
         </div>

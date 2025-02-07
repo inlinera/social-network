@@ -8,6 +8,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  getAuth,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from 'firebase/auth'
 import { doc, onSnapshot, setDoc } from 'firebase/firestore'
 // INTERFACES
@@ -87,6 +91,29 @@ class AuthorizationStore {
     } catch (e: any) {
       this.setError(e.message)
       alert(`Error during sign in: ${e.message}`)
+    }
+  }
+
+  changePassword = async (password: string, currPass: string) => {
+    try {
+      const auth = getAuth()
+      const user = auth.currentUser
+
+      if (!user) {
+        return alert('Не удалось определить пользователя.')
+      }
+
+      if (currPass) {
+        const credential = EmailAuthProvider.credential(`${user.email}`, currPass)
+        // Повторная аутентификация
+        await reauthenticateWithCredential(user, credential)
+
+        // Если аутентификация прошла успешно, обновляем пароль
+        await updatePassword(user, password)
+        alert('Операция прошла успешно')
+      }
+    } catch {
+      alert('Error of changing password')
     }
   }
 

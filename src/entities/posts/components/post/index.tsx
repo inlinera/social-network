@@ -85,7 +85,7 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
           </TextUi>
         )}
         <div className={s.post__images}>
-          {post?.images && <PostImageList images={post.images} />}
+          {post?.images && post.images.length > 0 && <PostImageList images={post?.images} />}
         </div>
         <PostTagEntity tags={post?.tags!} />
         <PostBtnLine

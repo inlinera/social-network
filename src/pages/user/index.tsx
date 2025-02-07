@@ -26,7 +26,7 @@ export const UserPage = observer(() => {
   }, [userId])
 
   return (
-    <div className={`${s.userBlock} flex fdc jcc aic`}>
+    <div className={`${s.userBlock} flex fdc`}>
       {userInfo ? (
         <>
           <UserFriendModal isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend} />
@@ -34,9 +34,11 @@ export const UserPage = observer(() => {
             <UserBlock setIsOpenedFriend={setIsOpenedFriend} loading={loading} />
             <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
               {userInfo.displayName == authApi.user?.displayName && <AddPostBlockEntity />}
-              {posts?.length != 0 && (
-                <PostListWidget posts={posts} isUserPosts loading={loading} />
-              )}
+              <div data-huy="penis" className={'flex'}>
+                {posts?.length != 0 && (
+                  <PostListWidget posts={posts} isUserPosts loading={loading} />
+                )}
+              </div>
             </div>
           </div>
         </>
