@@ -1,4 +1,6 @@
 .carousel-ui {
+  width: 100%;
+  flex-wrap: nowrap;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 
@@ -16,8 +18,44 @@
     border-radius: 10px;
     padding: 5px;
   }
-  .carousel-image {
+  .carousel-ui-image {
     position: relative;
-    margin: 5px;
+    width: max-content;
+    margin: 3px;
+    flex-wrap: nowrap;
+    div {
+      position: absolute;
+      margin: 5px;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      transition: all 0.3s;
+      button {
+        margin: 2px;
+        width: 30px;
+        height: 30px;
+        background-color: var(--default);
+        border-radius: 100%;
+        * {
+          color: var(--body-color);
+          text-decoration: none;
+        }
+      }
+    }
+    img {
+      object-fit: cover;
+    }
+    &:hover {
+      div {
+        opacity: 1;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .carousel-ui-image {
+    div {
+      opacity: 1 !important;
+    }
   }
 }

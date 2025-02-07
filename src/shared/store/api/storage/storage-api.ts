@@ -1,5 +1,5 @@
 import { storage } from '@/app/_providers/firebase'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import { makeAutoObservable } from 'mobx'
 import { v4 } from 'uuid'
 
@@ -23,6 +23,17 @@ class StorageApi {
       return downloadURL
     } catch (e) {
       alert(e)
+    }
+  }
+
+  deleteImage = async (url: string) => {
+    try {
+      const storage = getStorage()
+      const imgRef = ref(storage, url)
+      console.log(imgRef)
+      await deleteObject(imgRef)
+    } catch {
+      alert('Sorry, try again later')
     }
   }
 

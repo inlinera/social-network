@@ -82,9 +82,16 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
             <label htmlFor="file">Choose Img</label>
           </div>
         </div>
-        <div className={`${s.carousel}`}>
-          <CarouselUI images={imgList} height={200} borderRadius={16} />
-        </div>
+        {imgList.length > 0 && (
+          <div className={`${s.carousel}`}>
+            <CarouselUI
+              images={imgList}
+              height={200}
+              borderRadius={16}
+              setImages={setImgList}
+            />
+          </div>
+        )}
         <div className="flex aic jcsb" style={{ width: '100%' }}>
           <div>
             <span>Tag: </span>
