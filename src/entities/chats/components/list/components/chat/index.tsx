@@ -17,6 +17,7 @@ interface ChatComponentProps {
   lastMessage?: IMessage
   msgDate?: Date
   chat?: IChat
+  isTimeVisible?: boolean
 }
 
 export const ChatComponent = ({
@@ -25,23 +26,27 @@ export const ChatComponent = ({
   lastMessage,
   msgDate,
   chat,
+  isTimeVisible,
 }: ChatComponentProps) => {
   const { getChat } = getChatApi
   const [avatar, setAvatar] = useState('')
+
   const avatarUrl = async () => {
     const url = await useGetAvatar(`${chatUser}`)
     setAvatar(url)
   }
   avatarUrl()
+  if (isTimeVisible == undefined) isTimeVisible = true
 
   return (
     <div
       className={`${s.chatElement} flex aic jcsb`}
       key={chat?.messages[0]?.time}
-      onClick={() => getChat(`${chat?.chatId}`)}
+      onClick={() => chat && getChat(`${chat.chatId}`)}
     >
-      <div className="flex">
-        <AvatarUI loading={avatar == ''} src={avatar} size={50} />
+      {}
+      <div className="flex aic jcsb">
+        <AvatarUI loading={avatar == '' || loading} src={avatar} size={50} />
         <div className="flex fdc">
           <TextUi loading={loading} lines={1}>
             <h4>@{chatUser}</h4>
@@ -51,9 +56,11 @@ export const ChatComponent = ({
           </TextUi>
         </div>
       </div>
-      <TextUi loading={loading} lines={1}>
-        <span>{lastMessage?.time && msgDate?.getHours() + ':' + msgDate?.getMinutes()}</span>
-      </TextUi>
+      {isTimeVisible && (
+        <TextUi loading={loading} lines={1}>
+          <span>{lastMessage?.time && msgDate?.getHours() + ':' + msgDate?.getMinutes()}</span>
+        </TextUi>
+      )}
     </div>
   )
 }

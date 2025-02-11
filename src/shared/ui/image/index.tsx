@@ -8,7 +8,7 @@ export const ImageUI = ({ borderRadius, ...props }: ImageUIProps) => {
   return (
     <img
       className={`${s['image-ui']} flex jcc aic`}
-      style={borderRadius ? { borderRadius: +borderRadius } : {}}
+      style={borderRadius ? { borderRadius } : {}}
       {...props}
     />
   )
