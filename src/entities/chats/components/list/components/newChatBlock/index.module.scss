@@ -20,9 +20,13 @@
   }
   .newChatBlock__up {
     position: relative;
+    max-width: 90vw;
   }
   .newChatBlock__main {
     width: 100%;
+    button {
+      width: 100%;
+    }
   }
 }
 

@@ -51,9 +51,11 @@ export const ChatComponent = ({
           <TextUi loading={loading} lines={1}>
             <h4>@{chatUser}</h4>
           </TextUi>
-          <TextUi loading={loading} lines={1}>
-            <p>{useSliceStr(`${lastMessage?.message}`, 6) || ''}</p>
-          </TextUi>
+          {lastMessage && (
+            <TextUi loading={loading} lines={1}>
+              <p>{useSliceStr(`${lastMessage.message}`, 6) || ''}</p>
+            </TextUi>
+          )}
         </div>
       </div>
       {isTimeVisible && (

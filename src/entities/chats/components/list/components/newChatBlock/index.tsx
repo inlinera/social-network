@@ -6,12 +6,14 @@ import { ArrowLeft } from 'lucide-react'
 // COMPONENTS
 import { InputUi } from '@/shared/ui/input'
 import { ChatComponent } from '../chat'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 interface NewChatBlockProps {
   setIsVisible: (_: boolean) => void
 }
 
 export const NewChatBlock = observer(({ setIsVisible }: NewChatBlockProps) => {
+  const { user } = authApi
   const [val, setVal] = useState('')
 
   return (
@@ -23,9 +25,9 @@ export const NewChatBlock = observer(({ setIsVisible }: NewChatBlockProps) => {
         <InputUi value={val} setVal={setVal} placeholder="Enter friend's name" />
       </div>
       <div className={`${s.newChatBlock__main} flex fdc aic`}>
-        {Array.from({ length: 6 }, () => (
-          <ChatComponent loading isTimeVisible={false} />
-        ))}
+        {user?.friends?.map(f => {
+          return <ChatComponent loading={false} chatUser={f.displayName} />
+        })}
       </div>
     </div>
   )

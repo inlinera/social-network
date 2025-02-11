@@ -41,15 +41,17 @@ export const ChatInputUI = observer(() => {
       image: img && img,
     } as IMessage
 
-    if (!msg.message) return alert('Пожалуйста, введите сообщение')
-
-    if (state != 'edit') {
-      sendMessage(msg)
-    } else {
-      editMessage(msg)
+    if (msg.message || img) {
+      if (state != 'edit') {
+        sendMessage(msg)
+      } else {
+        editMessage(msg)
+      }
+      setImg('')
+      $null()
+      return
     }
-    setImg('')
-    $null()
+    return alert('Пожалуйста, введите сообщение')
   }
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -79,7 +81,13 @@ export const ChatInputUI = observer(() => {
           <div className={s.prev}>
             <b>Message:</b>
             <p>{useSliceStr(actionMsg?.message!, 15)}</p>
-            <button className="fz17" onClick={$null}>
+            <button
+              className="fz17"
+              onClick={e => {
+                e.stopPropagation()
+                $null()
+              }}
+            >
               <CloseOutlined />
             </button>
           </div>
