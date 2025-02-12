@@ -13,11 +13,8 @@ import { PublicRouter } from './routers/PublicRouter'
 const AppRouter = observer(() => {
   const { loading, user } = authApi
   const { start } = Settings
-  const checkSettings = start()
-
+  start()
   if (loading) return <Spin size="large" />
-
-  checkSettings
 
   return (
     <main>

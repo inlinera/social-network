@@ -8,7 +8,9 @@ import { useFontSize } from '@/shared/hooks/settings/useFontSize'
 import { InputUi } from '@/shared/ui/input'
 // MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import EditPrivacySettings from '@/shared/store/api/user/profile/details/change-privacy-api'
+import EditPrivacySettings from '@/shared/store/api/user/profile/details/change-field-api'
+import { ImageUI } from '@/shared/ui/image'
+import storageApi from '@/shared/store/api/storage/storage-api'
 
 export interface ISetting {
   name: string
@@ -28,6 +30,15 @@ export const items = (): ISetting[] => {
   const { dark, setDark } = ThemeState
   const { user, changePassword } = authApi
   const { editField } = EditPrivacySettings
+  const { uploadImage } = storageApi
+  const [userAvatar, setUserAvatar] = useState(user?.avatarUrl)
+  const handleChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const avatar = e.target.files?.[0]!
+    const url = await uploadImage(avatar, 'avatars')
+    if (!url) return alert('cannot upload img')
+    await editField(url, 'avatarUrl').then(() => setUserAvatar(url))
+  }
   const [isNameVisible, setIsNameVisible] = useState(user?.isNameVisible)
   const [isBirthdayVisible, setIsBirthdayVisible] = useState(user?.isBirthdayVisible)
   const [areFriendsVisible, setAreFriendsVisible] = useState(user?.areFriendsVisible)
@@ -135,6 +146,28 @@ export const items = (): ISetting[] => {
             <button className={s.themeButton} onClick={() => console.log('@duckowa')}>
               Change
             </button>
+          ),
+        },
+        {
+          name: 'Аватар',
+          content: (
+            <form className="flex fdc">
+              <input
+                type="file"
+                id="avatar"
+                hidden
+                accept="image/*"
+                onChange={handleChangeAvatar}
+              />
+              <label htmlFor="avatar" className={s.editAvatar}>
+                <ImageUI
+                  src={userAvatar}
+                  alt="avatar"
+                  borderRadius={'100%'}
+                  className={s.img}
+                />
+              </label>
+            </form>
           ),
         },
         {

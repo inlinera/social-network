@@ -23,7 +23,7 @@ class PostsStore {
   //ALL POSTS STATES
   posts = null as IPost[] | null
   loading = false
-  lastDoc = null as QueryDocumentSnapshot | null
+  private _lastDoc = null as QueryDocumentSnapshot | null
 
   //ALL POSTS ACTIONS
   getPosts = async (fetchMore?: boolean) => {
@@ -36,7 +36,7 @@ class PostsStore {
       const q = query(
         collection(db, 'posts'),
         orderBy('time', 'desc'),
-        ...(fetchMore && this.lastDoc ? [startAfter(this.lastDoc)] : []),
+        ...(fetchMore && this._lastDoc ? [startAfter(this._lastDoc)] : []),
         limit(8)
       )
 
@@ -47,7 +47,7 @@ class PostsStore {
           id: doc.id,
         })) as IPost[]
 
-        this.lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
+        this._lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
 
         const uniquePosts = newPosts.filter(
           newPost => !this.posts?.some(post => post.id === newPost.id)

@@ -8,9 +8,7 @@ import userStore from '@/shared/store/api/user/profile/user-api'
 import userPostsApi from '@/shared/store/api/user/profile/user-posts-api'
 // COMPONENTS
 import { PostListWidget } from '@/widgets/posts'
-import { UserBlock } from '@/entities/user/index'
-import { UserFriendModal } from '@/entities/user/index'
-import { AddPostBlockEntity } from '@/entities/user/index'
+import { UserBlock, UserFriendModal, AddPostBlockEntity } from '@/entities/user/'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
@@ -20,8 +18,8 @@ export const UserPage = observer(() => {
   const [isOpenedFriend, setIsOpenedFriend] = useState(false)
 
   useEffect(() => {
-    getUserPosts(userId!)
-    getUser(userId!)
+    getUserPosts(`${userId}`)
+    getUser(`${userId}`)
     setIsOpenedFriend(false)
   }, [userId])
 
@@ -30,7 +28,7 @@ export const UserPage = observer(() => {
       {userInfo ? (
         <>
           <UserFriendModal isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend} />
-          <div className={`${s.userInfo} grid jcc cw`}>
+          <div className={`${s.userInfo} grid cw`}>
             <UserBlock setIsOpenedFriend={setIsOpenedFriend} loading={loading} />
             <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
               {userInfo.displayName == authApi.user?.displayName && <AddPostBlockEntity />}

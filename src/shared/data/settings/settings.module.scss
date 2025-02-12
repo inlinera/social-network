@@ -13,3 +13,12 @@
   background-color: $red-color;
   transition: all 0.3s;
 }
+.img {
+  height: 200px;
+  width: 200px;
+}
+
+.editAvatar {
+  cursor: pointer;
+  border-radius: 100%;
+}

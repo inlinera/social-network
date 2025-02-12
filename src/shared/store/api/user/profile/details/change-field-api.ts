@@ -12,7 +12,11 @@ class EditPrivacySettings {
 
   // =================== EDIT PRIVACY SETTINGS API ===================
 
-  editField = async (data: boolean, field: string, userId = authApi.user?.displayName) => {
+  editField = async (
+    data: boolean | string,
+    field: string,
+    userId = authApi.user?.displayName
+  ) => {
     if (!userId) return alert('Error, cannot find userId')
     try {
       const userRef = doc(db, 'users', userId)

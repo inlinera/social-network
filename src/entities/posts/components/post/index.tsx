@@ -5,9 +5,7 @@ import s from './index.module.scss'
 //INTERFACES
 import { IPost } from '@/shared/interfaces/IPost'
 //COMPONENTS
-import { PostImageList } from '@/entities/posts/index'
-import { PostBtnLine } from '@/entities/posts/index'
-import { DropdownMenuEntity } from '@/entities/posts/index'
+import { PostBtnLine, DropdownMenuEntity, PostImageList } from '@/entities/posts/'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
 import TextArea from 'antd/es/input/TextArea'
