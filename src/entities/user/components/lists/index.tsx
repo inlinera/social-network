@@ -7,11 +7,10 @@ import { UserFriendItem } from './ui'
 
 interface UserFriendListProps {
   arr: IFriend[]
-  listType?: number
+  listType: number
 }
 
 export const UserFriendList = observer(({ arr, listType }: UserFriendListProps) => {
-  if (!listType) listType = 0
   return (
     <List
       itemLayout="horizontal"

@@ -61,23 +61,24 @@ class AuthorizationStore {
       const { user } = await createUserWithEmailAndPassword(
         auth,
         userData.email,
-        userData.password!
+        userData.password
       )
-      await setDoc(doc(db, 'users', userData.displayName), {
-        ...userData,
-        password: '',
-        avatarUrl: storageApi.image ? storageApi.image : defaultAvatar,
-      })
-      await updateProfile(auth.currentUser!, {
-        displayName: userData.displayName,
-      })
+      await Promise.all([
+        setDoc(doc(db, 'users', userData.displayName), {
+          ...userData,
+          password: '********',
+          avatarUrl: storageApi.image ? storageApi.image : defaultAvatar,
+        }),
+        updateProfile(auth.currentUser!, {
+          displayName: userData.displayName,
+        }),
+      ])
       runInAction(() => {
         this.setUser(user as IUser)
         this.setToken(user.displayName!)
       })
-    } catch (e: any) {
-      this.setError(e.message)
-      alert(`Error during sign up: ${e.message}`)
+    } catch {
+      this.setError(`Can't sign up`)
     }
   }
 
@@ -88,28 +89,23 @@ class AuthorizationStore {
         this.setUser(user as IUser)
         this.setToken(user?.displayName!)
       })
-    } catch (e: any) {
-      this.setError(e.message)
-      alert(`Error during sign in: ${e.message}`)
+    } catch {
+      this.setError(`Can't sign in`)
     }
   }
 
-  changePassword = async (password: string, currPass: string) => {
+  changePassword = async (newPass: string, currPass: string) => {
     try {
       const auth = getAuth()
       const user = auth.currentUser
-
-      if (!user) {
-        return alert('Не удалось определить пользователя.')
-      }
+      if (!user) return alert('Не удалось определить пользователя.')
 
       if (currPass) {
         const credential = EmailAuthProvider.credential(`${user.email}`, currPass)
-        // Повторная аутентификация
-        await reauthenticateWithCredential(user, credential)
-
-        // Если аутентификация прошла успешно, обновляем пароль
-        await updatePassword(user, password)
+        await Promise.all([
+          reauthenticateWithCredential(user, credential),
+          updatePassword(user, newPass),
+        ])
         alert('Операция прошла успешно')
       }
     } catch {

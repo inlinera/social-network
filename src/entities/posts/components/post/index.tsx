@@ -11,13 +11,15 @@ import { DropdownMenuEntity } from '@/entities/posts/index'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
 import TextArea from 'antd/es/input/TextArea'
+import { AvatarUI } from '@/shared/ui/avatar'
+import { TextUi } from '@/shared/ui/text'
+import { RedButtonUI } from '@/shared/ui/buttons/red-button'
+import { CarouselUI } from '@/shared/ui/carousel'
 //MOBX
 import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
 // HOOKS
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import { AvatarUI } from '@/shared/ui/avatar'
-import { TextUi } from '@/shared/ui/text'
 
 interface PostWidgetProps {
   loadingPost: boolean
@@ -27,6 +29,7 @@ interface PostWidgetProps {
 export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [postVal, setPostVal] = useState(post?.value)
+  const [images, setImages] = useState(post?.images)
   const [avatar, setAvatar] = useState('')
 
   const { user } = authApi
@@ -70,23 +73,38 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
               value={postVal}
               onChange={e => setPostVal(e.target.value)}
             />
-            <button
-              onClick={() => submitChanges({ ...post, value: `${postVal}` }, setIsEditing)}
+            <RedButtonUI
+              onClick={() =>
+                submitChanges({ ...post!, value: `${postVal}`, images }, setIsEditing)
+              }
               disabled={loading}
             >
               done
-            </button>
+            </RedButtonUI>
+            {post?.images && post.images.length > 0 && (
+              <CarouselUI
+                images={images!}
+                setImages={setImages}
+                height={200}
+                edit
+                borderRadius={10}
+              />
+            )}
           </div>
         ) : (
-          <TextUi loading={loadingPost} lines={3}>
-            <p style={{ fontSize: document.body.style.fontSize }}>
-              <LinkifyText text={post?.value!} />
-            </p>
-          </TextUi>
+          <>
+            <TextUi loading={loadingPost} lines={3}>
+              <p style={{ fontSize: document.body.style.fontSize }}>
+                <LinkifyText text={post?.value!} />
+              </p>
+            </TextUi>
+            <div className={s.post__images}>
+              {post?.images && post.images.length > 0 && (
+                <PostImageList images={post?.images} />
+              )}
+            </div>
+          </>
         )}
-        <div className={s.post__images}>
-          {post?.images && post.images.length > 0 && <PostImageList images={post?.images} />}
-        </div>
         <PostTagEntity tags={post?.tags!} />
         <PostBtnLine
           likes={post?.likes!}

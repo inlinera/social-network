@@ -11,23 +11,26 @@ class CreatePostApi {
   }
 
   createPost = async (value: string, tags: string[], images?: string[]) => {
-    const newPostRef = doc(collection(db, 'posts'))
-
-    return await setDoc(
-      newPostRef,
-      {
-        id: newPostRef.id,
-        userName: authApi.user?.displayName,
-        userAvatar: authApi.user?.avatarUrl,
-        value: value,
-        likes: [],
-        images: images ? images : [],
-        comments: [] as IComment[],
-        time: new Date().getTime(),
-        tags: tags,
-      } as IPost,
-      { merge: true }
-    )
+    try {
+      const newPostRef = doc(collection(db, 'posts'))
+      await setDoc(
+        newPostRef,
+        {
+          id: newPostRef.id,
+          userName: authApi.user?.displayName,
+          userAvatar: authApi.user?.avatarUrl,
+          value: value,
+          likes: [],
+          images: images ? images : [],
+          comments: [] as IComment[],
+          time: new Date().getTime(),
+          tags: tags,
+        } as IPost,
+        { merge: true }
+      )
+    } catch {
+      alert(`Can't create the post`)
+    }
   }
 }
 

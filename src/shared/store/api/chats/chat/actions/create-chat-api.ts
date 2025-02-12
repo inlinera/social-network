@@ -13,17 +13,19 @@ class CreateChatApi {
     try {
       const newPostRef = doc(collection(db, 'chats'))
       const people: IFriend[] = [{ displayName: myId }, { displayName: userId }]
-      await setDoc(newPostRef, {
-        messages: [],
-        people,
-        pinned: [],
-      })
-      await updateDoc(doc(db, 'users', myId), {
-        chats: arrayUnion(newPostRef.id),
-      })
-      await updateDoc(doc(db, 'users', userId), {
-        chats: arrayUnion(newPostRef.id),
-      })
+      await Promise.all([
+        setDoc(newPostRef, {
+          messages: [],
+          people,
+          pinned: [],
+        }),
+        updateDoc(doc(db, 'users', myId), {
+          chats: arrayUnion(newPostRef.id),
+        }),
+        updateDoc(doc(db, 'users', userId), {
+          chats: arrayUnion(newPostRef.id),
+        }),
+      ])
       return newPostRef.id
     } catch (e) {
       console.error(e)

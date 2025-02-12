@@ -23,7 +23,6 @@ export const CarouselUI = ({
   return (
     <div className={`${s['carousel-ui']} flex`} {...props} style={{ height }}>
       {images.map(img => {
-        if (!img) return
         return (
           <div className={`${s['carousel-ui-image']} flex`}>
             {edit && (

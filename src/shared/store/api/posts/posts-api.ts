@@ -40,7 +40,7 @@ class PostsStore {
         limit(8)
       )
 
-      onSnapshot(q, querySnapshot => {
+      return onSnapshot(q, querySnapshot => {
         if (querySnapshot.empty) return alert('ты ебанутый? а ничо то что посты закончились')
         const newPosts = querySnapshot.docs.map(doc => ({
           ...doc.data(),

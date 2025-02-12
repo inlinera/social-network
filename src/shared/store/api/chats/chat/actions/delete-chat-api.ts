@@ -15,13 +15,15 @@ class DeleteChatApi {
     myId = `${authApi.user?.displayName}`
   ) => {
     try {
-      await deleteDoc(doc(db, 'chats', chatId))
-      await updateDoc(doc(db, 'users', myId), {
-        chats: arrayRemove(chatId),
-      })
-      await updateDoc(doc(db, 'users', userId), {
-        chats: arrayRemove(chatId),
-      })
+      await Promise.all([
+        deleteDoc(doc(db, 'chats', chatId)),
+        updateDoc(doc(db, 'users', myId), {
+          chats: arrayRemove(chatId),
+        }),
+        updateDoc(doc(db, 'users', userId), {
+          chats: arrayRemove(chatId),
+        }),
+      ])
       getChatApi.setChat(null)
     } catch (e) {
       console.error(e)
