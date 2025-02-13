@@ -14,25 +14,45 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
   const contextRef = useRef<HTMLDivElement>(null)
   const isMobile = useMobile()
 
-  //HANDLERS
+  // HANDLERS
   const menuHandler = (e: React.MouseEvent) => {
     e.preventDefault()
-    setIsVisible(!isVisible)
-    setPos({ x: e.clientX, y: e.clientY })
+    const menuHeight = 140
+    const menuWidth = 80
+    const { clientX, clientY } = e
+
+    const rightSpace = window.innerWidth - clientX
+    const bottomSpace = window.innerHeight - clientY
+
+    const x = rightSpace < menuWidth ? clientX - menuWidth : clientX
+    const y = bottomSpace < menuHeight ? clientY - menuHeight : clientY
+
+    const adjustedX = x < 0 ? 0 : x
+    const adjustedY = y < 0 ? 0 : y
+
+    setPos({ x: adjustedX, y: adjustedY })
+    setIsVisible(true)
   }
+
   const clickHandler = (e: MouseEvent) => {
     const ref = contextRef.current?.getBoundingClientRect()
     if (isVisible && ref) {
-      if (e.clientX != (ref.left || ref.right) || e.clientY != (ref.top || ref.bottom)) {
+      if (
+        e.clientX < ref.left ||
+        e.clientX > ref.right ||
+        e.clientY < ref.top ||
+        e.clientY > ref.bottom
+      ) {
         setIsVisible(false)
       }
     }
   }
+
   const contextHandler = (e: Event) => {
-    if ((e as CustomEvent<string>).detail != children) setIsVisible(false)
+    if ((e as CustomEvent<string>).detail !== children) setIsVisible(false)
   }
 
-  //SHOW CONTEXTMENU
+  // SHOW CONTEXTMENU
   useEffect(() => {
     const handleClick = (e: MouseEvent) => clickHandler(e)
     if (isVisible) {
@@ -43,7 +63,6 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
         document.removeEventListener('MenuOpen', contextHandler)
       }
     }
-    return
   }, [clickHandler])
 
   useEffect(() => {
@@ -61,7 +80,7 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
         onClick={!isMobile ? undefined : e => menuHandler(e)}
         onContextMenu={isMobile ? undefined : e => menuHandler(e)}
       >
-        {children && children}
+        {children}
       </div>
       {isVisible && (
         <div

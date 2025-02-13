@@ -6,6 +6,7 @@
   background-color: var(--post-color);
   border-radius: 16px 0 0 16px;
   border-right: 2px solid var(--gray-color);
+  color: var(--default);
   overflow: hidden;
   overflow-y: auto !important;
   &::-webkit-scrollbar {

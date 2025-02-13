@@ -22,6 +22,7 @@ class SendMsgApi {
       if (chatDoc.exists()) {
         await updateDoc(chatRef, {
           messages: arrayUnion(data),
+          time: data.time,
         })
       }
     } catch (e) {
