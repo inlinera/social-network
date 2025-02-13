@@ -26,7 +26,7 @@
     }
   }
   .mainSettings__info {
-    height: 350px;
+    height: calc(100vh - 160px);
     width: 100%;
     padding: 5px 10px;
     overflow-y: auto;
