@@ -12,6 +12,7 @@ import {
   updatePassword,
   reauthenticateWithCredential,
   EmailAuthProvider,
+  signOut,
 } from 'firebase/auth'
 import { doc, onSnapshot, setDoc } from 'firebase/firestore'
 // INTERFACES
@@ -91,6 +92,15 @@ class AuthorizationStore {
       })
     } catch {
       this.setError(`Can't sign in`)
+    }
+  }
+
+  logout = async () => {
+    try {
+      await signOut(auth)
+      this.setUser(null)
+    } catch {
+      alert('Sorry, please try again later')
     }
   }
 
