@@ -2,12 +2,13 @@
 
 .pinnedMsgs {
   width: 100%;
-  padding: 0px 10px;
+  padding: 0px 8px;
   background-color: (--body-color);
   color: var(--default);
   vertical-align: middle;
+  border-bottom: 1px solid var(--gray-color);
   .pinnedMsgs__msg {
-    padding: 3px 15px;
+    padding: 5px 15px;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.4s;

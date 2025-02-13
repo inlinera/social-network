@@ -32,7 +32,7 @@ export const ChatsList = observer(() => {
               return (
                 <ChatComponent
                   loading={loading}
-                  chat={chat}
+                  currChat={chat}
                   chatUser={`${chatUser?.displayName}`}
                   lastMessage={lastMessage}
                   msgDate={msgDate}
