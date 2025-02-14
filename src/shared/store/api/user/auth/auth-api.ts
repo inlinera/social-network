@@ -13,8 +13,18 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   signOut,
+  deleteUser,
 } from 'firebase/auth'
-import { doc, onSnapshot, setDoc } from 'firebase/firestore'
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore'
 // INTERFACES
 import { IUser } from '@/shared/interfaces/IUser'
 import storageApi from '../../storage/storage-api'
@@ -116,10 +126,29 @@ class AuthorizationStore {
           reauthenticateWithCredential(user, credential),
           updatePassword(user, newPass),
         ])
-        alert('Операция прошла успешно')
       }
     } catch {
       alert('Error of changing password')
+    }
+  }
+
+  deleteAccount = async () => {
+    try {
+      const auth = getAuth()
+      const user = auth.currentUser
+      console.log(user?.displayName)
+      if (!user) return alert('Не удалось определить пользователя.')
+      const q = query(collection(db, 'posts'), where('userName', '==', user.displayName))
+      const querySnapshot = await getDocs(q)
+      const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref))
+      await Promise.all([
+        ...deletePromises,
+        deleteDoc(doc(db, 'users', user.displayName!)),
+        deleteUser(user),
+        this.setUser(null),
+      ])
+    } catch {
+      alert('Something went wrong')
     }
   }
 

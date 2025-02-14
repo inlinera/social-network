@@ -36,12 +36,14 @@ export const InfoBlockFriendButtons = observer(
 
     const isMyPage = user?.displayName !== userInfo?.displayName
 
-    const isUserFriend = user?.friends.some((friend: IFriend) => friend.displayName === userId)
+    const isUserFriend = user?.friends?.some(
+      (friend: IFriend) => friend.displayName === userId
+    )
 
-    const isUserExistIncReq = user?.incomingReq.some(
+    const isUserExistIncReq = user?.incomingReq?.some(
       (req: IFriend) => req.displayName === userId
     )
-    const isUserExistOutReq = user?.outgoingReq.some(
+    const isUserExistOutReq = user?.outgoingReq?.some(
       (req: IFriend) => req.displayName === userId
     )
     const tempStyle = { fontSize: '18px', color: '#fff' }

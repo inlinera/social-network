@@ -29,6 +29,7 @@ export const PostCommentsList = ({ comments, postId }: PostCommentsListProps) =>
     setCommVal('')
     addComment(commData, postId)
   }
+
   return (
     <div className={`${s.commentsList} flex fdc jcc aic`}>
       <div className={`${s['input-block']} flex fdc jcc`}>

@@ -26,13 +26,10 @@ class PostsStore {
   private _lastDoc = null as QueryDocumentSnapshot | null
 
   //ALL POSTS ACTIONS
-  getPosts = async (fetchMore?: boolean) => {
+  getPosts = async (fetchMore: boolean) => {
     if (this.loading) return
     this.setLoading(true)
     try {
-      if (!fetchMore) {
-        fetchMore = false
-      }
       const q = query(
         collection(db, 'posts'),
         orderBy('time', 'desc'),
@@ -52,8 +49,7 @@ class PostsStore {
         const uniquePosts = newPosts.filter(
           newPost => !this.posts?.some(post => post.id === newPost.id)
         )
-
-        this.setPosts(fetchMore ? [...this.posts!, ...uniquePosts] : newPosts)
+        fetchMore ? this.posts?.push(...uniquePosts) : this.setPosts(newPosts)
       })
     } catch (e) {
       alert(e)

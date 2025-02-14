@@ -5,7 +5,7 @@ import { InputUi } from '@/shared/ui/input'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 
 export const safety = () => {
-  const { changePassword, logout } = authApi
+  const { changePassword, logout, deleteAccount } = authApi
   const [pass, setPass] = useState('')
   const [currPass, setCurrPass] = useState('')
 
@@ -51,7 +51,7 @@ export const safety = () => {
       },
       {
         name: 'Удалить аккаунт',
-        content: <RedButtonUI onClick={() => console.log('@duckowa')}>Delete</RedButtonUI>,
+        content: <RedButtonUI onClick={() => deleteAccount()}>Delete</RedButtonUI>,
       },
     ],
     code: 0,
