@@ -11,7 +11,7 @@ import { Pencil } from 'lucide-react'
 export const privacy = () => {
   const { user } = authApi
   const { editField } = EditPrivacySettings
-  const { uploadImage } = storageApi
+  const { uploadImage, deleteImage } = storageApi
   const [userAvatar, setUserAvatar] = useState(user?.avatarUrl)
   const [isNameVisible, setIsNameVisible] = useState(user?.isNameVisible)
   const [isBirthdayVisible, setIsBirthdayVisible] = useState(user?.isBirthdayVisible)
@@ -23,7 +23,9 @@ export const privacy = () => {
     const avatar = e.target.files?.[0]!
     const url = await uploadImage(avatar, 'avatars')
     if (!url) return alert('cannot upload img')
-    await editField(url, 'avatarUrl').then(() => setUserAvatar(url))
+    await deleteImage(`${userAvatar}`).then(
+      async () => await editField(url, 'avatarUrl').then(() => setUserAvatar(url))
+    )
   }
   return {
     name: 'Конфиденциальность',

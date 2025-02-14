@@ -12,7 +12,7 @@ import { PostCommentsList } from '@/entities/posts/index'
 import { useParams } from 'react-router-dom'
 
 export const PostPage = observer(() => {
-  const { getPost, post, error } = postApi
+  const { getPost, post, error, loading } = postApi
 
   const { postId } = useParams()
 
@@ -26,7 +26,7 @@ export const PostPage = observer(() => {
     <div className={s.postPage}>
       {post?.value ? (
         <>
-          <PostWidget post={post as IPost} />
+          <PostWidget post={post as IPost} loadingPost={loading} />
           <PostCommentsList comments={post?.comments} postId={`${postId}`} />
         </>
       ) : (

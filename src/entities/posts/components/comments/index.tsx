@@ -41,7 +41,7 @@ export const PostCommentsList = ({ comments, postId }: PostCommentsListProps) =>
           </div>
         </div>
         <div className="flex jcc aic">
-          <InputUi value={commVal} setVal={setCommVal} maxLength={201} />
+          <InputUi value={commVal} setVal={setCommVal} maxLength={200} />
           <button onClick={handleSend}>
             <SendHorizontal />
           </button>
