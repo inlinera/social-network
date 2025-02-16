@@ -7,6 +7,8 @@ import { ArrowLeft } from 'lucide-react'
 import { InputUi } from '@/shared/ui/input'
 import { ChatComponent } from '../chat'
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import userApi from '@/shared/store/api/user/profile/user-api'
+import { useNavChat } from '@/shared/hooks/chats/useNavChat'
 
 interface NewChatBlockProps {
   setIsVisible: (_: boolean) => void
@@ -14,7 +16,13 @@ interface NewChatBlockProps {
 
 export const NewChatBlock = observer(({ setIsVisible }: NewChatBlockProps) => {
   const { user } = authApi
+  const { getUser, userInfo } = userApi
   const [val, setVal] = useState('')
+
+  const handleChat = (id: string) => {
+    getUser(id)
+    useNavChat(userInfo)
+  }
 
   return (
     <div className={`${s.newChatBlock} flex fdc`}>
@@ -25,9 +33,11 @@ export const NewChatBlock = observer(({ setIsVisible }: NewChatBlockProps) => {
         <InputUi value={val} setVal={setVal} placeholder="Enter friend's name" />
       </div>
       <div className={`${s.newChatBlock__main} flex fdc aic`}>
-        {user?.friends?.map(f => {
-          return <ChatComponent loading={false} chatUser={f.displayName} />
-        })}
+        {user?.friends?.map(f => (
+          <button key={f.displayName} onClick={() => handleChat(f.displayName)}>
+            <ChatComponent loading={false} chatUser={f.displayName} />
+          </button>
+        ))}
       </div>
     </div>
   )

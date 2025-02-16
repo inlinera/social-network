@@ -13,7 +13,7 @@ class userApi {
   // =============== USER ===============
 
   // USER STATES
-  userInfo? = {} as IUser
+  userInfo = {} as IUser
   loading = false
   error = ''
 

@@ -17,7 +17,7 @@ class EditMsgApi {
   editMessage = async (msg: IMessage, chatId = getChatApi.chat?.chatId) => {
     this.setLoading(true)
     try {
-      const chatRef = doc(db, 'chats', chatId!)
+      const chatRef = doc(db, 'chats', `${chatId}`)
       const docSnap = await getDoc(chatRef)
       if (!docSnap.exists()) return
 

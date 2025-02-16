@@ -12,7 +12,7 @@ import { TextUi } from '@/shared/ui/text'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { observer } from 'mobx-react-lite'
 
-interface ChatComponentProps {
+interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   loading: boolean
   chatUser?: string
   lastMessage?: IMessage
@@ -39,7 +39,6 @@ export const ChatComponent = observer(
       setAvatar(url)
     }
     avatarUrl()
-    if (isTimeVisible == undefined) isTimeVisible = true
 
     return (
       <div

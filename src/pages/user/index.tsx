@@ -13,7 +13,10 @@ import { ImageUI } from '@/shared/ui/image'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
-  const { getUserPosts, posts } = userPostsApi
+  const {
+    getUserPosts,
+    posts: { posts },
+  } = userPostsApi
   const { userId } = useParams()
 
   const [isOpenedFriend, setIsOpenedFriend] = useState(false)

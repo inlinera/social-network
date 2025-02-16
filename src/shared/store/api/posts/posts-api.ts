@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 //FIREBASE
 import { db } from '@/app/_providers/firebase'
 import {
@@ -26,15 +26,14 @@ class PostsStore {
   private _lastDoc = null as QueryDocumentSnapshot | null
 
   //ALL POSTS ACTIONS
-  getPosts = async (fetchMore: boolean) => {
-    if (this.loading) return
+  getPosts = async () => {
     this.setLoading(true)
     try {
       const q = query(
         collection(db, 'posts'),
         orderBy('time', 'desc'),
-        ...(fetchMore && this._lastDoc ? [startAfter(this._lastDoc)] : []),
-        limit(8)
+        limit(8),
+        ...(this._lastDoc ? [startAfter(this._lastDoc)] : [])
       )
 
       return onSnapshot(q, querySnapshot => {
@@ -44,12 +43,14 @@ class PostsStore {
           id: doc.id,
         })) as IPost[]
 
-        this._lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
-
-        const uniquePosts = newPosts.filter(
-          newPost => !this.posts?.some(post => post.id === newPost.id)
-        )
-        fetchMore ? this.posts?.push(...uniquePosts) : this.setPosts(newPosts)
+        const existingPostIds = new Set(this.posts?.map(post => post.id))
+        const uniquePosts = newPosts.filter(newPost => !existingPostIds.has(newPost.id))
+        runInAction(() => {
+          this._lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
+          this.setPosts(
+            Array.isArray(this.posts) ? [...this.posts, ...uniquePosts] : uniquePosts
+          )
+        })
       })
     } catch (e) {
       alert(e)

@@ -13,7 +13,7 @@ class postApi {
   // ===================== POST =====================
 
   // POST STATES
-  post? = {} as IPost
+  post = {} as IPost
   loading = false
   error? = ''
 
@@ -26,7 +26,7 @@ class postApi {
         this.setPost({ ...doc.data(), id: doc.id } as IPost)
       })
     } catch (e) {
-      this.setError(e as string)
+      this.setError(`${e}`)
     } finally {
       this.setLoading(false)
     }

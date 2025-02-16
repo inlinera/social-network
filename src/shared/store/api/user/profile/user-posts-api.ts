@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx'
 import { IPost } from '@/shared/interfaces/IPost'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
+import { mobxState } from 'mobx-toolbox'
 
 class userPostsApi {
   constructor() {
@@ -11,12 +12,12 @@ class userPostsApi {
   // ====================== USER-POSTS ======================
 
   // USER_POSTS STATES
-  posts? = [] as IPost[]
-  loading = false
+  posts = mobxState<IPost[]>([])('posts')
+  loading = mobxState(false)('loading')
 
   // USER_POSTS ACTIONS
   getUserPosts = async (userId: string) => {
-    this.setLoading(true)
+    this.loading.setLoading(true)
     try {
       const q = query(
         collection(db, 'posts'),
@@ -24,7 +25,7 @@ class userPostsApi {
         orderBy('time', 'desc')
       )
       return onSnapshot(q, querySnapshot =>
-        this.setPosts(
+        this.posts.setPosts(
           querySnapshot.docs.map(
             doc =>
               ({
@@ -37,12 +38,9 @@ class userPostsApi {
     } catch (e) {
       alert(e)
     } finally {
-      this.setLoading(false)
+      this.loading.setLoading(false)
     }
   }
-  // USER_POSTS STATE MOVES
-  setLoading = (state: boolean) => (this.loading = state)
-  setPosts = (posts: IPost[]) => (this.posts = posts)
 }
 
 export default new userPostsApi()

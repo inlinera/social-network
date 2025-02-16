@@ -13,7 +13,7 @@ class getChatsApi {
   // ====================== GET CHATS ======================
 
   // GET CHATS STATES
-  chats? = [] as IChat[]
+  chats = [] as IChat[]
   loading = false
 
   // GET CHATS ACTIONS

@@ -26,12 +26,10 @@ class GetChatApi {
   getChat = (chatId: string) => {
     this.setLoading(true)
     try {
-      const chatDoc = doc(db, 'chats', chatId)
-      return onSnapshot(chatDoc, doc => {
-        if (!doc.exists()) {
-          return alert('error, please try again later')
+      return onSnapshot(doc(db, 'chats', chatId), doc => {
+        if (doc.exists()) {
+          return this.setChat({ ...doc.data(), chatId: doc.id } as IChat)
         }
-        this.setChat({ ...doc.data(), chatId: doc.id } as IChat)
       })
     } catch (e) {
       console.error('Error fetching chats: ', e)

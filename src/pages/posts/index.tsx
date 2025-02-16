@@ -11,7 +11,7 @@ export const PostsPage = observer(() => {
   const { getPosts, posts, loading } = postsApi
 
   useEffect(() => {
-    getPosts(false)
+    getPosts()
   }, [])
 
   return (
@@ -20,10 +20,9 @@ export const PostsPage = observer(() => {
       <PostListWidget posts={posts!} loading={loading} isUserPosts={false} />
       <InView
         as="div"
-        onChange={inView => inView && getPosts(true)}
+        onChange={inView => inView && !loading && getPosts()}
         style={{ height: 20, width: '100%' }}
       />
-      <button onClick={() => getPosts(true)}>load more</button>
     </div>
   )
 })
