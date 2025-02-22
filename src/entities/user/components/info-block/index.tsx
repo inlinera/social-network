@@ -39,7 +39,6 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
           userInfoFriend={{
             displayName: `${userInfo?.displayName}`,
           }}
-          myUserInfoFriend={user!}
         />
       </div>
       <div className={`${s.userInfo_meta_someInfo}`}>

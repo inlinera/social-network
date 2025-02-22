@@ -12,20 +12,20 @@ import {
   UserDeleteOutlined,
 } from '@ant-design/icons'
 //COMPONENTS
-import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { Link } from 'react-router-dom'
 import userApi from '@/shared/store/api/user/profile/user-api'
 import { useNavChat } from '@/shared/hooks/chats/useNavChat'
 import { useNav } from '@/shared/hooks/useNav'
+import { myUserFriend } from '@/shared/data/users/my-user-info'
+import { AcceptFriend } from '@/features/users/add-friend'
 
 interface InfoBlockFriendButtons {
   userInfoFriend: IFriend
-  myUserInfoFriend: IFriend
 }
 
 export const InfoBlockFriendButtons = observer(
-  ({ userInfoFriend, myUserInfoFriend }: InfoBlockFriendButtons) => {
-    const { sendFriendRequest, acceptFriendRequest, removeFromFriends } = friendsApi
+  ({ userInfoFriend }: InfoBlockFriendButtons) => {
+    const { sendFriendRequest, removeFromFriends } = friendsApi
     const { userInfo } = userApi
     const { user } = authApi
 
@@ -60,15 +60,13 @@ export const InfoBlockFriendButtons = observer(
               <MessageOutlined style={tempStyle} />
             </button>
           ) : isUserExistIncReq ? (
-            <RedButtonUI onClick={() => acceptFriendRequest(userInfoFriend, myUserInfoFriend)}>
-              Accept
-            </RedButtonUI>
+            <AcceptFriend userInfo={userInfoFriend} />
           ) : isUserExistOutReq ? (
-            <button onClick={() => removeFromFriends(userInfoFriend)}>
+            <button onClick={() => removeFromFriends(userInfoFriend, myUserFriend())}>
               <UserDeleteOutlined style={tempStyle} />
             </button>
           ) : (
-            <button onClick={() => sendFriendRequest(userInfoFriend, myUserInfoFriend)}>
+            <button onClick={() => sendFriendRequest(userInfoFriend, myUserFriend())}>
               <UserAddOutlined style={tempStyle} />
             </button>
           )

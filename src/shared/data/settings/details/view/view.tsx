@@ -44,8 +44,6 @@ export const view = () => {
             className={s.rangeInput}
             value={newSettings.fz}
             onChange={handleFontSizeChange}
-            onTouchEnd={() => $change(newSettings)}
-            onMouseUp={() => $change(newSettings)}
           />
         ),
       },

@@ -1,3 +1,5 @@
+import { AcceptFriend } from '@/features/users/add-friend'
+import { myUserFriend } from '@/shared/data/users/my-user-info'
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { useNav } from '@/shared/hooks/useNav'
 import { IFriend } from '@/shared/interfaces/IFriend'
@@ -6,7 +8,7 @@ import friendsApi from '@/shared/store/api/user/friends/friends-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
-import { UserAddOutlined, UserDeleteOutlined } from '@ant-design/icons'
+import { UserDeleteOutlined } from '@ant-design/icons'
 import { List } from 'antd'
 import { useState } from 'react'
 
@@ -16,7 +18,7 @@ interface UserFriendProps {
 }
 
 export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
-  const { acceptFriendRequest, removeFromFriends } = friendsApi
+  const { removeFromFriends, removeFromOutFriends } = friendsApi
   const { user } = authApi
   const { userInfo } = userApi
   const [avatar, setAvatar] = useState('')
@@ -40,18 +42,18 @@ export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
         />
       </button>
       <div>
-        {user?.displayName == userInfo?.displayName && (listType === 0 || listType === 1) && (
-          <button onClick={() => removeFromFriends(item)}>
-            <UserDeleteOutlined style={{ fontSize: '17px' }} />
-          </button>
-        )}
-        {listType === 2 && (
-          <button
-            onClick={() => acceptFriendRequest(item, { displayName: `${user?.displayName}` })}
-          >
-            <UserAddOutlined style={{ fontSize: '18px' }} />
-          </button>
-        )}
+        {user?.displayName == userInfo?.displayName &&
+          (listType === 0 ? (
+            <button onClick={() => removeFromFriends(item, myUserFriend())}>
+              <UserDeleteOutlined style={{ fontSize: '17px' }} />
+            </button>
+          ) : listType === 1 ? (
+            <button onClick={() => removeFromOutFriends(item, myUserFriend())}>
+              <UserDeleteOutlined style={{ fontSize: '17px' }} />
+            </button>
+          ) : (
+            listType === 2 && <AcceptFriend userInfo={item} />
+          ))}
       </div>
     </List.Item>
   )

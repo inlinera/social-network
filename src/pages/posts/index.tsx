@@ -11,7 +11,7 @@ export const PostsPage = observer(() => {
   const { getPosts, posts, loading } = postsApi
 
   useEffect(() => {
-    !posts && getPosts()
+    if (!posts) getPosts()
   }, [])
 
   return (
