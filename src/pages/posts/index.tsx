@@ -11,7 +11,7 @@ export const PostsPage = observer(() => {
   const { getPosts, posts, loading } = postsApi
 
   useEffect(() => {
-    getPosts()
+    !posts && getPosts()
   }, [])
 
   return (
@@ -22,6 +22,7 @@ export const PostsPage = observer(() => {
         as="div"
         onChange={inView => inView && !loading && getPosts()}
         style={{ height: 20, width: '100%' }}
+        threshold={0.1}
       />
     </div>
   )

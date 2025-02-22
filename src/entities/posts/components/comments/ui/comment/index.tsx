@@ -44,7 +44,7 @@ export const CommentUi = ({ userName, content, postId }: CommentUiProps) => {
         </div>
       </div>
       <div className="flex aic">
-        {user?.displayName == userName && (
+        {userName && user?.displayName == userName && (
           <button onClick={() => deleteComment({ userName, content }, `${postId}`)}>
             <Trash style={{ width: tempBtnSize, height: tempBtnSize }} />
           </button>
