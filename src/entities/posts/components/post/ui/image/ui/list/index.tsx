@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import s from './index.module.scss'
 import { ImageListModal } from '../modal'
+import { ImageUI } from '@/shared/ui/image'
 
 interface PostImageListProps {
   images: string[]
@@ -22,7 +23,7 @@ export const PostImageList = ({ images }: PostImageListProps) => {
       >
         {images.slice(0, 2).map(i => (
           <div className={s.imageWrapper} key={i}>
-            <img src={i} alt={i} className={s.image} />
+            <ImageUI src={i} alt={i} className={s.image} borderRadius={10} />
           </div>
         ))}
         {images.length > 2 && (

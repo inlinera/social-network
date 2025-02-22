@@ -18,6 +18,7 @@ import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
 // HOOKS
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { AddPostImageFeature } from '@/features/posts/add-image'
 
 interface PostWidgetProps {
   loadingPost: boolean
@@ -71,14 +72,17 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
               value={postVal}
               onChange={e => setPostVal(e.target.value)}
             />
-            <RedButtonUI
-              onClick={() =>
-                submitChanges({ ...post!, value: `${postVal}`, images }, setIsEditing)
-              }
-              disabled={loading}
-            >
-              done
-            </RedButtonUI>
+            <div className="flex aic">
+              <RedButtonUI
+                onClick={() =>
+                  submitChanges({ ...post!, value: `${postVal}`, images }, setIsEditing)
+                }
+                disabled={loading}
+              >
+                done
+              </RedButtonUI>
+              <AddPostImageFeature imgList={images!} setImgList={setImages} />
+            </div>
             {post?.images && post.images.length > 0 && (
               <CarouselUI
                 images={images!}

@@ -21,9 +21,10 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
   const { user } = authApi
   const { userInfo } = userApi
   const isVisible = (visible: boolean) => visible || user?.displayName == userInfo?.displayName
+  const fontSize = parseInt(document.body.style.fontSize) || 14
   const tempStyle = {
-    width: parseInt(document.body.style.fontSize) + 3,
-    height: parseInt(document.body.style.fontSize) + 3,
+    width: fontSize + 3,
+    height: fontSize + 3,
   }
   const years = differenceInYears(new Date(), `${userInfo?.birthday}`)
 

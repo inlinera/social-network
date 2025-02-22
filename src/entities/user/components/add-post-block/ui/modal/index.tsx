@@ -10,9 +10,8 @@ import TextArea from 'antd/es/input/TextArea'
 import { postTags } from '@/shared/data/post-tags'
 //HOOKS
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
-import storageApi from '@/shared/store/api/storage/storage-api'
 import { CarouselUI } from '@/shared/ui/carousel'
-import { ImagePlus } from 'lucide-react'
+import { AddPostImageFeature } from '@/features/posts/add-image'
 
 interface UserAddPostModalProps {
   isOpened: boolean
@@ -21,7 +20,6 @@ interface UserAddPostModalProps {
 
 export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProps) => {
   const { createPost } = createPostApi
-  const { uploadImage } = storageApi
   const [value, setValue] = useState<string>('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [imgList, setImgList] = useState<string[]>([])
@@ -38,17 +36,6 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
     setSelectedTags([])
     setImgList([])
     setIsOpened(false)
-  }
-
-  const handleUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files
-    console.log(files)
-    if (!files) return
-    const url = await uploadImage(files?.[files.length - 1]!, 'photos')
-    console.log(url)
-    if (!url) return alert('cannot upload img')
-    setImgList(imgs => [...imgs, url])
-    console.log(imgList)
   }
 
   return (
@@ -95,17 +82,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
             />
           </div>
           <div className="flex aic">
-            <input
-              type="file"
-              id="file"
-              accept="image/*"
-              hidden
-              onChange={handleUpdate}
-              multiple
-            />
-            <label htmlFor="file" className="flex jcc aic" title="Add Image">
-              <ImagePlus />
-            </label>
+            <AddPostImageFeature imgList={imgList} setImgList={setImgList} />
             <RedButtonUI onClick={handleSubmit}>Send</RedButtonUI>
           </div>
         </div>

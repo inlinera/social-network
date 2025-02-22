@@ -19,6 +19,7 @@ export const NewChatBlock = observer(({ setIsVisible }: NewChatBlockProps) => {
   const { getUser, userInfo } = userApi
   const [val, setVal] = useState('')
 
+  // КОНЧЕНАЯ ПРОБЛЕМА - ПЕРЕДАЧА НЕКОРРЕКТНОГО ИД ПРИ ПЕРВОМ КЛИКЕ, ХЗ КАК ФИКСИТЬ
   const handleChat = (id: string) => {
     getUser(id)
     useNavChat(userInfo)

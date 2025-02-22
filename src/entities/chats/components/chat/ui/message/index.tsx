@@ -9,8 +9,6 @@ import { ContextMenuUI } from '@/shared/ui/context-menu'
 import { ChatCommonMsgViewUi } from '../common/msg-view'
 // HOOKS
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
-// MOBX
-import fontSize from '@/shared/store/functional/settings/visual/font-size'
 import { ImageUI } from '@/shared/ui/image'
 
 interface ChatMessageUIProps {
@@ -27,7 +25,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
     min: msgDate.getMinutes(),
   }
   const addZero = (_: string) => (_.length == 1 ? `0${_}` : _)
-  const { fz } = fontSize
+
   return (
     <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`} id={message.id}>
       <div data-id="msg" className="flex aic jcc fdc">
@@ -46,7 +44,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
           </p>
         </ContextMenuUI>
       </div>
-      <b style={{ fontSize: fz - 5 }}>
+      <b style={{ fontSize: parseInt(document.body.style.fontSize) - 5 }}>
         {time.hr}:{addZero(`${time.min}`)}, {addZero(`${time.d}`)}/{addZero(`${time.mon + 1}`)}
       </b>
     </div>

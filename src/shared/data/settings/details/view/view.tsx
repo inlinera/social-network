@@ -1,38 +1,58 @@
 import s from './view.module.scss'
 
-import FontSizeState from '@/shared/store/functional/settings/visual/font-size'
-import ThemeState from '@/shared/store/functional/settings/visual/theme'
-
-import { useFontSize } from '@/shared/hooks/settings/useFontSize'
+import Settings, { ISettings } from '@/shared/store/functional/start-app'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
+import { useState } from 'react'
 
 export const view = () => {
-  const { fz, setFz } = FontSizeState
-  const { dark, setDark } = ThemeState
+  const { $change } = Settings
+  const settings = JSON.parse(`${localStorage.getItem('2la-settings')}`)
+  const [newSettings, setNewSettings] = useState<ISettings>({
+    fz: settings.fz,
+    theme: settings.theme,
+  })
+
+  const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedFz = +e.target.value
+    setNewSettings(prev => {
+      const updatedSettings = { ...prev, fz: updatedFz }
+      $change(updatedSettings)
+      return updatedSettings
+    })
+  }
+
+  const handleThemeChange = () => {
+    setNewSettings(prev => {
+      const updatedTheme = !prev.theme
+      const updatedSettings = { ...prev, theme: updatedTheme }
+      $change(updatedSettings)
+      return updatedSettings
+    })
+  }
 
   return {
     name: 'Вид',
     content: [
       {
         name: 'Размер шрифта',
-        value: `${fz}px`,
+        value: `${newSettings.fz}px`,
         content: (
           <input
             type="range"
             min="12"
             max="17"
             className={s.rangeInput}
-            value={fz}
-            onChange={e => setFz(+e.target.value)}
-            onTouchEnd={() => useFontSize(fz).edit()}
-            onMouseUp={() => useFontSize(fz).edit()}
+            value={newSettings.fz}
+            onChange={handleFontSizeChange}
+            onTouchEnd={() => $change(newSettings)}
+            onMouseUp={() => $change(newSettings)}
           />
         ),
       },
       {
         name: 'Тема',
-        value: `${dark ? 'Темная' : 'Светлая'}`,
-        content: <RedButtonUI onClick={() => setDark(!dark)}>Change theme</RedButtonUI>,
+        value: `${newSettings.theme ? 'Темная' : 'Светлая'}`,
+        content: <RedButtonUI onClick={handleThemeChange}>Change theme</RedButtonUI>,
       },
     ],
     code: 1,

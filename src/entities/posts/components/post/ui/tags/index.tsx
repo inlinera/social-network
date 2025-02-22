@@ -6,8 +6,9 @@ interface PostTagEntityProps {
 }
 
 export const PostTagEntity = ({ tags }: PostTagEntityProps) => {
+  const fontSize = parseInt(document.body.style.fontSize) || 14
   return (
-    <div className={`${s.tagsMap} flex`} style={{ fontSize: document.body.style.fontSize }}>
+    <div className={`${s.tagsMap} flex`} style={{ fontSize }}>
       {tags && tags.map((t: string) => <PostTagUi name={t} key={t} />)}
     </div>
   )

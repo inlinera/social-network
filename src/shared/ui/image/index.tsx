@@ -9,6 +9,7 @@ export const ImageUI = ({ borderRadius, ...props }: ImageUIProps) => {
     <img
       className={`${s['image-ui']} flex jcc aic`}
       style={borderRadius ? { borderRadius } : {}}
+      draggable={false}
       {...props}
     />
   )
