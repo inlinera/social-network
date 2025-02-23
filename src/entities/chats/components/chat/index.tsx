@@ -11,9 +11,12 @@ import { ChatUserBlock } from './components/user-block'
 import { ChatMessagesBlock } from './components/messages'
 import { chatState } from '@/shared/store/functional/chat/content'
 import { PinnedMsgsList } from './components/pinnedMsgsList'
+import { useState } from 'react'
+import { ChatAddMediaBlock } from './components/add-media-block'
 
 export const ChatWindow = observer(() => {
   const { chat } = getChatApi
+  const [img, setImg] = useState<string | null>(null)
   const isMobile = useMobile()
 
   if (isMobile && !chat) return
@@ -26,9 +29,10 @@ export const ChatWindow = observer(() => {
         <>
           {isChat ? (
             <>
+              {img && <ChatAddMediaBlock image={img} setImage={setImg} />}
               <ChatUserBlock chattingUser={chattingUser!} />
               <ChatMessagesBlock chattingUser={chattingUser!} />
-              <ChatInputUI />
+              <ChatInputUI isAttachmentView img={img} setImg={setImg} />
             </>
           ) : (
             <PinnedMsgsList pin={chat?.pinned} />
