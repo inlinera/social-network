@@ -55,6 +55,7 @@ export const PostCommentsList = ({ comments, postId }: PostCommentsListProps) =>
           content={c.content}
           postId={postId}
           key={c.content + `${c.userName}`}
+          isPreview={false}
         />
       ))}
     </div>

@@ -14,16 +14,4 @@
   img {
     cursor: pointer;
   }
-  .header__input {
-    margin: 5px;
-    padding: 5px 10px;
-    color: #fff;
-    border-radius: 10px;
-    border: 1px solid #000;
-    background-color: var(--post-color);
-    color: var(--default);
-    &::placeholder {
-      color: var(--g-color);
-    }
-  }
 }

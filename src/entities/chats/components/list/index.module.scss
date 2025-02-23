@@ -4,8 +4,8 @@
   width: max-content;
   height: calc(100vh - 90px);
   background-color: var(--post-color);
-  border-radius: 16px 0 0 16px;
-  border-right: 2px solid var(--gray-color);
+  border-radius: 16px;
+  margin-right: 5px;
   color: var(--default);
   overflow: hidden;
   overflow-y: auto !important;
@@ -54,6 +54,7 @@
     height: calc(100vh - 100px);
     width: 100vw;
     background-color: transparent !important;
+    margin-right: none;
     border-right: none;
     .chatsList__up {
       width: 100%;

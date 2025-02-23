@@ -2,7 +2,7 @@
 
 @mixin defaultStyle {
   width: max-content;
-  max-width: 290px;
+  max-width: 280px;
   margin: 10px 0;
   p {
     text-wrap: wrap;
@@ -16,7 +16,7 @@
       margin: 0 auto;
     }
     p {
-      margin-top: 10px;
+      margin-top: 5px;
     }
   }
 }
@@ -25,7 +25,7 @@
   @include defaultStyle;
   align-self: flex-end;
   div[data-id='msg'] {
-    background-color: $red-color;
+    background: linear-gradient(to bottom right, #b41d1d, #f50000, $red-color);
     color: #fff;
     border-radius: 11px 11px 0 11px;
   }
@@ -35,7 +35,7 @@
   align-self: flex-start;
   div[data-id='msg'] {
     color: var(--default);
-    background-color: var(--gray-color);
+    background: linear-gradient(to bottom right, rgb(63, 48, 48), var(--gray-color));
     border-radius: 11px 11px 11px 0;
   }
 }

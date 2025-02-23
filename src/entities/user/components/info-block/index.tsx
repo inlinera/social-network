@@ -42,28 +42,28 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
         />
       </div>
       <div className={`${s.userInfo_meta_someInfo}`}>
-        <i>Description:</i>
+        <p>Description:</p>
         <TextUi loading={loading} lines={2}>
-          <p>{userInfo?.description}</p>
+          <b>{userInfo?.description}</b>
         </TextUi>
         <div className={`${s.userInfo_meta_btns} flex fdc`}>
           {isVisible(Boolean(userInfo?.isNameVisible)) && (
-            <button className="flex jcc aic">
+            <div className="flex jcc aic">
               <User />{' '}
               <TextUi loading={loading} lines={1}>
                 <b>
                   {`${userInfo?.name?.charAt(0).toUpperCase()}` + userInfo?.name?.slice(1)}
                 </b>
               </TextUi>
-            </button>
+            </div>
           )}
           {isVisible(Boolean(userInfo?.isBirthdayVisible)) && !isNaN(years) && (
-            <button className="flex jcc aic">
+            <div className="flex jcc aic">
               <Cake />{' '}
               <TextUi loading={loading} lines={1}>
                 <b>{userInfo?.birthday}</b>({years} y.o)
               </TextUi>
-            </button>
+            </div>
           )}
           {isVisible(Boolean(userInfo?.areFriendsVisible)) && (
             <button onClick={() => setIsOpenedFriend(true)} className="flex jcc aic">

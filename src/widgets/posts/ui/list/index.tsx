@@ -19,6 +19,7 @@ export const postsMap = (posts: IPost[] | null, loading: boolean, isUserPosts?: 
               userName={`${p.comments[0].userName}`}
               postId={p.id}
               content={p.comments[0].content}
+              isPreview
             />
           ) : (
             <CommentUi
@@ -33,6 +34,7 @@ export const postsMap = (posts: IPost[] | null, loading: boolean, isUserPosts?: 
                   )}
                 </>
               }
+              isPreview={false}
             />
           ))}
       </div>

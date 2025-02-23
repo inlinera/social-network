@@ -14,6 +14,8 @@
     transition: all 0.4s;
     p[data-penis='pin'] {
       color: $red-color;
+      font-weight: 600;
+      margin-bottom: 3px;
     }
   }
   button {

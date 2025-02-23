@@ -9,14 +9,16 @@ import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { useSliceStr } from '@/shared/hooks/useSliceStr'
 
 interface CommentUiProps {
   userName?: string
   content: string | React.ReactNode
   postId?: string
+  isPreview: boolean
 }
 
-export const CommentUi = ({ userName, content, postId }: CommentUiProps) => {
+export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiProps) => {
   const tempBtnSize = parseInt(document.body.style.fontSize)
   const { deleteComment } = deleteCommentApi
   const { user } = authApi
@@ -39,7 +41,7 @@ export const CommentUi = ({ userName, content, postId }: CommentUiProps) => {
             </Link>
           )}
           <TextUi lines={1} loading={avatar == ''}>
-            <p>{content}</p>
+            <p>{isPreview ? useSliceStr(`${content}`, 16) : content}</p>
           </TextUi>
         </div>
       </div>

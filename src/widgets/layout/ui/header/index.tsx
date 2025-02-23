@@ -6,11 +6,7 @@ export const HeaderUi = () => {
   const navigate = useNav('/')
   return (
     <header className={`${s.header} flex`}>
-      <div className="flex aic">
-        <img src={src} height={150} onClick={navigate} draggable={false} />
-        <input className={s.header__input} type="text" placeholder="Find your friend" />
-      </div>
-      <div>v</div>
+      <img src={src} height={150} onClick={navigate} draggable={false} />
     </header>
   )
 }
