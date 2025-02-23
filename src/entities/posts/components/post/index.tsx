@@ -8,17 +8,14 @@ import { IPost } from '@/shared/interfaces/IPost'
 import { PostBtnLine, DropdownMenuEntity, PostImageList } from '@/entities/posts/'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
-import TextArea from 'antd/es/input/TextArea'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
-import { RedButtonUI } from '@/shared/ui/buttons/red-button'
-import { CarouselUI } from '@/shared/ui/carousel'
 //MOBX
-import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
 // HOOKS
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import { AddPostImageFeature } from '@/features/posts/add-image'
+import { PostEdit } from './!edit-state'
+import { InView } from 'react-intersection-observer'
 
 interface PostWidgetProps {
   loadingPost: boolean
@@ -27,24 +24,22 @@ interface PostWidgetProps {
 
 export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [postVal, setPostVal] = useState(post?.value)
-  const [images, setImages] = useState(post?.images)
   const [avatar, setAvatar] = useState('')
 
   const { user } = authApi
-  const { submitChanges, loading } = editPostApi
 
   const ruDate = Intl.DateTimeFormat()
   const postDate = new Date(post?.time!)
   const date = ruDate.format(post?.time)
-  const avatarUrl = async () => {
-    const url = await useGetAvatar(`${post?.userName}`)
-    setAvatar(url)
+
+  const handleView = async (inView: boolean) => {
+    if (inView && avatar == '') {
+      setAvatar(await useGetAvatar(`${post?.userName}`))
+    }
   }
-  avatarUrl()
 
   return (
-    <div className={`${s.post} flex fdc`}>
+    <InView as="div" onChange={handleView} className={`${s.post} flex fdc`}>
       <div className={`${s.post__upperblock} flex aic`}>
         <div className="flex fdc">
           <Link to={`/user/${post?.userName}`} className={`${s.post_user} flex aic`}>
@@ -65,34 +60,7 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
       </div>
       <div className={s.post__mainblock}>
         {isEditing ? (
-          <div className={`${s.editPost} flex fdc`}>
-            <TextArea
-              className={s.editPost__textarea}
-              rows={6}
-              value={postVal}
-              onChange={e => setPostVal(e.target.value)}
-            />
-            <div className="flex aic">
-              <RedButtonUI
-                onClick={() =>
-                  submitChanges({ ...post!, value: `${postVal}`, images }, setIsEditing)
-                }
-                disabled={loading}
-              >
-                done
-              </RedButtonUI>
-              <AddPostImageFeature imgList={images!} setImgList={setImages} />
-            </div>
-            {post?.images && post.images.length > 0 && (
-              <CarouselUI
-                images={images!}
-                setImages={setImages}
-                height={200}
-                edit
-                borderRadius={10}
-              />
-            )}
-          </div>
+          <PostEdit post={post!} setIsEditing={setIsEditing} />
         ) : (
           <>
             <TextUi loading={loadingPost} lines={3}>
@@ -115,6 +83,6 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
           userId={`${user?.displayName}`}
         />
       </div>
-    </div>
+    </InView>
   )
 })
