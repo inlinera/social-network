@@ -17,8 +17,8 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
   // HANDLERS
   const menuHandler = (e: React.MouseEvent) => {
     e.preventDefault()
-    const menuHeight = 140
-    const menuWidth = 80
+    const menuHeight = items.length * 38
+    const menuWidth = 78
     const { clientX, clientY } = e
 
     const rightSpace = window.innerWidth - clientX
