@@ -1,4 +1,4 @@
-const isDark = Boolean(document.body.getAttribute('data-theme')) == true
+const isDark = JSON.parse(`${localStorage.getItem('2la-settings')}`).theme == true
 
 const redColor = '#e63946'
 const postColor = isDark ? 'rgba(30, 30, 30)' : 'rgba(219, 219, 219)'
@@ -62,7 +62,7 @@ const Spin = {
 
 const Dropdown = {
   colorBgElevated: grayColor,
-  colorText: '#fff',
+  colorText: isDark ? '#000' : '#fff',
   zIndexPopup: 100,
 }
 

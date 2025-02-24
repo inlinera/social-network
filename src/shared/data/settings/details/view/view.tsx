@@ -2,11 +2,12 @@ import s from './view.module.scss'
 
 import Settings, { ISettings } from '@/shared/store/functional/start-app'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
-import { useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export const view = () => {
   const { $change } = Settings
   const settings = JSON.parse(`${localStorage.getItem('2la-settings')}`)
+
   const [newSettings, setNewSettings] = useState<ISettings>({
     fz: settings.fz,
     theme: settings.theme,
@@ -21,17 +22,14 @@ export const view = () => {
     })
   }
 
-  const handleThemeChange = useMemo(
-    () => () => {
-      setNewSettings(prev => {
-        const updatedTheme = !prev.theme
-        const updatedSettings = { ...prev, theme: updatedTheme }
-        $change(updatedSettings)
-        return updatedSettings
-      })
-    },
-    []
-  )
+  const handleThemeChange = useCallback(() => {
+    setNewSettings(prev => {
+      const updatedTheme = !prev.theme
+      const updatedSettings = { ...prev, theme: updatedTheme }
+      $change(updatedSettings)
+      return updatedSettings
+    })
+  }, [])
 
   return {
     name: 'Вид',
@@ -43,7 +41,7 @@ export const view = () => {
           <input
             type="range"
             min="12"
-            max="17"
+            max="20"
             className={s.rangeInput}
             value={newSettings.fz}
             onChange={handleFontSizeChange}

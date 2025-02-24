@@ -6,6 +6,7 @@ import authApi from '@/shared/store/api/user/auth/auth-api'
 import getChatsApi from '@/shared/store/api/chats/get-chats-api'
 //COMPONENTS
 import { ChatsList, ChatWindow } from '@/entities/chats/index'
+import { myUserFriend } from '@/shared/data/users/my-user-info'
 
 export const ChatsPage = observer(() => {
   const { user } = authApi
@@ -13,9 +14,7 @@ export const ChatsPage = observer(() => {
 
   useEffect(() => {
     if (user?.displayName && user?.avatarUrl) {
-      getChats({
-        displayName: user.displayName,
-      })
+      getChats(myUserFriend())
     }
   }, [user?.displayName])
 

@@ -12,6 +12,7 @@ import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 import { TextUi } from '@/shared/ui/text'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { IUser } from '@/shared/interfaces/IUser'
+import { chatState } from '@/shared/store/functional/chat/content'
 
 interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   loading: boolean
@@ -32,8 +33,8 @@ export const ChatComponent = observer(
     currChat,
     isTimeVisible,
   }: ChatComponentProps) => {
-    console.log('chat rerender')
     const { getChat, chat } = getChatApi
+    const { setIsChat } = chatState
     const [avatar, setAvatar] = useState('')
     const isActive = chat?.people.find(u => u.displayName === chatUser)
 
@@ -46,6 +47,7 @@ export const ChatComponent = observer(
     const handleGetChat = () => {
       if (currChat) {
         if (isActive) return
+        setIsChat(true)
         return getChat(`${currChat.chatId}`)
       }
     }

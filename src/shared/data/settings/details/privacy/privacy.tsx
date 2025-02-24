@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import s from './privacy.module.scss'
 
 import authApi from '@/shared/store/api/user/auth/auth-api'
@@ -19,8 +19,8 @@ export const privacy = () => {
 
   const isVisible = (_: boolean) => (_ ? 'Видно' : 'Скрыто')
 
-  const handleChangeAvatar = useMemo(
-    () => async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeAvatar = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault()
       const avatar = e.target.files?.[0]!
       const url = await uploadImage(avatar, 'avatars')
@@ -32,29 +32,20 @@ export const privacy = () => {
     [userAvatar]
   )
 
-  const handleChangeName = useMemo(
-    () => () => {
-      editField(Boolean(!isNameVisible), `isNameVisible`)
-      setIsNameVisible(!isNameVisible)
-    },
-    [isNameVisible]
-  )
+  const handleChangeName = useCallback(() => {
+    editField(Boolean(!isNameVisible), `isNameVisible`)
+    setIsNameVisible(!isNameVisible)
+  }, [isNameVisible])
 
-  const handleChangeBD = useMemo(
-    () => () => {
-      editField(Boolean(!isBirthdayVisible), `isBirthdayVisible`)
-      setIsBirthdayVisible(!isBirthdayVisible)
-    },
-    [isBirthdayVisible]
-  )
+  const handleChangeBD = useCallback(() => {
+    editField(Boolean(!isBirthdayVisible), `isBirthdayVisible`)
+    setIsBirthdayVisible(!isBirthdayVisible)
+  }, [isBirthdayVisible])
 
-  const handleChangeFriends = useMemo(
-    () => () => {
-      editField(Boolean(!areFriendsVisible), `areFriendsVisible`)
-      setAreFriendsVisible(!areFriendsVisible)
-    },
-    [areFriendsVisible]
-  )
+  const handleChangeFriends = useCallback(() => {
+    editField(Boolean(!areFriendsVisible), `areFriendsVisible`)
+    setAreFriendsVisible(!areFriendsVisible)
+  }, [areFriendsVisible])
 
   return {
     name: 'Конфиденциальность',

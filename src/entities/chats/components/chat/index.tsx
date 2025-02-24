@@ -15,7 +15,6 @@ import { useState } from 'react'
 import { ChatAddMediaBlock } from './components/add-media-block'
 
 export const ChatWindow = observer(() => {
-  console.log('chat rerendered')
   const { chat } = getChatApi
   const [img, setImg] = useState<string | null>(null)
   const isMobile = useMobile()
@@ -27,18 +26,16 @@ export const ChatWindow = observer(() => {
   return (
     <div className={`${s.chatWindow} flex fdc ${!chat && 'jcc aic'}`}>
       {chat ? (
-        <>
-          {isChat ? (
-            <>
-              {img && <ChatAddMediaBlock image={img} setImage={setImg} />}
-              <ChatUserBlock chattingUser={chattingUser!} />
-              <ChatMessagesBlock chattingUser={chattingUser!} />
-              <ChatInputUI isAttachmentView img={img} setImg={setImg} />
-            </>
-          ) : (
-            <PinnedMsgsList pin={chat?.pinned} />
-          )}
-        </>
+        isChat ? (
+          <>
+            {img && <ChatAddMediaBlock image={img} setImage={setImg} />}
+            <ChatUserBlock chattingUser={chattingUser!} />
+            <ChatMessagesBlock chattingUser={chattingUser!} />
+            <ChatInputUI isAttachmentView img={img} setImg={setImg} />
+          </>
+        ) : (
+          <PinnedMsgsList pin={chat?.pinned} />
+        )
       ) : (
         <b>Choose the chat</b>
       )}
