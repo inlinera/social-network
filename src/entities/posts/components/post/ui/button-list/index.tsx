@@ -1,31 +1,40 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-//MOBX
+// MOBX
 import handleLikeApi from '@/shared/store/api/posts/post/details/handle-like-api'
-//COMPONENTS
+// COMPONENTS
 import { PostBtn } from '@/shared/ui/buttons/post-button'
 import { Link } from 'react-router-dom'
-//ICONS
+// ICONS
 import { CommentOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons'
-//INTERFACES
+// INTERFACES
 import { IComment } from '@/shared/interfaces/IComment'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 interface PostBtnLineProps {
   likes: string[]
+  setLikes: (_: string[]) => void
   comments: IComment[]
   postId: string
   userId: string
 }
 
 export const PostBtnLine = observer(
-  ({ likes, comments, postId, userId }: PostBtnLineProps) => {
+  ({ likes, setLikes, comments, postId, userId }: PostBtnLineProps) => {
+    const { user } = authApi
     const { handlePostLike } = handleLikeApi
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState(false)
+    const isIncludes = likes.includes(`${user?.displayName}`)
 
     const handleLikeStateChange = async () => {
       setLoading(true)
       try {
-        await handlePostLike(likes?.includes(userId), postId, userId)
+        await handlePostLike(isIncludes, postId, userId)
+        setLikes(
+          !isIncludes
+            ? [`${user?.displayName}`, ...likes]
+            : likes.filter(u => u !== user?.displayName)
+        )
       } catch (e) {
         alert(e)
       } finally {
@@ -35,14 +44,14 @@ export const PostBtnLine = observer(
 
     return (
       <div className="flex aic">
-        <PostBtn onClick={() => handleLikeStateChange()} loading={loading}>
-          {loading ? 'Loading' : likes?.includes(userId) ? <HeartFilled /> : <HeartOutlined />}
-          {likes?.length}
+        <PostBtn onClick={handleLikeStateChange} loading={loading}>
+          {loading ? 'Loading' : isIncludes ? <HeartFilled /> : <HeartOutlined />}
+          {likes.length}
         </PostBtn>
         <Link to={`/posts/${postId}`}>
           <PostBtn>
             <CommentOutlined />
-            {comments?.length}
+            {comments.length}
           </PostBtn>
         </Link>
       </div>

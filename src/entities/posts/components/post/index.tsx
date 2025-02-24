@@ -25,6 +25,7 @@ interface PostWidgetProps {
 export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [avatar, setAvatar] = useState('')
+  const [likes, setLikes] = useState<string[]>(post?.likes!)
 
   const { user } = authApi
 
@@ -77,7 +78,8 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
         )}
         <PostTagEntity tags={post?.tags!} />
         <PostBtnLine
-          likes={post?.likes!}
+          likes={likes}
+          setLikes={setLikes}
           comments={post?.comments!}
           postId={post?.id!}
           userId={`${user?.displayName}`}
