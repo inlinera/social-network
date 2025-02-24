@@ -15,6 +15,7 @@ import { useState } from 'react'
 import { ChatAddMediaBlock } from './components/add-media-block'
 
 export const ChatWindow = observer(() => {
+  console.log('chat rerendered')
   const { chat } = getChatApi
   const [img, setImg] = useState<string | null>(null)
   const isMobile = useMobile()

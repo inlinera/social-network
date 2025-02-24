@@ -5,19 +5,13 @@ import { IFriend } from '@/shared/interfaces/IFriend'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import friendsApi from '@/shared/store/api/user/friends/friends-api'
 //ICONS
-import {
-  MessageOutlined,
-  SettingOutlined,
-  UserAddOutlined,
-  UserDeleteOutlined,
-} from '@ant-design/icons'
+import { SettingOutlined, UserAddOutlined, UserDeleteOutlined } from '@ant-design/icons'
 //COMPONENTS
 import { Link } from 'react-router-dom'
 import userApi from '@/shared/store/api/user/profile/user-api'
-import { useNavChat } from '@/shared/hooks/chats/useNavChat'
-import { useNav } from '@/shared/hooks/useNav'
 import { myUserFriend } from '@/shared/data/users/my-user-info'
 import { AcceptFriend } from '@/features/users/add-friend'
+import { NavChatFeature } from '@/features/users/nav-chat'
 
 interface InfoBlockFriendButtons {
   userInfoFriend: IFriend
@@ -28,8 +22,6 @@ export const InfoBlockFriendButtons = observer(
     const { sendFriendRequest, removeFromFriends } = friendsApi
     const { userInfo } = userApi
     const { user } = authApi
-
-    const navToChats = useNav(`/chats`)
 
     const userId = userInfo?.displayName
 
@@ -47,18 +39,11 @@ export const InfoBlockFriendButtons = observer(
     )
     const tempStyle = { fontSize: '18px', color: '#fff' }
 
-    const handleChat = () => {
-      useNavChat(userInfo)
-      navToChats()
-    }
-
     return (
       <div>
         {isMyPage ? (
           isUserFriend ? (
-            <button onClick={handleChat}>
-              <MessageOutlined style={tempStyle} />
-            </button>
+            <NavChatFeature userInfo={userInfo} />
           ) : isUserExistIncReq ? (
             <AcceptFriend userInfo={userInfoFriend} />
           ) : isUserExistOutReq ? (

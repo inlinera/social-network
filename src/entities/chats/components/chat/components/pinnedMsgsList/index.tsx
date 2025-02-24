@@ -6,8 +6,9 @@ import unpinMsgApi from '@/shared/store/api/chats/chat/details/unpin-msg-api'
 import { IMessage } from '@/shared/interfaces/IChat'
 import { useEffect } from 'react'
 import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
+import { observer } from 'mobx-react-lite'
 
-export const PinnedMsgsList = ({ pin }: PinnedMsgsProps) => {
+export const PinnedMsgsList = observer(({ pin }: PinnedMsgsProps) => {
   const { setIsChat } = chatState
   const { unpinMessage } = unpinMsgApi
   const buttonClickHandler = (e: React.MouseEvent<HTMLButtonElement>, msg: IMessage) => {
@@ -46,4 +47,4 @@ export const PinnedMsgsList = ({ pin }: PinnedMsgsProps) => {
       </div>
     </div>
   )
-}
+})

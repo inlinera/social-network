@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import s from './index.module.scss'
 //MOBX
 import createPostApi from '@/shared/store/api/posts/post/actions/create-post-api'
@@ -24,19 +24,22 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [imgList, setImgList] = useState<string[]>([])
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
-    event.preventDefault()
-    if (!value) return alert('Please input something')
-    const val = useFormatInput(value)
-    if (!val) return alert("Post can't contain only spaces!")
+  const handleSubmit = useMemo(
+    () => async (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
+      event.preventDefault()
+      if (!value) return alert('Please input something')
+      const val = useFormatInput(value)
+      if (!val) return alert("Post can't contain only spaces!")
 
-    await createPost(val, selectedTags, imgList)
+      await createPost(val, selectedTags, imgList)
 
-    setValue('')
-    setSelectedTags([])
-    setImgList([])
-    setIsOpened(false)
-  }
+      setValue('')
+      setSelectedTags([])
+      setImgList([])
+      setIsOpened(false)
+    },
+    []
+  )
 
   return (
     <Modal

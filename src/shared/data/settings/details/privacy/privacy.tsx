@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import s from './privacy.module.scss'
 
 import authApi from '@/shared/store/api/user/auth/auth-api'
@@ -18,15 +18,44 @@ export const privacy = () => {
   const [areFriendsVisible, setAreFriendsVisible] = useState(user?.areFriendsVisible)
 
   const isVisible = (_: boolean) => (_ ? 'Видно' : 'Скрыто')
-  const handleChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const avatar = e.target.files?.[0]!
-    const url = await uploadImage(avatar, 'avatars')
-    if (!url) return alert('cannot upload img')
-    await deleteImage(`${userAvatar}`).then(
-      async () => await editField(url, 'avatarUrl').then(() => setUserAvatar(url))
-    )
-  }
+
+  const handleChangeAvatar = useMemo(
+    () => async (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault()
+      const avatar = e.target.files?.[0]!
+      const url = await uploadImage(avatar, 'avatars')
+      if (!url) return alert('cannot upload img')
+      await deleteImage(`${userAvatar}`).then(
+        async () => await editField(url, 'avatarUrl').then(() => setUserAvatar(url))
+      )
+    },
+    [userAvatar]
+  )
+
+  const handleChangeName = useMemo(
+    () => () => {
+      editField(Boolean(!isNameVisible), `isNameVisible`)
+      setIsNameVisible(!isNameVisible)
+    },
+    [isNameVisible]
+  )
+
+  const handleChangeBD = useMemo(
+    () => () => {
+      editField(Boolean(!isBirthdayVisible), `isBirthdayVisible`)
+      setIsBirthdayVisible(!isBirthdayVisible)
+    },
+    [isBirthdayVisible]
+  )
+
+  const handleChangeFriends = useMemo(
+    () => () => {
+      editField(Boolean(!areFriendsVisible), `areFriendsVisible`)
+      setAreFriendsVisible(!areFriendsVisible)
+    },
+    [areFriendsVisible]
+  )
+
   return {
     name: 'Конфиденциальность',
     content: [
@@ -58,48 +87,17 @@ export const privacy = () => {
       {
         name: 'Видимость имени',
         value: isVisible(Boolean(isNameVisible)),
-        content: (
-          <RedButtonUI
-            onClick={() => {
-              editField(Boolean(!isNameVisible), `isNameVisible`)
-              setIsNameVisible(!isNameVisible)
-            }}
-          >
-            Change
-          </RedButtonUI>
-        ),
+        content: <RedButtonUI onClick={handleChangeName}>Change</RedButtonUI>,
       },
       {
         name: 'Видимость дня рождения',
         value: isVisible(Boolean(isBirthdayVisible)),
-        content: (
-          <RedButtonUI
-            onClick={() => {
-              editField(Boolean(!isBirthdayVisible), `isBirthdayVisible`)
-              setIsBirthdayVisible(!isBirthdayVisible)
-            }}
-          >
-            Change
-          </RedButtonUI>
-        ),
+        content: <RedButtonUI onClick={handleChangeBD}>Change</RedButtonUI>,
       },
       {
         name: 'Видимость друзей',
         value: isVisible(Boolean(areFriendsVisible)),
-        content: (
-          <RedButtonUI
-            onClick={() => {
-              try {
-                editField(Boolean(!areFriendsVisible), `areFriendsVisible`)
-                setAreFriendsVisible(!areFriendsVisible)
-              } catch {
-                alert('Error, pls try again later')
-              }
-            }}
-          >
-            Change
-          </RedButtonUI>
-        ),
+        content: <RedButtonUI onClick={handleChangeFriends}>Change</RedButtonUI>,
       },
     ],
     code: 2,

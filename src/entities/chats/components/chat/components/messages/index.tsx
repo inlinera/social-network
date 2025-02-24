@@ -1,20 +1,19 @@
 import { IFriend } from '@/shared/interfaces/IFriend'
 import s from './index.module.scss'
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
-import { ChatMessageUI } from '../../ui/message'
-import authApi from '@/shared/store/api/user/auth/auth-api'
 import { PinnedMsgs } from '../pinnedMsgs'
 import { IMessage } from '@/shared/interfaces/IChat'
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { InView } from 'react-intersection-observer'
+import { observer } from 'mobx-react-lite'
+import { ChatMessagesList } from './ui/list'
 
 interface ChatMessagesBlockProps {
   chattingUser: IFriend
 }
 
-export const ChatMessagesBlock = ({ chattingUser }: ChatMessagesBlockProps) => {
-  const { user } = authApi
+export const ChatMessagesBlock = observer(({ chattingUser }: ChatMessagesBlockProps) => {
   const { chat } = getChatApi
   const [isVisible, setIsVisible] = useState(false)
 
@@ -32,10 +31,7 @@ export const ChatMessagesBlock = ({ chattingUser }: ChatMessagesBlockProps) => {
         <div className="flex jcc aic">
           <b>Here was started your chat with {chattingUser?.displayName}</b>
         </div>
-        {chat?.messages.map(m => {
-          const isThisMessageMy = m.userId === user?.displayName
-          return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} key={m.id} />
-        })}
+        <ChatMessagesList />
         {!isVisible && (
           <button className={`${s.chat_bottom} flex jcc aic`} onClick={handleScrollBottom}>
             <ChevronDown />
@@ -47,4 +43,4 @@ export const ChatMessagesBlock = ({ chattingUser }: ChatMessagesBlockProps) => {
       </div>
     </>
   )
-}
+})

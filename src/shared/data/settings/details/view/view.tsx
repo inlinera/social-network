@@ -2,7 +2,7 @@ import s from './view.module.scss'
 
 import Settings, { ISettings } from '@/shared/store/functional/start-app'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 export const view = () => {
   const { $change } = Settings
@@ -21,14 +21,17 @@ export const view = () => {
     })
   }
 
-  const handleThemeChange = () => {
-    setNewSettings(prev => {
-      const updatedTheme = !prev.theme
-      const updatedSettings = { ...prev, theme: updatedTheme }
-      $change(updatedSettings)
-      return updatedSettings
-    })
-  }
+  const handleThemeChange = useMemo(
+    () => () => {
+      setNewSettings(prev => {
+        const updatedTheme = !prev.theme
+        const updatedSettings = { ...prev, theme: updatedTheme }
+        $change(updatedSettings)
+        return updatedSettings
+      })
+    },
+    []
+  )
 
   return {
     name: 'Вид',

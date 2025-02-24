@@ -9,6 +9,8 @@ import { ChatComponent } from '../chat'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
 import { useNavChat } from '@/shared/hooks/chats/useNavChat'
+import { useNav } from '@/shared/hooks/useNav'
+import { IUser } from '@/shared/interfaces/IUser'
 
 interface NewChatBlockProps {
   setIsVisible: (_: boolean) => void
@@ -19,12 +21,15 @@ export const NewChatBlock = observer(({ setIsVisible }: NewChatBlockProps) => {
   const { getUser, userInfo } = userApi
   const [val, setVal] = useState('')
 
-  // КОНЧЕНАЯ ПРОБЛЕМА - ПЕРЕДАЧА НЕКОРРЕКТНОГО ИД ПРИ ПЕРВОМ КЛИКЕ, ХЗ КАК ФИКСИТЬ
-  const handleChat = (id: string) => {
+  const handleGetUser = (id: string) => {
     getUser(id)
-    useNavChat(userInfo)
+    return userInfo
   }
-
+  const navToChats = useNav(`/chats`)
+  const handleChat = (userData: IUser) => {
+    useNavChat(userData)
+    navToChats()
+  }
   return (
     <div className={`${s.newChatBlock} flex fdc`}>
       <div className={`${s.newChatBlock__up} flex aic`}>
@@ -34,11 +39,14 @@ export const NewChatBlock = observer(({ setIsVisible }: NewChatBlockProps) => {
         <InputUi value={val} setVal={setVal} placeholder="Enter friend's name" />
       </div>
       <div className={`${s.newChatBlock__main} flex fdc aic`}>
-        {user?.friends?.map(f => (
-          <button key={f.displayName} onClick={() => handleChat(f.displayName)}>
-            <ChatComponent loading={false} chatUser={f.displayName} />
-          </button>
-        ))}
+        {user?.friends?.map(f => {
+          const userData = handleGetUser(f.displayName)
+          return (
+            <button key={f.displayName} onClick={() => handleChat(userData)}>
+              <ChatComponent loading={false} chatUser={f.displayName} />
+            </button>
+          )
+        })}
       </div>
     </div>
   )

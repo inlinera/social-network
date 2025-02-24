@@ -1,18 +1,17 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, memo } from 'react'
 import s from './index.module.scss'
 
 interface InputUiProps extends React.InputHTMLAttributes<HTMLInputElement> {
   setVal: (_: string) => void
 }
 
-export const InputUi = ({ setVal, maxLength, ...props }: InputUiProps) => {
+export const InputUi = memo(({ setVal, maxLength, ...props }: InputUiProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!maxLength) return setVal(e.target.value)
     if (maxLength && e.target.value.length <= maxLength) {
-      setVal(e.target.value)
-    } else {
-      return navigator.vibrate(50)
+      return setVal(e.target.value)
     }
+    return navigator.vibrate(50)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -30,4 +29,4 @@ export const InputUi = ({ setVal, maxLength, ...props }: InputUiProps) => {
       {...props}
     />
   )
-}
+})

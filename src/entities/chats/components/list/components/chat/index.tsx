@@ -1,16 +1,17 @@
-import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
+import { useState } from 'react'
+import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 //HOOKS
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
+import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 //INTERFACES
 import { IChat, IMessage } from '@/shared/interfaces/IChat'
 //MOBX
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 //COMPONENTS
-import { useState } from 'react'
 import { TextUi } from '@/shared/ui/text'
 import { AvatarUI } from '@/shared/ui/avatar'
-import { observer } from 'mobx-react-lite'
+import { IUser } from '@/shared/interfaces/IUser'
 
 interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   loading: boolean
@@ -19,6 +20,7 @@ interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   msgDate?: Date
   currChat?: IChat
   isTimeVisible?: boolean
+  userInfo?: IUser
 }
 
 export const ChatComponent = observer(
@@ -30,6 +32,7 @@ export const ChatComponent = observer(
     currChat,
     isTimeVisible,
   }: ChatComponentProps) => {
+    console.log('chat rerender')
     const { getChat, chat } = getChatApi
     const [avatar, setAvatar] = useState('')
     const isActive = chat?.people.find(u => u.displayName === chatUser)
@@ -40,11 +43,18 @@ export const ChatComponent = observer(
     }
     avatarUrl()
 
+    const handleGetChat = () => {
+      if (currChat) {
+        if (isActive) return
+        return getChat(`${currChat.chatId}`)
+      }
+    }
+
     return (
       <div
         className={`${s.chatElement} ${isActive && s.active} flex aic jcsb`}
         key={currChat?.messages[0]?.time}
-        onClick={() => currChat && getChat(`${currChat.chatId}`)}
+        onClick={handleGetChat}
       >
         <div className="flex aic jcsb">
           <AvatarUI loading={avatar == '' || loading} src={avatar} size={50} />
