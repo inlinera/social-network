@@ -2,8 +2,14 @@
 
 @mixin defaultStyle {
   width: max-content;
-  max-width: 280px;
+  max-width: 360px;
   margin: 10px 0;
+  @media (max-width: 1450px) {
+    max-width: 300px;
+  }
+  @media (max-width: 768px) {
+    max-width: 270px;
+  }
   p {
     text-wrap: wrap;
     word-wrap: break-word;

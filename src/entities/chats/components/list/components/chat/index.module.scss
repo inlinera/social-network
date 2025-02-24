@@ -21,7 +21,7 @@
   }
 }
 .active {
-  background-color: rgba($red-color, 0.3);
+  background: linear-gradient(to bottom right, #770f0f, #6e0a0a);
 }
 
 @media (max-width: 768px) {
