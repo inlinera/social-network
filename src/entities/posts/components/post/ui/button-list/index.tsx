@@ -24,7 +24,7 @@ export const PostBtnLine = observer(
     const { user } = authApi
     const { handlePostLike } = handleLikeApi
     const [loading, setLoading] = useState(false)
-    const isIncludes = likes.includes(`${user?.displayName}`)
+    const isIncludes = likes?.includes(`${user?.displayName}`)
 
     const handleLikeStateChange = async () => {
       setLoading(true)
@@ -44,14 +44,18 @@ export const PostBtnLine = observer(
 
     return (
       <div className="flex aic">
-        <PostBtn onClick={handleLikeStateChange} loading={loading}>
-          {loading ? 'Loading' : isIncludes ? <HeartFilled /> : <HeartOutlined />}
-          {likes.length}
+        <PostBtn
+          onClick={() => !loading && handleLikeStateChange()}
+          loading={loading}
+          disabled={loading}
+        >
+          {isIncludes ? <HeartFilled /> : <HeartOutlined />}
+          {likes?.length}
         </PostBtn>
         <Link to={`/posts/${postId}`}>
           <PostBtn>
             <CommentOutlined />
-            {comments.length}
+            {comments?.length}
           </PostBtn>
         </Link>
       </div>
