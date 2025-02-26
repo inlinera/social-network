@@ -4,7 +4,7 @@ import s from './index.module.scss'
 import createPostApi from '@/shared/store/api/posts/post/actions/create-post-api'
 //COMPONENTS
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
-import { Modal, Select } from 'antd'
+import { Select } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 //DATA
 import { postTags } from '@/shared/data/post-tags'
@@ -12,13 +12,13 @@ import { postTags } from '@/shared/data/post-tags'
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import { CarouselUI } from '@/shared/ui/carousel'
 import { AddPostImageFeature } from '@/features/posts/add-image'
+import { ModalUi } from '@/shared/ui/modal'
 
 interface UserAddPostModalProps {
-  isOpened: boolean
   setIsOpened: (state: boolean) => void
 }
 
-export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProps) => {
+export const UserAddPostModal = ({ setIsOpened }: UserAddPostModalProps) => {
   const { createPost } = createPostApi
   const [value, setValue] = useState<string>('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -42,13 +42,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
   )
 
   return (
-    <Modal
-      open={isOpened}
-      onCancel={() => setIsOpened(false)}
-      footer={null}
-      centered
-      closeIcon={null}
-    >
+    <ModalUi setIsOpened={setIsOpened}>
       <form onSubmit={handleSubmit} className={`${s.modal} flex fdc jcc`}>
         <div className="flex fdc aic">
           <TextArea
@@ -90,6 +84,6 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: UserAddPostModalProp
           </div>
         </div>
       </form>
-    </Modal>
+    </ModalUi>
   )
 }

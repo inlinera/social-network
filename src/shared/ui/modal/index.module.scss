@@ -1,0 +1,16 @@
+.modal-ui {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(25px);
+  z-index: 100;
+  .modal {
+    position: relative;
+    width: 70%;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background-color: rgba($color: rgb(165, 165, 165), $alpha: 0.6);
+  }
+}
