@@ -13,10 +13,15 @@ import { chatState } from '@/shared/store/functional/chat/content'
 import { PinnedMsgsList } from './components/pinnedMsgsList'
 import { useState } from 'react'
 import { ChatAddMediaBlock } from './components/add-media-block'
+import { ImageModal } from '@/shared/ui/image-modal'
 
 export const ChatWindow = observer(() => {
   const { chat } = getChatApi
   const [img, setImg] = useState<string | null>(null)
+  const [selectedImg, setSelectedImg] = useState<string | null>(null)
+  const handleSelectedImage = (image: boolean) => {
+    if (!image) setSelectedImg(null)
+  }
   const isMobile = useMobile()
 
   if (isMobile && !chat) return
@@ -28,9 +33,10 @@ export const ChatWindow = observer(() => {
       {chat ? (
         isChat ? (
           <>
+            {selectedImg && <ImageModal img={selectedImg} setIsOpened={handleSelectedImage} />}
             {img && <ChatAddMediaBlock image={img} setImage={setImg} />}
             <ChatUserBlock chattingUser={chattingUser!} />
-            <ChatMessagesBlock chattingUser={chattingUser!} />
+            <ChatMessagesBlock chattingUser={chattingUser!} setSelectedImg={setSelectedImg} />
             <ChatInputUI isAttachmentView img={img} setImg={setImg} />
           </>
         ) : (

@@ -5,11 +5,22 @@ import authApi from '@/shared/store/api/user/auth/auth-api'
 // COMPONENTS
 import { ChatMessageUI } from '../../../../ui/message'
 
-export const ChatMessagesList = observer(() => {
+interface ChatMessagesListProps {
+  setSelectedImg: (_: string | null) => void
+}
+
+export const ChatMessagesList = observer(({ setSelectedImg }: ChatMessagesListProps) => {
   const { user } = authApi
   const { chat } = getChatApi
   return chat?.messages.map(m => {
     const isThisMessageMy = m.userId === user?.displayName
-    return <ChatMessageUI isThisMessageMy={isThisMessageMy} message={m} key={m.id} />
+    return (
+      <ChatMessageUI
+        isThisMessageMy={isThisMessageMy}
+        message={m}
+        setSelectedImg={setSelectedImg}
+        key={m.id}
+      />
+    )
   })
 })

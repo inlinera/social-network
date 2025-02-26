@@ -4,15 +4,22 @@
   width: max-content;
   max-width: 360px;
   margin: 10px 0;
+  text-align: left;
   @media (max-width: 1450px) {
     max-width: 300px;
   }
   @media (max-width: 768px) {
     max-width: 270px;
   }
+  * {
+    width: 100%;
+  }
   p {
     text-wrap: wrap;
     word-wrap: break-word;
+  }
+  .image {
+    cursor: pointer;
   }
   div[data-id='msg'] {
     padding: 6px;

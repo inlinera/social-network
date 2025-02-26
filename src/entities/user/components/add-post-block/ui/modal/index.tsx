@@ -13,6 +13,7 @@ import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import { CarouselUI } from '@/shared/ui/carousel'
 import { AddPostImageFeature } from '@/features/posts/add-image'
 import { ModalUi } from '@/shared/ui/modal'
+import { useMobile } from '@/shared/hooks/useMobile'
 
 interface UserAddPostModalProps {
   setIsOpened: (state: boolean) => void
@@ -23,6 +24,7 @@ export const UserAddPostModal = ({ setIsOpened }: UserAddPostModalProps) => {
   const [value, setValue] = useState<string>('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [imgList, setImgList] = useState<string[]>([])
+  const isMobile = useMobile()
 
   const handleSubmit = useMemo(
     () => async (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
@@ -42,7 +44,7 @@ export const UserAddPostModal = ({ setIsOpened }: UserAddPostModalProps) => {
   )
 
   return (
-    <ModalUi setIsOpened={setIsOpened}>
+    <ModalUi setIsOpened={setIsOpened} padding={'10px 15px'}>
       <form onSubmit={handleSubmit} className={`${s.modal} flex fdc jcc`}>
         <div className="flex fdc aic">
           <TextArea
@@ -68,7 +70,7 @@ export const UserAddPostModal = ({ setIsOpened }: UserAddPostModalProps) => {
         )}
         <div className="flex aic jcsb" style={{ width: '100%' }}>
           <div>
-            <span>Tag: </span>
+            {!isMobile && <span>Tag: </span>}
             <Select
               mode="multiple"
               placeholder="Choose tags"

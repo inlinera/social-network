@@ -5,12 +5,21 @@
   width: 100vw;
   height: 100vh;
   backdrop-filter: blur(25px);
-  z-index: 100;
+  z-index: 200;
   .modal {
     position: relative;
     width: 70%;
-    padding: 10px 15px;
+    height: 60%;
+    max-width: max-content;
+    max-height: max-content;
     border-radius: 12px;
     background-color: rgba($color: rgb(165, 165, 165), $alpha: 0.6);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 90% !important;
+    height: 100% !important;
   }
 }

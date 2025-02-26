@@ -17,6 +17,7 @@ import { CloseOutlined, PaperClipOutlined, SendOutlined } from '@ant-design/icon
 // COMPONENTS
 import { ChatCommonMsgViewUi } from '../common/msg-view'
 import storageApi from '@/shared/store/api/storage/storage-api'
+import { useScrollBottom } from '@/shared/hooks/chats/useScrollBottom'
 
 interface ChatInputUiProps {
   isAttachmentView: boolean
@@ -47,6 +48,7 @@ export const ChatInputUI = observer(({ isAttachmentView, img, setImg }: ChatInpu
       state !== 'edit' ? sendMessage(msg) : editMessage(msg)
       setImg?.(null)
       $null()
+      useScrollBottom()
     } else {
       alert('Пожалуйста, введите сообщение')
     }

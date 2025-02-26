@@ -96,10 +96,11 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
                 setIsVisible(false)
               }}
               key={i.name}
-              className="flex aic"
             >
-              {i.icon}
-              {i.name}
+              <div className="flex aic">
+                {i.icon}
+                {i.name}
+              </div>
             </button>
           ))}
         </div>

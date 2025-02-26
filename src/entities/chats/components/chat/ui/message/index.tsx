@@ -14,9 +14,14 @@ import { ImageUI } from '@/shared/ui/image'
 interface ChatMessageUIProps {
   isThisMessageMy: boolean
   message: IMessage
+  setSelectedImg: (_: string | null) => void
 }
 
-export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) => {
+export const ChatMessageUI = ({
+  isThisMessageMy,
+  message,
+  setSelectedImg,
+}: ChatMessageUIProps) => {
   const msgDate = new Date(message?.time)
   const time = {
     mon: msgDate.getMonth(),
@@ -25,11 +30,15 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
     min: msgDate.getMinutes(),
   }
   const addZero = (_: string) => (_.length == 1 ? `0${_}` : _)
+  const handleOpenImage = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.stopPropagation()
+    setSelectedImg(`${message.image}`)
+  }
 
   return (
     <div className={`${isThisMessageMy ? s.myMessage : s.notMyMessage}`} id={message.id}>
-      <div data-id="msg" className="flex aic jcc fdc">
-        <ContextMenuUI items={isThisMessageMy ? items(message).my : items(message).notMy}>
+      <ContextMenuUI items={isThisMessageMy ? items(message).my : items(message).notMy}>
+        <div data-id="msg" className="flex aic jcc fdc">
           {message.reply && (
             <div onClick={e => e.stopPropagation()}>
               <ChatCommonMsgViewUi id={message.reply.id}>
@@ -38,12 +47,21 @@ export const ChatMessageUI = ({ isThisMessageMy, message }: ChatMessageUIProps) 
               </ChatCommonMsgViewUi>
             </div>
           )}
-          {message.image && <ImageUI src={message.image} alt="" borderRadius={10} />}
+          <div className={s.image}>
+            {message.image && (
+              <ImageUI
+                src={message.image}
+                alt=""
+                borderRadius={10}
+                onClick={handleOpenImage}
+              />
+            )}
+          </div>
           <p>
             <LinkifyText text={message.message} />
           </p>
-        </ContextMenuUI>
-      </div>
+        </div>
+      </ContextMenuUI>
       <b style={{ fontSize: parseInt(document.body.style.fontSize) - 5 }}>
         {time.hr}:{addZero(`${time.min}`)}, {addZero(`${time.d}`)}/{addZero(`${time.mon + 1}`)}
       </b>
