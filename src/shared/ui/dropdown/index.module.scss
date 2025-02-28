@@ -1,0 +1,22 @@
+.dropdown {
+  position: relative;
+
+  .dropdown-ui {
+    position: relative;
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 12px;
+    background-color: var(--body-color);
+    flex-wrap: wrap;
+
+    input {
+      width: 100%;
+      margin: 3px 10px;
+      color: var(--default);
+      text-overflow: ellipsis;
+      ::placeholder {
+        color: var(--gray-color);
+      }
+    }
+  }
+}

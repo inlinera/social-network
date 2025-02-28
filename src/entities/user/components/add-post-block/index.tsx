@@ -14,7 +14,7 @@ export const AddPostBlockEntity = () => {
       <div className={s.add_post}>
         <div className={`${s.add_post_block} flex jcc aic`}>
           <div className={s.add_post_block_input}>
-            <h3>You can write a post :)</h3>
+            <h3>You can write post :)</h3>
           </div>
           <div className={`${s.add_post_block__buttons} flex fdc aic`}>
             <RedButtonUI onClick={() => setIsOpened(true)}>Add new post</RedButtonUI>

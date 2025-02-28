@@ -4,15 +4,15 @@ import s from './index.module.scss'
 import createPostApi from '@/shared/store/api/posts/post/actions/create-post-api'
 //COMPONENTS
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
-import { Select } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
-//DATA
-import { postTags } from '@/shared/data/post-tags'
-//HOOKS
-import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import { CarouselUI } from '@/shared/ui/carousel'
 import { AddPostImageFeature } from '@/features/posts/add-image'
 import { ModalUi } from '@/shared/ui/modal'
+import { SearchDropdownUi } from '@/shared/ui/dropdown'
+//DATA
+import { tags } from './constants'
+//HOOKS
+import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import { useMobile } from '@/shared/hooks/useMobile'
 
 interface UserAddPostModalProps {
@@ -59,26 +59,13 @@ export const UserAddPostModal = ({ setIsOpened }: UserAddPostModalProps) => {
         </div>
         {imgList.length > 0 && (
           <div className={`${s.carousel}`}>
-            <CarouselUI
-              images={imgList}
-              height={200}
-              borderRadius={16}
-              setImages={setImgList}
-              edit
-            />
+            <CarouselUI images={imgList} height={200} borderRadius={16} setImages={setImgList} edit />
           </div>
         )}
-        <div className="flex aic jcsb" style={{ width: '100%' }}>
+        <div className={`${s.buttons} flex aic jcsb`} style={{ width: '100%' }}>
           <div>
             {!isMobile && <span>Tag: </span>}
-            <Select
-              mode="multiple"
-              placeholder="Choose tags"
-              style={{ width: 120, height: 'inherit' }}
-              options={postTags}
-              onChange={setSelectedTags}
-              maxCount={4}
-            />
+            <SearchDropdownUi items={tags} selectedItems={selectedTags} setSelectedItems={setSelectedTags} />
           </div>
           <div className="flex aic">
             <AddPostImageFeature imgList={imgList} setImgList={setImgList} />

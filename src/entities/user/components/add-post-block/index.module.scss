@@ -21,3 +21,15 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .add_post {
+    h3 {
+      font-size: 12px;
+    }
+    button {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+  }
+}
