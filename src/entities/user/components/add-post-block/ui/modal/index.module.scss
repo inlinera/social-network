@@ -2,5 +2,9 @@
   position: relative;
   width: 65vw;
   .buttons {
+    width: 100%;
+    div:first-child {
+      width: 100%;
+    }
   }
 }

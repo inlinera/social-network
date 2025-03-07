@@ -14,7 +14,6 @@ export const privacy = () => {
   const { uploadImage, deleteImage } = storageApi
   const [userAvatar, setUserAvatar] = useState(user?.avatarUrl)
   const [isNameVisible, setIsNameVisible] = useState(user?.isNameVisible)
-  const [isBirthdayVisible, setIsBirthdayVisible] = useState(user?.isBirthdayVisible)
   const [areFriendsVisible, setAreFriendsVisible] = useState(user?.areFriendsVisible)
 
   const isVisible = (_: boolean) => (_ ? 'Видно' : 'Скрыто')
@@ -37,11 +36,6 @@ export const privacy = () => {
     setIsNameVisible(!isNameVisible)
   }, [isNameVisible])
 
-  const handleChangeBD = useCallback(() => {
-    editField(Boolean(!isBirthdayVisible), `isBirthdayVisible`)
-    setIsBirthdayVisible(!isBirthdayVisible)
-  }, [isBirthdayVisible])
-
   const handleChangeFriends = useCallback(() => {
     editField(Boolean(!areFriendsVisible), `areFriendsVisible`)
     setAreFriendsVisible(!areFriendsVisible)
@@ -59,13 +53,7 @@ export const privacy = () => {
         name: 'Аватар',
         content: (
           <form className="flex fdc">
-            <input
-              type="file"
-              id="avatar"
-              hidden
-              accept="image/*"
-              onChange={handleChangeAvatar}
-            />
+            <input type="file" id="avatar" hidden accept="image/*" onChange={handleChangeAvatar} />
             <label htmlFor="avatar" className={s.editAvatar}>
               <ImageUI src={userAvatar} alt="avatar" borderRadius={'100%'} className={s.img} />
               <button type="button" className="flex jcc aic">
@@ -79,11 +67,6 @@ export const privacy = () => {
         name: 'Видимость имени',
         value: isVisible(Boolean(isNameVisible)),
         content: <RedButtonUI onClick={handleChangeName}>Change</RedButtonUI>,
-      },
-      {
-        name: 'Видимость дня рождения',
-        value: isVisible(Boolean(isBirthdayVisible)),
-        content: <RedButtonUI onClick={handleChangeBD}>Change</RedButtonUI>,
       },
       {
         name: 'Видимость друзей',

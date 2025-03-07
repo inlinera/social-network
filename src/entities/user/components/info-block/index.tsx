@@ -2,15 +2,13 @@ import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
 //COMPONENTS
 import { InfoBlockFriendButtons } from './ui/buttons/friend'
+import { AvatarUI } from '@/shared/ui/avatar'
+import { TextUi } from '@/shared/ui/text'
 // MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
 // ICONS
-import { Cake, User, UsersRound } from 'lucide-react'
-// DATE
-import { differenceInYears } from 'date-fns'
-import { AvatarUI } from '@/shared/ui/avatar'
-import { TextUi } from '@/shared/ui/text'
+import { User, UsersRound } from 'lucide-react'
 
 interface UserBlockProps {
   loading: boolean
@@ -26,7 +24,6 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
     width: fontSize + 3,
     height: fontSize + 3,
   }
-  const years = differenceInYears(new Date(), `${userInfo?.birthday}`)
 
   return (
     <div className={`${s.userInfo_meta} flex fdc jcc`}>
@@ -51,17 +48,7 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
             <div className="flex jcc aic">
               <User />{' '}
               <TextUi loading={loading} lines={1}>
-                <b>
-                  {`${userInfo?.name?.charAt(0).toUpperCase()}` + userInfo?.name?.slice(1)}
-                </b>
-              </TextUi>
-            </div>
-          )}
-          {isVisible(Boolean(userInfo?.isBirthdayVisible)) && !isNaN(years) && (
-            <div className="flex jcc aic">
-              <Cake />{' '}
-              <TextUi loading={loading} lines={1}>
-                <b>{userInfo?.birthday}</b>({years} y.o)
+                <b>{`${userInfo?.name?.charAt(0).toUpperCase()}` + userInfo?.name?.slice(1)}</b>
               </TextUi>
             </div>
           )}

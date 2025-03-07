@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import s from './index.module.scss'
 //MOBX
 import createPostApi from '@/shared/store/api/posts/post/actions/create-post-api'
@@ -21,27 +21,24 @@ interface UserAddPostModalProps {
 
 export const UserAddPostModal = ({ setIsOpened }: UserAddPostModalProps) => {
   const { createPost } = createPostApi
-  const [value, setValue] = useState<string>('')
+  const [value, setValue] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [imgList, setImgList] = useState<string[]>([])
   const isMobile = useMobile()
 
-  const handleSubmit = useMemo(
-    () => async (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
-      event.preventDefault()
-      if (!value) return alert('Please input something')
-      const val = useFormatInput(value)
-      if (!val) return alert("Post can't contain only spaces!")
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
+    event.preventDefault()
+    if (!value) return alert('Please input something')
+    const val = useFormatInput(value)
+    if (!val) return alert("Post can't contain only spaces!")
 
-      await createPost(val, selectedTags, imgList)
-
+    await createPost(val, selectedTags, imgList).then(() => {
       setValue('')
       setSelectedTags([])
       setImgList([])
       setIsOpened(false)
-    },
-    []
-  )
+    })
+  }
 
   return (
     <ModalUi setIsOpened={setIsOpened} padding={'10px 15px'}>
@@ -62,7 +59,7 @@ export const UserAddPostModal = ({ setIsOpened }: UserAddPostModalProps) => {
             <CarouselUI images={imgList} height={200} borderRadius={16} setImages={setImgList} edit />
           </div>
         )}
-        <div className={`${s.buttons} flex aic jcsb`} style={{ width: '100%' }}>
+        <div className={`${s.buttons} flex aic jcsb`}>
           <div>
             {!isMobile && <span>Tag: </span>}
             <SearchDropdownUi items={tags} selectedItems={selectedTags} setSelectedItems={setSelectedTags} />
