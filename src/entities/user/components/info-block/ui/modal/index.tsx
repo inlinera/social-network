@@ -1,12 +1,12 @@
 import { useState } from 'react'
-//COMPONENTS
-import { Modal, Select } from 'antd'
-import { UserFriendList } from '../lists'
-//DATA
-import { friendsModal } from '@/shared/data/friends-modal-tab'
-//MOBX
-import authApi from '@/shared/store/api/user/auth/auth-api'
 import { observer } from 'mobx-react-lite'
+// COMPONENTS
+import { Modal, Select } from 'antd'
+import { UserFriendList } from './ui/list'
+// DATA
+import { items } from './constants'
+// MOBX
+import authApi from '@/shared/store/api/user/auth/auth-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
 
 interface UserFriendModalProps {
@@ -26,15 +26,11 @@ export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendMo
       onCancel={() => setIsOpened(false)}
       footer={null}
     >
-      {userInfo?.displayName == user?.displayName && (
-        <Select
-          value={friendsModal()[friendOption].label}
-          onChange={val => setFriendOption(+val)}
-          options={friendsModal()}
-        />
+      {userInfo?.displayName === user?.displayName && (
+        <Select value={items()[friendOption].label} onChange={val => setFriendOption(+val)} options={items()} />
       )}
-      <div style={{ marginTop: '15px' }}>
-        <UserFriendList arr={friendsModal()[friendOption].arr} listType={friendOption} />
+      <div style={{ marginTop: '1vh' }}>
+        <UserFriendList arr={items()[friendOption].arr} listType={friendOption} />
       </div>
     </Modal>
   )

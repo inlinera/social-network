@@ -1,5 +1,5 @@
-import { IFriend } from '../interfaces/IFriend'
-import userApi from '../store/api/user/profile/user-api'
+import { IFriend } from '@/shared/interfaces/IFriend'
+import userApi from '@/shared/store/api/user/profile/user-api'
 
 interface IOption {
   label: string
@@ -7,23 +7,24 @@ interface IOption {
   arr: IFriend[]
 }
 
-export const friendsModal = (): IOption[] => {
+export const items = (): IOption[] => {
   const { userInfo } = userApi
+
   return [
     {
       label: 'Friends',
       value: '0',
-      arr: userInfo?.friends!,
+      arr: userInfo?.friends,
     },
     {
       label: 'Outgoing Requests',
       value: '1',
-      arr: userInfo?.outgoingReq!,
+      arr: userInfo?.outgoingReq,
     },
     {
       label: 'Incoming Requests',
       value: '2',
-      arr: userInfo?.incomingReq!,
+      arr: userInfo?.incomingReq,
     },
   ]
 }

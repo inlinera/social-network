@@ -1,7 +1,7 @@
 import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
 //COMPONENTS
-import { InfoBlockFriendButtons } from './ui/buttons/friend'
+import { InfoBlockButton } from './ui/button'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 // MOBX
@@ -18,7 +18,7 @@ interface UserBlockProps {
 export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProps) => {
   const { user } = authApi
   const { userInfo } = userApi
-  const isVisible = (visible: boolean) => visible || user?.displayName == userInfo?.displayName
+  const isVisible = (visible: boolean) => visible || user?.displayName === userInfo?.displayName
   const fontSize = parseInt(document.body.style.fontSize) || 14
   const tempStyle = {
     width: fontSize + 3,
@@ -32,7 +32,7 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
         <TextUi loading={loading} lines={1}>
           <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
         </TextUi>
-        <InfoBlockFriendButtons
+        <InfoBlockButton
           userInfoFriend={{
             displayName: `${userInfo?.displayName}`,
           }}

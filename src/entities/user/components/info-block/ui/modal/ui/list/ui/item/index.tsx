@@ -21,13 +21,17 @@ export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
   const { removeFromFriends, removeFromOutFriends } = friendsApi
   const { user } = authApi
   const { userInfo } = userApi
+
   const [avatar, setAvatar] = useState('')
+
   const avatarUrl = async () => {
     const url = await useGetAvatar(item.displayName)
     setAvatar(url)
   }
   avatarUrl()
+
   const nav = useNav(`/user/${item?.displayName}`)
+
   return (
     <List.Item>
       <button onClick={() => nav()}>
