@@ -1,6 +1,6 @@
-import { items } from '@/shared/data/dropdown'
+import { DropdownUi } from '@/shared/ui/dropdown'
 import { MoreOutlined } from '@ant-design/icons'
-import { Dropdown } from 'antd'
+import { items } from './constants'
 
 interface DropdownMenuEntityInterface {
   postId: string
@@ -9,10 +9,10 @@ interface DropdownMenuEntityInterface {
 
 export const DropdownMenuEntity = ({ postId, setIsEditing }: DropdownMenuEntityInterface) => {
   return (
-    <Dropdown menu={{ items: items(postId, setIsEditing) }} trigger={['click']}>
+    <DropdownUi items={items(postId, setIsEditing)}>
       <button>
         <MoreOutlined />
       </button>
-    </Dropdown>
+    </DropdownUi>
   )
 }

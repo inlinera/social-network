@@ -1,48 +1,24 @@
+import { IDropdownListItem } from '@/entities/posts/components/post/ui/dropdown/constants'
 import s from './index.module.scss'
+import { useCallback } from 'react'
+import { DropdownItem } from '../item'
 
-interface SearchDropdownListProps {
-  items: string[]
-  selectedItems: string[]
-  setSelectedItems: (_: string[]) => void
-  isOpened: boolean
-  closeList: () => void
+interface DropdownListProps {
+  items: IDropdownListItem[]
+  setIsActive: (_: boolean) => void
 }
 
-export const SearchDropdownList = ({
-  items,
-  isOpened,
-  closeList,
-  selectedItems,
-  setSelectedItems,
-}: SearchDropdownListProps) => {
-  const handleSelect = (item: string) => {
-    const isExists = selectedItems.includes(item)
-    closeList()
-    if (selectedItems.length >= 3 && !isExists) return alert('Max: 3 tags')
-    if (isExists) {
-      return setSelectedItems(selectedItems.filter(i => i != item))
-    }
-    setSelectedItems([...selectedItems, item])
-  }
+export const DropdownList = ({ items, setIsActive }: DropdownListProps) => {
+  const handleItemClick = useCallback((func: () => void) => {
+    func()
+    setIsActive(false)
+  }, [])
 
   return (
-    isOpened && (
-      <ul className={`${s.dropdownList}`}>
-        {items.length == 0 && <p>Sorry we can't found this tag</p>}
-        {items.map(item => {
-          return (
-            <li key={item}>
-              <button
-                onClick={() => handleSelect(item)}
-                type="button"
-                className={selectedItems.includes(item) ? s.selected : ''}
-              >
-                {item}
-              </button>
-            </li>
-          )
-        })}
-      </ul>
-    )
+    <ul className={`${s.list}`}>
+      {items.map((item, id) => (
+        <DropdownItem item={item} onClick={handleItemClick} key={id} />
+      ))}
+    </ul>
   )
 }

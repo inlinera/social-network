@@ -10,12 +10,13 @@ import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
+import { PostEdit } from './!edit-state'
+import { InView } from 'react-intersection-observer'
 //MOBX
 // HOOKS
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
+// MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import { PostEdit } from './!edit-state'
-import { InView } from 'react-intersection-observer'
 
 interface PostWidgetProps {
   loadingPost: boolean
@@ -50,14 +51,14 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
                 <p style={{ fontSize: document.body.style.fontSize }}>{post?.userName}</p>
               </TextUi>
               <TextUi loading={loadingPost} lines={1}>
-                <span className="fz10">
-                  {date + ' в ' + postDate.getHours() + ':' + postDate.getMinutes()}
-                </span>
+                <span className="fz10">{date + ' в ' + postDate.getHours() + ':' + postDate.getMinutes()}</span>
               </TextUi>
             </div>
           </Link>
         </div>
-        <DropdownMenuEntity postId={`${post?.id}`} setIsEditing={setIsEditing} />
+        {post?.userName === user?.displayName && (
+          <DropdownMenuEntity postId={`${post?.id}`} setIsEditing={setIsEditing} />
+        )}
       </div>
       <div className={s.post__mainblock}>
         {isEditing ? (
@@ -70,9 +71,7 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
               </p>
             </TextUi>
             <div className={s.post__images}>
-              {post?.images && post.images.length > 0 && (
-                <PostImageList images={post?.images} />
-              )}
+              {post?.images && post.images.length > 0 && <PostImageList images={post?.images} />}
             </div>
           </>
         )}

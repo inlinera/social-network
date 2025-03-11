@@ -1,48 +1,20 @@
-import { useCallback, useRef, useState, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import s from './index.module.scss'
-import { useDebounce } from '@/shared/hooks/useDebounce'
-import { SearchDropdownItem } from './ui/item'
-import { SearchDropdownList } from './ui/list'
 
-interface SearchDropdownUiProps {
-  items: string[]
-  selectedItems: string[]
-  setSelectedItems: (_: string[]) => void
+import { IDropdownListItem } from '@/entities/posts/components/post/ui/dropdown/constants'
+import { DropdownList } from './ui/list'
+
+interface DropdownMenuBtnProps extends React.PropsWithChildren {
+  items: IDropdownListItem[]
 }
 
-export const SearchDropdownUi = ({ items, selectedItems, setSelectedItems }: SearchDropdownUiProps) => {
+export const DropdownUi = ({ children, items }: DropdownMenuBtnProps) => {
   const [isActive, setIsActive] = useState(false)
-  const [value, setValue] = useState('')
-  const [filteredItems, setFilteredItems] = useState<string[]>(items)
   const dropdownRef = useRef<HTMLDivElement | null>(null)
-  const inputRef = useRef<HTMLInputElement | null>(null)
-
-  const debouncedSearch = useDebounce((query: string) => {
-    if (query) {
-      setFilteredItems(items.filter(item => item.toLowerCase().includes(query.toLowerCase())))
-    } else {
-      setFilteredItems(items)
-    }
-    if (inputRef.current?.focus) {
-      return setIsActive(true)
-    }
-    setIsActive(false)
-  }, 500)
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    setValue(newValue)
-    debouncedSearch(newValue)
-  }
-
-  const handleClose = useCallback(() => {
-    setValue('')
-    setIsActive(false)
-  }, [items])
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-      handleClose()
+      setIsActive(false)
     }
   }, [])
 
@@ -54,34 +26,11 @@ export const SearchDropdownUi = ({ items, selectedItems, setSelectedItems }: Sea
   }, [handleClickOutside])
 
   return (
-    <div className={s.dropdown} ref={dropdownRef}>
-      <div className={`${s['dropdown-ui']} flex aic`}>
-        {selectedItems.map(item => (
-          <SearchDropdownItem
-            key={item}
-            item={item}
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
-          />
-        ))}
-        <input
-          type="text"
-          value={value}
-          onChange={handleChange}
-          placeholder="Enter something..."
-          ref={inputRef}
-          onFocus={() => setIsActive(true)}
-        />
-      </div>
-      {isActive && (
-        <SearchDropdownList
-          items={filteredItems}
-          isOpened={isActive}
-          closeList={handleClose}
-          selectedItems={selectedItems}
-          setSelectedItems={setSelectedItems}
-        />
-      )}
+    <div className={s['dropdown-ui']} ref={dropdownRef}>
+      <button onClick={() => setIsActive(!isActive)} className={s.btn}>
+        {children}
+      </button>
+      {isActive && <DropdownList items={items} setIsActive={setIsActive} />}
     </div>
   )
 }

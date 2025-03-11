@@ -8,7 +8,7 @@ import TextArea from 'antd/es/input/TextArea'
 import { CarouselUI } from '@/shared/ui/carousel'
 import { AddPostImageFeature } from '@/features/posts/add-image'
 import { ModalUi } from '@/shared/ui/modal'
-import { SearchDropdownUi } from '@/shared/ui/dropdown'
+import { SearchDropdownUi } from './ui/dropdown'
 //DATA
 import { tags } from './constants'
 //HOOKS
