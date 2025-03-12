@@ -6,7 +6,7 @@ export const HeaderUi = () => {
   const navigate = useNav('/')
   return (
     <header className={`${s.header} flex`}>
-      <img src={src} height={150} onClick={navigate} draggable={false} />
+      <img src={src} onClick={navigate} draggable={false} />
     </header>
   )
 }

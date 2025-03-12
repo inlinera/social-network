@@ -3,7 +3,7 @@
 .header {
   position: fixed;
   width: 100vw;
-  height: 50px;
+  height: 8vh;
   top: 0;
   left: 0;
   align-items: center;
@@ -12,6 +12,7 @@
   z-index: 999;
   overflow: hidden;
   img {
+    height: 120%;
     cursor: pointer;
   }
 }

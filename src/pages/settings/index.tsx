@@ -35,7 +35,7 @@ export const SettingsPage = observer(() => {
         </div>
       </div>
       <b style={{ marginTop: '5px', color: 'var(--g-color)' }}>
-        made by 2hills or _dexter,{' '}
+        made by 2hills or znlznera,{' '}
         <a target="_blank" href="https://t.me/duckowa">
           @duckowa
         </a>
