@@ -11,7 +11,7 @@ export const InputUi = memo(({ setVal, maxLength, ...props }: InputUiProps) => {
     if (maxLength && e.target.value.length <= maxLength) {
       return setVal(e.target.value)
     }
-    return navigator.vibrate(50)
+    navigator.vibrate(50)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

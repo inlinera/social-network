@@ -22,7 +22,7 @@ export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
   const { user } = authApi
   const { userInfo } = userApi
 
-  const [avatar, setAvatar] = useState('')
+  const [avatar, setAvatar] = useState<string | null>(null)
 
   const avatarUrl = async () => {
     const url = await useGetAvatar(item.displayName)
@@ -37,7 +37,7 @@ export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
       <button onClick={() => nav()}>
         <List.Item.Meta
           style={{ alignItems: 'center', display: 'flex' }}
-          avatar={<AvatarUI loading={avatar == ''} src={avatar} size={50} />}
+          avatar={<AvatarUI loading={false} src={avatar} userName={`${item.displayName}`} size={50} />}
           title={
             <TextUi lines={1} loading={avatar == ''}>
               <span style={{ whiteSpace: 'nowrap' }}>{item?.displayName}</span>

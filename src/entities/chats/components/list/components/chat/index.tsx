@@ -25,17 +25,10 @@ interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const ChatComponent = observer(
-  ({
-    loading,
-    chatUser,
-    lastMessage,
-    msgDate,
-    currChat,
-    isTimeVisible,
-  }: ChatComponentProps) => {
+  ({ loading, chatUser, lastMessage, msgDate, currChat, isTimeVisible }: ChatComponentProps) => {
     const { getChat, chat } = getChatApi
     const { setIsChat } = chatState
-    const [avatar, setAvatar] = useState('')
+    const [avatar, setAvatar] = useState<string | null>(null)
     const isActive = chat?.people.find(u => u.displayName === chatUser)
 
     const avatarUrl = async () => {
@@ -48,9 +41,11 @@ export const ChatComponent = observer(
       if (currChat) {
         if (isActive) return
         setIsChat(true)
-        return getChat(`${currChat.chatId}`)
+        getChat(`${currChat.chatId}`)
       }
     }
+
+    const addZero = (_?: number) => (`${_}`?.length == 1 ? `0${_}` : _)
 
     return (
       <div
@@ -59,7 +54,7 @@ export const ChatComponent = observer(
         onClick={handleGetChat}
       >
         <div className="flex aic jcsb">
-          <AvatarUI loading={avatar == '' || loading} src={avatar} size={50} />
+          <AvatarUI loading={loading} src={avatar} userName={`${chatUser}`} size={50} />
           <div className="flex fdc">
             <TextUi loading={loading} lines={1}>
               <h4>@{chatUser}</h4>
@@ -73,9 +68,7 @@ export const ChatComponent = observer(
         </div>
         {isTimeVisible && (
           <TextUi loading={loading} lines={1}>
-            <span>
-              {lastMessage?.time && msgDate?.getHours() + ':' + msgDate?.getMinutes()}
-            </span>
+            <span>{lastMessage?.time && addZero(msgDate?.getHours()) + ':' + addZero(msgDate?.getMinutes())}</span>
           </TextUi>
         )}
       </div>

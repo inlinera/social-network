@@ -13,17 +13,16 @@ interface ChatAddMediaBlockProps {
 export const ChatAddMediaBlock = ({ image, setImage }: ChatAddMediaBlockProps) => {
   const { deleteImage } = storageApi
   const { $null } = InputState
+
   const handleClose = () => {
     deleteImage(`${image}`)
     setImage(null)
     $null()
   }
+
   return (
     <div className={`${s.addMediaBlock} flex jcc aic`} onClick={handleClose}>
-      <div
-        className={`${s.addMediaBlock__content} flex fdc`}
-        onClick={e => e.stopPropagation()}
-      >
+      <div className={`${s.addMediaBlock__content} flex fdc`} onClick={e => e.stopPropagation()}>
         <button className={s.addMediaBlock_close} onClick={handleClose}>
           <CircleX size={30} />
         </button>

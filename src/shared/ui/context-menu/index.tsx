@@ -17,7 +17,7 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
   // HANDLERS
   const menuHandler = (e: React.MouseEvent) => {
     e.preventDefault()
-    const menuHeight = items.length * 38
+    const menuHeight = items.length * 37
     const menuWidth = 78
     const { clientX, clientY } = e
 
@@ -37,12 +37,7 @@ export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
   const clickHandler = (e: MouseEvent) => {
     const ref = contextRef.current?.getBoundingClientRect()
     if (isVisible && ref) {
-      if (
-        e.clientX < ref.left ||
-        e.clientX > ref.right ||
-        e.clientY < ref.top ||
-        e.clientY > ref.bottom
-      ) {
+      if (e.clientX < ref.left || e.clientX > ref.right || e.clientY < ref.top || e.clientY > ref.bottom) {
         setIsVisible(false)
       }
     }

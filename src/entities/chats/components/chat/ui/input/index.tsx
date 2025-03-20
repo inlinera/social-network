@@ -21,11 +21,11 @@ import { useScrollBottom } from '@/shared/hooks/chats/useScrollBottom'
 
 interface ChatInputUiProps {
   isAttachmentView: boolean
-  img?: string | null
-  setImg?: (url: string | null) => void
+  image?: string | null
+  setImage?: (url: string | null) => void
 }
 
-export const ChatInputUI = observer(({ isAttachmentView, img, setImg }: ChatInputUiProps) => {
+export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: ChatInputUiProps) => {
   const { user } = authApi
   const inputRef = useRef<HTMLInputElement>(null)
   const { sendMessage } = sendMsgApi
@@ -38,15 +38,14 @@ export const ChatInputUI = observer(({ isAttachmentView, img, setImg }: ChatInpu
     const msg = {
       userId: user?.displayName,
       message: useFormatInput(val),
-      time: new Date().getTime(),
       id: state == 'edit' ? actionMsg?.id : v4(),
       reply: state == 'reply' ? actionMsg : state == 'edit' ? actionMsg?.reply : null,
-      image: img && img,
+      image,
     } as IMessage
 
-    if (msg.message || img) {
+    if (msg.message || image) {
       state !== 'edit' ? sendMessage(msg) : editMessage(msg)
-      setImg?.(null)
+      setImage?.(null)
       $null()
       useScrollBottom()
     } else {
@@ -67,11 +66,11 @@ export const ChatInputUI = observer(({ isAttachmentView, img, setImg }: ChatInpu
       alert('Cannot upload image')
       return
     }
-    setImg?.(url)
+    setImage?.(url)
   }
 
   useEffect(() => {
-    if (state === 'default' || !inputRef.current || !img) return
+    if (state === 'default' || !inputRef.current || !image) return
     inputRef.current.focus()
   }, [state])
 

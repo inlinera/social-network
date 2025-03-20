@@ -13,16 +13,19 @@ class SendMsgApi {
 
   // =================== SEND MESSAGE API ===================
 
-  sendMessage = async (data: IMessage, chatId = chatState.chat?.chatId) => {
+  sendMessage = async (data: Omit<IMessage, 'time'>, chatId = chatState.chat?.chatId) => {
     if (!chatId) return alert('Error, cannot find chatId')
+
     try {
       const chatRef = doc(db, 'chats', chatId)
       const chatDoc = await getDoc(chatRef)
 
+      const currTime = Date.now()
+
       if (chatDoc.exists()) {
         await updateDoc(chatRef, {
-          messages: arrayUnion(data),
-          time: data.time,
+          messages: arrayUnion({ time: currTime, ...data }),
+          time: currTime,
         })
       }
     } catch (e) {

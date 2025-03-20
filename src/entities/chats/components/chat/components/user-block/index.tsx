@@ -1,7 +1,7 @@
 import s from './index.module.scss'
 import { Link } from 'react-router-dom'
 //COMPONENTS
-import { Avatar, Dropdown } from 'antd'
+import { Dropdown } from 'antd'
 //ICONS
 import { ArrowLeftOutlined, MoreOutlined } from '@ant-design/icons'
 //DATA
@@ -14,15 +14,17 @@ import { IFriend } from '@/shared/interfaces/IFriend'
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 import { memo, useState } from 'react'
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
+import { AvatarUI } from '@/shared/ui/avatar'
 
 interface ChatUserBlockProps {
   chattingUser: IFriend
 }
 
 export const ChatUserBlock = memo(({ chattingUser }: ChatUserBlockProps) => {
-  const { setChat } = getChatApi
+  const { setChat, loading } = getChatApi
   const isMobile = useMobile()
-  const [avatar, setAvatar] = useState('')
+  const [avatar, setAvatar] = useState<string | null>(null)
+
   const avatarUrl = async () => {
     const url = await useGetAvatar(chattingUser.displayName)
     setAvatar(url)
@@ -37,11 +39,8 @@ export const ChatUserBlock = memo(({ chattingUser }: ChatUserBlockProps) => {
             <ArrowLeftOutlined />
           </button>
         )}
-        <Link
-          className={`${s.chatWindow_user__info} flex aic`}
-          to={`/user/${chattingUser?.displayName}`}
-        >
-          <Avatar size={'large'} src={avatar} alt="avatar" draggable={false} />
+        <Link className={`${s.chatWindow_user__info} flex aic`} to={`/user/${chattingUser?.displayName}`}>
+          <AvatarUI loading={loading} src={avatar} size={40} userName={chattingUser.displayName} />
           <h3>@{chattingUser?.displayName}</h3>
         </Link>
       </div>

@@ -17,19 +17,18 @@ interface ChatMessageUIProps {
   setSelectedImg: (_: string | null) => void
 }
 
-export const ChatMessageUI = ({
-  isThisMessageMy,
-  message,
-  setSelectedImg,
-}: ChatMessageUIProps) => {
+export const ChatMessageUI = ({ isThisMessageMy, message, setSelectedImg }: ChatMessageUIProps) => {
   const msgDate = new Date(message?.time)
+
   const time = {
     mon: msgDate.getMonth(),
     d: msgDate.getDate(),
     hr: msgDate.getHours(),
     min: msgDate.getMinutes(),
   }
+
   const addZero = (_: string) => (_.length == 1 ? `0${_}` : _)
+
   const handleOpenImage = (e: React.MouseEvent<HTMLImageElement>) => {
     e.stopPropagation()
     setSelectedImg(`${message.image}`)
@@ -48,14 +47,7 @@ export const ChatMessageUI = ({
             </div>
           )}
           <div className={s.image}>
-            {message.image && (
-              <ImageUI
-                src={message.image}
-                alt=""
-                borderRadius={10}
-                onClick={handleOpenImage}
-              />
-            )}
+            {message.image && <ImageUI src={message.image} alt="" borderRadius={10} onClick={handleOpenImage} />}
           </div>
           <p>
             <LinkifyText text={message.message} />

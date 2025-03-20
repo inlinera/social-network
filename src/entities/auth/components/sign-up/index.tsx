@@ -5,6 +5,7 @@ import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import { nullUser } from '@/shared/data/null-user'
+import { IUser } from '@/shared/interfaces/IUser'
 
 export const AuthRegEntity = () => {
   const { signUp } = authApi
@@ -42,7 +43,7 @@ export const AuthRegEntity = () => {
     if (!nameValid || !emailValid || !passwordValid || !tagValid) {
       return alert('Что-то у тя🦆 не так')
     }
-    signUp({ ...nullUser, displayName, email, password, name })
+    signUp({ ...nullUser, displayName, email, password, name } as unknown as IUser)
   }
 
   return (

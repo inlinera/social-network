@@ -12,7 +12,6 @@ import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 import { PostEdit } from './!edit-state'
 import { InView } from 'react-intersection-observer'
-//MOBX
 // HOOKS
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 // MOBX
@@ -25,7 +24,7 @@ interface PostWidgetProps {
 
 export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [avatar, setAvatar] = useState('')
+  const [avatar, setAvatar] = useState<string | null>(null)
   const [likes, setLikes] = useState<string[]>(post?.likes!)
 
   const { user } = authApi
@@ -35,7 +34,7 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
   const date = ruDate.format(post?.time)
 
   const handleView = async (inView: boolean) => {
-    if (inView && avatar == '') {
+    if (inView && !avatar) {
       setAvatar(await useGetAvatar(`${post?.userName}`))
     }
   }
@@ -45,7 +44,7 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
       <div className={`${s.post__upperblock} flex aic`}>
         <div className="flex fdc">
           <Link to={`/user/${post?.userName}`} className={`${s.post_user} flex aic`}>
-            <AvatarUI loading={avatar == ''} src={avatar} size={45} />
+            <AvatarUI loading={loadingPost} src={avatar} size={45} userName={`${post?.userName}`} />
             <div className="flex fdc">
               <TextUi loading={loadingPost} lines={1}>
                 <p style={{ fontSize: document.body.style.fontSize }}>{post?.userName}</p>

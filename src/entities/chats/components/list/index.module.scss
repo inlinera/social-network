@@ -9,43 +9,37 @@
   color: var(--default);
   overflow: hidden;
   overflow-y: auto !important;
+
   &::-webkit-scrollbar {
     width: 6px;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: var(--gray-color);
     border-radius: 10px;
   }
+
   &::-webkit-scrollbar-track {
     background-color: var(--post-color);
     border-radius: 16px;
     padding: 5px;
   }
+
   .chatsList__up {
     width: 100%;
     padding: 15px 5px;
     text-align: left;
     border-bottom: 1px solid var(--gray-color);
+
     h2 {
       margin: 4px;
       font-size: 19px;
     }
   }
+
   div[data-id='chats'] {
     // STYLE
     width: 100%;
-  }
-  .chatsList_more {
-    position: fixed;
-    bottom: 10px;
-    button {
-      height: 40px;
-      width: 40px;
-      background-color: var(--red-color);
-      color: #fff;
-      font-size: 25px;
-      border-radius: 100%;
-    }
   }
 }
 
@@ -56,26 +50,14 @@
     background-color: transparent !important;
     margin-right: none;
     border-right: none;
+
     .chatsList__up {
       width: 100%;
       text-align: left;
+
       h2 {
         margin: 4px;
         font-size: 22px;
-      }
-    }
-    .chatsList_more {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      margin-bottom: 70px;
-      button {
-        height: 40px;
-        width: 40px;
-        background-color: var(--red-color);
-        color: #fff;
-        font-size: 25px;
-        border-radius: 100%;
       }
     }
   }

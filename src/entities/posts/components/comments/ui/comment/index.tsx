@@ -22,16 +22,20 @@ export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiPro
   const tempBtnSize = parseInt(document.body.style.fontSize)
   const { deleteComment } = deleteCommentApi
   const { user } = authApi
-  const [avatar, setAvatar] = useState('')
+  const [avatar, setAvatar] = useState<string | null>(null)
+
   const avatarUrl = async () => {
     const url = await useGetAvatar(`${userName}`)
     setAvatar(url)
   }
   avatarUrl()
+
   return (
     <div className={`${s.comment} flex jcsb`}>
       <div className="flex jcc aic">
-        <div>{userName && <AvatarUI src={avatar} loading={avatar == ''} size={35} />}</div>
+        <div>
+          {userName && <AvatarUI src={avatar} loading={avatar == ''} size={35} userName={`${userName}`} />}
+        </div>
         <div className="flex fdc">
           {userName && (
             <Link to={`/user/${userName}`}>
