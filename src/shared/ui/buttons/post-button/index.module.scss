@@ -8,9 +8,11 @@
   color: var(--default) !important;
   border-radius: 10px;
   transition: all 0.4s;
+
   * {
     margin: 3px;
   }
+
   &.loading {
     transform: scale(0.95);
     background-color: gray;

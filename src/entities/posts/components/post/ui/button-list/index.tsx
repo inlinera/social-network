@@ -10,6 +10,7 @@ import { CommentOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons'
 // INTERFACES
 import { IComment } from '@/shared/interfaces/IComment'
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { AuthModal } from '@/entities/@common/auth-modal'
 
 interface PostBtnLineProps {
   likes: string[]
@@ -19,36 +20,31 @@ interface PostBtnLineProps {
   userId: string
 }
 
-export const PostBtnLine = observer(
-  ({ likes, setLikes, comments, postId, userId }: PostBtnLineProps) => {
-    const { user } = authApi
-    const { handlePostLike } = handleLikeApi
-    const [loading, setLoading] = useState(false)
-    const isIncludes = likes?.includes(`${user?.displayName}`)
+export const PostBtnLine = observer(({ likes, setLikes, comments, postId, userId }: PostBtnLineProps) => {
+  const { user } = authApi
+  const { handlePostLike } = handleLikeApi
+  const [loading, setLoading] = useState(false)
+  const [isAuthModalOpened, setIsAuthModalOpened] = useState(false)
+  const isIncludes = likes?.includes(`${user?.displayName}`)
 
-    const handleLikeStateChange = async () => {
-      setLoading(true)
-      try {
-        await handlePostLike(isIncludes, postId, userId)
-        setLikes(
-          !isIncludes
-            ? [`${user?.displayName}`, ...likes]
-            : likes.filter(u => u !== user?.displayName)
-        )
-      } catch (e) {
-        alert(e)
-      } finally {
-        setLoading(false)
-      }
+  const handleLikeStateChange = async () => {
+    if (!user) return setIsAuthModalOpened(true)
+    setLoading(true)
+    try {
+      await handlePostLike(isIncludes, postId, userId)
+      setLikes(!isIncludes ? [`${user?.displayName}`, ...likes] : likes.filter(u => u !== user?.displayName))
+    } catch (e) {
+      alert(e)
+    } finally {
+      setLoading(false)
     }
+  }
 
-    return (
+  return (
+    <>
+      <AuthModal isOpened={isAuthModalOpened} setIsOpened={setIsAuthModalOpened} />
       <div className="flex aic">
-        <PostBtn
-          onClick={() => !loading && handleLikeStateChange()}
-          loading={loading}
-          disabled={loading}
-        >
+        <PostBtn onClick={() => !loading && handleLikeStateChange()} loading={loading} disabled={loading}>
           {isIncludes ? <HeartFilled /> : <HeartOutlined />}
           {likes?.length}
         </PostBtn>
@@ -59,6 +55,6 @@ export const PostBtnLine = observer(
           </PostBtn>
         </Link>
       </div>
-    )
-  }
-)
+    </>
+  )
+})

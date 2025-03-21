@@ -6,6 +6,15 @@
   height: 100vh;
   backdrop-filter: blur(25px);
   z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s;
+
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
   .modal {
     position: relative;
     width: 70%;
@@ -13,7 +22,13 @@
     max-width: max-content;
     max-height: max-content;
     border-radius: 12px;
-    background-color: rgba($color: rgb(165, 165, 165), $alpha: 0.6);
+    background-color: var(--post-color);
+    transform: scale(0.9);
+    transition: all 0.5s;
+
+    &.open {
+      transform: scale(1);
+    }
   }
 }
 

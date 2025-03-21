@@ -10,7 +10,7 @@ export const AddPostBlockEntity = () => {
 
   return (
     <>
-      {isOpened && <UserAddPostModal setIsOpened={setIsOpened} />}
+      <UserAddPostModal isOpened={isOpened} setIsOpened={setIsOpened} />
       <div className={s.add_post}>
         <div className={`${s.add_post_block} flex jcc aic`}>
           <div className={s.add_post_block_input}>
