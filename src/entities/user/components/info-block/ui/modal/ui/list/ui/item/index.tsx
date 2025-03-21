@@ -1,3 +1,11 @@
+// ================================= ALARM =================================
+
+// SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE
+
+// SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE
+
+// SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE
+
 import { AcceptFriend } from '@/features/users/add-friend'
 import { myUserFriend } from '@/shared/data/users/my-user-info'
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'

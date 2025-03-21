@@ -1,3 +1,11 @@
+// ================================= ALARM =================================
+
+// SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE
+
+// SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE
+
+// SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE SENIOR CODE
+
 import { observer } from 'mobx-react-lite'
 //INTERFACES
 import { IFriend } from '@/shared/interfaces/IFriend'
@@ -33,26 +41,28 @@ export const InfoBlockButton = observer(({ userInfoFriend }: InfoBlockFriendButt
   const tempStyle = { fontSize: '18px', color: '#fff' }
 
   return (
-    <div>
-      {isMyPage ? (
-        isUserFriend ? (
-          <NavChatFeature userInfo={userInfo} />
-        ) : isUserExistIncReq ? (
-          <AcceptFriend userInfo={userInfoFriend} />
-        ) : isUserExistOutReq ? (
-          <button onClick={() => removeFromFriends(userInfoFriend, myUserFriend())}>
-            <UserDeleteOutlined style={tempStyle} />
-          </button>
+    user && (
+      <div>
+        {isMyPage ? (
+          isUserFriend ? (
+            <NavChatFeature userInfo={userInfo} />
+          ) : isUserExistIncReq ? (
+            <AcceptFriend userInfo={userInfoFriend} />
+          ) : isUserExistOutReq ? (
+            <button onClick={() => removeFromFriends(userInfoFriend, myUserFriend())}>
+              <UserDeleteOutlined style={tempStyle} />
+            </button>
+          ) : (
+            <button onClick={() => sendFriendRequest(userInfoFriend, myUserFriend())}>
+              <UserAddOutlined style={tempStyle} />
+            </button>
+          )
         ) : (
-          <button onClick={() => sendFriendRequest(userInfoFriend, myUserFriend())}>
-            <UserAddOutlined style={tempStyle} />
-          </button>
-        )
-      ) : (
-        <Link to={'/settings'}>
-          <SettingOutlined style={tempStyle} />
-        </Link>
-      )}
-    </div>
+          <Link to={'/settings'}>
+            <SettingOutlined style={tempStyle} />
+          </Link>
+        )}
+      </div>
+    )
   )
 })

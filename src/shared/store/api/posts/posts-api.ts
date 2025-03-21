@@ -37,7 +37,7 @@ class PostsStore {
       )
 
       return onSnapshot(q, querySnapshot => {
-        if (querySnapshot.empty) return alert('ты ебанутый? а ничо то что посты закончились')
+        if (querySnapshot.empty) return alert('а ничо тот факт то что посты закончились')
         const newPosts = querySnapshot.docs.map(doc => ({
           ...doc.data(),
           id: doc.id,
@@ -47,9 +47,7 @@ class PostsStore {
         const uniquePosts = newPosts.filter(newPost => !existingPostIds.has(newPost.id))
         runInAction(() => {
           this._lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
-          this.setPosts(
-            Array.isArray(this.posts) ? [...this.posts, ...uniquePosts] : uniquePosts
-          )
+          this.setPosts(Array.isArray(this.posts) ? [...this.posts, ...uniquePosts] : uniquePosts)
         })
       })
     } catch (e) {
