@@ -5,14 +5,14 @@ import authApi from '@/shared/store/api/user/auth/auth-api'
 import EditPrivacySettings from '@/shared/store/api/user/profile/details/change-field-api'
 import storageApi from '@/shared/store/api/storage/storage-api'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
-import { ImageUI } from '@/shared/ui/image'
 import { Pencil } from 'lucide-react'
+import { AvatarUI } from '@/shared/ui/avatar'
 
 export const privacy = () => {
-  const { user } = authApi
+  const { user, loading } = authApi
   const { editField } = EditPrivacySettings
   const { uploadImage, deleteImage } = storageApi
-  const [userAvatar, setUserAvatar] = useState<string | undefined>(user?.avatarUrl || undefined)
+  const [userAvatar, setUserAvatar] = useState<string | null>(user?.avatarUrl || null)
 
   const [isPrivate, setIsPrivate] = useState(user?.isPrivate)
   const [isNameVisible, setIsNameVisible] = useState(user?.isNameVisible)
@@ -62,8 +62,12 @@ export const privacy = () => {
           <form className="flex fdc">
             <input type="file" id="avatar" hidden accept="image/*" onChange={handleChangeAvatar} />
             <label htmlFor="avatar" className={s.editAvatar}>
-              <ImageUI src={userAvatar} alt="avatar" borderRadius={'100%'} className={s.img} />
-              <button type="button" className="flex jcc aic">
+              <AvatarUI loading={loading} src={userAvatar} userName={`${user?.displayName}`} size={175} />
+              <button
+                type="button"
+                className="flex jcc aic"
+                onClick={() => document.getElementById('avatar')?.click()}
+              >
                 <Pencil />
               </button>
             </label>
