@@ -9,14 +9,16 @@ import userPostsApi from '@/shared/store/api/user/profile/user-posts-api'
 // COMPONENTS
 import { PostListWidget } from '@/widgets/posts'
 import { UserBlock, UserFriendModal, AddPostBlockEntity } from '@/entities/user/'
-import { ImageUI } from '@/shared/ui/image'
+import { isVisible } from '@/shared/constants/isContentVisible'
 
 export const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
+
   const {
     getUserPosts,
     posts: { posts },
   } = userPostsApi
+
   const { userId } = useParams()
 
   const [isOpenedFriend, setIsOpenedFriend] = useState(false)
@@ -32,20 +34,15 @@ export const UserPage = observer(() => {
       {userInfo ? (
         <>
           <UserFriendModal isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend} />
-          <div className={`${s.userInfo} grid cw`}>
+          <div className={`${s.userInfo} grid`}>
             <UserBlock setIsOpenedFriend={setIsOpenedFriend} loading={loading} />
             <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
-              {userInfo.displayName == authApi.user?.displayName && <AddPostBlockEntity />}
+              {userInfo.displayName === authApi.user?.displayName && <AddPostBlockEntity />}
               <div className={`${s.posts} flex`}>
-                {posts?.length != 0 ? (
+                {posts?.length !== 0 && isVisible(true) ? (
                   <PostListWidget posts={posts} isUserPosts loading={loading} />
                 ) : (
-                  <ImageUI
-                    borderRadius={10}
-                    src="https://random-d.uk/api/http/404.jpg"
-                    alt="404"
-                    className={s.notFound}
-                  />
+                  <b>Posts did not found or account is private</b>
                 )}
               </div>
             </div>

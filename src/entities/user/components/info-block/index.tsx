@@ -5,10 +5,11 @@ import { InfoBlockButton } from './ui/button'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 // MOBX
-import authApi from '@/shared/store/api/user/auth/auth-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
 // ICONS
 import { User, UsersRound } from 'lucide-react'
+
+import { isVisible } from '@/shared/constants/isContentVisible'
 
 interface UserBlockProps {
   loading: boolean
@@ -16,13 +17,11 @@ interface UserBlockProps {
 }
 
 export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProps) => {
-  const { user } = authApi
   const { userInfo } = userApi
-  const isVisible = (visible: boolean) => visible || user?.displayName === userInfo?.displayName
-  const fontSize = parseInt(document.body.style.fontSize) || 14
+
   const tempStyle = {
-    width: fontSize + 3,
-    height: fontSize + 3,
+    width: parseInt(document.body.style.fontSize) || 14 + 3,
+    height: parseInt(document.body.style.fontSize) || 14 + 3,
   }
 
   return (

@@ -12,7 +12,9 @@ export const privacy = () => {
   const { user } = authApi
   const { editField } = EditPrivacySettings
   const { uploadImage, deleteImage } = storageApi
-  const [userAvatar, setUserAvatar] = useState(user?.avatarUrl)
+  const [userAvatar, setUserAvatar] = useState<string | undefined>(user?.avatarUrl || undefined)
+
+  const [isPrivate, setIsPrivate] = useState(user?.isPrivate)
   const [isNameVisible, setIsNameVisible] = useState(user?.isNameVisible)
   const [areFriendsVisible, setAreFriendsVisible] = useState(user?.areFriendsVisible)
 
@@ -31,6 +33,11 @@ export const privacy = () => {
     [userAvatar]
   )
 
+  const handleChangePrivate = useCallback(() => {
+    editField(Boolean(!isPrivate), `isPrivate`)
+    setIsPrivate(!isPrivate)
+  }, [isPrivate])
+
   const handleChangeName = useCallback(() => {
     editField(Boolean(!isNameVisible), `isNameVisible`)
     setIsNameVisible(!isNameVisible)
@@ -46,8 +53,8 @@ export const privacy = () => {
     content: [
       {
         name: 'Тип аккаунта',
-        value: 'Открытый',
-        content: <RedButtonUI onClick={() => console.log('@duckowa')}>Change</RedButtonUI>,
+        value: isPrivate ? 'Закрытый' : 'Открытый',
+        content: <RedButtonUI onClick={handleChangePrivate}>Change</RedButtonUI>,
       },
       {
         name: 'Аватар',
