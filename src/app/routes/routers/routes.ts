@@ -15,6 +15,7 @@ export type RouteT = {
 export const publicRoutes: RouteT[] = [
   { path: '*', element: AuthPage },
   { path: '/', element: PostsPage },
+  { path: '/posts/:postId', element: PostPage },
   { path: '/user/:userId', element: UserPage },
 ]
 

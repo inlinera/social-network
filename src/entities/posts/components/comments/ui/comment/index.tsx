@@ -19,9 +19,9 @@ interface CommentUiProps {
 }
 
 export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiProps) => {
-  const tempBtnSize = parseInt(document.body.style.fontSize)
   const { deleteComment } = deleteCommentApi
   const { user } = authApi
+
   const [avatar, setAvatar] = useState<string | null>(null)
 
   const avatarUrl = async () => {
@@ -50,9 +50,14 @@ export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiPro
         </div>
       </div>
       <div className="flex aic">
-        {userName && user?.displayName == userName && (
+        {userName && user?.displayName === userName && (
           <button onClick={() => deleteComment({ userName, content }, `${postId}`)}>
-            <Trash style={{ width: tempBtnSize, height: tempBtnSize }} />
+            <Trash
+              style={{
+                width: parseInt(document.body.style.fontSize),
+                height: parseInt(document.body.style.fontSize),
+              }}
+            />
           </button>
         )}
       </div>

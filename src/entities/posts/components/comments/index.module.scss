@@ -1,14 +1,20 @@
 .commentsList {
   .input-block {
     width: 100%;
-    margin-top: 7px;
+    margin-top: 5px;
     padding: 10px 15px;
     border-radius: 10px;
     color: var(--default);
     background-color: var(--post-color);
+
+    input {
+      margin-left: 5px;
+    }
+
     h3 {
       margin: 3px;
     }
+
     b {
       color: var(--g-color);
     }
