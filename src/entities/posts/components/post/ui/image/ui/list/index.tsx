@@ -9,13 +9,14 @@ interface PostImageListProps {
 
 export const PostImageList = ({ images }: PostImageListProps) => {
   const [isOpened, setIsOpened] = useState(false)
+
   return (
     <>
       <ImageListModal images={images} isOpened={isOpened} setIsOpened={setIsOpened} />
       <div
         className={`${
           images.length == 1 ? s.oneElement : images.length == 2 ? s.twoElement : s.threeElement
-        } grid jcc`}
+        } grid`}
       >
         {images.slice(0, 2).map(i => (
           <div className={s.imageWrapper} key={i}>
