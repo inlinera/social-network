@@ -10,9 +10,7 @@ interface DropdownMenuEntityInterface {
 export const DropdownMenuEntity = ({ postId, setIsEditing }: DropdownMenuEntityInterface) => {
   return (
     <DropdownUi items={items(postId, setIsEditing)}>
-      <button>
-        <MoreOutlined />
-      </button>
+      <MoreOutlined />
     </DropdownUi>
   )
 }

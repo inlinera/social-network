@@ -7,6 +7,7 @@
   .image {
     width: 100%;
     height: 100%;
+    margin: 0 !important;
     object-fit: cover;
   }
 }
@@ -20,6 +21,7 @@
 .twoElement {
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
+
   .imageWrapper {
     .image {
       object-fit: cover;
@@ -30,14 +32,16 @@
 .threeElement {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  row-gap: 10px;
-  column-gap: 3px;
+  gap: 4px;
+
   .imageWrapper:nth-child(1) {
     grid-row: 1/3;
     height: auto;
   }
+
   .imageWrapper {
     .image {
+      width: 100%;
       object-fit: cover;
     }
   }
@@ -45,7 +49,6 @@
 
 .more {
   width: 100%;
-  height: auto;
   border-radius: 10px;
   background-color: var(--gray-color);
 }

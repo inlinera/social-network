@@ -14,12 +14,8 @@ export const PostImageList = ({ images }: PostImageListProps) => {
       <ImageListModal images={images} isOpened={isOpened} setIsOpened={setIsOpened} />
       <div
         className={`${
-          images.length == 1
-            ? s.oneElement
-            : images.length == 2
-            ? s.twoElement
-            : s.threeElement
-        } grid`}
+          images.length == 1 ? s.oneElement : images.length == 2 ? s.twoElement : s.threeElement
+        } grid jcc`}
       >
         {images.slice(0, 2).map(i => (
           <div className={s.imageWrapper} key={i}>

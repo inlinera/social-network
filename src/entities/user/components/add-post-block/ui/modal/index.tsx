@@ -13,14 +13,12 @@ import { SearchDropdownUi } from './ui/dropdown'
 import { tags } from './constants'
 //HOOKS
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
-import { useMobile } from '@/shared/hooks/useMobile'
 
 export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
   const { createPost } = createPostApi
   const [value, setValue] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [imgList, setImgList] = useState<string[]>([])
-  const isMobile = useMobile()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     event.preventDefault()
@@ -56,10 +54,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
           </div>
         )}
         <div className={`${s.buttons} flex aic jcsb`}>
-          <div>
-            {!isMobile && <span>Tag: </span>}
-            <SearchDropdownUi items={tags} selectedItems={selectedTags} setSelectedItems={setSelectedTags} />
-          </div>
+          <SearchDropdownUi items={tags} selectedItems={selectedTags} setSelectedItems={setSelectedTags} />
           <div className="flex aic">
             <AddPostImageFeature imgList={imgList} setImgList={setImgList} />
             <RedButtonUI onClick={handleSubmit}>Send</RedButtonUI>
