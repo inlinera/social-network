@@ -16,6 +16,7 @@ import { InView } from 'react-intersection-observer'
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 // MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { useAddZero } from '@/shared/hooks/useAddZero'
 
 interface PostWidgetProps {
   loadingPost: boolean
@@ -50,7 +51,9 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
                 <p style={{ fontSize: document.body.style.fontSize }}>{post?.userName}</p>
               </TextUi>
               <TextUi loading={loadingPost} lines={1}>
-                <span className="fz10">{date + ' в ' + postDate.getHours() + ':' + postDate.getMinutes()}</span>
+                <span className="fz10">
+                  {date + ' в ' + useAddZero(postDate.getHours()) + ':' + useAddZero(postDate.getMinutes())}
+                </span>
               </TextUi>
             </div>
           </Link>

@@ -18,7 +18,7 @@ export const AddPostBlockEntity = () => {
           </div>
           <div className={`${s.add_post_block__buttons} flex fdc aic`}>
             <RedButtonUI onClick={() => setIsOpened(true)}>Add new post</RedButtonUI>
-            <Link to={'/rules'} className="cg fz10">
+            <Link to={'/rules'} className="fz10">
               Content rules*
             </Link>
           </div>

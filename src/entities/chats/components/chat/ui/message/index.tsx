@@ -10,6 +10,7 @@ import { ChatCommonMsgViewUi } from '../common/msg-view'
 // HOOKS
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
 import { ImageUI } from '@/shared/ui/image'
+import { useAddZero } from '@/shared/hooks/useAddZero'
 
 interface ChatMessageUIProps {
   isThisMessageMy: boolean
@@ -26,8 +27,6 @@ export const ChatMessageUI = ({ isThisMessageMy, message, setSelectedImg }: Chat
     hr: msgDate.getHours(),
     min: msgDate.getMinutes(),
   }
-
-  const addZero = (_: string) => (_.length == 1 ? `0${_}` : _)
 
   const handleOpenImage = (e: React.MouseEvent<HTMLImageElement>) => {
     e.stopPropagation()
@@ -55,7 +54,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message, setSelectedImg }: Chat
         </div>
       </ContextMenuUI>
       <b style={{ fontSize: parseInt(document.body.style.fontSize) - 5 }}>
-        {time.hr}:{addZero(`${time.min}`)}, {addZero(`${time.d}`)}/{addZero(`${time.mon + 1}`)}
+        {time.hr}:{useAddZero(time.min)}, {useAddZero(time.d)}/{useAddZero(time.mon + 1)}
       </b>
     </div>
   )

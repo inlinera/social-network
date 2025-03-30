@@ -1,7 +1,7 @@
 .list {
   position: absolute;
   width: max-content;
-  top: 100%;
+  top: calc(100% - 7px);
   right: 0;
   padding: 0;
   background-color: var(--body-color);
@@ -9,15 +9,26 @@
   border: 1px solid var(--gray-color);
   z-index: 100;
   overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
 
   &::-webkit-scrollbar {
     width: 6px;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: var(--post-color);
   }
+
   &::-webkit-scrollbar-track {
     background-color: var(--gray-color);
     border-radius: 20px;
   }
+}
+
+.active {
+  top: 100%;
+  opacity: 1;
+  pointer-events: all;
 }

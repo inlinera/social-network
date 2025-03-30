@@ -12,6 +12,7 @@ import { TextUi } from '@/shared/ui/text'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { IUser } from '@/shared/interfaces/IUser'
 import { chatState } from '@/shared/store/functional/chat/content'
+import { useAddZero } from '@/shared/hooks/useAddZero'
 
 interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   loading: boolean
@@ -44,8 +45,6 @@ export const ChatComponent = observer(
       }
     }
 
-    const addZero = (_?: number) => (`${_}`?.length == 1 ? `0${_}` : _)
-
     return (
       <div
         className={`${s.chatElement} ${isActive && s.active} flex aic jcsb`}
@@ -60,14 +59,19 @@ export const ChatComponent = observer(
             </TextUi>
             {lastMessage && (
               <TextUi loading={loading} lines={1}>
-                <p className={s.lastMsg}>{lastMessage.message}</p>
+                <p className={s.lastMsg}>
+                  {lastMessage.image && '[ФОТО] '}
+                  {lastMessage.message}
+                </p>
               </TextUi>
             )}
           </div>
         </div>
         {isTimeVisible && (
           <TextUi loading={loading} lines={1}>
-            <span>{lastMessage?.time && addZero(msgDate?.getHours()) + ':' + addZero(msgDate?.getMinutes())}</span>
+            <span>
+              {lastMessage?.time && useAddZero(msgDate?.getHours()) + ':' + useAddZero(msgDate?.getMinutes())}
+            </span>
           </TextUi>
         )}
       </div>

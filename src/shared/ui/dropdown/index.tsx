@@ -30,7 +30,7 @@ export const DropdownUi = ({ children, items }: DropdownMenuBtnProps) => {
       <button onClick={() => setIsActive(!isActive)} className={s.btn}>
         {children}
       </button>
-      {isActive && <DropdownList items={items} setIsActive={setIsActive} />}
+      <DropdownList items={items} isActive={isActive} setIsActive={setIsActive} />
     </div>
   )
 }

@@ -4,20 +4,28 @@
   width: 100%;
   padding: 0 15px;
   color: var(--default);
+
   .add_post_block {
     width: 100%;
     min-height: 100px;
     padding: 10px;
     background-color: var(--post-color);
     border-radius: 16px;
+
     .add_post_block_input {
       width: 75%;
+
       * {
         margin: 5px;
       }
     }
+
     .add_post_block__buttons {
       margin: 15px;
+
+      a {
+        color: #999999;
+      }
     }
   }
 }
@@ -27,6 +35,7 @@
     h3 {
       font-size: 12px;
     }
+
     button {
       font-size: 12px;
       white-space: nowrap;
