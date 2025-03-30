@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 //HOOKS
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 //INTERFACES
 import { IChat, IMessage } from '@/shared/interfaces/IChat'
@@ -61,7 +60,7 @@ export const ChatComponent = observer(
             </TextUi>
             {lastMessage && (
               <TextUi loading={loading} lines={1}>
-                <p>{useSliceStr(`${lastMessage.message}`, 6) || ''}</p>
+                <p className={s.lastMsg}>{lastMessage.message}</p>
               </TextUi>
             )}
           </div>

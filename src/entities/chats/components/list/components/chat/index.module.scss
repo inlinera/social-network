@@ -6,20 +6,30 @@
   cursor: pointer;
   color: var(--default);
   border-bottom: 1px solid var(--gray-color);
+
   * {
     margin: 3px;
   }
+
   ::selection {
     background-color: transparent;
   }
+
   h4 {
     font-size: 1.2rem;
   }
-  p {
+
+  .lastMsg {
+    width: 90px;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: var(--g-color);
     font-size: 1rem;
   }
 }
+
 .active {
   background: linear-gradient(to bottom right, #770f0f, #6e0a0a);
 }
@@ -28,5 +38,9 @@
   .chatElement {
     width: 100% !important;
     justify-content: space-around;
+
+    .lastMsg {
+      width: 35vw;
+    }
   }
 }

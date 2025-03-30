@@ -9,7 +9,6 @@ import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
 
 interface CommentUiProps {
   userName?: string
@@ -45,7 +44,7 @@ export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiPro
             </Link>
           )}
           <TextUi lines={1} loading={avatar == ''}>
-            <p>{isPreview ? useSliceStr(`${content}`, 16) : content}</p>
+            <p className={`${isPreview && s.preview}`}>{content}</p>
           </TextUi>
         </div>
       </div>

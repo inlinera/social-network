@@ -16,4 +16,11 @@
     margin-top: 5px;
     word-break: break-all;
   }
+
+  .preview {
+    width: 40vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
