@@ -38,7 +38,13 @@ export const PostCommentsList = ({ comments, postId }: PostCommentsListProps) =>
       {user && (
         <div className={`${s['input-block']} flex fdc jcc`}>
           <div className="flex jcc aic">
-            <AvatarUI loading={false} src={user.avatarUrl} userName={user.displayName} size={30} />
+            <AvatarUI
+              loading={false}
+              src={user.avatarUrl}
+              userName={user.displayName}
+              size={35}
+              title={`You (${user.displayName})`}
+            />
             <InputUi value={commVal} setVal={setCommVal} maxLength={200} />
             <button onClick={handleSend}>
               <SendHorizontal />

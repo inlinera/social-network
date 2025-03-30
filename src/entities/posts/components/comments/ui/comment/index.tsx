@@ -9,6 +9,7 @@ import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { InView } from 'react-intersection-observer'
 
 interface CommentUiProps {
   userName?: string
@@ -23,14 +24,14 @@ export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiPro
 
   const [avatar, setAvatar] = useState<string | null>(null)
 
-  const avatarUrl = async () => {
-    const url = await useGetAvatar(`${userName}`)
-    setAvatar(url)
+  const handleView = async (inView: boolean) => {
+    if (inView && !avatar) {
+      setAvatar(await useGetAvatar(`${userName}`))
+    }
   }
-  avatarUrl()
 
   return (
-    <div className={`${s.comment} flex jcsb`}>
+    <InView as="div" onChange={handleView} className={`${s.comment} flex jcsb`}>
       <div className="flex jcc aic">
         <div>
           {userName && <AvatarUI src={avatar} loading={avatar == ''} size={35} userName={`${userName}`} />}
@@ -39,7 +40,9 @@ export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiPro
           {userName && (
             <Link to={`/user/${userName}`}>
               <TextUi lines={1} loading={avatar == ''}>
-                <b>@{userName}</b>
+                <b>
+                  @{userName} {userName === user?.displayName && '(You)'}
+                </b>
               </TextUi>
             </Link>
           )}
@@ -60,6 +63,6 @@ export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiPro
           </button>
         )}
       </div>
-    </div>
+    </InView>
   )
 }

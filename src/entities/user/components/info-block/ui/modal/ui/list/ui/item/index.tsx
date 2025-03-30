@@ -8,6 +8,7 @@ import { TextUi } from '@/shared/ui/text'
 import { List } from 'antd'
 import { useState } from 'react'
 import { items } from './constants'
+import { InView } from 'react-intersection-observer'
 
 interface UserFriendProps {
   item: IFriend
@@ -20,28 +21,30 @@ export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
 
   const [avatar, setAvatar] = useState<string | null>(null)
 
-  const avatarUrl = async () => {
-    const url = await useGetAvatar(item.displayName)
-    setAvatar(url)
+  const handleView = async (inView: boolean) => {
+    if (inView && !avatar) {
+      setAvatar(await useGetAvatar(`${item.displayName}`))
+    }
   }
-  avatarUrl()
 
   const nav = useNav(`/user/${item?.displayName}`)
 
   return (
-    <List.Item>
-      <button onClick={nav}>
-        <List.Item.Meta
-          style={{ alignItems: 'center', display: 'flex' }}
-          avatar={<AvatarUI loading={false} src={avatar} userName={`${item.displayName}`} size={50} />}
-          title={
-            <TextUi lines={1} loading={avatar === ''}>
-              <span style={{ whiteSpace: 'nowrap' }}>{item?.displayName}</span>
-            </TextUi>
-          }
-        />
-      </button>
-      <div>{user?.displayName === userInfo?.displayName && items(item)[listType].item}</div>
-    </List.Item>
+    <InView as="div" onChange={handleView}>
+      <List.Item>
+        <button onClick={nav}>
+          <List.Item.Meta
+            style={{ alignItems: 'center', display: 'flex' }}
+            avatar={<AvatarUI loading={false} src={avatar} userName={`${item.displayName}`} size={50} />}
+            title={
+              <TextUi lines={1} loading={avatar === ''}>
+                <span style={{ whiteSpace: 'nowrap' }}>{item?.displayName}</span>
+              </TextUi>
+            }
+          />
+        </button>
+        <div>{user?.displayName === userInfo?.displayName && items(item)[listType].item}</div>
+      </List.Item>
+    </InView>
   )
 }
