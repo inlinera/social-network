@@ -40,10 +40,14 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
         />
       </div>
       <div className={`${s.userInfo_meta_someInfo}`}>
-        <p>Description:</p>
-        <TextUi loading={loading} lines={2}>
-          <b>{userInfo?.description}</b>
-        </TextUi>
+        {userInfo.description && (
+          <>
+            <p>Description:</p>
+            <TextUi loading={loading} lines={2}>
+              <b>{userInfo?.description}</b>
+            </TextUi>
+          </>
+        )}
         <div className={`${s.userInfo_meta_btns} flex fdc`}>
           {isVisible(Boolean(userInfo?.isNameVisible)) && (
             <div className="flex jcc aic">

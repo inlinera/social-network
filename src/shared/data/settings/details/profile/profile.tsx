@@ -6,12 +6,18 @@ import EditPrivacySettings from '@/shared/store/api/user/profile/details/change-
 import storageApi from '@/shared/store/api/storage/storage-api'
 import { Pencil } from 'lucide-react'
 import { AvatarUI } from '@/shared/ui/avatar'
+import { InputUi } from '@/shared/ui/input'
+import { RedButtonUI } from '@/shared/ui/buttons/red-button'
+import TextArea from 'antd/es/input/TextArea'
 
 export const profile = () => {
   const { user, loading } = authApi
   const { editField } = EditPrivacySettings
   const { uploadImage, deleteImage } = storageApi
+
   const [userAvatar, setUserAvatar] = useState<string | null>(user?.avatarUrl || null)
+  const [name, setName] = useState(user?.name || '')
+  const [description, setDescription] = useState(user?.description || '')
 
   const handleChangeAvatar = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +51,36 @@ export const profile = () => {
               </button>
             </label>
           </form>
+        ),
+      },
+      {
+        name: 'Ваше имя',
+        content: (
+          <div className={`${s.edit} flex aic`}>
+            <InputUi value={name} setVal={setName} placeholder={'Изменить имя...'} maxLength={16} />{' '}
+            <RedButtonUI
+              onClick={() => editField(name, 'name', user?.displayName)}
+              style={{ maxWidth: 'max-content' }}
+            >
+              Изменить
+            </RedButtonUI>
+          </div>
+        ),
+      },
+      {
+        name: 'Ваше описание',
+        content: (
+          <div className={`${s.edit} ${s.max}`}>
+            <TextArea
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              placeholder={'Изменить опсиание...'}
+              maxLength={101}
+            />{' '}
+            <RedButtonUI onClick={() => editField(description, 'description', user?.displayName)}>
+              Изменить
+            </RedButtonUI>
+          </div>
         ),
       },
     ],
