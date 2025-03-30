@@ -10,7 +10,7 @@ export const SettingsPage = observer(() => {
   return (
     <div className={'flex fdc jcc aic'}>
       <div className={`${s.mainSettings} flex fdc aic jcc`}>
-        <div className={`${s.mainSettings__buttons}`}>
+        <div className={`${s.mainSettings__buttons} flex aic`}>
           {items().map(t => (
             <button
               className={`${activeType == t.code && s.active}`}

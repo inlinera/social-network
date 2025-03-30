@@ -54,6 +54,6 @@ export const view = () => {
         content: <RedButtonUI onClick={handleThemeChange}>Change theme</RedButtonUI>,
       },
     ],
-    code: 1,
+    code: 2,
   }
 }
