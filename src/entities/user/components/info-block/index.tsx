@@ -10,6 +10,7 @@ import userApi from '@/shared/store/api/user/profile/user-api'
 import { User, UsersRound } from 'lucide-react'
 
 import { isVisible } from '@/shared/constants/isContentVisible'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 interface UserBlockProps {
   loading: boolean
@@ -17,6 +18,7 @@ interface UserBlockProps {
 }
 
 export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProps) => {
+  const { user } = authApi
   const { userInfo } = userApi
 
   const tempStyle = {
@@ -26,13 +28,11 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
 
   return (
     <div className={`${s.userInfo_meta} flex fdc jcc`}>
-      <div className="flex aic jcsb">
-        <div className="flex aic">
-          <AvatarUI loading={loading} src={userInfo?.avatarUrl} userName={userInfo.displayName} size={95} />
-          <TextUi loading={loading} lines={1}>
-            <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
-          </TextUi>
-        </div>
+      <div className={`flex aic ${user && 'jcsb'}`}>
+        <AvatarUI loading={loading} src={userInfo?.avatarUrl} userName={userInfo.displayName} size={95} />
+        <TextUi loading={loading} lines={1}>
+          <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
+        </TextUi>
         <InfoBlockButton
           userInfoFriend={{
             displayName: `${userInfo?.displayName}`,
