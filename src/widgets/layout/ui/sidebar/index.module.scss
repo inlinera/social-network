@@ -1,5 +1,3 @@
-@import '@/app/assets/styles/variables.scss';
-
 $hover-color: #777777d8;
 
 .toggle {
@@ -19,9 +17,11 @@ $hover-color: #777777d8;
   scrollbar-width: none;
   scroll-behavior: none;
   z-index: 100;
+
   &::-webkit-scrollbar {
     display: none;
   }
+
   .sider_sidebar {
     width: 100%;
     height: max-content;
@@ -29,6 +29,7 @@ $hover-color: #777777d8;
     padding: 5px;
     border-radius: 10px;
     background-color: var(--body-color);
+
     .sider_sidebar__button {
       margin: 2px;
       padding: 5px;
@@ -37,13 +38,16 @@ $hover-color: #777777d8;
       transition: all 0.4s;
       text-align: left;
       color: var(--default);
+
       * {
         margin: 3px;
         font-size: 15px;
       }
+
       svg {
-        color: $red-color;
+        color: var(--red-color);
       }
+
       &:hover {
         background-color: $hover-color;
       }
@@ -61,6 +65,7 @@ $hover-color: #777777d8;
     padding: 0;
     height: max-content;
     bottom: 0;
+
     .sider_sidebar {
       position: absolute;
       width: 100vw;
@@ -68,14 +73,17 @@ $hover-color: #777777d8;
       flex-direction: row;
       justify-content: space-around;
       border-radius: 0;
+
       .sider_sidebar__button {
         flex-direction: column;
+
         &:hover {
           @include bgtransparent;
         }
       }
     }
   }
+
   .toggle {
     @include bgtransparent;
   }

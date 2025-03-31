@@ -1,5 +1,3 @@
-@import '@/app/assets/styles/variables.scss';
-
 .header {
   position: fixed;
   width: 100vw;
@@ -8,9 +6,10 @@
   left: 0;
   align-items: center;
   justify-content: space-around;
-  background-color: $red-color;
+  background-color: var(--red-color);
   z-index: 999;
   overflow: hidden;
+
   img {
     height: 120%;
     cursor: pointer;

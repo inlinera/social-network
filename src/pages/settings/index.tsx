@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 
 import { IContent, items } from '@/shared/data/settings/settings'
+import { ScrollShadow } from '@heroui/scroll-shadow'
 
 export const SettingsPage = observer(() => {
   const [activeType, setActiveType] = useState(0)
@@ -10,17 +11,22 @@ export const SettingsPage = observer(() => {
   return (
     <div className={'flex fdc jcc aic'}>
       <div className={`${s.mainSettings} flex fdc aic jcc`}>
-        <div className={`${s.mainSettings__buttons} flex aic`}>
+        <ScrollShadow
+          className={`${s.mainSettings__buttons} flex aic`}
+          orientation="horizontal"
+          size={100}
+          hideScrollBar
+        >
           {items().map(t => (
             <button
-              className={`${activeType == t.code && s.active}`}
+              className={`${activeType === t.code && s.active}`}
               onClick={() => setActiveType(t.code)}
               key={t.name}
             >
               {t.name}
             </button>
           ))}
-        </div>
+        </ScrollShadow>
         <div className={`${s.mainSettings__info}`}>
           {items()[activeType]?.content?.map((item: IContent) => (
             <div className={`${s.info__setting} flex fdc`} key={item.name}>

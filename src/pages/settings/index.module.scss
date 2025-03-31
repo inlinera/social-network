@@ -1,5 +1,3 @@
-@import '@/app/assets/styles/variables.scss';
-
 .mainSettings {
   width: 100%;
   color: var(--default);
@@ -7,15 +5,12 @@
   border-radius: 13px;
 
   .mainSettings__buttons {
+    position: relative;
     width: 100%;
-    padding: 5px;
+    padding: 3px;
     border-radius: inherit;
     border: 2px solid var(--gray-color);
-    overflow: hidden;
-    position: relative;
-
     overflow-x: auto;
-    white-space: nowrap;
 
     button {
       margin: 3px;
@@ -27,7 +22,7 @@
       transition: all 0.4s;
 
       &:hover {
-        background-color: $red-color;
+        background-color: var(--red-color);
       }
 
       &::selection {
@@ -66,7 +61,7 @@
   }
 
   .active {
-    background-color: $red-color !important;
+    background-color: var(--red-color) !important;
     color: #fff !important;
   }
 }

@@ -1,5 +1,3 @@
-@import '@/app/assets/styles/variables.scss';
-
 .userInfo_meta {
   width: 92% !important;
   height: max-content;
@@ -7,28 +5,35 @@
   background-color: var(--post-color);
   border-radius: 12px;
   font-weight: 500;
+
   * {
     margin: 5px;
     color: var(--default);
   }
+
   div {
     grid-template-columns: 100px 1fr;
     gap: 15px;
   }
+
   p {
     line-height: 1.2;
   }
+
   .userInfo_meta_someInfo {
     * {
       margin-top: 7px;
     }
+
     .userInfo_meta_btns {
       margin-top: 14px;
+
       button {
         * {
           margin: 0 2px;
         }
       }
+
       * {
         margin: 0;
         max-width: max-content;
@@ -41,6 +46,7 @@
   .userInfo_meta {
     width: 90%;
     margin: 5px auto;
+
     div {
       grid-template-columns: 100px auto;
       grid-template-rows: 1fr;

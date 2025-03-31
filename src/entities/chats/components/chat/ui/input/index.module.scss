@@ -1,8 +1,6 @@
-@import '@/app/assets/styles/variables.scss';
-
 .prev {
   b {
-    color: $red-color;
+    color: var(--red-color);
   }
 
   button {
@@ -35,6 +33,7 @@
     right: 0;
     margin: 10px;
     z-index: 99;
+
     * {
       margin: 1px;
     }

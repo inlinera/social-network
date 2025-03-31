@@ -1,5 +1,3 @@
-@import '@/app/assets/styles/variables.scss';
-
 .postBtn {
   max-height: 35px;
   padding: 13px;
@@ -26,6 +24,7 @@
     max-width: min-content;
     padding: 10px;
     text-wrap: nowrap;
+
     * {
       font-size: 15px;
     }

@@ -1,4 +1,4 @@
-@import './variables.scss';
+@import url('./variables.scss');
 
 .flex {
   display: flex;
@@ -65,5 +65,5 @@
 }
 
 .highlighted {
-  box-shadow: 0px 0px 11px 0px $red-color;
+  box-shadow: 0px 0px 11px 0px var(--red-color);
 }
