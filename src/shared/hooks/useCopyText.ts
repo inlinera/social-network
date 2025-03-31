@@ -1,9 +1,11 @@
+import { success, error } from '../data/toastify'
+
 export const useCopyText = (_: string) =>
   navigator.clipboard
     .writeText(_)
     .then(() => {
-      alert('Скопировано')
+      success('Скопировано')
     })
     .catch(() => {
-      alert(`Текст не скопирован`)
+      error('Текст не получилось скопировать')
     })

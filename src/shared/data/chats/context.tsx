@@ -9,13 +9,7 @@ import unpinMsgApi from '@/shared/store/api/chats/chat/details/unpin-msg-api'
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 import inputState from '@/shared/store/functional/chat/input/input-state'
 //ICONS
-import {
-  CopyOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  EnterOutlined,
-  PushpinOutlined,
-} from '@ant-design/icons'
+import { CopyOutlined, DeleteOutlined, EditOutlined, EnterOutlined, PushpinOutlined } from '@ant-design/icons'
 
 export interface ContextMenu {
   my: ContextMenuItem[]
@@ -37,6 +31,7 @@ const { unpinMessage } = unpinMsgApi
 export const items = (msg: IMessage) => {
   const { chat } = getChatApi
   const isMsgPinned = chat?.pinned.find(pinnedMsg => pinnedMsg.id == msg.id)
+
   const reply = {
     icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
     name: 'Reply',
@@ -45,16 +40,19 @@ export const items = (msg: IMessage) => {
       setActionMsg(msg)
     },
   }
+
   const copy = {
     icon: <CopyOutlined />,
     name: 'Copy',
     onClick: () => useCopyText(msg.message),
   }
+
   const pin = {
     icon: <PushpinOutlined />,
     name: isMsgPinned ? 'Unpin' : 'Pin',
     onClick: () => (isMsgPinned ? unpinMessage(msg) : pinMessage(msg)),
   }
+
   return {
     my: [
       reply,

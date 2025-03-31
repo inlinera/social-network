@@ -8,6 +8,7 @@ import { Spin } from 'antd'
 
 import { PrivateRouter } from './routers/PrivateRouter'
 import { PublicRouter } from './routers/PublicRouter'
+import { Slide, ToastContainer } from 'react-toastify'
 
 const AppRouter = observer(() => {
   const { loading, user } = authApi
@@ -16,6 +17,20 @@ const AppRouter = observer(() => {
   return (
     <>
       <LayoutNav />
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        limit={5}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Slide}
+      />
       <main>{user ? <PrivateRouter /> : <PublicRouter />}</main>
     </>
   )

@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore'
 //INTERFACES
 import { IPost } from '@/shared/interfaces/IPost'
+import { info } from '@/shared/data/toastify'
 
 class PostsStore {
   constructor() {
@@ -37,7 +38,10 @@ class PostsStore {
       )
 
       return onSnapshot(q, querySnapshot => {
-        if (querySnapshot.empty) return alert('а ничо тот факт то что посты закончились')
+        if (querySnapshot.empty) {
+          return info('Посты закончились')
+        }
+
         const newPosts = querySnapshot.docs.map(doc => ({
           ...doc.data(),
           id: doc.id,
