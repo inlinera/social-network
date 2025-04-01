@@ -5,6 +5,7 @@ import { InputUi } from '@/shared/ui/input'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 // MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { email, handleBlur, password } from '@/shared/data/hook-form'
 
 export interface ILogin {
   email: string
@@ -28,11 +29,6 @@ export const AuthLoginEntity = observer(() => {
   const emailErr = errors.email?.message
   const passErr = errors.password?.message
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim()
-    setValue(e.target.name as keyof ILogin, value)
-  }
-
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex fdc jcc aic">
@@ -40,18 +36,8 @@ export const AuthLoginEntity = observer(() => {
           <InputUi
             type="email"
             placeholder={'Адрес вашей почты...'}
-            {...register('email', {
-              required: 'Это поле необходимо для заполнения',
-              minLength: {
-                value: 8,
-                message: 'Почта должна содержать минимум 8 символов',
-              },
-              maxLength: {
-                value: 40,
-                message: 'Почта не должна превышать 40 символов',
-              },
-            })}
-            onBlur={handleBlur}
+            {...register('email', email)}
+            onBlur={e => handleBlur(e, setValue)}
           />
           {emailErr && <p>{emailErr}</p>}
         </div>
@@ -59,18 +45,8 @@ export const AuthLoginEntity = observer(() => {
           <InputUi
             type="password"
             placeholder={'Ваш пароль...'}
-            {...register('password', {
-              required: 'Это поле необходимо для заполнения',
-              minLength: {
-                value: 6,
-                message: 'Пароль должен содержать минимум 6 символов',
-              },
-              maxLength: {
-                value: 30,
-                message: 'Пароль не должен превышать 30 символов',
-              },
-            })}
-            onBlur={handleBlur}
+            {...register('password', password)}
+            onBlur={e => handleBlur(e, setValue)}
           />
           {passErr && <p>{passErr}</p>}
         </div>

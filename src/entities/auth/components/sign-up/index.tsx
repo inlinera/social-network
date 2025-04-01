@@ -7,6 +7,8 @@ import { nullUser } from '@/shared/data/null-user'
 import { IUser } from '@/shared/interfaces/IUser'
 import { ILogin } from '../sign-in'
 
+import { email, handleBlur, password } from '@/shared/data/hook-form'
+
 interface IRegister extends ILogin {
   name: string | null
   description: string | null
@@ -29,11 +31,6 @@ export const AuthRegEntity = () => {
     signUp({ ...nullUser, ...data } as unknown as IUser)
   }
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim()
-    setValue(e.target.name as keyof IRegister, value)
-  }
-
   const tagErr = errors.displayName?.message
   const emailErr = errors.email?.message
   const passErr = errors.password?.message
@@ -41,7 +38,12 @@ export const AuthRegEntity = () => {
   return (
     <form onSubmit={handleSubmit(submit)} className="flex fdc jcc aic">
       <div className="flex aic">
-        <InputUi placeholder={'Ваше имя...'} maxLength={16} {...register('name')} onBlur={handleBlur} />
+        <InputUi
+          placeholder={'Ваше имя...'}
+          maxLength={16}
+          {...register('name')}
+          onBlur={e => handleBlur(e, setValue)}
+        />
         <InputUi
           placeholder={'Желаемый тег...'}
           maxLength={15}
@@ -52,7 +54,7 @@ export const AuthRegEntity = () => {
               message: 'Тег должен содержать минимум 5 символов',
             },
           })}
-          onBlur={handleBlur}
+          onBlur={e => handleBlur(e, setValue)}
         />
       </div>
       <div className="flex fdc jcc aic">
@@ -60,18 +62,8 @@ export const AuthRegEntity = () => {
           <InputUi
             type="email"
             placeholder={'Адрес вашей почты...'}
-            {...register('email', {
-              required: 'Это поле обязательно для заполнения',
-              minLength: {
-                value: 8,
-                message: 'Почта должна содержать минимум 8 символов',
-              },
-              maxLength: {
-                value: 40,
-                message: 'Почта не должна превышать 40 символов',
-              },
-            })}
-            onBlur={handleBlur}
+            {...register('email', email)}
+            onBlur={e => handleBlur(e, setValue)}
           />
           {emailErr && <p>{emailErr}</p>}
         </div>
@@ -80,14 +72,8 @@ export const AuthRegEntity = () => {
             type="password"
             placeholder={'Ваш пароль...'}
             maxLength={30}
-            {...register('password', {
-              required: 'Это поле обязательно для заполнения',
-              minLength: {
-                value: 6,
-                message: 'Пароль должен содержать минимум 6 символов',
-              },
-            })}
-            onBlur={handleBlur}
+            {...register('password', password)}
+            onBlur={e => handleBlur(e, setValue)}
           />
           {passErr && <p>{passErr}</p>}
         </div>
@@ -96,7 +82,7 @@ export const AuthRegEntity = () => {
           placeholder={'Ваше описание..'}
           maxLength={100}
           {...register('description')}
-          onBlur={handleBlur}
+          onBlur={e => handleBlur(e, setValue)}
         />
       </div>
       <RedButtonUI>Зарегистрироваться</RedButtonUI>
