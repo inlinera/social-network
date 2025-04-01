@@ -31,7 +31,7 @@ export const AuthRegEntity = () => {
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
-    setValue(e.target.name as keyof ILogin, value)
+    setValue(e.target.name as keyof IRegister, value)
   }
 
   const tagErr = errors.displayName?.message

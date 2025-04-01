@@ -49,7 +49,7 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
           </div>
         )}
         <div className={`${s.userInfo_meta_btns} flex fdc`}>
-          {isVisible(Boolean(userInfo?.isNameVisible)) && (
+          {isVisible(Boolean(userInfo?.isNameVisible)) && userInfo?.name && (
             <div className="flex jcc aic">
               <User />{' '}
               <TextUi loading={loading} lines={1}>
