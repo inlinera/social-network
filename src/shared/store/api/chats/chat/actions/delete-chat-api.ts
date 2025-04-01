@@ -3,17 +3,14 @@ import { arrayRemove, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
 import getChatApi from '../get-chat-api'
 import authApi from '../../../user/auth/auth-api'
+import { error } from '@/shared/data/toastify'
 
 class DeleteChatApi {
   constructor() {
     makeAutoObservable(this)
   }
 
-  deleteChat = async (
-    chatId: string,
-    userId: string,
-    myId = `${authApi.user?.displayName}`
-  ) => {
+  deleteChat = async (chatId: string, userId: string, myId = `${authApi.user?.displayName}`) => {
     try {
       await Promise.all([
         deleteDoc(doc(db, 'chats', chatId)),
@@ -25,8 +22,8 @@ class DeleteChatApi {
         }),
       ])
       getChatApi.setChat(null)
-    } catch (e) {
-      console.error(e)
+    } catch {
+      error('Ошибка удаления чата')
     }
   }
 }

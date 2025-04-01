@@ -36,7 +36,7 @@ export const UserPage = observer(() => {
           <UserFriendModal isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend} />
           <div className={`${s.userInfo} grid`}>
             <UserBlock setIsOpenedFriend={setIsOpenedFriend} loading={loading} />
-            <div className={`${s.userInfo_posts} flex fdc jcc aic`}>
+            <div className={`${s.userInfo_posts} flex fdc aic`}>
               {userInfo.displayName === authApi.user?.displayName && <AddPostBlockEntity />}
               <div className={`${s.posts} flex`}>
                 {posts?.length !== 0 && isVisible(true) ? (

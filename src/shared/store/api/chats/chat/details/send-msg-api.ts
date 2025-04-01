@@ -5,6 +5,7 @@ import { db } from '@/app/_providers/firebase'
 //INTERFACES
 import { IMessage } from '@/shared/interfaces/IChat'
 import chatState from '@/shared/store/api/chats/chat/get-chat-api'
+import { error } from '@/shared/data/toastify'
 
 class SendMsgApi {
   constructor() {
@@ -28,8 +29,8 @@ class SendMsgApi {
           time: currTime,
         })
       }
-    } catch (e) {
-      alert(e)
+    } catch {
+      error('Вы не можете отправить сообщение')
     }
   }
 }

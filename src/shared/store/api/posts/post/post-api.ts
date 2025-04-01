@@ -4,6 +4,7 @@ import { IPost } from '@/shared/interfaces/IPost'
 //FIREBASE
 import { db } from '@/app/_providers/firebase'
 import { doc, onSnapshot } from 'firebase/firestore'
+import { error } from '@/shared/data/toastify'
 
 class postApi {
   constructor() {
@@ -25,8 +26,8 @@ class postApi {
       return onSnapshot(docRef, doc => {
         this.setPost({ ...doc.data(), id: doc.id } as IPost)
       })
-    } catch (e) {
-      this.setError(`${e}`)
+    } catch {
+      error('Невозможно получить пост')
     } finally {
       this.setLoading(false)
     }

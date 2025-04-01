@@ -4,6 +4,7 @@ import { IUser } from '@/shared/interfaces/IUser'
 //FIREBASE
 import { db } from '@/app/_providers/firebase'
 import { doc, getDoc } from 'firebase/firestore'
+import { error } from '@/shared/data/toastify'
 
 class userApi {
   constructor() {
@@ -24,7 +25,7 @@ class userApi {
       const res = await getDoc(doc(db, 'users', id))
       this.setUser(res.data() as IUser)
     } catch (e) {
-      this.setError(e as string)
+      error('Невозможно получить данные пользователя')
     } finally {
       this.setLoading(false)
     }

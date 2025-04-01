@@ -15,21 +15,12 @@ import {
   signOut,
   deleteUser,
 } from 'firebase/auth'
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-  query,
-  setDoc,
-  where,
-} from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, onSnapshot, query, setDoc, where } from 'firebase/firestore'
 // INTERFACES
 import { IUser } from '@/shared/interfaces/IUser'
 import storageApi from '../../storage/storage-api'
 // DATA
-import { defaultAvatar } from '@/shared/data/default-avatar'
+import { error, success } from '@/shared/data/toastify'
 
 class AuthorizationStore {
   constructor() {
@@ -60,8 +51,9 @@ class AuthorizationStore {
           }
         })
       })
+      success('Добро пожаловать :)')
     } catch (e) {
-      alert(`Error during initialization: ${e}`)
+      error('Произошла ошибка, проверьте подключение к интернету')
     } finally {
       this.setLoading(false)
     }
@@ -69,39 +61,39 @@ class AuthorizationStore {
 
   signUp = async (userData: IUser) => {
     try {
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        userData.email,
-        userData.password
-      )
+      const { user } = await createUserWithEmailAndPassword(auth, userData.email, userData.password)
       await Promise.all([
         setDoc(doc(db, 'users', userData.displayName), {
           ...userData,
           password: '********',
-          avatarUrl: storageApi.image ? storageApi.image : defaultAvatar,
+          avatarUrl: storageApi.image ? storageApi.image : null,
         }),
         updateProfile(auth.currentUser!, {
           displayName: userData.displayName,
         }),
       ])
+
       runInAction(() => {
         this.setUser(user as IUser)
         this.setToken(user.displayName!)
       })
+
+      success('Регистрация прошла успешно!')
     } catch {
-      this.setError(`Can't sign up`)
+      error('Серверу лень вас регистрировать')
     }
   }
 
   signIn = async (email: string, password: string) => {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password)
+
       runInAction(() => {
         this.setUser(user as IUser)
         this.setToken(user?.displayName!)
       })
     } catch {
-      this.setError(`Can't sign in`)
+      error('Произошла ошибка, проверьте введенные данные')
     }
   }
 
@@ -109,8 +101,10 @@ class AuthorizationStore {
     try {
       await signOut(auth)
       this.setUser(null)
+
+      success('Вы успешно вышли из аккаунта')
     } catch {
-      alert('Sorry, please try again later')
+      error('Упс, что-то пошло не так')
     }
   }
 
@@ -118,17 +112,16 @@ class AuthorizationStore {
     try {
       const auth = getAuth()
       const user = auth.currentUser
-      if (!user) return alert('Не удалось определить пользователя.')
+      if (!user) return error('Не удалось определить пользователя.')
 
       if (currPass) {
         const credential = EmailAuthProvider.credential(`${user.email}`, currPass)
-        await Promise.all([
-          reauthenticateWithCredential(user, credential),
-          updatePassword(user, newPass),
-        ])
+        await Promise.all([reauthenticateWithCredential(user, credential), updatePassword(user, newPass)])
+
+        success('Вы успешно сменили пароль')
       }
     } catch {
-      alert('Error of changing password')
+      error('Упс, произошла ошибка')
     }
   }
 
@@ -136,19 +129,23 @@ class AuthorizationStore {
     try {
       const auth = getAuth()
       const user = auth.currentUser
-      console.log(user?.displayName)
-      if (!user) return alert('Не удалось определить пользователя.')
+
+      if (!user) return error('Не удалось определить пользователя.')
       const q = query(collection(db, 'posts'), where('userName', '==', user.displayName))
       const querySnapshot = await getDocs(q)
       const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref))
+
       await Promise.all([
         ...deletePromises,
         deleteDoc(doc(db, 'users', user.displayName!)),
         deleteUser(user),
         this.setUser(null),
+
+        success('Надеюсь вы вернётесь сюда снова'),
+        this.initializeAuth(),
       ])
     } catch {
-      alert('Something went wrong')
+      error('Упс, произошла ошибка')
     }
   }
 

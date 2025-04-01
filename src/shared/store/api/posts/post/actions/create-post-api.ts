@@ -5,6 +5,8 @@ import { IPost } from '@/shared/interfaces/IPost'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import { IComment } from '@/shared/interfaces/IComment'
 
+import { error } from '@/shared/data/toastify'
+
 class CreatePostApi {
   constructor() {
     makeAutoObservable(this)
@@ -29,7 +31,7 @@ class CreatePostApi {
         { merge: true }
       )
     } catch {
-      alert(`Can't create the post`)
+      error(`Невозможно создать пост`)
     }
   }
 }

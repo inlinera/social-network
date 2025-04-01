@@ -4,6 +4,7 @@ import { db } from '@/app/_providers/firebase'
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 //INTERFACES
 import { IFriend } from '@/shared/interfaces/IFriend'
+import { error } from '@/shared/data/toastify'
 
 class FriendsApi {
   constructor() {
@@ -28,7 +29,7 @@ class FriendsApi {
         }),
       ])
     } catch (e) {
-      alert(e)
+      error('Упс, произошла ошибка')
     } finally {
       this.setLoading(false)
     }
@@ -47,7 +48,7 @@ class FriendsApi {
         }),
       ])
     } catch (e) {
-      alert(e)
+      error('Упс, произошла ошибка')
     } finally {
       this.setLoading(false)
     }

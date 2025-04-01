@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import getChatApi from '../get-chat-api'
 import { db } from '@/app/_providers/firebase'
 import { arrayRemove, doc, updateDoc } from 'firebase/firestore'
+import { error } from '@/shared/data/toastify'
 
 class DeleteMsgApi {
   constructor() {
@@ -17,7 +18,7 @@ class DeleteMsgApi {
         messages: arrayRemove(msg),
       })
     } catch (e) {
-      alert(e)
+      error('Невозможно удалить сообщение')
     }
   }
 }

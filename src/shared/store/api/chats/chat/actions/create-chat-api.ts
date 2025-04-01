@@ -3,6 +3,7 @@ import { arrayUnion, collection, doc, setDoc, updateDoc } from 'firebase/firesto
 import { makeAutoObservable } from 'mobx'
 import authApi from '../../../user/auth/auth-api'
 import { IFriend } from '@/shared/interfaces/IFriend'
+import { error } from '@/shared/data/toastify'
 
 class CreateChatApi {
   constructor() {
@@ -27,8 +28,8 @@ class CreateChatApi {
         }),
       ])
       return newPostRef.id
-    } catch (e) {
-      console.error(e)
+    } catch {
+      error('Ошибка создания чата')
     }
   }
 }

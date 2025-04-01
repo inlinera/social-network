@@ -4,6 +4,7 @@ import getChatApi from '../get-chat-api'
 import { db } from '@/app/_providers/firebase'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import inputState from '@/shared/store/functional/chat/input/input-state'
+import { error } from '@/shared/data/toastify'
 
 class EditMsgApi {
   constructor() {
@@ -32,7 +33,7 @@ class EditMsgApi {
       })
       inputState.setActionMsg(null)
     } catch (e) {
-      alert(e)
+      error('Ошибка редактирования сообщения')
     } finally {
       this.setLoading(false)
     }

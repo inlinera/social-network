@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore'
 //INTERFACES
 import { IPost } from '@/shared/interfaces/IPost'
-import { info } from '@/shared/data/toastify'
+import { error, info } from '@/shared/data/toastify'
 
 class PostsStore {
   constructor() {
@@ -54,8 +54,8 @@ class PostsStore {
           this.setPosts(Array.isArray(this.posts) ? [...this.posts, ...uniquePosts] : uniquePosts)
         })
       })
-    } catch (e) {
-      alert(e)
+    } catch {
+      error('Посты не были получены')
     } finally {
       this.setLoading(false)
     }

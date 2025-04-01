@@ -3,6 +3,7 @@ import { IPost } from '@/shared/interfaces/IPost'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
 import { mobxState } from 'mobx-toolbox'
+import { error } from '@/shared/data/toastify'
 
 class userPostsApi {
   constructor() {
@@ -19,11 +20,7 @@ class userPostsApi {
   getUserPosts = async (userId: string) => {
     this.loading.setLoading(true)
     try {
-      const q = query(
-        collection(db, 'posts'),
-        where('userName', '==', userId),
-        orderBy('time', 'desc')
-      )
+      const q = query(collection(db, 'posts'), where('userName', '==', userId), orderBy('time', 'desc'))
       return onSnapshot(q, querySnapshot =>
         this.posts.setPosts(
           querySnapshot.docs.map(
@@ -36,7 +33,7 @@ class userPostsApi {
         )
       )
     } catch (e) {
-      alert(e)
+      error('Упс, произошла ошибка при получении постов')
     } finally {
       this.loading.setLoading(false)
     }

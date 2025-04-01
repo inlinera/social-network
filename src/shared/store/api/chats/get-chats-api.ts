@@ -4,6 +4,7 @@ import { db } from '@/app/_providers/firebase'
 //INTERFACES
 import { IChat } from '@/shared/interfaces/IChat'
 import { IFriend } from '@/shared/interfaces/IFriend'
+import { error } from '@/shared/data/toastify'
 
 class getChatsApi {
   constructor() {
@@ -32,9 +33,8 @@ class getChatsApi {
           )
         )
       })
-    } catch (e) {
-      console.error('Error fetching chats: ', e)
-      alert(e)
+    } catch {
+      error('Ошибка получения чатов')
     } finally {
       this.setLoading(false)
     }

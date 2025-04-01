@@ -25,6 +25,12 @@
       margin-top: 7px;
     }
 
+    .desc {
+      p {
+        word-break: break-all;
+      }
+    }
+
     .userInfo_meta_btns {
       margin-top: 14px;
 

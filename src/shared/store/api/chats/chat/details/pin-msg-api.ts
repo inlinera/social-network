@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import getChatApi from '../get-chat-api'
 import { db } from '@/app/_providers/firebase'
 import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { error } from '@/shared/data/toastify'
 
 class PinMsgApi {
   constructor() {
@@ -24,7 +25,7 @@ class PinMsgApi {
         pinned: arrayUnion(msg),
       })
     } catch (e) {
-      alert(e)
+      error('Невозможно закрепить сообщение')
     } finally {
       this.setLoading(false)
     }

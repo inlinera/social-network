@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx'
 //FIREBASE
 import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
+import { error } from '@/shared/data/toastify'
 
 class HandlePostLikeApi {
   constructor() {
@@ -28,7 +29,7 @@ class HandlePostLikeApi {
         }
       }
     } catch (e) {
-      alert(e)
+      error('Произошла ошибка')
     }
   }
 }

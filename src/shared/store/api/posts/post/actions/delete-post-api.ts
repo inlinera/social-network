@@ -1,4 +1,5 @@
 import { db } from '@/app/_providers/firebase'
+import { error } from '@/shared/data/toastify'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
 
@@ -15,8 +16,8 @@ class DeletePostApi {
     this.setLoading(true)
     try {
       await deleteDoc(doc(db, 'posts', id))
-    } catch (e) {
-      alert(e)
+    } catch {
+      error('Невозможно удалить пост')
     } finally {
       this.setLoading(false)
     }

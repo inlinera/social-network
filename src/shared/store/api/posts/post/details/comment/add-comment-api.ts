@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
 import { IComment } from '@/shared/interfaces/IComment'
+import { error } from '@/shared/data/toastify'
 
 class AddCommentApi {
   constructor() {
@@ -21,8 +22,8 @@ class AddCommentApi {
           comments: arrayUnion(data),
         })
       }
-    } catch (e) {
-      alert(e)
+    } catch {
+      error('Невозможно написать комментарий')
     }
   }
 }

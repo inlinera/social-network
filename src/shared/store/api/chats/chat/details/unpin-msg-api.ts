@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import getChatApi from '../get-chat-api'
 import { db } from '@/app/_providers/firebase'
 import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { error } from '@/shared/data/toastify'
 
 class UnpinMsgApi {
   constructor() {
@@ -23,8 +24,8 @@ class UnpinMsgApi {
       await updateDoc(chatRef, {
         pinned: arrayRemove(msg),
       })
-    } catch (e) {
-      alert(e)
+    } catch {
+      error('Невозможно открепить сообщение')
     } finally {
       this.setLoading(false)
     }

@@ -5,6 +5,7 @@ import { IChat, IMessage } from '@/shared/interfaces/IChat'
 //FIREBASE
 import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
+import { error } from '@/shared/data/toastify'
 
 export interface IChatState {
   people?: IFriend
@@ -32,8 +33,7 @@ class GetChatApi {
         }
       })
     } catch (e) {
-      console.error('Error fetching chats: ', e)
-      alert(e)
+      error('Ошибка получения чата')
     } finally {
       this.setLoading(false)
     }

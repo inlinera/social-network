@@ -1,4 +1,5 @@
 import { db } from '@/app/_providers/firebase'
+import { error } from '@/shared/data/toastify'
 import { IPost } from '@/shared/interfaces/IPost'
 import { doc, updateDoc } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
@@ -15,8 +16,8 @@ class EditPostApi {
     try {
       await updateDoc(doc(db, 'posts', post.id), { ...post })
       setIsEditing(false)
-    } catch (e) {
-      alert(e)
+    } catch {
+      error('Ошибка редактирования поста')
     } finally {
       this.setLoading(false)
     }

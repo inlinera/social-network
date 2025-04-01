@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
 import { IComment } from '@/shared/interfaces/IComment'
+import { error } from '@/shared/data/toastify'
 
 class DeleteCommentApi {
   constructor() {
@@ -21,8 +22,8 @@ class DeleteCommentApi {
           comments: arrayRemove(data),
         })
       }
-    } catch (e) {
-      alert(e)
+    } catch {
+      error('Произошла ошибка при удалении комментария')
     }
   }
 }

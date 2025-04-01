@@ -1,4 +1,5 @@
 import { storage } from '@/app/_providers/firebase'
+import { error } from '@/shared/data/toastify'
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import { makeAutoObservable } from 'mobx'
 import { v4 } from 'uuid'
@@ -22,7 +23,7 @@ class StorageApi {
       this.setImage(downloadURL)
       return downloadURL
     } catch (e) {
-      alert(e)
+      error('Ошибка загрузки изображения')
     }
   }
 
@@ -33,7 +34,7 @@ class StorageApi {
       console.log(imgRef)
       await deleteObject(imgRef)
     } catch {
-      alert('Sorry, try again later')
+      error('Ошибка удаления изображения')
     }
   }
 
