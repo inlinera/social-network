@@ -1,6 +1,7 @@
 export const nullUser = {
   description: null,
   avatarUrl: null,
+  name: null,
   friends: [],
   incomingReq: [],
   outgoingReq: [],

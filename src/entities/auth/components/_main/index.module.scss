@@ -8,13 +8,28 @@
   font-family: 'Russo One', sans-serif;
   border-radius: 12px;
   background-color: var(--post-color);
+
   h1 {
     margin-bottom: 10px;
   }
+
+  p {
+    margin: 0 5px;
+    font-family: 'Inter', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red-color);
+  }
+
   .authEntity__content {
     form {
       width: 90%;
+
+      div {
+        width: 100%;
+      }
     }
+
     flex: 1;
     padding: 15px 25px;
   }
@@ -26,10 +41,12 @@
       font-size: 11px !important;
       font-weight: 200;
     }
+
     .imgBlock {
       div {
         font-size: 10px;
       }
+
       button {
         padding: 4px;
       }
