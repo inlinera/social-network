@@ -13,6 +13,7 @@ import { SearchDropdownUi } from './ui/dropdown'
 import { tags } from './constants'
 //HOOKS
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
+import { error } from '@/shared/data/toastify'
 
 export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
   const { createPost } = createPostApi
@@ -22,9 +23,9 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     event.preventDefault()
-    if (!value) return alert('Please input something')
+
     const val = useFormatInput(value)
-    if (!val) return alert("Post can't contain only spaces!")
+    if (!val) return error('Введите контент поста')
 
     await createPost(val, selectedTags, imgList).then(() => {
       setValue('')
@@ -45,7 +46,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
             maxLength={300}
             rows={5}
             showCount
-            style={{ margin: '20px' }}
+            style={{ margin: '20px', resize: 'none' }}
           />
         </div>
         {imgList.length > 0 && (

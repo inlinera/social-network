@@ -24,7 +24,7 @@ export const profile = () => {
       e.preventDefault()
       const avatar = e.target.files?.[0]!
       const url = await uploadImage(avatar, 'avatars')
-      if (!url) return alert('cannot upload img')
+      if (!url) return
       await deleteImage(`${userAvatar}`).then(
         async () => await editField(url, 'avatarUrl').then(() => setUserAvatar(url))
       )
@@ -76,6 +76,8 @@ export const profile = () => {
               onChange={e => setDescription(e.target.value)}
               placeholder={'Изменить опсиание...'}
               maxLength={101}
+              rows={5}
+              style={{ resize: 'none' }}
             />{' '}
             <RedButtonUI onClick={() => editField(description, 'description', user?.displayName)}>
               Изменить

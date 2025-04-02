@@ -5,7 +5,6 @@ import { db } from '@/app/_providers/firebase'
 
 import authApi from '../../auth/auth-api'
 import { error, success } from '@/shared/data/toastify'
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
 
 class EditPrivacySettings {
   constructor() {
@@ -25,7 +24,7 @@ class EditPrivacySettings {
           [field]: data,
         })
 
-        success(`Поле ${field} было изменено на ${useSliceStr(`${data}`, 20)}`)
+        success(`Поле ${field} было успешно изменено`)
       }
     } catch (e) {
       error(`Упс, произошла ошибка при изменении поля ${field}`)

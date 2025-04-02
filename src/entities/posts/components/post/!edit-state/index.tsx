@@ -6,6 +6,7 @@ import { CarouselUI } from '@/shared/ui/carousel'
 import TextArea from 'antd/es/input/TextArea'
 import { IPost } from '@/shared/interfaces/IPost'
 import { useState } from 'react'
+import { error } from '@/shared/data/toastify'
 
 interface PostEditProps {
   post: IPost
@@ -14,37 +15,34 @@ interface PostEditProps {
 
 export const PostEdit = ({ post, setIsEditing }: PostEditProps) => {
   const { submitChanges, loading } = editPostApi
+
   const [images, setImages] = useState(post?.images)
   const [postVal, setPostVal] = useState(post?.value)
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const value = postVal.trim()
+
+    if (!value) return error('Введите контент поста')
+    submitChanges({ ...post!, value, images }, setIsEditing)
+  }
+
   return (
-    <div className={`${s.editPost} flex fdc`}>
+    <form className={`${s.editPost} flex fdc`} onSubmit={handleSubmit}>
       <TextArea
         className={s.editPost__textarea}
-        rows={6}
+        rows={5}
         value={postVal}
         onChange={e => setPostVal(e.target.value)}
+        style={{ resize: 'none' }}
       />
       <div className="flex aic">
-        <RedButtonUI
-          onClick={() =>
-            submitChanges({ ...post!, value: `${postVal}`, images }, setIsEditing)
-          }
-          disabled={loading}
-        >
-          done
-        </RedButtonUI>
+        <RedButtonUI disabled={loading}>done</RedButtonUI>
         <AddPostImageFeature imgList={images!} setImgList={setImages} />
       </div>
       {post?.images && post.images.length > 0 && (
-        <CarouselUI
-          images={images!}
-          setImages={setImages}
-          height={200}
-          edit
-          borderRadius={10}
-        />
+        <CarouselUI images={images!} setImages={setImages} height={200} edit borderRadius={10} />
       )}
-    </div>
+    </form>
   )
 }
