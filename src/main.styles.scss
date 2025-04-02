@@ -21,16 +21,15 @@
   color: rgb(141, 22, 22);
   font-family: 'Inter', serif;
 
-  h4 {
-    pointer-events: none;
-    user-select: none;
-  }
-
-  img {
+  * {
     transition: all 0.5s;
 
     &:hover {
       transform: scale(1.07);
     }
+  }
+
+  h4 {
+    user-select: none;
   }
 }
