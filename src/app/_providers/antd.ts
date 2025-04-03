@@ -1,9 +1,8 @@
 const isDark = JSON.parse(`${localStorage.getItem('2la-settings')}`).theme == true
 
 const redColor = '#e63946'
-const postColor = isDark ? 'rgba(30, 30, 30)' : 'rgba(219, 219, 219)'
 const grayColor = isDark ? '#353535' : '#bbbbbb'
-const bodyColor = isDark ? '#0e0e0e' : '#c0c0c0'
+const bodyColor = '#0e0e0e'
 
 const Button = {
   colorPrimary: redColor,
@@ -30,7 +29,7 @@ const List = {
 }
 
 const Modal = {
-  contentBg: postColor,
+  contentBg: 'rgba(30, 30, 30)',
   headerBg: 'transparent',
   footerBg: 'transparent',
   titleColor: '#fff',

@@ -7,7 +7,7 @@ html {
   --red-color: #e63946;
 }
 
-body[data-theme='true'] {
+body[data-theme='dark'] {
   --body-color: #0e0e0e;
   --post-color: rgba(30, 30, 30);
   --gray-color: #353535;
@@ -15,9 +15,9 @@ body[data-theme='true'] {
   --default: #fff;
 }
 
-body[data-theme='false'] {
+body[data-theme='light'] {
   --body-color: #c0c0c0;
-  --post-color: rgba(219, 219, 219);
+  --post-color: rgb(207, 207, 207);
   --gray-color: #bbbbbb;
   --g-color: rgb(102, 102, 102);
   --default: #000;

@@ -1,12 +1,12 @@
 import s from './view.module.scss'
 
-import Settings, { ISettings } from '@/shared/store/functional/start-app'
+import Settings, { ISettings, ThemeT } from '@/shared/store/functional/start-app'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { useCallback, useState } from 'react'
 
 export const view = () => {
   const { $change } = Settings
-  const settings = JSON.parse(`${localStorage.getItem('2la-settings')}`)
+  const settings: ISettings = JSON.parse(`${localStorage.getItem('2la-settings')}`)
 
   const [newSettings, setNewSettings] = useState<ISettings>({
     fz: settings.fz,
@@ -24,7 +24,7 @@ export const view = () => {
 
   const handleThemeChange = useCallback(() => {
     setNewSettings(prev => {
-      const updatedTheme = !prev.theme
+      const updatedTheme = prev.theme == 'dark' ? 'light' : ('dark' as ThemeT)
       const updatedSettings = { ...prev, theme: updatedTheme }
       $change(updatedSettings)
       return updatedSettings
@@ -50,7 +50,7 @@ export const view = () => {
       },
       {
         name: 'Тема',
-        value: `${newSettings.theme ? 'Темная' : 'Светлая'}`,
+        value: `${newSettings.theme == 'dark' ? 'Темная' : 'Светлая'}`,
         content: <RedButtonUI onClick={handleThemeChange}>Change theme</RedButtonUI>,
       },
     ],

@@ -8,22 +8,6 @@
   margin-right: 5px;
   color: var(--default);
   overflow: hidden;
-  overflow-y: auto !important;
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--gray-color);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: var(--post-color);
-    border-radius: 16px;
-    padding: 5px;
-  }
 
   .chatsList__up {
     width: 100%;
@@ -39,7 +23,25 @@
 
   div[data-id='chats'] {
     // STYLE
+    height: inherit;
     width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--gray-color);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: var(--post-color);
+      border-radius: 16px;
+      padding: 5px;
+    }
   }
 }
 

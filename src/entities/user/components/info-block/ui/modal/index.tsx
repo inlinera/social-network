@@ -8,6 +8,7 @@ import { items } from './constants'
 // MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
+import { ChevronDown, Plus } from 'lucide-react'
 
 interface UserFriendModalProps {
   isOpened: boolean
@@ -25,9 +26,15 @@ export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendMo
       open={isOpened}
       onCancel={() => setIsOpened(false)}
       footer={null}
+      closeIcon={<Plus style={{ color: '#fff', rotate: '45deg' }} />}
     >
       {userInfo?.displayName === user?.displayName && (
-        <Select value={items()[friendOption].label} onChange={val => setFriendOption(+val)} options={items()} />
+        <Select
+          value={items()[friendOption].label}
+          onChange={val => setFriendOption(+val)}
+          options={items()}
+          suffixIcon={<ChevronDown style={{ paddingLeft: '5px', color: '#fff' }} />}
+        />
       )}
       <div style={{ marginTop: '1vh' }}>
         <UserFriendList arr={items()[friendOption].arr} listType={friendOption} />
