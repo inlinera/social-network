@@ -1,7 +1,5 @@
-const isDark = JSON.parse(`${localStorage.getItem('2la-settings')}`).theme == true
-
 const redColor = '#e63946'
-const grayColor = isDark ? '#353535' : '#bbbbbb'
+const grayColor = '#353535'
 const bodyColor = '#0e0e0e'
 
 const Button = {
@@ -61,7 +59,7 @@ const Spin = {
 
 const Dropdown = {
   colorBgElevated: grayColor,
-  colorText: isDark ? '#000' : '#fff',
+  colorText: '#000',
   zIndexPopup: 100,
 }
 
