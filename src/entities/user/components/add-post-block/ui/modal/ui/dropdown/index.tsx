@@ -1,6 +1,8 @@
 import { useCallback, useRef, useState, useEffect } from 'react'
 import s from './index.module.scss'
+
 import { useDebounce } from '@/shared/hooks/useDebounce'
+
 import { SearchDropdownItem } from './ui/item'
 import { SearchDropdownList } from './ui/list'
 

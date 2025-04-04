@@ -8,7 +8,7 @@ import getChatsApi from '@/shared/store/api/chats/get-chats-api'
 import { ChatsList, ChatWindow } from '@/entities/chats/index'
 import { myUserFriend } from '@/shared/data/users/my-user-info'
 
-export const ChatsPage = observer(() => {
+const ChatsPage = observer(() => {
   const { user } = authApi
   const { getChats } = getChatsApi
 
@@ -25,3 +25,5 @@ export const ChatsPage = observer(() => {
     </div>
   )
 })
+
+export default ChatsPage

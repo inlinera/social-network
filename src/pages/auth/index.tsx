@@ -2,7 +2,7 @@ import { useState } from 'react'
 //COMPONENTS
 import { AuthEntity } from '@/entities/auth'
 
-export const AuthPage = () => {
+const AuthPage = () => {
   const [isReg, setIsReg] = useState(true)
 
   return (
@@ -11,3 +11,5 @@ export const AuthPage = () => {
     </div>
   )
 }
+
+export default AuthPage

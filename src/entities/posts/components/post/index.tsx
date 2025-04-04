@@ -2,9 +2,9 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import s from './index.module.scss'
-//INTERFACES
+
 import { IPost } from '@/shared/interfaces/IPost'
-//COMPONENTS
+
 import { PostBtnLine, DropdownMenuEntity, PostImageList } from '@/entities/posts/'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
@@ -12,11 +12,11 @@ import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 import { PostEdit } from './!edit-state'
 import { InView } from 'react-intersection-observer'
-// HOOKS
+
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
-// MOBX
-import authApi from '@/shared/store/api/user/auth/auth-api'
 import { useAddZero } from '@/shared/hooks/useAddZero'
+
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 interface PostWidgetProps {
   loadingPost: boolean

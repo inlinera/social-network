@@ -11,7 +11,7 @@ import { PostCommentsList } from '@/entities/posts/index'
 //HOOKS
 import { useParams } from 'react-router-dom'
 
-export const PostPage = observer(() => {
+const PostPage = observer(() => {
   const { getPost, post, error, loading } = postApi
 
   const { postId } = useParams()
@@ -35,3 +35,5 @@ export const PostPage = observer(() => {
     </div>
   )
 })
+
+export default PostPage

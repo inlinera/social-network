@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import s from './index.module.scss'
-// INTERFACES
+
 import { IComment } from '@/shared/interfaces/IComment'
-// COMPONENTS
+
 import { CommentUi } from './ui/comment'
 import { InputUi } from '@/shared/ui/input'
-// ICONS
+import { AvatarUI } from '@/shared/ui/avatar'
+
 import { SendHorizontal } from 'lucide-react'
-// MOBX
+
 import addCommentApi from '@/shared/store/api/posts/post/details/comment/add-comment-api'
 import authApi from '@/shared/store/api/user/auth/auth-api'
-import { AvatarUI } from '@/shared/ui/avatar'
 
 interface PostCommentsListProps {
   comments: IComment[]

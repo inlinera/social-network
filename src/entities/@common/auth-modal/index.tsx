@@ -1,7 +1,9 @@
-import { ModalUi, ModalUiProps } from '@/shared/ui/modal'
 import s from './index.module.scss'
+
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { PostBtn } from '@/shared/ui/buttons/post-button'
+import { ModalUi, ModalUiProps } from '@/shared/ui/modal'
+
 import { useNav } from '@/shared/hooks/useNav'
 
 export const AuthModal = ({ isOpened, setIsOpened }: ModalUiProps) => {

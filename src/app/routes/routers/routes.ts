@@ -1,11 +1,13 @@
-import { FunctionComponent } from 'react'
-//PAGES
-import { AuthPage } from '@/pages/auth'
-import { PostsPage } from '@/pages/posts/index'
-import { UserPage } from '@/pages/user'
-import { PostPage } from '@/pages/post'
-import { SettingsPage } from '@/pages/settings'
-import { ChatsPage } from '@/pages/chats'
+import { FunctionComponent, lazy } from 'react'
+
+// PAGES
+import PostsPage from '@/pages/posts'
+// LAZY
+const AuthPage = lazy(() => import('@/pages/auth'))
+const UserPage = lazy(() => import('@/pages/user'))
+const PostPage = lazy(() => import('@/pages/post'))
+const SettingsPage = lazy(() => import('@/pages/settings'))
+const ChatsPage = lazy(() => import('@/pages/chats'))
 
 export type RouteT = {
   path: string

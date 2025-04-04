@@ -1,5 +1,5 @@
-import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
 import s from './index.module.scss'
+import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
 
 interface ChatCommonMsgViewUiProps {
   children: React.ReactNode

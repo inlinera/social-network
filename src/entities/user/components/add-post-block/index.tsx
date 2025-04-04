@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import s from './index.module.scss'
-//COMPONENTS
+
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { UserAddPostModal } from './ui/modal'
 import { Link } from 'react-router-dom'

@@ -1,4 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+
 import deletePostApi from '@/shared/store/api/posts/post/actions/delete-post-api'
 
 export interface IDropdownListItem {

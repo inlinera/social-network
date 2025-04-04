@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
-//HOOKS
+
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
-//INTERFACES
+import { useAddZero } from '@/shared/hooks/useAddZero'
+
 import { IChat, IMessage } from '@/shared/interfaces/IChat'
-//MOBX
+import { IUser } from '@/shared/interfaces/IUser'
+
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
-//COMPONENTS
+import { chatState } from '@/shared/store/functional/chat/content'
+
 import { TextUi } from '@/shared/ui/text'
 import { AvatarUI } from '@/shared/ui/avatar'
-import { IUser } from '@/shared/interfaces/IUser'
-import { chatState } from '@/shared/store/functional/chat/content'
-import { useAddZero } from '@/shared/hooks/useAddZero'
 
 interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   loading: boolean

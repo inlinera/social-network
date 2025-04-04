@@ -1,16 +1,16 @@
 import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
-//COMPONENTS
+
 import { InfoBlockButton } from './ui/button'
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
-// MOBX
+
 import userApi from '@/shared/store/api/user/profile/user-api'
-// ICONS
+import authApi from '@/shared/store/api/user/auth/auth-api'
+
 import { User, UsersRound } from 'lucide-react'
 
 import { isVisible } from '@/shared/constants/isContentVisible'
-import authApi from '@/shared/store/api/user/auth/auth-api'
 
 interface UserBlockProps {
   loading: boolean

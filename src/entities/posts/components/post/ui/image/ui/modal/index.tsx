@@ -1,5 +1,6 @@
-import { Image, Modal } from 'antd'
 import s from './index.module.scss'
+
+import { Image, Modal } from 'antd'
 
 interface ImageListModalProps {
   images: string[]

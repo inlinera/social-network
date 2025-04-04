@@ -1,18 +1,19 @@
 import { useState } from 'react'
 import s from './index.module.scss'
-//MOBX
+
 import createPostApi from '@/shared/store/api/posts/post/actions/create-post-api'
-//COMPONENTS
+
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import TextArea from 'antd/es/input/TextArea'
 import { CarouselUI } from '@/shared/ui/carousel'
 import { AddPostImageFeature } from '@/features/posts/add-image'
 import { ModalUi, ModalUiProps } from '@/shared/ui/modal'
 import { SearchDropdownUi } from './ui/dropdown'
-//DATA
+
 import { tags } from './constants'
-//HOOKS
+
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
+
 import { error } from '@/shared/data/toastify'
 
 export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {

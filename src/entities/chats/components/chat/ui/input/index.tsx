@@ -2,21 +2,22 @@ import { useEffect, useRef } from 'react'
 import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
 import { v4 } from 'uuid'
-// INTERFACES
+
 import { IMessage } from '@/shared/interfaces/IChat'
-// HOOKS
+
 import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
-// MOBX
+
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import sendMsgApi from '@/shared/store/api/chats/chat/details/send-msg-api'
 import editMsgApi from '@/shared/store/api/chats/chat/details/edit-msg-api'
-import InputState from '@/shared/store/functional/chat/input/input-state'
-// ICONS
-import { CloseOutlined, PaperClipOutlined, SendOutlined } from '@ant-design/icons'
-// COMPONENTS
-import { ChatCommonMsgViewUi } from '../common/msg-view'
 import storageApi from '@/shared/store/api/storage/storage-api'
+import InputState from '@/shared/store/functional/chat/input/input-state'
+
+import { CloseOutlined, PaperClipOutlined, SendOutlined } from '@ant-design/icons'
+
+import { ChatCommonMsgViewUi } from '../common/msg-view'
+
 import { useScrollBottom } from '@/shared/hooks/chats/useScrollBottom'
 
 interface ChatInputUiProps {

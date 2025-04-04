@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite'
 import { SubmitHandler, useForm } from 'react-hook-form'
-// COMPONENTS
+
 import { InputUi } from '@/shared/ui/input'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
-// MOBX
+
 import authApi from '@/shared/store/api/user/auth/auth-api'
+
 import { email, handleBlur, password } from '@/shared/data/hook-form'
 
 export interface ILogin {

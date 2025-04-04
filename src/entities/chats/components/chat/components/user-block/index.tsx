@@ -1,20 +1,20 @@
+import { memo, useState } from 'react'
 import s from './index.module.scss'
 import { Link } from 'react-router-dom'
-//COMPONENTS
+
 import { Dropdown } from 'antd'
-//ICONS
-import { ArrowLeftOutlined, MoreOutlined } from '@ant-design/icons'
-//DATA
-import { items } from '@/shared/data/chats/dropdown'
-//HOOKS
-import { useMobile } from '@/shared/hooks/useMobile'
-//INTERFACES
-import { IFriend } from '@/shared/interfaces/IFriend'
-//MOBX
-import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
-import { memo, useState } from 'react'
-import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { AvatarUI } from '@/shared/ui/avatar'
+
+import { ArrowLeftOutlined, MoreOutlined } from '@ant-design/icons'
+
+import { items } from '@/shared/data/chats/dropdown'
+
+import { useMobile } from '@/shared/hooks/useMobile'
+import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
+
+import { IFriend } from '@/shared/interfaces/IFriend'
+
+import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 
 interface ChatUserBlockProps {
   chattingUser: IFriend

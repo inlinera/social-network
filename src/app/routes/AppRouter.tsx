@@ -9,6 +9,8 @@ import { Spin } from 'antd'
 import { PrivateRouter } from './routers/PrivateRouter'
 import { PublicRouter } from './routers/PublicRouter'
 import { Slide, ToastContainer } from 'react-toastify'
+import { Suspense } from 'react'
+import { LoadingUI } from '@/shared/ui/loading'
 
 const AppRouter = observer(() => {
   const { loading, user } = authApi
@@ -31,7 +33,11 @@ const AppRouter = observer(() => {
         theme="dark"
         transition={Slide}
       />
-      <main>{user ? <PrivateRouter /> : <PublicRouter />}</main>
+      <main className={'flex fdc scroll'}>
+        <Suspense fallback={<LoadingUI>Page is loading...</LoadingUI>}>
+          {user ? <PrivateRouter /> : <PublicRouter />}
+        </Suspense>
+      </main>
     </>
   )
 })

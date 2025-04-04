@@ -1,14 +1,16 @@
 import s from './index.module.scss'
-import { Link } from 'react-router-dom'
-// ICONS
-import { Trash } from 'lucide-react'
-// MOBX
-import deleteCommentApi from '@/shared/store/api/posts/post/details/comment/delete-comment-api'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
+import { Trash } from 'lucide-react'
+
+import deleteCommentApi from '@/shared/store/api/posts/post/details/comment/delete-comment-api'
+import authApi from '@/shared/store/api/user/auth/auth-api'
+
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
+
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
-import authApi from '@/shared/store/api/user/auth/auth-api'
 import { InView } from 'react-intersection-observer'
 
 interface CommentUiProps {
@@ -54,12 +56,7 @@ export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiPro
       <div className="flex aic">
         {userName && user?.displayName === userName && (
           <button onClick={() => deleteComment({ userName, content }, `${postId}`)}>
-            <Trash
-              style={{
-                width: parseInt(document.body.style.fontSize),
-                height: parseInt(document.body.style.fontSize),
-              }}
-            />
+            <Trash />
           </button>
         )}
       </div>

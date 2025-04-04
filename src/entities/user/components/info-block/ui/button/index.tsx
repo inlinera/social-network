@@ -25,6 +25,8 @@ interface InfoBlockFriendButtons {
   userInfoFriend: IFriend
 }
 
+const tempStyle = { fontSize: '18px', color: '#fff' }
+
 export const InfoBlockButton = observer(({ userInfoFriend }: InfoBlockFriendButtons) => {
   const { sendFriendRequest, removeFromFriends } = friendsApi
   const { userInfo } = userApi
@@ -32,18 +34,17 @@ export const InfoBlockButton = observer(({ userInfoFriend }: InfoBlockFriendButt
 
   const userId = userInfo?.displayName
 
-  const isMyPage = user?.displayName !== userInfo?.displayName
+  const isMyPage = user?.displayName === userId
 
   const isUserFriend = user?.friends?.some((friend: IFriend) => friend.displayName === userId)
 
   const isUserExistIncReq = user?.incomingReq?.some((req: IFriend) => req.displayName === userId)
   const isUserExistOutReq = user?.outgoingReq?.some((req: IFriend) => req.displayName === userId)
-  const tempStyle = { fontSize: '18px', color: '#fff' }
 
   return (
     user && (
       <div>
-        {isMyPage ? (
+        {!isMyPage ? (
           isUserFriend ? (
             <NavChatFeature userInfo={userInfo} />
           ) : isUserExistIncReq ? (

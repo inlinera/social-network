@@ -1,8 +1,10 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-// COMPONENTS
+
 import { InputUi } from '@/shared/ui/input'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
+
 import authApi from '@/shared/store/api/user/auth/auth-api'
+
 import { nullUser } from '@/shared/data/null-user'
 import { IUser } from '@/shared/interfaces/IUser'
 import { ILogin } from '../sign-in'

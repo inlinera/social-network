@@ -1,14 +1,19 @@
+import { useState } from 'react'
+
 import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { useNav } from '@/shared/hooks/useNav'
+
 import { IFriend } from '@/shared/interfaces/IFriend'
+
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
+
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 import { List } from 'antd'
-import { useState } from 'react'
-import { items } from './constants'
 import { InView } from 'react-intersection-observer'
+
+import { items } from './constants'
 
 interface UserFriendProps {
   item: IFriend

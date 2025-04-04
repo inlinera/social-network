@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-// MOBX
+
 import handleLikeApi from '@/shared/store/api/posts/post/details/handle-like-api'
-// COMPONENTS
+import authApi from '@/shared/store/api/user/auth/auth-api'
+
 import { PostBtn } from '@/shared/ui/buttons/post-button'
 import { Link } from 'react-router-dom'
-// ICONS
-import { CommentOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons'
-// INTERFACES
-import { IComment } from '@/shared/interfaces/IComment'
-import authApi from '@/shared/store/api/user/auth/auth-api'
 import { AuthModal } from '@/entities/@common/auth-modal'
+
+import { CommentOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons'
+
+import { IComment } from '@/shared/interfaces/IComment'
 
 interface PostBtnLineProps {
   likes: string[]

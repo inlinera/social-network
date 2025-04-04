@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
-//MOBX
+
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import getChatsApi from '@/shared/store/api/chats/get-chats-api'
-//COMPONENTS
+
 import { ChatComponent } from './components/chat'
-//INTERFACES
+
 import { IChat } from '@/shared/interfaces/IChat'
+
 import { v4 } from 'uuid'
 
 export const ChatsList = observer(() => {

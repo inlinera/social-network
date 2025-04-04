@@ -1,10 +1,9 @@
 import s from './index.module.scss'
-// COMPONENTS
+import { observer } from 'mobx-react-lite'
+
 import { AuthLoginEntity } from '../sign-in'
 import { AuthRegEntity } from '../sign-up'
-// IMAGES
 import { CommonRouteBlock } from './common/routes'
-import { observer } from 'mobx-react-lite'
 
 interface AuthEntityProps {
   isReg: boolean

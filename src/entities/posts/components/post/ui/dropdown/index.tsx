@@ -1,5 +1,7 @@
 import { DropdownUi } from '@/shared/ui/dropdown'
+
 import { MoreOutlined } from '@ant-design/icons'
+
 import { items } from './constants'
 
 interface DropdownMenuEntityInterface {

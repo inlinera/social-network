@@ -1,15 +1,15 @@
 import s from './index.module.scss'
-// INTERFACES
+
 import { IMessage } from '@/shared/interfaces/IChat'
-// DATA
+
 import { items } from '@/shared/data/chats/context'
-// COMPONENTS
+
 import { LinkifyText } from '@/shared/ui/parseText'
 import { ContextMenuUI } from '@/shared/ui/context-menu'
 import { ChatCommonMsgViewUi } from '../common/msg-view'
-// HOOKS
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
 import { ImageUI } from '@/shared/ui/image'
+
+import { useSliceStr } from '@/shared/hooks/useSliceStr'
 import { useAddZero } from '@/shared/hooks/useAddZero'
 
 interface ChatMessageUIProps {

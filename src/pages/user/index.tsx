@@ -11,7 +11,7 @@ import { PostListWidget } from '@/widgets/posts'
 import { UserBlock, UserFriendModal, AddPostBlockEntity } from '@/entities/user/'
 import { isVisible } from '@/shared/constants/isContentVisible'
 
-export const UserPage = observer(() => {
+const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
 
   const {
@@ -55,3 +55,5 @@ export const UserPage = observer(() => {
     </div>
   )
 })
+
+export default UserPage

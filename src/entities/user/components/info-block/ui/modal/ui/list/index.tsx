@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite'
-//COMPONENTS
+
 import { List } from 'antd'
-//INTERFACES
-import { IFriend } from '@/shared/interfaces/IFriend'
 import { UserFriendItem } from './ui/item'
+
+import { IFriend } from '@/shared/interfaces/IFriend'
 
 interface UserFriendListProps {
   arr: IFriend[]

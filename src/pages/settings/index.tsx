@@ -5,14 +5,14 @@ import s from './index.module.scss'
 import { IContent, items } from '@/shared/data/settings/settings'
 import { ScrollShadow } from '@heroui/scroll-shadow'
 
-export const SettingsPage = observer(() => {
+const SettingsPage = observer(() => {
   const [activeType, setActiveType] = useState(0)
 
   return (
-    <div className={'flex fdc jcc aic'}>
+    <div className={'flex fdc aic'}>
       <div className={`${s.mainSettings} flex fdc aic jcc`}>
         <ScrollShadow
-          className={`${s.mainSettings__buttons} flex aic`}
+          className={`${s.mainSettings__buttons} flex aic scroll`}
           orientation="horizontal"
           size={100}
           hideScrollBar
@@ -27,7 +27,7 @@ export const SettingsPage = observer(() => {
             </button>
           ))}
         </ScrollShadow>
-        <div className={`${s.mainSettings__info}`}>
+        <div className={`${s.mainSettings__info} scroll`}>
           {items()[activeType]?.content?.map((item: IContent) => (
             <div className={`${s.info__setting} flex fdc`} key={item.name}>
               <div>
@@ -49,3 +49,5 @@ export const SettingsPage = observer(() => {
     </div>
   )
 })
+
+export default SettingsPage

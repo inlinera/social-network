@@ -1,11 +1,14 @@
-import { AddPostImageFeature } from '@/features/posts/add-image'
 import s from './index.module.scss'
+import { useState } from 'react'
+
 import editPostApi from '@/shared/store/api/posts/post/actions/edit-post-api'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { CarouselUI } from '@/shared/ui/carousel'
 import TextArea from 'antd/es/input/TextArea'
+import { AddPostImageFeature } from '@/features/posts/add-image'
+
 import { IPost } from '@/shared/interfaces/IPost'
-import { useState } from 'react'
+
 import { error } from '@/shared/data/toastify'
 
 interface PostEditProps {

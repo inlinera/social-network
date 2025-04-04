@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-// COMPONENTS
+
 import { Modal, Select } from 'antd'
 import { UserFriendList } from './ui/list'
-// DATA
+
 import { items } from './constants'
-// MOBX
+
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
+
 import { ChevronDown, Plus } from 'lucide-react'
 
 interface UserFriendModalProps {

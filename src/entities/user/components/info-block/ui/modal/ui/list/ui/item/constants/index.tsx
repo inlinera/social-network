@@ -1,7 +1,11 @@
 import { AcceptFriend } from '@/features/users/add-friend'
+
 import { myUserFriend } from '@/shared/data/users/my-user-info'
+
 import { IFriend } from '@/shared/interfaces/IFriend'
+
 import friendsApi from '@/shared/store/api/user/friends/friends-api'
+
 import { UserDeleteOutlined } from '@ant-design/icons'
 
 interface IItem {

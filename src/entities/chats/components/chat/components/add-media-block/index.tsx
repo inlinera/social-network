@@ -1,8 +1,11 @@
-import { ImageUI } from '@/shared/ui/image'
 import s from './index.module.scss'
+
 import { ChatInputUI } from '../../ui/input'
+import { ImageUI } from '@/shared/ui/image'
+
 import InputState from '@/shared/store/functional/chat/input/input-state'
 import storageApi from '@/shared/store/api/storage/storage-api'
+
 import { CircleX } from 'lucide-react'
 
 interface ChatAddMediaBlockProps {
@@ -29,7 +32,7 @@ export const ChatAddMediaBlock = ({ image, setImage }: ChatAddMediaBlockProps) =
         <div className={`${s.image} flex jcc aic`}>
           <ImageUI src={`${image}`} alt="" borderRadius={12} />
         </div>
-        <ChatInputUI isAttachmentView={false} img={image} setImg={setImage} />
+        <ChatInputUI isAttachmentView={false} image={image} setImage={setImage} />
       </div>
     </div>
   )

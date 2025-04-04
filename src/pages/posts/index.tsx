@@ -7,7 +7,7 @@ import postsApi from '@/shared/store/api/posts/posts-api'
 import { PostListWidget } from '@/widgets/posts'
 import { InView } from 'react-intersection-observer'
 
-export const PostsPage = observer(() => {
+const PostsPage = observer(() => {
   const { getPosts, posts, loading } = postsApi
 
   useEffect(() => {
@@ -27,3 +27,5 @@ export const PostsPage = observer(() => {
     </div>
   )
 })
+
+export default PostsPage
