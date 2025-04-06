@@ -37,7 +37,7 @@ export const ChatWindow = observer(() => {
         isChat ? (
           <>
             {selectedImg && (
-              <ImageModal img={selectedImg} isOpened={img != null} setIsOpened={handleSelectedImage} />
+              <ImageModal img={selectedImg} isOpened={selectedImg != null} setIsOpened={handleSelectedImage} />
             )}
             {img && <ChatAddMediaBlock image={img} setImage={setImg} />}
             <ChatUserBlock chattingUser={chattingUser!} />

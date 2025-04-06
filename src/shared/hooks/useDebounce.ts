@@ -8,6 +8,7 @@ export const useDebounce = (callback: (value: string) => void, delay: number) =>
       if (debounceTimeout.current) {
         clearTimeout(debounceTimeout.current)
       }
+
       debounceTimeout.current = setTimeout(() => {
         callback(value)
       }, delay) as unknown as number

@@ -7,6 +7,7 @@ export const useNavChat = async (userInfo: IUser) => {
   const { user } = authApi
   const { createChat } = createChatApi
   const { getChat } = getChatApi
+
   const isDMExists = user?.chats?.some(id => userInfo?.chats?.includes(id))
 
   let chatId: string | undefined
@@ -15,6 +16,7 @@ export const useNavChat = async (userInfo: IUser) => {
   } else {
     chatId = user?.chats.find(id => userInfo?.chats.includes(id))
   }
+
   if (!chatId) return alert('ERROR I CANNOT FIND CHAT ID')
   getChat(chatId)
 }

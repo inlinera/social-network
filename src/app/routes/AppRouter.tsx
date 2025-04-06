@@ -1,3 +1,5 @@
+import { Suspense } from 'react'
+import { Slide, ToastContainer } from 'react-toastify'
 import { observer } from 'mobx-react-lite'
 //LAYOUT
 import { LayoutNav } from '@/widgets/layout'
@@ -5,12 +7,10 @@ import { LayoutNav } from '@/widgets/layout'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 //COMPONENTS
 import { Spin } from 'antd'
+import { LoadingUI } from '@/shared/ui/loading'
 
 import { PrivateRouter } from './routers/PrivateRouter'
 import { PublicRouter } from './routers/PublicRouter'
-import { Slide, ToastContainer } from 'react-toastify'
-import { Suspense } from 'react'
-import { LoadingUI } from '@/shared/ui/loading'
 
 const AppRouter = observer(() => {
   const { loading, user } = authApi

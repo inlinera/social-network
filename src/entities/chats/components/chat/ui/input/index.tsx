@@ -19,6 +19,8 @@ import { CloseOutlined, PaperClipOutlined, SendOutlined } from '@ant-design/icon
 import { ChatCommonMsgViewUi } from '../common/msg-view'
 
 import { useScrollBottom } from '@/shared/hooks/chats/useScrollBottom'
+import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
+import { error } from '@/shared/data/toastify'
 
 interface ChatInputUiProps {
   isAttachmentView: boolean
@@ -28,12 +30,13 @@ interface ChatInputUiProps {
 
 export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: ChatInputUiProps) => {
   const { user } = authApi
-  const inputRef = useRef<HTMLInputElement>(null)
   const { sendMessage } = sendMsgApi
   const { editMessage } = editMsgApi
   const { val, setVal } = InputState
   const { state, actionMsg, $null } = InputState
   const { uploadImage } = storageApi
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const send = () => {
     const msg = {
@@ -45,12 +48,12 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
     } as IMessage
 
     if (msg.message || image) {
-      state !== 'edit' ? sendMessage(msg) : editMessage(msg)
+      if (state !== 'edit') sendMessage(msg).then(() => useScrollBottom())
+      else editMessage({ ...actionMsg, ...msg }).then(() => useScrollToMsg(`${actionMsg?.id}`))
       setImage?.(null)
       $null()
-      useScrollBottom()
     } else {
-      alert('Пожалуйста, введите сообщение')
+      error('Пожалуйста, введите сообщение')
     }
   }
 

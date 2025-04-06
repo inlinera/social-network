@@ -1,1 +1,1 @@
-export const useAddZero = (str?: number) => (`${str}`?.length === 1 ? `0${str}` : str)
+export const useAddZero = (s?: number) => (`${s}`?.length === 1 ? `0${s}` : s)

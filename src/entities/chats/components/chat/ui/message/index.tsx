@@ -53,7 +53,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message, setSelectedImg }: Chat
           </p>
         </div>
       </ContextMenuUI>
-      <b style={{ fontSize: parseInt(document.body.style.fontSize) - 5 }}>
+      <b>
         {time.hr}:{useAddZero(time.min)}, {useAddZero(time.d)}/{useAddZero(time.mon + 1)}
       </b>
     </div>

@@ -42,7 +42,9 @@ class AuthorizationStore {
       await setPersistence(auth, browserLocalPersistence)
       onAuthStateChanged(auth, async user => {
         if (!user) return
+
         const { displayName } = user as IUser
+
         const userDocRef = doc(db, 'users', displayName)
         onSnapshot(userDocRef, doc => {
           if (doc.exists()) {
@@ -51,7 +53,6 @@ class AuthorizationStore {
           }
         })
       })
-      success('Добро пожаловать :)')
     } catch (e) {
       error('Произошла ошибка, проверьте подключение к интернету')
     } finally {

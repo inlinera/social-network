@@ -1,2 +1,1 @@
-export const useSliceStr = (_: string, m: number) =>
-  _?.length > m ? _.slice(0, m) + '...' : _
+export const useSliceStr = (s: string, m: number) => (s?.length > m ? s.slice(0, m) + '...' : s)
