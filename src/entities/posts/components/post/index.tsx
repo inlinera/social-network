@@ -58,9 +58,11 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
             </div>
           </Link>
         </div>
-        {post?.userName === user?.displayName && (
-          <DropdownMenuEntity postId={`${post?.id}`} setIsEditing={setIsEditing} />
-        )}
+        <DropdownMenuEntity
+          isAdmin={user?.displayName === post?.userName}
+          post={post!}
+          setIsEditing={setIsEditing}
+        />
       </div>
       <div className={s.post__mainblock}>
         {isEditing ? (

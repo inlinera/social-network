@@ -1,6 +1,7 @@
 import { IComment } from './IComment'
 
 export interface IPost {
+  uid: string
   userName: string
   userAvatar: string
   value: string

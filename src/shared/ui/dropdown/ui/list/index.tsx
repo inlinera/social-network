@@ -10,15 +10,18 @@ interface DropdownListProps {
 }
 
 export const DropdownList = ({ items, isActive, setIsActive }: DropdownListProps) => {
-  const handleItemClick = useCallback((func: () => void) => {
-    func()
-    setIsActive(false)
-  }, [])
+  const handleItemClick = useCallback(
+    (func: () => void) => {
+      func()
+      setIsActive(false)
+    },
+    [setIsActive]
+  )
 
   return (
-    <ul className={`${s.list} ${isActive && s.active}`}>
+    <ul className={`${s.list} ${isActive && s.active} scroll`}>
       {items.map((item, id) => (
-        <DropdownItem item={item} onClick={handleItemClick} key={id} />
+        <DropdownItem item={item} onClick={() => handleItemClick(item.onClick)} key={id} />
       ))}
     </ul>
   )

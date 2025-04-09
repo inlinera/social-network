@@ -18,6 +18,7 @@ class CreatePostApi {
       await setDoc(
         newPostRef,
         {
+          uid: authApi.user?.uid,
           id: newPostRef.id,
           userName: authApi.user?.displayName,
           userAvatar: authApi.user?.avatarUrl,

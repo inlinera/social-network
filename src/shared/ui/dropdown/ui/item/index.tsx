@@ -4,13 +4,13 @@ import { IDropdownListItem } from '@/entities/posts/components/post/ui/dropdown/
 
 interface DropdownItemProps {
   item: IDropdownListItem
-  onClick: (_: () => void) => void
+  onClick: () => void
 }
 
 export const DropdownItem = ({ item, onClick }: DropdownItemProps) => {
   return (
     <li className={s.item}>
-      <button className={`flex aic jcsb`} onClick={() => onClick(item.onClick)}>
+      <button className={`flex aic jcsb`} onClick={onClick}>
         <span>{item.content}</span>
         {item.icon}
       </button>

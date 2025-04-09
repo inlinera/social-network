@@ -1,26 +1,37 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-
+import { useCopyText } from '@/shared/hooks/useCopyText'
+import { IPost } from '@/shared/interfaces/IPost'
 import deletePostApi from '@/shared/store/api/posts/post/actions/delete-post-api'
+
+import { Copy, Pencil, Trash } from 'lucide-react'
 
 export interface IDropdownListItem {
   icon?: React.ReactNode
   content: string
-  onClick: () => void
+  onClick: itemClickT
 }
 
-const style = { fontSize: '15px' }
+type voidBoolT = (_: boolean) => void
+type itemClickT = () => void
 
 const { deletePost } = deletePostApi
 
-export const items = (postId: string, setIsEditing: (_: boolean) => void): IDropdownListItem[] => [
+const edit = (onClick: itemClickT): IDropdownListItem => ({
+  content: 'Edit post',
+  icon: <Pencil />,
+  onClick: onClick,
+})
+
+const del = (onClick: itemClickT): IDropdownListItem => ({
+  content: 'Delete post',
+  icon: <Trash />,
+  onClick: onClick,
+})
+
+export const items = (isAdmin: boolean, post: IPost, setIsEditing: voidBoolT): IDropdownListItem[] => [
+  ...(isAdmin ? [edit(() => setIsEditing(true)), del(() => deletePost(post.id))] : []),
   {
-    content: 'Edit post',
-    icon: <EditOutlined style={style} />,
-    onClick: () => setIsEditing(true),
-  },
-  {
-    content: 'Delete post',
-    icon: <DeleteOutlined style={style} />,
-    onClick: () => deletePost(postId),
+    content: 'Copy',
+    icon: <Copy />,
+    onClick: () => useCopyText(post.value),
   },
 ]

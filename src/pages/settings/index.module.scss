@@ -3,7 +3,7 @@
   width: 100%;
   color: var(--default);
   background-color: var(--post-color);
-  border-radius: 13px;
+  border-radius: 7px;
 
   .mainSettings__buttons {
     position: relative;
@@ -11,7 +11,8 @@
     padding: 3px;
     border-radius: inherit;
     border: 2px solid var(--gray-color);
-    overflow-x: auto;
+    overflow-x: auto !important;
+    overflow: hidden;
 
     button {
       margin: 3px;

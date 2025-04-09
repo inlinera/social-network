@@ -33,7 +33,6 @@ class AuthorizationStore {
   //ALL AUTH STATES
   user? = null as IUser | null
   loading = false
-  error = ''
 
   //ALL AUTH ACTIONS
   initializeAuth = async () => {
@@ -48,8 +47,9 @@ class AuthorizationStore {
         const userDocRef = doc(db, 'users', displayName)
         onSnapshot(userDocRef, doc => {
           if (doc.exists()) {
+            const uid = user.uid
             const updatedUserData = doc.data() as IUser
-            this.setUser({ ...updatedUserData, displayName })
+            this.setUser({ ...updatedUserData, displayName, uid })
           }
         })
       })
@@ -153,7 +153,6 @@ class AuthorizationStore {
   // ALL AUTH STATES MOVES
   setLoading = (state: boolean) => (this.loading = state)
   setUser = (user: IUser | null) => (this.user = user)
-  setError = (err: string) => (this.error = err)
   setToken = (token: string) => localStorage.setItem('2la-token', token)
 }
 

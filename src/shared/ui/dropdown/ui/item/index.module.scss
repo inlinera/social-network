@@ -1,16 +1,20 @@
 .item {
+  border-radius: 3px;
   transition: all 0.2s;
+
   button {
     width: 100%;
-    padding: 0.3vh 0.8vh;
+    padding: 0.2vh 0.7vh;
+    padding-right: 1.7vh;
     text-align: left;
-    border-radius: 1vh;
     font-size: 2vh;
+
     svg {
-      width: 2.5vh;
-      height: 2.5vh;
+      width: 2.5vh !important;
+      height: 2.5vh !important;
     }
   }
+
   &:hover {
     background-color: rgba($color: #fff, $alpha: 0.2);
   }

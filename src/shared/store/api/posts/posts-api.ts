@@ -9,10 +9,14 @@ import {
   query,
   QueryDocumentSnapshot,
   startAfter,
+  where,
 } from 'firebase/firestore'
 //INTERFACES
 import { IPost } from '@/shared/interfaces/IPost'
+
 import { error, info } from '@/shared/data/toastify'
+
+import authApi from '../user/auth/auth-api'
 
 class PostsStore {
   constructor() {
@@ -28,11 +32,13 @@ class PostsStore {
 
   //ALL POSTS ACTIONS
   getPosts = async () => {
+    if (this.loading) return
     this.setLoading(true)
     try {
       const q = query(
         collection(db, 'posts'),
         orderBy('time', 'desc'),
+        where('userName', '!=', `${authApi.user?.displayName}`),
         limit(8),
         ...(this._lastDoc ? [startAfter(this._lastDoc)] : [])
       )
