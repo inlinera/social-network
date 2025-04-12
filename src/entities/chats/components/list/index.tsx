@@ -19,7 +19,7 @@ export const ChatsList = observer(() => {
       <div className={`${s.chatsList__up} flex aic`}>
         <h2>Chats</h2>
       </div>
-      <div data-id="chats">
+      <div data-id="chats" className="scroll">
         {loading
           ? Array.from({ length: 5 }, () => <ChatComponent loading key={v4()} />)
           : chats?.map((chat: IChat) => {

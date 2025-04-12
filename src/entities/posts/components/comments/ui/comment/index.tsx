@@ -7,11 +7,11 @@ import { Trash } from 'lucide-react'
 import deleteCommentApi from '@/shared/store/api/posts/post/details/comment/delete-comment-api'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 
-import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
-
 import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
+
 import { InView } from 'react-intersection-observer'
+import { AvatarT, handleView } from '@/shared/constants/components-observer/handleView'
 
 interface CommentUiProps {
   userName?: string
@@ -24,16 +24,14 @@ export const CommentUi = ({ userName, content, postId, isPreview }: CommentUiPro
   const { deleteComment } = deleteCommentApi
   const { user } = authApi
 
-  const [avatar, setAvatar] = useState<string | null>(null)
-
-  const handleView = async (inView: boolean) => {
-    if (inView && !avatar) {
-      setAvatar(await useGetAvatar(`${userName}`))
-    }
-  }
+  const [avatar, setAvatar] = useState<AvatarT>(null)
 
   return (
-    <InView as="div" onChange={handleView} className={`${s.comment} flex jcsb`}>
+    <InView
+      as="div"
+      onChange={inView => handleView(`${userName}`, inView, avatar, setAvatar)}
+      className={`${s.comment} flex jcsb`}
+    >
       <div className="flex jcc aic">
         <div>
           {userName && <AvatarUI src={avatar} loading={avatar == ''} size={35} userName={`${userName}`} />}

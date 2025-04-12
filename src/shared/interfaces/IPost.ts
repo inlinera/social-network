@@ -6,7 +6,7 @@ export interface IPost {
   userAvatar: string
   value: string
   id: string
-  likes: []
+  likes: string[]
   images?: string[]
   comments: IComment[]
   time: number

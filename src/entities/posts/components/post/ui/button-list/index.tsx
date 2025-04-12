@@ -23,8 +23,10 @@ interface PostBtnLineProps {
 export const PostBtnLine = observer(({ likes, setLikes, comments, postId, userId }: PostBtnLineProps) => {
   const { user } = authApi
   const { handlePostLike } = handleLikeApi
+
   const [loading, setLoading] = useState(false)
   const [isAuthModalOpened, setIsAuthModalOpened] = useState(false)
+
   const isIncludes = likes?.includes(`${user?.displayName}`)
 
   const handleLikeStateChange = async () => {
@@ -33,8 +35,8 @@ export const PostBtnLine = observer(({ likes, setLikes, comments, postId, userId
     try {
       await handlePostLike(isIncludes, postId, userId)
       setLikes(!isIncludes ? [`${user?.displayName}`, ...likes] : likes.filter(u => u !== user?.displayName))
-    } catch (e) {
-      alert(e)
+    } catch {
+      null
     } finally {
       setLoading(false)
     }

@@ -4,27 +4,16 @@ interface LinkifyTextProps {
   text: string
 }
 
+const urlRegex = /(https?:\/\/[^\s]+)/g
+
 export const LinkifyText = ({ text }: LinkifyTextProps) => {
-  const linkifyText = (text: string) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g
+  return text?.split(urlRegex).map((part, id) => {
+    if (!urlRegex.test(part)) return part
 
-    return text?.split(urlRegex).map((part, index) => {
-      if (urlRegex.test(part)) {
-        return (
-          <a
-            key={index}
-            href={part}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={s.link_text}
-          >
-            {part}
-          </a>
-        )
-      }
-      return part
-    })
-  }
-
-  return linkifyText(text)
+    return (
+      <a key={id} href={part} target="_blank" rel="noopener noreferrer" className={s.link_text}>
+        {part}
+      </a>
+    )
+  })
 }

@@ -13,36 +13,36 @@ import { TextUi } from '@/shared/ui/text'
 import { PostEdit } from './!edit-state'
 import { InView } from 'react-intersection-observer'
 
-import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { useAddZero } from '@/shared/hooks/useAddZero'
 
 import authApi from '@/shared/store/api/user/auth/auth-api'
+
+import { AvatarT, handleView } from '@/shared/constants/components-observer/handleView'
 
 interface PostWidgetProps {
   loadingPost: boolean
   post?: IPost
 }
 
+const ruDate = Intl.DateTimeFormat()
+
 export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [avatar, setAvatar] = useState<string | null>(null)
+  const [avatar, setAvatar] = useState<AvatarT>(null)
   const [likes, setLikes] = useState<string[]>(post?.likes!)
 
   const { user } = authApi
 
-  const ruDate = Intl.DateTimeFormat()
   const postDate = new Date(post?.time!)
   const date = ruDate.format(post?.time)
 
-  const handleView = async (inView: boolean) => {
-    if (inView && !avatar) {
-      setAvatar(await useGetAvatar(`${post?.userName}`))
-    }
-  }
-
   return (
-    <InView as="div" onChange={handleView} className={`${s.post} flex fdc`}>
-      <div className={`${s.post__upperblock} flex aic`}>
+    <div className={`${s.post} flex fdc`}>
+      <InView
+        as="div"
+        onChange={inView => handleView(`${post?.userName}`, inView, avatar, setAvatar)}
+        className={`${s.post__upperblock} flex aic`}
+      >
         <div className="flex fdc">
           <Link to={`/user/${post?.userName}`} className={`${s.post_user} flex aic`}>
             <AvatarUI loading={loadingPost} src={avatar} size={45} userName={`${post?.userName}`} />
@@ -63,7 +63,7 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
           post={post!}
           setIsEditing={setIsEditing}
         />
-      </div>
+      </InView>
       <div className={s.post__mainblock}>
         {isEditing ? (
           <PostEdit post={post!} setIsEditing={setIsEditing} />
@@ -88,6 +88,6 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
           userId={`${user?.displayName}`}
         />
       </div>
-    </InView>
+    </div>
   )
 })

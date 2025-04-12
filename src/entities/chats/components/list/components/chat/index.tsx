@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 
-import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { useAddZero } from '@/shared/hooks/useAddZero'
 
 import { IChat, IMessage } from '@/shared/interfaces/IChat'
@@ -13,6 +12,9 @@ import { chatState } from '@/shared/store/functional/chat/content'
 
 import { TextUi } from '@/shared/ui/text'
 import { AvatarUI } from '@/shared/ui/avatar'
+
+import { InView } from 'react-intersection-observer'
+import { AvatarT, handleView } from '@/shared/constants/components-observer/handleView'
 
 interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   loading: boolean
@@ -28,18 +30,14 @@ export const ChatComponent = observer(
   ({ loading, chatUser, lastMessage, msgDate, currChat, isTimeVisible }: ChatComponentProps) => {
     const { getChat, chat } = getChatApi
     const { setIsChat } = chatState
-    const [avatar, setAvatar] = useState<string | null>(null)
-    const isActive = chat?.people.find(u => u.displayName === chatUser)
+    const [avatar, setAvatar] = useState<AvatarT>(null)
 
-    const avatarUrl = async () => {
-      const url = await useGetAvatar(`${chatUser}`)
-      setAvatar(url)
-    }
-    avatarUrl()
+    const isActive = chat?.people.find(u => u.displayName === chatUser)
 
     const handleGetChat = () => {
       if (currChat) {
         if (isActive) return
+
         setIsChat(true)
         getChat(`${currChat.chatId}`)
       }
@@ -51,7 +49,11 @@ export const ChatComponent = observer(
         key={currChat?.messages[0]?.time}
         onClick={handleGetChat}
       >
-        <div className="flex aic jcsb">
+        <InView
+          as="div"
+          onChange={inView => handleView(`${chatUser}`, inView, avatar, setAvatar)}
+          className="flex aic jcsb"
+        >
           <AvatarUI loading={loading} src={avatar} userName={`${chatUser}`} size={50} />
           <div className="flex fdc">
             <TextUi loading={loading} lines={1}>
@@ -66,7 +68,7 @@ export const ChatComponent = observer(
               </TextUi>
             )}
           </div>
-        </div>
+        </InView>
         {isTimeVisible && (
           <TextUi loading={loading} lines={1}>
             <span>
