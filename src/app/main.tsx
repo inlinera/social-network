@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import AppRouter from './routes/AppRouter.tsx'
 
 import './assets/styles/global.scss'
+import '@/shared/i18n'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ConfigProvider theme={{ components: config }}>
