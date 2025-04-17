@@ -10,14 +10,18 @@ import { IChat } from '@/shared/interfaces/IChat'
 
 import { v4 } from 'uuid'
 
+import { useTranslation } from 'react-i18next'
+
 export const ChatsList = observer(() => {
   const { user } = authApi
   const { chats, loading } = getChatsApi
 
+  const { t } = useTranslation()
+
   return (
     <div className={`${s.chatsList} flex fdc aic`}>
       <div className={`${s.chatsList__up} flex aic`}>
-        <h2>Chats</h2>
+        <h2>{t('chats._')}</h2>
       </div>
       <div data-id="chats" className="scroll">
         {loading

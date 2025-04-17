@@ -22,6 +22,8 @@ import { useScrollBottom } from '@/shared/hooks/chats/useScrollBottom'
 import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
 import { error } from '@/shared/data/toastify'
 
+import { useTranslation } from 'react-i18next'
+
 interface ChatInputUiProps {
   isAttachmentView: boolean
   image?: string | null
@@ -35,6 +37,8 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
   const { val, setVal } = InputState
   const { state, actionMsg, $null } = InputState
   const { uploadImage } = storageApi
+
+  const { t } = useTranslation()
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -74,7 +78,7 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
   }
 
   useEffect(() => {
-    if (state === 'default' || !inputRef.current || !image) return
+    if (state === 'default' || !inputRef.current) return
     inputRef.current.focus()
   }, [state])
 
@@ -83,7 +87,7 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
       {state !== 'default' && actionMsg && (
         <ChatCommonMsgViewUi id={actionMsg.id}>
           <div className={s.prev}>
-            <b>Message:</b>
+            <b>{t('chats.message')}:</b>
             <p>{useSliceStr(actionMsg.message, 15)}</p>
             <button
               className="fz17"
@@ -101,7 +105,7 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
         <input
           ref={inputRef}
           className={s.inputUi}
-          placeholder="Enter your message"
+          placeholder={t('chats.window.input')}
           type="text"
           value={val}
           onChange={e => setVal(e.target.value)}

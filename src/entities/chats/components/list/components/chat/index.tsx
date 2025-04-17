@@ -15,6 +15,7 @@ import { AvatarUI } from '@/shared/ui/avatar'
 
 import { InView } from 'react-intersection-observer'
 import { AvatarT, handleView } from '@/shared/constants/components-observer/handleView'
+import { useTranslation } from 'react-i18next'
 
 interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   loading: boolean
@@ -31,6 +32,7 @@ export const ChatComponent = observer(
     const { getChat, chat } = getChatApi
     const { setIsChat } = chatState
     const [avatar, setAvatar] = useState<AvatarT>(null)
+    const { t } = useTranslation()
 
     const isActive = chat?.people.find(u => u.displayName === chatUser)
 
@@ -62,8 +64,7 @@ export const ChatComponent = observer(
             {lastMessage && (
               <TextUi loading={loading} lines={1}>
                 <p className={s.lastMsg}>
-                  {lastMessage.image && '[ФОТО] '}
-                  {lastMessage.message}
+                  {lastMessage.image && t('chats.photo')} {lastMessage.message}
                 </p>
               </TextUi>
             )}

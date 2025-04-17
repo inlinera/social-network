@@ -4,12 +4,14 @@ import { observer } from 'mobx-react-lite'
 import { Modal, Select } from 'antd'
 import { UserFriendList } from './ui/list'
 
-import { items } from './constants'
+import { useItems } from './constants'
 
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import userApi from '@/shared/store/api/user/profile/user-api'
 
 import { ChevronDown, Plus } from 'lucide-react'
+
+import { useTranslation } from 'react-i18next'
 
 interface UserFriendModalProps {
   isOpened: boolean
@@ -21,9 +23,12 @@ export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendMo
   const { userInfo } = userApi
   const { user } = authApi
 
+  const { t } = useTranslation()
+  const options = useItems()
+
   return (
     <Modal
-      title={`${userInfo?.displayName}'s Friends`}
+      title={t('profile.user_block.friends.modal._', { name: userInfo.displayName })}
       open={isOpened}
       onCancel={() => setIsOpened(false)}
       footer={null}
@@ -31,14 +36,14 @@ export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendMo
     >
       {userInfo?.displayName === user?.displayName && (
         <Select
-          value={items()[friendOption].label}
+          value={options[friendOption].label}
           onChange={val => setFriendOption(+val)}
-          options={items()}
+          options={options}
           suffixIcon={<ChevronDown style={{ paddingLeft: '5px', color: '#fff' }} />}
         />
       )}
       <div style={{ marginTop: '1vh' }}>
-        <UserFriendList arr={items()[friendOption].arr} listType={friendOption} />
+        <UserFriendList arr={options[friendOption].arr!} listType={friendOption} />
       </div>
     </Modal>
   )

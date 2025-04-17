@@ -12,19 +12,23 @@ import { User, UsersRound } from 'lucide-react'
 
 import { isVisible } from '@/shared/constants/isContentVisible'
 
+import { useTranslation } from 'react-i18next'
+
 interface UserBlockProps {
   loading: boolean
   setIsOpenedFriend: (_: boolean) => void
+}
+
+const tempStyle = {
+  width: 17,
+  height: 17,
 }
 
 export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProps) => {
   const { user } = authApi
   const { userInfo } = userApi
 
-  const tempStyle = {
-    width: parseInt(document.body.style.fontSize) || 14 + 3,
-    height: parseInt(document.body.style.fontSize) || 14 + 3,
-  }
+  const { t } = useTranslation()
 
   return (
     <div className={`${s.userInfo_meta} flex fdc jcc`}>
@@ -42,7 +46,7 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
       <div className={`${s.userInfo_meta_someInfo}`}>
         {userInfo.description && (
           <div className={s.desc}>
-            <span>Description:</span>
+            <span>{t('profile.user_block.description')}:</span>
             <TextUi loading={loading} lines={2}>
               <p>{userInfo?.description}</p>
             </TextUi>
@@ -61,7 +65,7 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
             <button onClick={() => setIsOpenedFriend(true)} className="flex jcc aic">
               <UsersRound style={tempStyle} />{' '}
               <TextUi loading={loading} lines={1}>
-                Friends
+                {t('profile.user_block.friends._')}
               </TextUi>
             </button>
           )}

@@ -1,15 +1,16 @@
-//HOOKS
 import { useCopyText } from '@/shared/hooks/useCopyText'
-//INTERFACES
-import { IMessage } from '@/shared/interfaces/IChat'
-//MOBX
+
+import { IChat, IMessage } from '@/shared/interfaces/IChat'
+
 import deleteMsgApi from '@/shared/store/api/chats/chat/details/delete-msg-api'
 import pinMsgApi from '@/shared/store/api/chats/chat/details/pin-msg-api'
 import unpinMsgApi from '@/shared/store/api/chats/chat/details/unpin-msg-api'
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
 import inputState from '@/shared/store/functional/chat/input/input-state'
-//ICONS
+
 import { CopyOutlined, DeleteOutlined, EditOutlined, EnterOutlined, PushpinOutlined } from '@ant-design/icons'
+
+import { useTranslation } from 'react-i18next'
 
 export interface ContextMenu {
   my: ContextMenuItem[]
@@ -21,46 +22,63 @@ export interface ContextMenuItem {
   name: string
   onClick: () => void
 }
+
 //FUNCTIONAL
 const { setState, setVal, setActionMsg } = inputState
+
 //API
 const { deleteMessage } = deleteMsgApi
 const { pinMessage } = pinMsgApi
 const { unpinMessage } = unpinMsgApi
 
-export const items = (msg: IMessage) => {
-  const { chat } = getChatApi
-  const isMsgPinned = chat?.pinned.find(pinnedMsg => pinnedMsg.id == msg.id)
+// SOME COMMON ITEMS
 
-  const reply = {
+const reply = (msg: IMessage) => {
+  const { t } = useTranslation()
+
+  return {
     icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
-    name: 'Reply',
+    name: t('chats.window.contextMenu.reply'),
     onClick: () => {
       setState('reply')
       setActionMsg(msg)
     },
   }
+}
 
-  const copy = {
+const copy = (message: string) => {
+  const { t } = useTranslation()
+
+  return {
     icon: <CopyOutlined />,
-    name: 'Copy',
-    onClick: () => useCopyText(msg.message),
+    name: t('chats.window.contextMenu.copy'),
+    onClick: () => useCopyText(message),
   }
+}
 
-  const pin = {
+const pin = (msg: IMessage, chat: IChat | null) => {
+  const { t } = useTranslation()
+  const isMsgPinned = chat?.pinned.find(pinnedMsg => pinnedMsg.id == msg.id)
+
+  return {
     icon: <PushpinOutlined />,
-    name: isMsgPinned ? 'Unpin' : 'Pin',
+    name: isMsgPinned ? t('chats.window.contextMenu.unpin') : t('chats.window.contextMenu.pin'),
     onClick: () => (isMsgPinned ? unpinMessage(msg) : pinMessage(msg)),
   }
+}
+
+export const items = (msg: IMessage) => {
+  const { chat } = getChatApi
+  const { t } = useTranslation()
 
   return {
     my: [
-      reply,
-      copy,
-      pin,
+      reply(msg),
+      copy(msg.message),
+      pin(msg, chat),
       {
         icon: <EditOutlined />,
-        name: 'Edit',
+        name: t('chats.window.contextMenu.edit'),
         onClick: () => {
           setState('edit')
           setVal(msg.message)
@@ -69,10 +87,10 @@ export const items = (msg: IMessage) => {
       },
       {
         icon: <DeleteOutlined />,
-        name: 'Delete',
+        name: t('chats.window.contextMenu.delete'),
         onClick: () => deleteMessage(msg),
       },
     ],
-    notMy: [reply, copy, pin],
+    notMy: [reply(msg), copy(msg.message), pin(msg, chat)],
   }
 }

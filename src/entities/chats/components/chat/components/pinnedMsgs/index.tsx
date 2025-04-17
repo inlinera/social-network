@@ -9,6 +9,7 @@ import { chatState } from '@/shared/store/functional/chat/content'
 
 import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
 import { useSliceStr } from '@/shared/hooks/useSliceStr'
+import { useTranslation } from 'react-i18next'
 
 export interface PinnedMsgsProps {
   pin: IMessage[]
@@ -17,6 +18,7 @@ export interface PinnedMsgsProps {
 export const PinnedMsgs = ({ pin }: PinnedMsgsProps) => {
   const { unpinMessage } = unpinMsgApi
   const { setIsChat } = chatState
+  const { t } = useTranslation()
 
   const lengthMoreThan1 = pin.length > 1
   const lastPin = pin[pin.length - 1]
@@ -24,11 +26,11 @@ export const PinnedMsgs = ({ pin }: PinnedMsgsProps) => {
   return (
     <div className={`${s.pinnedMsgs} flex jcsb aic`}>
       <div className={`${s.pinnedMsgs__msg} flex fdc`} onClick={() => useScrollToMsg(lastPin?.id)}>
-        <p data-penis="pin">Pinned Message:</p>
+        <p data-penis="pin">{t('chats.window.pin')}:</p>
         <div>
           <b>@{lastPin?.userId}: </b>
           <span>
-            {lastPin.image && '[ФОТО]'} {useSliceStr(lastPin?.message, 15)}
+            {lastPin.image && t('chats.photo')} {useSliceStr(lastPin?.message, 15)}
           </span>
         </div>
       </div>
