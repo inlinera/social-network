@@ -6,6 +6,8 @@ import { useDebounce } from '@/shared/hooks/useDebounce'
 import { SearchDropdownItem } from './ui/item'
 import { SearchDropdownList } from './ui/list'
 
+import { useTranslation } from 'react-i18next'
+
 interface SearchDropdownUiProps {
   items: string[]
   selectedItems: string[]
@@ -13,6 +15,8 @@ interface SearchDropdownUiProps {
 }
 
 export const SearchDropdownUi = ({ items, selectedItems, setSelectedItems }: SearchDropdownUiProps) => {
+  const { t } = useTranslation()
+
   const [isActive, setIsActive] = useState(false)
   const [value, setValue] = useState('')
   const [filteredItems, setFilteredItems] = useState<string[]>(items)
@@ -70,7 +74,7 @@ export const SearchDropdownUi = ({ items, selectedItems, setSelectedItems }: Sea
           type="text"
           value={value}
           onChange={handleChange}
-          placeholder="Enter something..."
+          placeholder={t('profile.posts.add_post.modal.tags')}
           ref={inputRef}
           onFocus={() => setIsActive(true)}
         />

@@ -67,7 +67,62 @@ export const en = {
           text: 'You can create posts',
           btnText: 'Create post',
           rule: 'Content rules',
+          modal: {
+            content: 'Enter post content',
+            tags: 'Tags',
+            send: 'Send',
+          },
         },
+      },
+    },
+    settings: {
+      safety: {
+        _: 'Safety',
+        pass: {
+          _: 'Change password',
+          currPass: 'Enter current password',
+          newPass: 'Enter new password',
+          btn: 'Change',
+        },
+        exit: {
+          _: 'Exit from account',
+          btn: 'Exit',
+        },
+        delete: {
+          _: 'Delete this account',
+          btn: 'Delete',
+        },
+      },
+      visual: {
+        _: 'Visual',
+        font_size: 'Font size',
+        theme: {
+          _: 'Theme',
+          dark: 'Dark',
+          light: 'Light',
+          btn: 'Change',
+        },
+        lang: {
+          _: 'Language',
+          btn: 'Change',
+        },
+      },
+      profile: {
+        _: 'Profile',
+        avatar: 'Avatar',
+        name: { _: 'Your name', btn: 'Change' },
+        description: {
+          _: 'Your description',
+          btn: 'Change',
+        },
+      },
+      privacy: {
+        _: 'Privacy',
+        vis: 'Visible',
+        hid: 'Hidden',
+        type: { _: 'Account type', btn: 'Change', pub: 'Public', pri: 'Private' },
+        name: { _: 'Name visibility', btn: 'Change' },
+        friends: { _: 'Friends visibility', btn: 'Change' },
       },
     },
   },

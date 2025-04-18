@@ -2,9 +2,13 @@ import authApi from '@/shared/store/api/user/auth/auth-api'
 import { InputUi } from '@/shared/ui/input'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+const path = 'settings.safety.'
 
 export const ChangePassComponent = observer(() => {
   const { changePassword } = authApi
+  const { t } = useTranslation()
 
   const [pass, setPass] = useState('')
   const [currPass, setCurrPass] = useState('')
@@ -22,7 +26,7 @@ export const ChangePassComponent = observer(() => {
         setVal={setCurrPass}
         minLength={6}
         maxLength={25}
-        placeholder="Enter current password..."
+        placeholder={t(`${path}pass.currPass`)}
       />
       <div className="flex jcc aic">
         <InputUi
@@ -30,9 +34,9 @@ export const ChangePassComponent = observer(() => {
           setVal={setPass}
           minLength={6}
           maxLength={25}
-          placeholder="Enter new password..."
+          placeholder={t(`${path}pass.newPass`)}
         />
-        <button onClick={handleChangePassword}>Change</button>
+        <button onClick={handleChangePassword}>{t(`${path}pass.btn`)}</button>
       </div>
     </div>
   )

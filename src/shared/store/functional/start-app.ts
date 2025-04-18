@@ -1,15 +1,18 @@
 import { makeAutoObservable } from 'mobx'
 
 export type ThemeT = 'dark' | 'light'
+export type LangT = 'ru' | 'en'
 
 export interface ISettings {
   theme?: ThemeT
   fz?: number
+  lang?: LangT
 }
 
 const defaultSettings: ISettings = {
   theme: 'dark',
   fz: 14,
+  lang: 'en',
 }
 
 class Settings {

@@ -1,24 +1,28 @@
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import { ChangePassComponent } from './components/change-pass'
+import { useTranslation } from 'react-i18next'
+
+const path = 'settings.safety.'
 
 export const safety = () => {
   const { logout, deleteAccount } = authApi
+  const { t } = useTranslation()
 
   return {
-    name: 'Безопасность',
+    name: t(`${path}_`),
     content: [
       {
-        name: 'Сменить пароль',
+        name: t(`${path}pass._`),
         content: <ChangePassComponent />,
       },
       {
-        name: 'Выйти из аккаунта',
-        content: <RedButtonUI onClick={() => logout()}>Exit</RedButtonUI>,
+        name: t(`${path}exit._`),
+        content: <RedButtonUI onClick={() => logout()}>{t(`${path}exit.btn`)}</RedButtonUI>,
       },
       {
-        name: 'Удалить аккаунт',
-        content: <RedButtonUI onClick={() => deleteAccount()}>Delete</RedButtonUI>,
+        name: t(`${path}delete._`),
+        content: <RedButtonUI onClick={() => deleteAccount()}>{t(`${path}delete.btn`)}</RedButtonUI>,
       },
     ],
     code: 0,

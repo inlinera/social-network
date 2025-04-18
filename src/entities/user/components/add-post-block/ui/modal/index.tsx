@@ -16,8 +16,12 @@ import { useFormatInput } from '@/shared/hooks/useFormatInput'
 
 import { error } from '@/shared/data/toastify'
 
+import { useTranslation } from 'react-i18next'
+
 export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
   const { createPost } = createPostApi
+  const { t } = useTranslation()
+
   const [value, setValue] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [imgList, setImgList] = useState<string[]>([])
@@ -43,7 +47,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
           <TextArea
             value={value}
             onChange={e => setValue(e.target.value)}
-            placeholder="Enter post content"
+            placeholder={t('profile.posts.add_post.modal.content')}
             maxLength={300}
             rows={5}
             showCount
@@ -59,7 +63,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
           <SearchDropdownUi items={tags} selectedItems={selectedTags} setSelectedItems={setSelectedTags} />
           <div className="flex aic">
             <AddPostImageFeature imgList={imgList} setImgList={setImgList} />
-            <RedButtonUI onClick={handleSubmit}>Send</RedButtonUI>
+            <RedButtonUI onClick={handleSubmit}>{t('profile.posts.add_post.modal.send')}</RedButtonUI>
           </div>
         </div>
       </form>

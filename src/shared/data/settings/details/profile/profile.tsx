@@ -9,11 +9,14 @@ import { AvatarUI } from '@/shared/ui/avatar'
 import { InputUi } from '@/shared/ui/input'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import TextArea from 'antd/es/input/TextArea'
+import { useTranslation } from 'react-i18next'
 
 export const profile = () => {
   const { user, loading } = authApi
   const { editField } = EditPrivacySettings
   const { uploadImage, deleteImage } = storageApi
+
+  const { t } = useTranslation()
 
   const [userAvatar, setUserAvatar] = useState<string | null>(user?.avatarUrl || null)
   const [name, setName] = useState(user?.name || '')
@@ -33,10 +36,10 @@ export const profile = () => {
   )
 
   return {
-    name: 'Профиль',
+    name: t('settings.profile._'),
     content: [
       {
-        name: 'Аватар',
+        name: t('settings.profile.avatar'),
         content: (
           <form className="flex fdc">
             <input type="file" id="avatar" hidden accept="image/*" onChange={handleChangeAvatar} />
@@ -54,33 +57,33 @@ export const profile = () => {
         ),
       },
       {
-        name: 'Ваше имя',
+        name: t('settings.profile.name._'),
         content: (
           <div className={`${s.edit} flex aic`}>
-            <InputUi value={name} setVal={setName} placeholder={'Изменить имя...'} maxLength={16} />{' '}
+            <InputUi value={name} setVal={setName} placeholder={'...'} maxLength={16} />{' '}
             <RedButtonUI
               onClick={() => editField(name, 'name', user?.displayName)}
               style={{ maxWidth: 'max-content' }}
             >
-              Изменить
+              {t('settings.profile.name.btn')}
             </RedButtonUI>
           </div>
         ),
       },
       {
-        name: 'Ваше описание',
+        name: t('settings.profile.description._'),
         content: (
           <div className={`${s.edit} ${s.max}`}>
             <TextArea
               value={description}
               onChange={e => setDescription(e.target.value)}
-              placeholder={'Изменить опсиание...'}
+              placeholder="..."
               maxLength={101}
               rows={5}
               style={{ resize: 'none' }}
             />{' '}
             <RedButtonUI onClick={() => editField(description, 'description', user?.displayName)}>
-              Изменить
+              {t('settings.profile.description.btn')}
             </RedButtonUI>
           </div>
         ),
