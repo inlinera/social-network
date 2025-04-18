@@ -1,6 +1,6 @@
 # 2la - Социальная сеть
 
-![Social Network](https://ssilka-na-izabrazenee) <!-- Тут ссылка -->
+![Social Network](https://i.postimg.cc/Rhk4vr3z/20250331-190253.jpg)
 
 ## 💡 Описание
 
@@ -52,8 +52,9 @@
 
 #### Скриншоты
 
-![Скрин](https://ssilka-na-izabrazenee) <!-- Тут ссылка -->
-![Скрин](https://ssilka-na-izabrazenee) <!-- Тут ссылка -->
+![Скрин](https://i.postimg.cc/7YBjThrZ/msedge-Yy6-Kjin9-EV.png)
+
+![Скрин](https://i.postimg.cc/g2nQypGq/msedge-LVPzeu-Z7l-K.png)
 
 ## 🤝 Вклад
 
