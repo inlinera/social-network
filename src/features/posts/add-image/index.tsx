@@ -1,5 +1,5 @@
+import { useUploadImg } from '@/shared/hooks/details/useUploadImg'
 import s from './index.module.scss'
-import storageApi from '@/shared/store/api/storage/storage-api'
 import { ImagePlus } from 'lucide-react'
 import { observer } from 'mobx-react-lite'
 
@@ -9,16 +9,19 @@ interface AddPostImageFeatureProps {
 }
 
 export const AddPostImageFeature = observer(({ imgList, setImgList }: AddPostImageFeatureProps) => {
-  const { uploadImage } = storageApi
-
   const handleUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
 
-    const url = await uploadImage(files?.[files.length - 1]!, 'photos')
-    if (!url) return alert('cannot upload img')
+    // eslint-disable-next-line prefer-const
+    let newImages: string[] = []
 
-    setImgList([...imgList, url])
+    for (let i = 0; i < files.length; i++) {
+      const url = await useUploadImg(files[i])
+      newImages.push(url!)
+    }
+
+    setImgList([...imgList, ...newImages])
   }
 
   return (

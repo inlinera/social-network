@@ -10,11 +10,12 @@ import { InputUi } from '@/shared/ui/input'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import TextArea from 'antd/es/input/TextArea'
 import { useTranslation } from 'react-i18next'
+import { useUploadImg } from '@/shared/hooks/details/useUploadImg'
 
 export const profile = () => {
   const { user, loading } = authApi
   const { editField } = EditPrivacySettings
-  const { uploadImage, deleteImage } = storageApi
+  const { deleteImage } = storageApi
 
   const { t } = useTranslation()
 
@@ -25,12 +26,18 @@ export const profile = () => {
   const handleChangeAvatar = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault()
-      const avatar = e.target.files?.[0]!
-      const url = await uploadImage(avatar, 'avatars')
-      if (!url) return
-      await deleteImage(`${userAvatar}`).then(
-        async () => await editField(url, 'avatarUrl').then(() => setUserAvatar(url))
-      )
+      const avatar = e.target.files?.[0]
+      if (!avatar) return
+
+      const url = (await useUploadImg(avatar)) as string
+
+      try {
+        await deleteImage(`${userAvatar}`)
+        await editField(url, 'avatarUrl')
+        setUserAvatar(url)
+      } catch {
+        null
+      }
     },
     [userAvatar]
   )

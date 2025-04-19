@@ -11,7 +11,6 @@ import { useSliceStr } from '@/shared/hooks/useSliceStr'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import sendMsgApi from '@/shared/store/api/chats/chat/details/send-msg-api'
 import editMsgApi from '@/shared/store/api/chats/chat/details/edit-msg-api'
-import storageApi from '@/shared/store/api/storage/storage-api'
 import InputState from '@/shared/store/functional/chat/input/input-state'
 
 import { CloseOutlined, PaperClipOutlined, SendOutlined } from '@ant-design/icons'
@@ -20,6 +19,8 @@ import { ChatCommonMsgViewUi } from '../common/msg-view'
 
 import { useScrollBottom } from '@/shared/hooks/chats/useScrollBottom'
 import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
+import { useUploadImg } from '@/shared/hooks/details/useUploadImg'
+
 import { error } from '@/shared/data/toastify'
 
 import { useTranslation } from 'react-i18next'
@@ -36,7 +37,6 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
   const { editMessage } = editMsgApi
   const { val, setVal } = InputState
   const { state, actionMsg, $null } = InputState
-  const { uploadImage } = storageApi
 
   const { t } = useTranslation()
 
@@ -69,11 +69,7 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
     const files = e.target.files
     if (!files || files.length === 0) return
 
-    const url = await uploadImage(files[0], 'photos')
-    if (!url) {
-      alert('Cannot upload image')
-      return
-    }
+    const url = await useUploadImg(files[0])
     setImage?.(url)
   }
 
