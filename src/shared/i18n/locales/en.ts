@@ -27,6 +27,7 @@ export const en = {
     },
     posts: {
       latest: 'Latest posts',
+      tagged: 'tagged',
       at: 'at',
       comment: 'Be the first to comment',
       dropdown: {

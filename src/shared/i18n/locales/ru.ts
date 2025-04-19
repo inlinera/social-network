@@ -27,6 +27,7 @@ export const ru = {
     },
     posts: {
       latest: 'Последние посты',
+      tagged: 'по тегу',
       at: 'в',
       comment: 'Напишите комментарий первыми',
       dropdown: {

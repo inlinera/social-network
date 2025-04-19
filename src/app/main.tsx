@@ -10,7 +10,7 @@ import '@/shared/i18n'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ConfigProvider theme={{ components: config }}>
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <AppRouter />
     </BrowserRouter>
   </ConfigProvider>

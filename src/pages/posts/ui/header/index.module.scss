@@ -1,0 +1,21 @@
+.postsHeader {
+  width: inherit;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: var(--post-color);
+
+  h1 {
+    font-weight: 700;
+  }
+
+  span {
+    color: var(--red-color);
+  }
+
+  button {
+    margin: 0px 3px;
+    padding: 6px;
+    background-color: var(--gray-color);
+    border-radius: 6px;
+  }
+}

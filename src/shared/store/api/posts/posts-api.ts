@@ -26,9 +26,7 @@ class PostsStore {
     reaction(
       () => this.tag.tag,
       () => {
-        this.setPosts(null)
-        this._lastDoc = null
-        this.getPosts()
+        this.reload()
       }
     )
   }
@@ -77,6 +75,12 @@ class PostsStore {
     } finally {
       this.setLoading(false)
     }
+  }
+
+  reload = () => {
+    this.setPosts(null)
+    this._lastDoc = null
+    this.getPosts()
   }
 
   //ALL POSTS STATES MOVIES
