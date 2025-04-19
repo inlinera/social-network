@@ -1,10 +1,10 @@
-import { EnumTags } from '@/shared/interfaces/IPost'
+import { TagT } from '@/shared/interfaces/IPost'
 import s from './index.module.scss'
 import { PostTagUi } from './ui/tag'
 import { observer } from 'mobx-react-lite'
 
 interface PostTagEntityProps {
-  tags: EnumTags[]
+  tags: TagT[]
 }
 
 export const PostTagEntity = observer(({ tags }: PostTagEntityProps) => {
@@ -12,7 +12,7 @@ export const PostTagEntity = observer(({ tags }: PostTagEntityProps) => {
 
   return (
     <div className={`${s.tagsMap} flex`} style={{ fontSize }}>
-      {tags && tags.map((t: EnumTags) => <PostTagUi name={t} key={t} />)}
+      {tags && tags.map((t: TagT) => <PostTagUi name={t} key={t} />)}
     </div>
   )
 })

@@ -31,7 +31,7 @@ class StorageApi {
     try {
       const storage = getStorage()
       const imgRef = ref(storage, url)
-      console.log(imgRef)
+
       await deleteObject(imgRef)
     } catch {
       error('Ошибка удаления изображения')

@@ -7,11 +7,12 @@ import { SearchDropdownItem } from './ui/item'
 import { SearchDropdownList } from './ui/list'
 
 import { useTranslation } from 'react-i18next'
+import { TagT } from '@/shared/interfaces/IPost'
 
 interface SearchDropdownUiProps {
-  items: string[]
-  selectedItems: string[]
-  setSelectedItems: (_: string[]) => void
+  items: TagT[]
+  selectedItems: TagT[]
+  setSelectedItems: (_: TagT[]) => void
 }
 
 export const SearchDropdownUi = ({ items, selectedItems, setSelectedItems }: SearchDropdownUiProps) => {
@@ -19,7 +20,7 @@ export const SearchDropdownUi = ({ items, selectedItems, setSelectedItems }: Sea
 
   const [isActive, setIsActive] = useState(false)
   const [value, setValue] = useState('')
-  const [filteredItems, setFilteredItems] = useState<string[]>(items)
+  const [filteredItems, setFilteredItems] = useState<TagT[]>(items)
   const dropdownRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -61,15 +62,15 @@ export const SearchDropdownUi = ({ items, selectedItems, setSelectedItems }: Sea
 
   return (
     <div className={s.dropdown} ref={dropdownRef}>
+      {selectedItems.map(item => (
+        <SearchDropdownItem
+          key={item}
+          item={item}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        />
+      ))}
       <div className={`${s['dropdown-ui']} flex aic`}>
-        {selectedItems.map(item => (
-          <SearchDropdownItem
-            key={item}
-            item={item}
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
-          />
-        ))}
         <input
           type="text"
           value={value}

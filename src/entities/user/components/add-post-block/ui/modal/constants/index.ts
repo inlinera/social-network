@@ -1,4 +1,6 @@
-export const tags: string[] = [
+import { TagT } from '@/shared/interfaces/IPost'
+
+export const tags: TagT[] = [
   'IT',
   'Animals',
   'Travel',

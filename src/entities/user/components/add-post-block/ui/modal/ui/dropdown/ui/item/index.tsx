@@ -1,9 +1,10 @@
+import { TagT } from '@/shared/interfaces/IPost'
 import s from './index.module.scss'
 
 interface SearchDropdownItemProps {
-  item: string
-  setSelectedItems: (_: string[]) => void
-  selectedItems: string[]
+  item: TagT
+  setSelectedItems: (_: TagT[]) => void
+  selectedItems: TagT[]
 }
 
 export const SearchDropdownItem = ({ item, selectedItems, setSelectedItems }: SearchDropdownItemProps) => {

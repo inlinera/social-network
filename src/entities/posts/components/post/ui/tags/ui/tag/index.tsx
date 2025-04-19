@@ -1,12 +1,12 @@
 import s from './index.module.scss'
 
 import postsApi from '@/shared/store/api/posts/posts-api'
-import { EnumTags } from '@/shared/interfaces/IPost'
 import { Plus } from 'lucide-react'
 import { observer } from 'mobx-react-lite'
 import { useNav } from '@/shared/hooks/useNav'
+import { TagT } from '@/shared/interfaces/IPost'
 
-export const PostTagUi = observer(({ name }: { name: EnumTags }) => {
+export const PostTagUi = observer(({ name }: { name: TagT }) => {
   const {
     tag: { tag, setTag },
   } = postsApi

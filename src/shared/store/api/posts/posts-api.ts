@@ -12,7 +12,7 @@ import {
   where,
 } from 'firebase/firestore'
 //INTERFACES
-import { EnumTags, IPost } from '@/shared/interfaces/IPost'
+import { IPost, TagT } from '@/shared/interfaces/IPost'
 
 import { error, info } from '@/shared/data/toastify'
 
@@ -38,7 +38,7 @@ class PostsStore {
   //ALL POSTS STATES
   posts = null as IPost[] | null
   loading = false
-  tag = mobxState<EnumTags | null>(null)('tag')
+  tag = mobxState<TagT | null>(null)('tag')
   private _lastDoc = null as QueryDocumentSnapshot | null
 
   //ALL POSTS ACTIONS

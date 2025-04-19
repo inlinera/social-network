@@ -17,17 +17,18 @@ import { useFormatInput } from '@/shared/hooks/useFormatInput'
 import { error } from '@/shared/data/toastify'
 
 import { useTranslation } from 'react-i18next'
+import { TagT } from '@/shared/interfaces/IPost'
 
 export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
   const { createPost } = createPostApi
   const { t } = useTranslation()
 
   const [value, setValue] = useState('')
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [selectedTags, setSelectedTags] = useState<TagT[]>([])
   const [imgList, setImgList] = useState<string[]>([])
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
-    event.preventDefault()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
+    e.preventDefault()
 
     const val = useFormatInput(value)
     if (!val) return error('Введите контент поста')
