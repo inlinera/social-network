@@ -25,6 +25,8 @@
     background-color: var(--post-color);
     transform: scale(0.9);
     transition: all 0.5s;
+    overflow-y: auto !important;
+    overflow: hidden;
 
     &.open {
       transform: scale(1);

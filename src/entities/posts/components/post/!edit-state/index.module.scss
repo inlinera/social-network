@@ -1,8 +1,20 @@
 .editPost {
   position: relative;
-  width: 100% !important;
+  max-width: 100%;
 
   .editPost__textarea {
     max-width: 100% !important;
+  }
+
+  .images {
+    width: 45vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .editPost {
+    .images {
+      width: 70vw;
+    }
   }
 }

@@ -42,7 +42,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
 
   return (
     <ModalUi isOpened={isOpened} setIsOpened={setIsOpened} padding={'10px 15px'}>
-      <form onSubmit={handleSubmit} className={`${s.modal} flex fdc jcc`}>
+      <form onSubmit={handleSubmit} className={`${s.modal} flex fdc jcc scroll`}>
         <div className="flex fdc aic">
           <TextArea
             value={value}

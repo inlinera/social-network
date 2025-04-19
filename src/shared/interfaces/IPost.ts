@@ -10,5 +10,17 @@ export interface IPost {
   images?: string[]
   comments: IComment[]
   time: number
-  tags: string[]
+  tags: EnumTags[]
+}
+
+export enum EnumTags {
+  'IT',
+  'Travel',
+  'Animals',
+  'Motivation',
+  'Fashion',
+  'Lifestyle',
+  'Education',
+  'Sports',
+  'Gaming',
 }

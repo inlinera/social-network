@@ -11,11 +11,11 @@ class EditPostApi {
 
   loading = false
 
-  submitChanges = async (post: IPost, setIsEditing: (state: boolean) => void) => {
+  submitChanges = async (post: IPost, setIsEditing: (state: string | null) => void) => {
     this.setLoading(true)
     try {
       await updateDoc(doc(db, 'posts', post.id), { ...post })
-      setIsEditing(false)
+      setIsEditing(null)
     } catch {
       error('Ошибка редактирования поста')
     } finally {

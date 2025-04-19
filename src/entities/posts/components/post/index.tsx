@@ -16,6 +16,7 @@ import { InView } from 'react-intersection-observer'
 import { useAddZero } from '@/shared/hooks/useAddZero'
 
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { postState } from '@/shared/store/functional/posts/edit-state'
 
 import { AvatarT, handleView } from '@/shared/constants/components-observer/handleView'
 
@@ -30,9 +31,12 @@ const ruDate = Intl.DateTimeFormat()
 
 export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
   const { user } = authApi
+  const {
+    editPost: { editPost },
+  } = postState
+
   const { t } = useTranslation()
 
-  const [isEditing, setIsEditing] = useState(false)
   const [avatar, setAvatar] = useState<AvatarT>(null)
   const [likes, setLikes] = useState<string[]>(post?.likes!)
 
@@ -66,15 +70,11 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
             </div>
           </Link>
         </div>
-        <DropdownMenuEntity
-          isAdmin={user?.displayName === post?.userName}
-          post={post!}
-          setIsEditing={setIsEditing}
-        />
+        <DropdownMenuEntity isAdmin={user?.displayName === post?.userName} post={post!} />
       </InView>
       <div className={s.post__mainblock}>
-        {isEditing ? (
-          <PostEdit post={post!} setIsEditing={setIsEditing} />
+        {editPost === post?.id ? (
+          <PostEdit post={post!} />
         ) : (
           <>
             <TextUi loading={loadingPost} lines={3}>

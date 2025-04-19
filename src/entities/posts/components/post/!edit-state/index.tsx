@@ -10,16 +10,19 @@ import { AddPostImageFeature } from '@/features/posts/add-image'
 import { IPost } from '@/shared/interfaces/IPost'
 
 import { error } from '@/shared/data/toastify'
+import { observer } from 'mobx-react-lite'
+import { postState } from '@/shared/store/functional/posts/edit-state'
 
 interface PostEditProps {
   post: IPost
-  setIsEditing: (_: boolean) => void
 }
 
-export const PostEdit = ({ post, setIsEditing }: PostEditProps) => {
+export const PostEdit = observer(({ post }: PostEditProps) => {
   const { submitChanges, loading } = editPostApi
+  const {editPost: {setEditPost}} = postState
 
-  const [images, setImages] = useState(post?.images)
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  const [images, setImages] = useState<string[]>([...post?.images!])
   const [postVal, setPostVal] = useState(post?.value)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -27,11 +30,11 @@ export const PostEdit = ({ post, setIsEditing }: PostEditProps) => {
     const value = postVal.trim()
 
     if (!value) return error('Введите контент поста')
-    submitChanges({ ...post!, value, images }, setIsEditing)
+    submitChanges({ ...post!, value, images }, setEditPost)
   }
 
   return (
-    <form className={`${s.editPost} flex fdc`} onSubmit={handleSubmit}>
+    <form className={`${s.editPost} flex fdc scroll`} onSubmit={handleSubmit}>
       <TextArea
         className={s.editPost__textarea}
         rows={5}
@@ -41,11 +44,14 @@ export const PostEdit = ({ post, setIsEditing }: PostEditProps) => {
       />
       <div className="flex aic">
         <RedButtonUI disabled={loading}>done</RedButtonUI>
-        <AddPostImageFeature imgList={images!} setImgList={setImages} />
+        {/*НАДО ПЕРЕНАПРАВЛЯТЬ НА СТРАНИЦУ ПОСТА И ТАМ УЖЕ РЕДАКТИРОВАТЬ*/}
+        <AddPostImageFeature imgList={images} setImgList={setImages} />
       </div>
       {post?.images && post.images.length > 0 && (
-        <CarouselUI images={images!} setImages={setImages} height={200} edit borderRadius={10} />
+        <div className={s.images}>
+          <CarouselUI images={images} setImages={setImages} height={200} edit borderRadius={10} />
+        </div>
       )}
     </form>
   )
-}
+})

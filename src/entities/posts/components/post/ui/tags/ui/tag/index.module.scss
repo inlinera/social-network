@@ -2,6 +2,27 @@
   margin: 5px;
   padding: 2px 7px;
   background-color: #fff;
+  color: #000;
+  font-weight: 500;
   border-radius: 10px;
-  cursor: pointer;
+}
+
+.active {
+  background-color: var(--red-color);
+  color: #fff;
+  font-weight: 600;
+
+  span {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px !important;
+    background-color: #fff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 900;
+    border-radius: 100%;
+
+    * {
+      color: #000;
+    }
+  }
 }

@@ -11,20 +11,14 @@ interface CarouselUIProps extends React.HTMLAttributes<HTMLDivElement> {
   edit?: boolean
 }
 
-export const CarouselUI = ({
-  borderRadius,
-  images,
-  setImages,
-  height,
-  edit,
-  ...props
-}: CarouselUIProps) => {
+export const CarouselUI = ({ borderRadius, images, setImages, height, edit, ...props }: CarouselUIProps) => {
   const { deleteImage } = storageApi
+
   return (
-    <div className={`${s['carousel-ui']} flex`} {...props} style={{ height }}>
+    <div className={`${s['carousel-ui']} flex scroll`} {...props} style={{ height }}>
       {images.map(img => {
         return (
-          <div className={`${s['carousel-ui-image']} flex`}>
+          <div className={`${s['carousel-ui-image']} flex`} key={img}>
             {edit && (
               <div className="flex">
                 <button className="flex jcc aic" type="button">
@@ -35,21 +29,13 @@ export const CarouselUI = ({
                 <button
                   className="flex jcc aic"
                   type="button"
-                  onClick={() =>
-                    deleteImage(img).then(() => setImages?.(images.filter(url => url != img)))
-                  }
+                  onClick={() => deleteImage(img).then(() => setImages?.(images.filter(url => url != img)))}
                 >
                   <Trash />
                 </button>
               </div>
             )}
-            <ImageUI
-              key={img}
-              src={img}
-              alt=""
-              borderRadius={borderRadius}
-              draggable={false}
-            />
+            <ImageUI key={img} src={img} alt="" borderRadius={borderRadius} draggable={false} />
           </div>
         )
       })}

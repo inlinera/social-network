@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 //FIREBASE
 import { db } from '@/app/_providers/firebase'
 import {
@@ -12,22 +12,33 @@ import {
   where,
 } from 'firebase/firestore'
 //INTERFACES
-import { IPost } from '@/shared/interfaces/IPost'
+import { EnumTags, IPost } from '@/shared/interfaces/IPost'
 
 import { error, info } from '@/shared/data/toastify'
 
 import authApi from '../user/auth/auth-api'
+import { mobxState } from 'mobx-toolbox'
 
 class PostsStore {
   constructor() {
     makeAutoObservable(this)
+
+    reaction(
+      () => this.tag.tag,
+      () => {
+        this.setPosts(null)
+        this._lastDoc = null
+        this.getPosts()
+      }
+    )
   }
 
-  // ================== POSTS ==================
+  // ==================================== POSTS ====================================
 
   //ALL POSTS STATES
   posts = null as IPost[] | null
   loading = false
+  tag = mobxState<EnumTags | null>(null)('tag')
   private _lastDoc = null as QueryDocumentSnapshot | null
 
   //ALL POSTS ACTIONS
@@ -40,6 +51,7 @@ class PostsStore {
         orderBy('time', 'desc'),
         where('userName', '!=', `${authApi.user?.displayName}`),
         limit(8),
+        ...(this.tag.tag ? [where('tags', 'array-contains', this.tag.tag)] : []),
         ...(this._lastDoc ? [startAfter(this._lastDoc)] : [])
       )
 

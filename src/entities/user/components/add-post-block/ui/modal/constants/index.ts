@@ -1,11 +1,11 @@
 export const tags: string[] = [
   'IT',
-  'Travel',
   'Animals',
+  'Travel',
+  'Gaming',
   'Motivation',
   'Fashion',
   'Lifestyle',
   'Education',
   'Sports',
-  'Gaming',
 ]

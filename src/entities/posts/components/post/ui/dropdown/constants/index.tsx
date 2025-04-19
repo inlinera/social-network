@@ -11,7 +11,6 @@ export interface IDropdownListItem {
   onClick: itemClickT
 }
 
-type voidBoolT = (_: boolean) => void
 type itemClickT = () => void
 
 const { deletePost } = deletePostApi
@@ -36,10 +35,11 @@ const del = (onClick: itemClickT): IDropdownListItem => {
   }
 }
 
-export const items = (isAdmin: boolean, post: IPost, setIsEditing: voidBoolT): IDropdownListItem[] => {
+export const items = (isAdmin: boolean, post: IPost, navEdit: () => void): IDropdownListItem[] => {
   const { t } = useTranslation()
+
   return [
-    ...(isAdmin ? [edit(() => setIsEditing(true)), del(() => deletePost(post.id))] : []),
+    ...(isAdmin ? [edit(navEdit), del(() => deletePost(post.id))] : []),
     {
       content: t('posts.dropdown.copy'),
       icon: <Copy />,

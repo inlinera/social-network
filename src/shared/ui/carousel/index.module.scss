@@ -1,9 +1,9 @@
 .carousel-ui {
   position: relative;
-  width: 100% !important;
+  width: 100%;
   flex-wrap: nowrap;
+  overflow: hidden !important;
   overflow-x: auto !important;
-  scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {
     height: 6px;
@@ -19,11 +19,13 @@
     border-radius: 10px;
     padding: 5px;
   }
+
   .carousel-ui-image {
     position: relative;
     width: max-content;
     margin: 3px;
     flex-wrap: nowrap;
+
     div {
       position: absolute;
       margin: 5px;
@@ -31,21 +33,25 @@
       top: 0;
       opacity: 0;
       transition: all 0.3s;
+
       button {
         margin: 2px;
         width: 30px;
         height: 30px;
         background-color: var(--default);
         border-radius: 100%;
+
         * {
           color: var(--body-color);
           text-decoration: none;
         }
       }
     }
+
     img {
       object-fit: cover;
     }
+
     &:hover {
       div {
         opacity: 1;
@@ -53,8 +59,11 @@
     }
   }
 }
+
 @media (max-width: 768px) {
   .carousel-ui-image {
+    width: inherit;
+
     div {
       opacity: 1 !important;
     }

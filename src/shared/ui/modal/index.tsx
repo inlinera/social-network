@@ -10,7 +10,7 @@ export const ModalUi = ({ isOpened, setIsOpened, padding, children }: ModalUiPro
   return (
     <div className={`${s['modal-ui']} ${isOpened && s.open} flex jcc aic`} onClick={() => setIsOpened(false)}>
       <div
-        className={`${s.modal} ${isOpened && s.open}`}
+        className={`${s.modal} ${isOpened && s.open} scroll`}
         onClick={e => e.stopPropagation()}
         style={padding ? { padding } : {}}
       >

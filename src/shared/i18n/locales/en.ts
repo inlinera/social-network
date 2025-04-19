@@ -7,6 +7,16 @@ export const en = {
       home: 'Home',
       chats: 'Chats',
     },
+    auth_modal: {
+      _: 'You need to authorize',
+      next: 'Authorization',
+      cancel: 'Cancel',
+    },
+    confirm_modal: {
+      _: 'Do you want to do it?',
+      next: 'Yes',
+      cancel: 'No',
+    },
     auth: {
       reg: {
         _: 'Register',
@@ -18,7 +28,7 @@ export const en = {
     posts: {
       latest: 'Latest posts',
       at: 'at',
-      comment: 'Be the first. Write comment!',
+      comment: 'Be the first to comment',
       dropdown: {
         edit: 'Edit post',
         delete: 'Delete post',
