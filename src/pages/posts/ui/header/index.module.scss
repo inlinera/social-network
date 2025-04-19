@@ -1,11 +1,13 @@
 .postsHeader {
   width: inherit;
   padding: 10px;
+  padding-left: 20px;
   border-radius: 12px;
   background-color: var(--post-color);
 
   h1 {
     font-weight: 700;
+    text-wrap: nowrap;
   }
 
   span {
@@ -17,5 +19,13 @@
     padding: 6px;
     background-color: var(--gray-color);
     border-radius: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .postsHeader {
+    h1 {
+      font-size: 13px;
+    }
   }
 }

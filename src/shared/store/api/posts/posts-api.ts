@@ -4,7 +4,7 @@ import { db } from '@/app/_providers/firebase'
 import {
   collection,
   limit,
-  onSnapshot,
+  getDocs,
   orderBy,
   query,
   QueryDocumentSnapshot,
@@ -33,13 +33,13 @@ class PostsStore {
 
   // ==================================== POSTS ====================================
 
-  //ALL POSTS STATES
+  // ALL POSTS STATES
   posts = null as IPost[] | null
   loading = false
   tag = mobxState<TagT | null>(null)('tag')
   private _lastDoc = null as QueryDocumentSnapshot | null
 
-  //ALL POSTS ACTIONS
+  // ALL POSTS ACTIONS
   getPosts = async () => {
     if (this.loading) return
     this.setLoading(true)
@@ -47,28 +47,26 @@ class PostsStore {
       const q = query(
         collection(db, 'posts'),
         orderBy('time', 'desc'),
-        where('userName', '!=', `${authApi.user?.displayName}`),
         limit(8),
+        where('userName', '!=', `${authApi.user?.displayName}`),
         ...(this.tag.tag ? [where('tags', 'array-contains', this.tag.tag)] : []),
         ...(this._lastDoc ? [startAfter(this._lastDoc)] : [])
       )
 
-      return onSnapshot(q, querySnapshot => {
-        if (querySnapshot.empty) {
-          return info('Посты закончились')
-        }
+      const querySnapshot = await getDocs(q)
 
-        const newPosts = querySnapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id,
-        })) as IPost[]
+      if (querySnapshot.empty) {
+        return info('Посты закончились')
+      }
 
-        const existingPostIds = new Set(this.posts?.map(post => post.id))
-        const uniquePosts = newPosts.filter(newPost => !existingPostIds.has(newPost.id))
-        runInAction(() => {
-          this._lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
-          this.setPosts(Array.isArray(this.posts) ? [...this.posts, ...uniquePosts] : uniquePosts)
-        })
+      const newPosts = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id,
+      })) as IPost[]
+
+      runInAction(() => {
+        this._lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
+        this.setPosts(Array.isArray(this.posts) ? [...this.posts, ...newPosts] : newPosts)
       })
     } catch {
       error('Посты не были получены')
@@ -83,7 +81,7 @@ class PostsStore {
     this.getPosts()
   }
 
-  //ALL POSTS STATES MOVIES
+  // ALL POSTS STATES MOVIES
   setLoading = (state: boolean) => (this.loading = state)
   setPosts = (posts: IPost[] | null) => (this.posts = posts)
 }

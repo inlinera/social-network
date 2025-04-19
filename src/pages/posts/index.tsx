@@ -11,6 +11,8 @@ import { PostsPageHeader } from './ui/header'
 const PostsPage = observer(() => {
   const { getPosts, posts, loading } = postsApi
 
+  const isLoading = !posts && loading
+
   useEffect(() => {
     if (!posts) getPosts()
   }, [])
@@ -18,7 +20,7 @@ const PostsPage = observer(() => {
   return (
     <div className={`${s.postListPage} flex fdc aic jcc`}>
       <PostsPageHeader />
-      <PostListWidget posts={posts!} loading={loading} isUserPosts={false} />
+      <PostListWidget posts={posts!} loading={isLoading} isUserPosts={false} />
       <InView
         as="div"
         onChange={inView => inView && !loading && getPosts()}

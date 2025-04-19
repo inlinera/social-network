@@ -1,0 +1,17 @@
+.post__header {
+  position: relative;
+  min-width: 100%;
+  justify-content: space-between;
+
+  .post_user {
+    * {
+      margin: 0 5px;
+    }
+  }
+
+  a {
+    span {
+      color: var(--g-color);
+    }
+  }
+}

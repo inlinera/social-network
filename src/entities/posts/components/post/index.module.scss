@@ -13,17 +13,6 @@
     color: var(--default);
   }
 
-  .post__upperblock {
-    min-width: 100%;
-    justify-content: space-between;
-
-    a {
-      span {
-        color: var(--g-color);
-      }
-    }
-  }
-
   .post__mainblock {
     margin: 4px 0;
     width: 100%;
@@ -34,12 +23,6 @@
 
     .post__images {
       width: 100%;
-    }
-  }
-
-  .post_user {
-    * {
-      margin: 0 5px;
     }
   }
 }

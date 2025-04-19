@@ -33,7 +33,9 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
   return (
     <div className={`${s.userInfo_meta} flex fdc jcc`}>
       <div className={`flex aic ${user && 'jcsb'}`}>
-        <AvatarUI loading={loading} src={userInfo?.avatarUrl} userName={userInfo.displayName} size={95} />
+        <div className={s.avatar}>
+          <AvatarUI loading={loading} src={userInfo?.avatarUrl} userName={userInfo.displayName} size={95} />
+        </div>
         <TextUi loading={loading} lines={1}>
           <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
         </TextUi>

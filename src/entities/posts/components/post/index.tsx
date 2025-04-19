@@ -1,33 +1,23 @@
 import { observer } from 'mobx-react-lite'
-import { useCallback, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import s from './index.module.scss'
 
 import { IPost } from '@/shared/interfaces/IPost'
 
-import { PostBtnLine, DropdownMenuEntity, PostImageList } from '@/entities/posts/'
+import { PostBtnLine, PostImageList } from '@/entities/posts/'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
-import { AvatarUI } from '@/shared/ui/avatar'
 import { TextUi } from '@/shared/ui/text'
 import { PostEdit } from './!edit-state'
-import { InView } from 'react-intersection-observer'
-
-import { useAddZero } from '@/shared/hooks/useAddZero'
 
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import { postState } from '@/shared/store/functional/posts/edit-state'
+import { PostHeader } from './ui/header'
 
-import { AvatarT, handleView } from '@/shared/constants/components-observer/handleView'
-
-import { useTranslation } from 'react-i18next'
-
-interface PostWidgetProps {
+export interface PostWidgetProps {
   loadingPost: boolean
   post?: IPost
 }
-
-const ruDate = Intl.DateTimeFormat()
 
 export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
   const { user } = authApi
@@ -35,43 +25,11 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
     editPost: { editPost },
   } = postState
 
-  const { t } = useTranslation()
-
-  const [avatar, setAvatar] = useState<AvatarT>(null)
-  const [likes, setLikes] = useState<string[]>(post?.likes!)
-
-  const postDate = new Date(post?.time!)
-  const date = ruDate.format(post?.time)
-
-  const handleChange = useCallback((inView: boolean) => {
-    if (avatar) return
-    handleView(`${post?.userName}`, inView, avatar, setAvatar)
-  }, [])
+  const [likes, setLikes] = useState<string[]>(post?.likes ?? [])
 
   return (
     <div className={`${s.post} flex fdc`}>
-      <InView as="div" onChange={handleChange} className={`${s.post__upperblock} flex aic`}>
-        <div className="flex fdc">
-          <Link to={`/user/${post?.userName}`} className={`${s.post_user} flex aic`}>
-            <AvatarUI loading={loadingPost} src={avatar} size={45} userName={`${post?.userName}`} />
-            <div className="flex fdc">
-              <TextUi loading={loadingPost} lines={1}>
-                <p style={{ fontSize: document.body.style.fontSize }}>{post?.userName}</p>
-              </TextUi>
-              <TextUi loading={loadingPost} lines={1}>
-                <span className="fz10">
-                  {date +
-                    ` ${t('posts.at')} ` +
-                    useAddZero(postDate.getHours()) +
-                    ':' +
-                    useAddZero(postDate.getMinutes())}
-                </span>
-              </TextUi>
-            </div>
-          </Link>
-        </div>
-        <DropdownMenuEntity isAdmin={user?.displayName === post?.userName} post={post!} />
-      </InView>
+      <PostHeader loadingPost={loadingPost} post={post} />
       <div className={s.post__mainblock}>
         {editPost === post?.id ? (
           <PostEdit post={post!} />
@@ -87,11 +45,11 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
             </div>
           </>
         )}
-        <PostTagEntity tags={post?.tags!} />
+        <PostTagEntity tags={post?.tags ?? []} />
         <PostBtnLine
           likes={likes}
           setLikes={setLikes}
-          comments={post?.comments!}
+          comments={post?.comments ?? []}
           postId={post?.id!}
           userId={`${user?.displayName}`}
         />
