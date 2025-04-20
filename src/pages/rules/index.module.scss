@@ -1,0 +1,28 @@
+.rules {
+  font-family: 'Inter', serif;
+
+  div {
+    margin: 10px;
+
+    h2 {
+      font-size: 18px;
+    }
+
+    * {
+      color: var(--default) !important;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 5px 0px;
+    }
+  }
+
+  span {
+    font-size: 11px;
+    color: var(--red-color);
+  }
+}

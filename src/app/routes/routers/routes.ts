@@ -8,6 +8,7 @@ const UserPage = lazy(() => import('@/pages/user'))
 const PostPage = lazy(() => import('@/pages/post'))
 const SettingsPage = lazy(() => import('@/pages/settings'))
 const ChatsPage = lazy(() => import('@/pages/chats'))
+const RulesPage = lazy(() => import('@/pages/rules'))
 
 export type RouteT = {
   path: string
@@ -26,6 +27,7 @@ export const privateRoutes: RouteT[] = [
   { path: '/', element: PostsPage },
   { path: '/user/:userId', element: UserPage },
   { path: '/chats', element: ChatsPage },
+  { path: '/rules', element: RulesPage },
   { path: '/posts/:postId', element: PostPage },
   { path: '/settings', element: SettingsPage },
 ]

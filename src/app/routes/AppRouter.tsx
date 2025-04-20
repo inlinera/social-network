@@ -6,7 +6,6 @@ import { LayoutNav } from '@/widgets/layout'
 //MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
 //COMPONENTS
-import { Spin } from 'antd'
 import { PageLoad } from './ui/loading'
 
 import { PrivateRouter } from './routers/PrivateRouter'
@@ -14,7 +13,7 @@ import { PublicRouter } from './routers/PublicRouter'
 
 const AppRouter = observer(() => {
   const { loading, user } = authApi
-  if (loading) return <Spin size="large" />
+  if (loading) return <PageLoad />
 
   return (
     <>
@@ -34,7 +33,7 @@ const AppRouter = observer(() => {
         transition={Slide}
       />
       <main className={'flex fdc scroll'}>
-        <Suspense fallback={<PageLoad />}>{user ? <PrivateRouter /> : <PublicRouter />}</Suspense>
+        <Suspense>{user ? <PrivateRouter /> : <PublicRouter />}</Suspense>
       </main>
     </>
   )

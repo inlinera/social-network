@@ -1,8 +1,7 @@
-import { LoadingUI } from '@/shared/ui/loading'
-import { useTranslation } from 'react-i18next'
-
 export const PageLoad = () => {
-  const { t } = useTranslation()
-
-  return <LoadingUI>{t('page_load')}</LoadingUI>
+  return (
+    <div className="flex jcc aic" style={{ width: '100vw', height: '100vh' }}>
+      <img src="https://i.postimg.cc/vmx8V37m/20250420-115413.png" alt="2la" width={135} height={135} />
+    </div>
+  )
 }
