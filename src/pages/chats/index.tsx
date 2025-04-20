@@ -8,9 +8,13 @@ import getChatsApi from '@/shared/store/api/chats/get-chats-api'
 import { ChatsList, ChatWindow } from '@/entities/chats/index'
 import { myUserFriend } from '@/shared/data/users/my-user-info'
 
+import { setTitle } from '@/shared/constants/setTitle'
+
 const ChatsPage = observer(() => {
   const { user } = authApi
   const { getChats } = getChatsApi
+
+  setTitle('2la chats')
 
   useEffect(() => {
     if (user?.displayName && user?.avatarUrl) {

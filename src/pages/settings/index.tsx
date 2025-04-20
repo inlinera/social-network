@@ -3,9 +3,11 @@ import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 
 import { IContent, items } from '@/shared/data/settings/settings'
+import { setTitle } from '@/shared/constants/setTitle'
 
 const SettingsPage = observer(() => {
   const [activeType, setActiveType] = useState(0)
+  setTitle('2la settings')
 
   return (
     <div className={'flex fdc aic'}>

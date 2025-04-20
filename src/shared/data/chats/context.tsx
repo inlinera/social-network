@@ -33,38 +33,30 @@ const { unpinMessage } = unpinMsgApi
 
 // SOME COMMON ITEMS
 
-const reply = (msg: IMessage) => {
-  const { t } = useTranslation()
-
-  return {
-    icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
-    name: t('chats.window.contextMenu.reply'),
-    onClick: () => {
-      setState('reply')
-      setActionMsg(msg)
-    },
-  }
-}
-
-const copy = (message: string) => {
-  const { t } = useTranslation()
-
-  return {
-    icon: <CopyOutlined />,
-    name: t('chats.window.contextMenu.copy'),
-    onClick: () => useCopyText(message),
-  }
-}
-
-const pin = (msg: IMessage, chat: IChat | null) => {
+const common = (msg: IMessage, chat: IChat | null) => {
   const { t } = useTranslation()
   const isMsgPinned = chat?.pinned.find(pinnedMsg => pinnedMsg.id == msg.id)
 
-  return {
-    icon: <PushpinOutlined />,
-    name: isMsgPinned ? t('chats.window.contextMenu.unpin') : t('chats.window.contextMenu.pin'),
-    onClick: () => (isMsgPinned ? unpinMessage(msg) : pinMessage(msg)),
-  }
+  return [
+    {
+      icon: <EnterOutlined style={{ rotate: '180deg', fontWeight: 900 }} />,
+      name: t('chats.window.contextMenu.reply'),
+      onClick: () => {
+        setState('reply')
+        setActionMsg(msg)
+      },
+    },
+    {
+      icon: <CopyOutlined />,
+      name: t('chats.window.contextMenu.copy'),
+      onClick: () => useCopyText(msg.message),
+    },
+    {
+      icon: <PushpinOutlined />,
+      name: isMsgPinned ? t('chats.window.contextMenu.unpin') : t('chats.window.contextMenu.pin'),
+      onClick: () => (isMsgPinned ? unpinMessage(msg) : pinMessage(msg)),
+    },
+  ]
 }
 
 export const items = (msg: IMessage) => {
@@ -73,9 +65,7 @@ export const items = (msg: IMessage) => {
 
   return {
     my: [
-      reply(msg),
-      copy(msg.message),
-      pin(msg, chat),
+      ...common(msg, chat),
       {
         icon: <EditOutlined />,
         name: t('chats.window.contextMenu.edit'),
@@ -91,6 +81,6 @@ export const items = (msg: IMessage) => {
         onClick: () => deleteMessage(msg),
       },
     ],
-    notMy: [reply(msg), copy(msg.message), pin(msg, chat)],
+    notMy: common(msg, chat),
   }
 }

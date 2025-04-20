@@ -2,8 +2,8 @@ import { memo, useState } from 'react'
 import s from './index.module.scss'
 import { Link } from 'react-router-dom'
 
-import { Dropdown } from 'antd'
 import { AvatarUI } from '@/shared/ui/avatar'
+import { DropdownUi } from '@/shared/ui/dropdown'
 
 import { ArrowLeftOutlined, MoreOutlined } from '@ant-design/icons'
 
@@ -44,11 +44,11 @@ export const ChatUserBlock = memo(({ chattingUser }: ChatUserBlockProps) => {
           <h3>@{chattingUser?.displayName}</h3>
         </Link>
       </div>
-      <Dropdown menu={{ items: items(chattingUser.displayName) }} trigger={['click']}>
-        <button className="fz17">
+      <div className={s.dropdown}>
+        <DropdownUi items={items(chattingUser.displayName)}>
           <MoreOutlined />
-        </button>
-      </Dropdown>
+        </DropdownUi>
+      </div>
     </div>
   )
 })

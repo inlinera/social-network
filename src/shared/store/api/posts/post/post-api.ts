@@ -14,7 +14,7 @@ class postApi {
   // ===================== POST =====================
 
   // POST STATES
-  post = {} as IPost
+  post = null as IPost | null
   loading = false
   error? = ''
 
@@ -34,7 +34,7 @@ class postApi {
   }
 
   // POST STATE MOVES
-  setPost = (post: IPost) => (this.post = post)
+  setPost = (post: IPost | null) => (this.post = post)
   setLoading = (loading: boolean) => (this.loading = loading)
   setError = (err: string) => (this.error = err)
 }

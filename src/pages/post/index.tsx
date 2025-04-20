@@ -10,6 +10,7 @@ import { PostWidget } from '@/entities/posts/components/post'
 import { PostCommentsList } from '@/entities/posts/index'
 
 import { useParams } from 'react-router-dom'
+import { setTitle } from '@/shared/constants/setTitle'
 
 const PostPage = observer(() => {
   const { getPost, post, error, loading } = postApi
@@ -21,6 +22,8 @@ const PostPage = observer(() => {
   }, [])
 
   if (error) return 'Error'
+
+  if (post) setTitle(`2la • ${post.value?.charAt(0).toUpperCase()}${post.value?.slice(1)}`)
 
   return (
     <div className={s.postPage}>

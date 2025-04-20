@@ -8,8 +8,11 @@ import { PostListWidget } from '@/widgets/posts'
 import { InView } from 'react-intersection-observer'
 import { PostsPageHeader } from './ui/header'
 
+import { setTitle } from '@/shared/constants/setTitle'
+
 const PostsPage = observer(() => {
   const { getPosts, posts, loading } = postsApi
+  setTitle('2la')
 
   const isLoading = !posts && loading
 

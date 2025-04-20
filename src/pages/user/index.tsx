@@ -10,6 +10,7 @@ import userPostsApi from '@/shared/store/api/user/profile/user-posts-api'
 import { PostListWidget } from '@/widgets/posts'
 import { UserBlock, UserFriendModal, AddPostBlockEntity } from '@/entities/user/'
 import { isVisible } from '@/shared/constants/isContentVisible'
+import { setTitle } from '@/shared/constants/setTitle'
 
 const UserPage = observer(() => {
   const { userInfo, getUser, loading, error } = userStore
@@ -28,6 +29,8 @@ const UserPage = observer(() => {
     getUser(`${userId}`)
     setIsOpenedFriend(false)
   }, [userId])
+
+  setTitle(`2la • ${userInfo.displayName}`)
 
   return (
     <div className={`${s.userBlock} flex fdc`}>

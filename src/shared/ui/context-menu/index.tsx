@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import s from './index.module.scss'
 import { useMobile } from '@/shared/hooks/useMobile'
 import { ContextMenuItem } from '@/shared/data/chats/context'
+import { useTranslation } from 'react-i18next'
 
 interface ContextMenuUIProps {
   items: ContextMenuItem[]
@@ -9,16 +10,19 @@ interface ContextMenuUIProps {
 }
 
 export const ContextMenuUI = ({ items, children }: ContextMenuUIProps) => {
+  const isMobile = useMobile()
+  const { i18n } = useTranslation()
+
   const [pos, setPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+
   const contextRef = useRef<HTMLDivElement>(null)
-  const isMobile = useMobile()
 
   // HANDLERS
   const menuHandler = (e: React.MouseEvent) => {
     e.preventDefault()
     const menuHeight = items.length * 37
-    const menuWidth = 78
+    const menuWidth = i18n.language == 'en' ? 78 : 148
     const { clientX, clientY } = e
 
     const rightSpace = window.innerWidth - clientX
