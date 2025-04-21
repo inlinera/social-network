@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 
-import handleLikeApi from '@/shared/store/api/posts/post/details/handle-like-api'
 import authApi from '@/shared/store/api/user/auth/auth-api'
 
 import { PostBtn } from '@/shared/ui/buttons/post-button'
@@ -9,48 +7,26 @@ import { Link } from 'react-router-dom'
 import { AuthModal } from '@/entities/@common/auth-modal'
 
 import { CommentOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons'
+import { IPost } from '@/shared/interfaces/IPost'
 
-import { IComment } from '@/shared/interfaces/IComment'
+import { useLikePost } from '@/shared/hooks/posts/useLikePost'
 
-interface PostBtnLineProps {
-  likes: string[]
-  setLikes: (_: string[]) => void
-  comments: IComment[]
-  postId: string
-  userId: string
-}
+type PostBtnLineProps = Pick<IPost, 'id' | 'comments' | 'likes'>
 
-export const PostBtnLine = observer(({ likes, setLikes, comments, postId, userId }: PostBtnLineProps) => {
+export const PostBtnLine = observer(({ id, comments, likes }: PostBtnLineProps) => {
   const { user } = authApi
-  const { handlePostLike } = handleLikeApi
 
-  const [loading, setLoading] = useState(false)
-  const [isAuthModalOpened, setIsAuthModalOpened] = useState(false)
-
-  const isIncludes = likes?.includes(`${user?.displayName}`)
-
-  const handleLikeStateChange = async () => {
-    if (!user) return setIsAuthModalOpened(true)
-    setLoading(true)
-    try {
-      await handlePostLike(isIncludes, postId, userId)
-      setLikes(!isIncludes ? [`${user?.displayName}`, ...likes] : likes.filter(u => u !== user?.displayName))
-    } catch {
-      null
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { loading, isAuthModalOpened, setIsAuthModalOpened, postLikes, handleLike } = useLikePost(id, likes, user)
 
   return (
     <>
       <AuthModal isOpened={isAuthModalOpened} setIsOpened={setIsAuthModalOpened} />
       <div className="flex aic">
-        <PostBtn onClick={() => !loading && handleLikeStateChange()} loading={loading} disabled={loading}>
-          {isIncludes ? <HeartFilled /> : <HeartOutlined />}
-          {likes?.length}
+        <PostBtn onClick={() => !loading && handleLike()} loading={loading} disabled={loading}>
+          {postLikes?.includes(`${user?.displayName}`) ? <HeartFilled /> : <HeartOutlined />}
+          {postLikes?.length}
         </PostBtn>
-        <Link to={`/posts/${postId}`}>
+        <Link to={`/posts/${id}`}>
           <PostBtn>
             <CommentOutlined />
             {comments?.length}

@@ -1,18 +1,16 @@
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
 import s from './index.module.scss'
 
 import { IPost } from '@/shared/interfaces/IPost'
 
+import { PostHeader } from './ui/header'
 import { PostBtnLine, PostImageList } from '@/entities/posts/'
 import { LinkifyText } from '@/shared/ui/parseText'
 import { PostTagEntity } from '@/entities/posts/components/post/ui/tags'
 import { TextUi } from '@/shared/ui/text'
 import { PostEdit } from './!edit-state'
 
-import authApi from '@/shared/store/api/user/auth/auth-api'
 import { postState } from '@/shared/store/functional/posts/edit-state'
-import { PostHeader } from './ui/header'
 
 export interface PostWidgetProps {
   loadingPost: boolean
@@ -20,12 +18,9 @@ export interface PostWidgetProps {
 }
 
 export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
-  const { user } = authApi
   const {
     editPost: { editPost },
   } = postState
-
-  const [likes, setLikes] = useState<string[]>(post?.likes ?? [])
 
   return (
     <div className={`${s.post} flex fdc`}>
@@ -46,13 +41,7 @@ export const PostWidget = observer(({ loadingPost, post }: PostWidgetProps) => {
           </>
         )}
         <PostTagEntity tags={post?.tags ?? []} />
-        <PostBtnLine
-          likes={likes}
-          setLikes={setLikes}
-          comments={post?.comments ?? []}
-          postId={post?.id!}
-          userId={`${user?.displayName}`}
-        />
+        <PostBtnLine id={post?.id!} comments={post?.comments ?? []} likes={post?.likes ?? []} />
       </div>
     </div>
   )

@@ -1,7 +1,11 @@
-import { rules } from '@/shared/data/posts_rules'
 import s from './index.module.scss'
 
+import { rules } from '@/shared/data/posts_rules'
+import { setTitle } from '@/shared/constants/setTitle'
+
 const RulesPage = () => {
+  setTitle('2la rules')
+
   return (
     <div className={`${s.rules} flex fdc jcc`}>
       {rules.map((rules, id) => {

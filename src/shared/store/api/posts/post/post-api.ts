@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import { IPost } from '@/shared/interfaces/IPost'
 //FIREBASE
 import { db } from '@/app/_providers/firebase'
-import { doc, onSnapshot } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { error } from '@/shared/data/toastify'
 
 class postApi {
@@ -23,9 +23,9 @@ class postApi {
     this.setLoading(true)
     try {
       const docRef = doc(db, 'posts', id)
-      return onSnapshot(docRef, doc => {
-        this.setPost({ ...doc.data(), id: doc.id } as IPost)
-      })
+      const docSnap = await getDoc(docRef)
+
+      if (docSnap.exists()) return this.setPost({ ...docSnap.data(), id: docSnap.id } as IPost)
     } catch {
       error('Невозможно получить пост')
     } finally {

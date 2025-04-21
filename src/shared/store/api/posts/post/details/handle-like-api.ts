@@ -11,22 +11,22 @@ class HandlePostLikeApi {
 
   // =================== POST LIKES API ===================
 
-  handlePostLike = async (liked: boolean, postId: string, userId: string) => {
+  handlePostLike = async (postId: string, userId: string) => {
     try {
       const postRef = doc(db, 'posts', postId)
       const postDoc = await getDoc(postRef)
 
       if (postDoc.exists()) {
         const currentLikes = postDoc.data().likes
-        if (liked) {
-          await updateDoc(postRef, {
-            likes: arrayRemove(userId),
-          })
-        } else if (!currentLikes.includes(userId)) {
-          await updateDoc(postRef, {
+
+        if (!currentLikes.includes(userId)) {
+          return await updateDoc(postRef, {
             likes: arrayUnion(userId),
           })
         }
+        await updateDoc(postRef, {
+          likes: arrayRemove(userId),
+        })
       }
     } catch (e) {
       error('Произошла ошибка')
