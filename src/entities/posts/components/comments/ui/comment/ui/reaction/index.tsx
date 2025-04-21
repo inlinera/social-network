@@ -22,8 +22,8 @@ interface CommentReactionProps extends IComment {
 export const CommentReaction = observer(({ ...props }: CommentReactionProps) => {
   const { postId, id } = props
 
-  const [likes, setLikes] = useState<string[]>(props.likes)
-  const [dislikes, setDislikes] = useState<string[]>(props.dislikes)
+  const [likes, setLikes] = useState<string[]>(props.likes ?? [])
+  const [dislikes, setDislikes] = useState<string[]>(props.dislikes ?? [])
 
   const { user } = authApi
   const { editComment } = editCommentApi

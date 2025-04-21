@@ -6,6 +6,10 @@
   color: var(--default);
   background-color: var(--post-color);
 
+  .avatar {
+    width: max-content;
+  }
+
   input {
     margin-left: 5px;
   }

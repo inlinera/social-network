@@ -4,6 +4,7 @@ import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
 import { IComment } from '@/shared/interfaces/IComment'
 import { error } from '@/shared/data/toastify'
+import postApi from '../../post-api'
 
 class AddCommentApi {
   constructor() {
@@ -22,6 +23,7 @@ class AddCommentApi {
           comments: arrayUnion(data),
         })
       }
+      postApi.getPost(postId)
     } catch {
       error('Невозможно написать комментарий')
     }

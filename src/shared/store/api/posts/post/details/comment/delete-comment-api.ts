@@ -4,6 +4,7 @@ import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
 import { IComment } from '@/shared/interfaces/IComment'
 import { error } from '@/shared/data/toastify'
+import postApi from '../../post-api'
 
 class DeleteCommentApi {
   constructor() {
@@ -22,6 +23,7 @@ class DeleteCommentApi {
           comments: arrayRemove(data),
         })
       }
+      postApi.getPost(postId)
     } catch {
       error('Произошла ошибка при удалении комментария')
     }
