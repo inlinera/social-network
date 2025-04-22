@@ -8,7 +8,7 @@ import InputState from '@/shared/store/functional/chat/input/input-state'
 import { v4 } from 'uuid'
 
 import { useScrollBottom } from './useScrollBottom'
-import { useScrollToMsg } from '../useScrollToMsg'
+import { useScrollToMsg } from './useScrollToMsg'
 import { useUploadImg } from '../details/useUploadImg'
 
 import { error } from '@/shared/data/toastify'

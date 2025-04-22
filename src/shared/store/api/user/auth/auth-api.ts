@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 // FIREBASE
 import { auth, db } from '@/app/_providers/firebase'
 import {
@@ -74,10 +74,7 @@ class AuthorizationStore {
         }),
       ])
 
-      runInAction(() => {
-        this.setUser(user as IUser)
-        this.setToken(user.displayName!)
-      })
+      this.setUser(user as IUser)
 
       success('Регистрация прошла успешно!')
     } catch {
@@ -89,10 +86,7 @@ class AuthorizationStore {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password)
 
-      runInAction(() => {
-        this.setUser(user as IUser)
-        this.setToken(user?.displayName!)
-      })
+      this.setUser(user as IUser)
     } catch {
       error('Произошла ошибка, проверьте введенные данные')
     }
@@ -153,7 +147,6 @@ class AuthorizationStore {
   // ALL AUTH STATES MOVES
   setLoading = (state: boolean) => (this.loading = state)
   setUser = (user: IUser | null) => (this.user = user)
-  setToken = (token: string) => localStorage.setItem('2la-token', token)
 }
 
 export default new AuthorizationStore()

@@ -5,7 +5,7 @@ import { AvatarT, handleView } from '@/shared/constants/components-observer/hand
 import { PostWidgetProps } from '../..'
 
 import { useTranslation } from 'react-i18next'
-import { useAddZero } from '@/shared/hooks/useAddZero'
+import { addZero } from '@/shared/constants/addZero'
 
 import { InView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
@@ -22,7 +22,7 @@ const formatPostDate = (date: number, at: string) => {
   if (isNaN(date)) return
 
   const d = new Date(date)
-  return `${ruDate.format(d)} ${at} ${useAddZero(d.getHours())}:${useAddZero(d.getMinutes())}`
+  return `${ruDate.format(d)} ${at} ${addZero(d.getHours())}:${addZero(d.getMinutes())}`
 }
 
 export const PostHeader = observer(({ loadingPost, post }: PostWidgetProps) => {

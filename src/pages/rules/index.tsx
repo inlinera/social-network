@@ -16,7 +16,7 @@ const RulesPage = () => {
             </h2>
             <ul className="flex fdc">
               {rules.content.map(rule => (
-                <li>• {rule}</li>
+                <li key={rule}>• {rule}</li>
               ))}
             </ul>
           </div>

@@ -7,8 +7,8 @@ import { BarsOutlined, CloseOutlined } from '@ant-design/icons'
 import unpinMsgApi from '@/shared/store/api/chats/chat/details/unpin-msg-api'
 import { chatState } from '@/shared/store/functional/chat/content'
 
-import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
+import { useScrollToMsg } from '@/shared/hooks/chats/useScrollToMsg'
+import { sliceStr } from '@/shared/constants/sliceStr'
 import { useTranslation } from 'react-i18next'
 
 export interface PinnedMsgsProps {
@@ -30,7 +30,7 @@ export const PinnedMsgs = ({ pin }: PinnedMsgsProps) => {
         <div>
           <b>@{lastPin?.userId}: </b>
           <span>
-            {lastPin.image && t('chats.photo')} {useSliceStr(lastPin?.message, 15)}
+            {lastPin.image && t('chats.photo')} {sliceStr(lastPin?.message, 15)}
           </span>
         </div>
       </div>

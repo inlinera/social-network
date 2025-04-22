@@ -1,6 +1,6 @@
 import { success, error } from '../data/toastify'
 
-export const useCopyText = (s: string) => {
+export const copyText = (s: string) => {
   navigator.clipboard
     .writeText(s)
     .then(() => {

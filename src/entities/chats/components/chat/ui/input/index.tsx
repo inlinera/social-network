@@ -10,7 +10,7 @@ import { ChatCommonMsgViewUi } from '../common/msg-view'
 
 import { useTranslation } from 'react-i18next'
 import { useSendMsg } from '@/shared/hooks/chats/useSendMsg'
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
+import { sliceStr } from '@/shared/constants/sliceStr'
 
 interface ChatInputUiProps {
   isAttachmentView: boolean
@@ -38,7 +38,7 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
         <ChatCommonMsgViewUi id={actionMsg.id}>
           <div className={s.prev}>
             <b>{t('chats.message')}:</b>
-            <p>{useSliceStr(actionMsg.message, 15)}</p>
+            <p>{sliceStr(actionMsg.message, 15)}</p>
             <button
               className="fz17"
               onClick={e => {

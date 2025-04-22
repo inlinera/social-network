@@ -1,4 +1,4 @@
-import { useCopyText } from '@/shared/hooks/useCopyText'
+import { copyText } from '@/shared/constants/copyText'
 import { IPost } from '@/shared/interfaces/IPost'
 import deletePostApi from '@/shared/store/api/posts/post/actions/delete-post-api'
 
@@ -34,7 +34,7 @@ export const items = (isAdmin: boolean, post: IPost, navEdit: () => void): IDrop
     {
       content: t('posts.dropdown.copy'),
       icon: <Copy />,
-      onClick: () => useCopyText(post.value),
+      onClick: () => copyText(post.value),
     },
   ]
 }

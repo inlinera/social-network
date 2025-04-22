@@ -9,8 +9,8 @@ import { ContextMenuUI } from '@/shared/ui/context-menu'
 import { ChatCommonMsgViewUi } from '../common/msg-view'
 import { ImageUI } from '@/shared/ui/image'
 
-import { useSliceStr } from '@/shared/hooks/useSliceStr'
-import { useAddZero } from '@/shared/hooks/useAddZero'
+import { sliceStr } from '@/shared/constants/sliceStr'
+import { addZero } from '@/shared/constants/addZero'
 
 interface ChatMessageUIProps {
   isThisMessageMy: boolean
@@ -41,7 +41,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message, setSelectedImg }: Chat
             <div onClick={e => e.stopPropagation()}>
               <ChatCommonMsgViewUi id={message.reply.id}>
                 <h4>@{message.reply.userId}</h4>
-                <p>{useSliceStr(message.reply.message, 9)}</p>
+                <p>{sliceStr(message.reply.message, 9)}</p>
               </ChatCommonMsgViewUi>
             </div>
           )}
@@ -54,7 +54,7 @@ export const ChatMessageUI = ({ isThisMessageMy, message, setSelectedImg }: Chat
         </div>
       </ContextMenuUI>
       <b>
-        {time.hr}:{useAddZero(time.min)}, {useAddZero(time.d)}/{useAddZero(time.mon + 1)}
+        {time.hr}:{addZero(time.min)}, {addZero(time.d)}/{addZero(time.mon + 1)}
       </b>
     </div>
   )

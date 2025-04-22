@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import s from './index.module.scss'
 
-import { useAddZero } from '@/shared/hooks/useAddZero'
+import { addZero } from '@/shared/constants/addZero'
 
 import { IChat, IMessage } from '@/shared/interfaces/IChat'
 import { IUser } from '@/shared/interfaces/IUser'
@@ -72,9 +72,7 @@ export const ChatComponent = observer(
         </InView>
         {isTimeVisible && (
           <TextUi loading={loading} lines={1}>
-            <span>
-              {lastMessage?.time && useAddZero(msgDate?.getHours()) + ':' + useAddZero(msgDate?.getMinutes())}
-            </span>
+            <span>{lastMessage?.time && addZero(msgDate?.getHours()) + ':' + addZero(msgDate?.getMinutes())}</span>
           </TextUi>
         )}
       </div>

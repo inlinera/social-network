@@ -1,5 +1,5 @@
-import getChatApi from '../store/api/chats/chat/get-chat-api'
-import { chatState } from '../store/functional/chat/content'
+import getChatApi from '../../store/api/chats/chat/get-chat-api'
+import { chatState } from '../../store/functional/chat/content'
 
 export const useScrollToMsg = (id: string) => {
   const { setIsChat } = chatState

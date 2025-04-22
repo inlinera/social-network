@@ -10,7 +10,7 @@ import { ArrowLeftOutlined, CloseOutlined } from '@ant-design/icons'
 import unpinMsgApi from '@/shared/store/api/chats/chat/details/unpin-msg-api'
 import { chatState } from '@/shared/store/functional/chat/content'
 
-import { useScrollToMsg } from '@/shared/hooks/useScrollToMsg'
+import { useScrollToMsg } from '@/shared/hooks/chats/useScrollToMsg'
 import { useTranslation } from 'react-i18next'
 
 export const PinnedMsgsList = observer(({ pin }: PinnedMsgsProps) => {

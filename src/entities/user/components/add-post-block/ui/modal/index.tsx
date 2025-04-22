@@ -12,7 +12,7 @@ import { SearchDropdownUi } from './ui/dropdown'
 
 import { tags } from './constants'
 
-import { useFormatInput } from '@/shared/hooks/useFormatInput'
+import { formatInput } from '@/shared/constants/formatInput'
 
 import { error } from '@/shared/data/toastify'
 
@@ -30,7 +30,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     e.preventDefault()
 
-    const val = useFormatInput(value)
+    const val = formatInput(value)
     if (!val) return error('Введите контент поста')
 
     await createPost(val, selectedTags, imgList).then(() => {

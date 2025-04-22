@@ -1,4 +1,4 @@
-import { useCopyText } from '@/shared/hooks/useCopyText'
+import { copyText } from '@/shared/constants/copyText'
 
 import { IChat, IMessage } from '@/shared/interfaces/IChat'
 
@@ -49,7 +49,7 @@ const common = (msg: IMessage, chat: IChat | null) => {
     {
       icon: <CopyOutlined />,
       name: t('chats.window.contextMenu.copy'),
-      onClick: () => useCopyText(msg.message),
+      onClick: () => copyText(msg.message),
     },
     {
       icon: <PushpinOutlined />,

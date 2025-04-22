@@ -1,6 +1,10 @@
 import authApi from '../store/api/user/auth/auth-api'
 import userApi from '../store/api/user/profile/user-api'
 
+/**
+ * Function that checks if user can view information
+ */
+
 export const isVisible = (visible: boolean): boolean => {
   const { user } = authApi
   const { userInfo } = userApi
