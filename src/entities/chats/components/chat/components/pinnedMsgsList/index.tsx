@@ -24,7 +24,7 @@ export const PinnedMsgsList = observer(({ pin }: PinnedMsgsProps) => {
   }
 
   useEffect(() => {
-    pin.length == 0 && setIsChat(true)
+    pin.length === 0 && setIsChat(true)
   }, [pin.length])
 
   return (

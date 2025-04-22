@@ -12,6 +12,7 @@ interface ChatMessagesListProps {
 export const ChatMessagesList = observer(({ setSelectedImg }: ChatMessagesListProps) => {
   const { user } = authApi
   const { chat } = getChatApi
+
   return chat?.messages.map(m => {
     const isThisMessageMy = m.userId === user?.displayName
     return (

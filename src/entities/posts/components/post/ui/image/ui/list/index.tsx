@@ -3,6 +3,7 @@ import s from './index.module.scss'
 
 import { ImageListModal } from '../modal'
 import { ImageUI } from '@/shared/ui/image'
+import { InView } from 'react-intersection-observer'
 
 interface PostImageListProps {
   images: string[]
@@ -10,16 +11,21 @@ interface PostImageListProps {
 
 export const PostImageList = ({ images }: PostImageListProps) => {
   const [isOpened, setIsOpened] = useState(false)
+  const [imgs, setImgs] = useState<string[] | undefined>()
 
   return (
     <>
       <ImageListModal images={images} isOpened={isOpened} setIsOpened={setIsOpened} />
-      <div
+      <InView
+        as="div"
+        onChange={inView => inView && !imgs && setImgs(images)}
         className={`${
           images.length == 1 ? s.oneElement : images.length == 2 ? s.twoElement : s.threeElement
         } grid`}
       >
-        {images.slice(0, 2).map(i => (
+        {!imgs &&
+          Array.from({ length: images.length }, (_, id) => <div className={`${s.imageWrapper}`} key={id} />)}
+        {imgs?.slice(0, 2).map(i => (
           <div className={s.imageWrapper} key={i}>
             <ImageUI src={i} alt={i} className={s.image} borderRadius={10} loading="lazy" />
           </div>
@@ -29,7 +35,7 @@ export const PostImageList = ({ images }: PostImageListProps) => {
             +{images.length - 2}
           </button>
         )}
-      </div>
+      </InView>
     </>
   )
 }

@@ -10,6 +10,7 @@ import editCommentApi from '@/shared/store/api/posts/post/details/comment/edit-c
 import { ThumbsDown, ThumbsUp } from 'lucide-react'
 
 import { newArray } from '@/shared/constants/posts/handleLike'
+import { error } from '@/shared/data/toastify'
 
 const colorStyle = (arr?: string[], name?: string) => ({
   fill: arr?.includes(`${name}`) ? '#fff' : 'transparent',
@@ -30,6 +31,7 @@ export const CommentReaction = observer(({ ...props }: CommentReactionProps) => 
 
   const handleReaction = useCallback(
     (type: 'like' | 'dislike') => {
+      if (!user) return error('Необходима авторизация')
       const isLike = type === 'like'
 
       const newLikes = isLike

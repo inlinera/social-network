@@ -22,7 +22,9 @@ interface ChatUserBlockProps {
 
 export const ChatUserBlock = memo(({ chattingUser }: ChatUserBlockProps) => {
   const { setChat, loading } = getChatApi
+
   const isMobile = useMobile()
+
   const [avatar, setAvatar] = useState<string | null>(null)
 
   const avatarUrl = async () => {
