@@ -8,7 +8,9 @@ export const handleView = async (
   avatar: AvatarT,
   setAvatar: (_: AvatarT) => void
 ) => {
-  if (inView && !avatar) {
+  if (avatar) return
+
+  if (inView) {
     const newAvatar = await useGetAvatar(userName)
     setAvatar(newAvatar)
   }

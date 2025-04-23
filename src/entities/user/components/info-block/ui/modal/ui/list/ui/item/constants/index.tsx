@@ -1,6 +1,6 @@
 import { AcceptFriend } from '@/features/users/add-friend'
 
-import { myUserFriend } from '@/shared/data/users/my-user-info'
+import { myUserFriend } from '@/shared/constants/users/my-user-info'
 
 import { IFriend } from '@/shared/interfaces/IFriend'
 

@@ -17,7 +17,7 @@ import { SettingOutlined, UserAddOutlined, UserDeleteOutlined } from '@ant-desig
 //COMPONENTS
 import { Link } from 'react-router-dom'
 import userApi from '@/shared/store/api/user/profile/user-api'
-import { myUserFriend } from '@/shared/data/users/my-user-info'
+import { myUserFriend } from '@/shared/constants/users/my-user-info'
 import { AcceptFriend } from '@/features/users/add-friend'
 import { NavChatFeature } from '@/features/users/nav-chat'
 

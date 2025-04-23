@@ -31,11 +31,12 @@ export const PostHeader = observer(({ loadingPost, post }: PostWidgetProps) => {
 
   const [avatar, setAvatar] = useState<AvatarT>(null)
 
-  const handleChange = useCallback((inView: boolean) => {
-    if (avatar) return
-
-    handleView(`${post?.userName}`, inView, avatar, setAvatar)
-  }, [])
+  const handleChange = useCallback(
+    (inView: boolean) => {
+      handleView(`${post?.userName}`, inView, avatar, setAvatar)
+    },
+    [avatar]
+  )
 
   return (
     <div className={`${s.post__header} flex aic`}>

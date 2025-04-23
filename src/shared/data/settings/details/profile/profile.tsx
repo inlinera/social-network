@@ -19,9 +19,9 @@ export const profile = () => {
 
   const { t } = useTranslation()
 
-  const [userAvatar, setUserAvatar] = useState<string | null>(user?.avatarUrl || null)
-  const [name, setName] = useState(user?.name || '')
-  const [description, setDescription] = useState(user?.description || '')
+  const [userAvatar, setUserAvatar] = useState<string | null>(user?.avatarUrl ?? null)
+  const [name, setName] = useState(user?.name ?? '')
+  const [description, setDescription] = useState(user?.description ?? '')
 
   const handleChangeAvatar = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +31,9 @@ export const profile = () => {
 
       const url = (await useUploadImg(avatar)) as string
 
-      try {
-        await deleteImage(`${userAvatar}`)
-        await editField(url, 'avatarUrl')
-        setUserAvatar(url)
-      } catch {
-        null
-      }
+      await deleteImage(`${userAvatar}`)
+      await editField(url, 'avatarUrl')
+      setUserAvatar(url)
     },
     [userAvatar]
   )
