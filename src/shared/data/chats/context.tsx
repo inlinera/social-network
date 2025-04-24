@@ -24,7 +24,11 @@ export interface ContextMenuItem {
 }
 
 //FUNCTIONAL
-const { setState, setVal, setActionMsg } = inputState
+const {
+  setState,
+  val: { setVal },
+  setActionMsg,
+} = inputState
 
 //API
 const { deleteMessage } = deleteMsgApi

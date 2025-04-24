@@ -20,9 +20,7 @@ interface UserFriendModalProps {
 
 export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendModalProps) => {
   const [friendOption, setFriendOption] = useState(0)
-  const {
-    userInfo: { userInfo },
-  } = userApi
+  const { userInfo } = userApi
   const { user } = authApi
 
   const { t } = useTranslation()
