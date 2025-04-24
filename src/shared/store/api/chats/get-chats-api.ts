@@ -5,6 +5,7 @@ import { db } from '@/app/_providers/firebase'
 import { IChat } from '@/shared/interfaces/IChat'
 import { IFriend } from '@/shared/interfaces/IFriend'
 import { error } from '@/shared/data/toastify'
+import { mobxState } from 'mobx-toolbox'
 
 class getChatsApi {
   constructor() {
@@ -14,16 +15,16 @@ class getChatsApi {
   // ====================== GET CHATS ======================
 
   // GET CHATS STATES
-  chats = [] as IChat[]
-  loading = false
+  chats = mobxState<IChat[] | null>(null)('chats')
+  loading = mobxState(false)('loading')
 
   // GET CHATS ACTIONS
   getChats = async (user: IFriend) => {
-    this.setLoading(true)
+    this.loading.setLoading(true)
     try {
       const q = query(collection(db, 'chats'), where('people', 'array-contains', user))
       return onSnapshot(q, querySnapshot => {
-        this.setChats(
+        this.chats.setChats(
           querySnapshot.docs.map(
             doc =>
               ({
@@ -36,13 +37,9 @@ class getChatsApi {
     } catch {
       error('Ошибка получения чатов')
     } finally {
-      this.setLoading(false)
+      this.loading.setLoading(false)
     }
   }
-
-  // GET CHATS STATE MOVES
-  setLoading = (state: boolean) => (this.loading = state)
-  setChats = (chats: IChat[]) => (this.chats = chats)
 }
 
 export default new getChatsApi()

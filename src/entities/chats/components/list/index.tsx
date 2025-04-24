@@ -8,13 +8,14 @@ import { ChatComponent } from './components/chat'
 
 import { IChat } from '@/shared/interfaces/IChat'
 
-import { v4 } from 'uuid'
-
 import { useTranslation } from 'react-i18next'
 
 export const ChatsList = observer(() => {
   const { user } = authApi
-  const { chats, loading } = getChatsApi
+  const {
+    chats: { chats },
+    loading: { loading },
+  } = getChatsApi
 
   const { t } = useTranslation()
 
@@ -25,7 +26,7 @@ export const ChatsList = observer(() => {
       </div>
       <div data-id="chats" className="scroll">
         {loading
-          ? Array.from({ length: 5 }, () => <ChatComponent loading key={v4()} />)
+          ? Array.from({ length: 5 }, (_, id) => <ChatComponent loading key={id} />)
           : chats?.map((chat: IChat) => {
               const chatUser = chat.people.find(p => p.displayName !== user?.displayName)
               const lastMessage = chat.messages?.[chat.messages.length - 1]

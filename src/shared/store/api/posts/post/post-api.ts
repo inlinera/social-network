@@ -5,6 +5,7 @@ import { IPost } from '@/shared/interfaces/IPost'
 import { db } from '@/app/_providers/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { error } from '@/shared/data/toastify'
+import { mobxState } from 'mobx-toolbox'
 
 class postApi {
   constructor() {
@@ -14,29 +15,23 @@ class postApi {
   // ===================== POST =====================
 
   // POST STATES
-  post = null as IPost | null
-  loading = false
-  error? = ''
+  post = mobxState<IPost | null>(null)('post')
+  loading = mobxState(false)('loading')
 
   // POST ACTIONS
   getPost = async (id: string) => {
-    this.setLoading(true)
+    this.loading.setLoading(true)
     try {
       const docRef = doc(db, 'posts', id)
       const docSnap = await getDoc(docRef)
 
-      if (docSnap.exists()) return this.setPost({ ...docSnap.data(), id: docSnap.id } as IPost)
+      if (docSnap.exists()) return this.post.setPost({ ...docSnap.data(), id: docSnap.id } as IPost)
     } catch {
       error('Невозможно получить пост')
     } finally {
-      this.setLoading(false)
+      this.loading.setLoading(false)
     }
   }
-
-  // POST STATE MOVES
-  setPost = (post: IPost | null) => (this.post = post)
-  setLoading = (loading: boolean) => (this.loading = loading)
-  setError = (err: string) => (this.error = err)
 }
 
 export default new postApi()

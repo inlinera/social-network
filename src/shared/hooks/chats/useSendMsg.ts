@@ -17,7 +17,9 @@ export const useSendMsg = <T extends string | null>(image?: T, setImage?: (_: T)
   const { user } = authApi
   const { sendMessage } = sendMsgApi
   const { editMessage } = editMsgApi
-  const { val } = InputState
+  const {
+    val: { val },
+  } = InputState
   const { state, actionMsg, $null } = InputState
 
   const sendMsg = (e: React.FormEvent) => {

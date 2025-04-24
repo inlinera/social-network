@@ -34,15 +34,15 @@ class PostsStore {
   // ==================================== POSTS ====================================
 
   // ALL POSTS STATES
-  posts = null as IPost[] | null
-  loading = false
+  posts = mobxState<IPost[] | null>(null)('posts')
+  loading = mobxState(false)('loading')
   tag = mobxState<TagT | null>(null)('tag')
   private _lastDoc = null as QueryDocumentSnapshot | null
 
   // ALL POSTS ACTIONS
   getPosts = async () => {
-    if (this.loading) return
-    this.setLoading(true)
+    if (this.loading.loading) return
+    this.loading.setLoading(true)
     try {
       const q = query(
         collection(db, 'posts'),
@@ -66,24 +66,21 @@ class PostsStore {
 
       runInAction(() => {
         this._lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
-        this.setPosts(Array.isArray(this.posts) ? [...this.posts, ...newPosts] : newPosts)
+        this.posts.setPosts(Array.isArray(this.posts) ? [...this.posts, ...newPosts] : newPosts)
       })
     } catch {
       error('Посты не были получены')
     } finally {
-      this.setLoading(false)
+      this.loading.setLoading(false)
     }
   }
 
-  reload = () => {
-    this.setPosts(null)
-    this._lastDoc = null
-    this.getPosts()
-  }
-
-  // ALL POSTS STATES MOVIES
-  setLoading = (state: boolean) => (this.loading = state)
-  setPosts = (posts: IPost[] | null) => (this.posts = posts)
+  reload = () =>
+    runInAction(() => {
+      this.posts.setPosts(null)
+      this._lastDoc = null
+      this.getPosts()
+    })
 }
 
 export default new PostsStore()

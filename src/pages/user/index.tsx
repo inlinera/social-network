@@ -9,11 +9,12 @@ import userPostsApi from '@/shared/store/api/user/profile/user-posts-api'
 // COMPONENTS
 import { PostListWidget } from '@/widgets/posts'
 import { UserBlock, UserFriendModal, AddPostBlockEntity } from '@/entities/user/'
+
 import { isVisible } from '@/shared/constants/isContentVisible'
 import { setTitle } from '@/shared/constants/setTitle'
 
 const UserPage = observer(() => {
-  const { userInfo, getUser, loading, error } = userStore
+  const { userInfo, getUser, loading } = userStore
 
   const {
     getUserPosts,
@@ -54,7 +55,6 @@ const UserPage = observer(() => {
       ) : (
         'User is not found'
       )}
-      <p>{error}</p>
     </div>
   )
 })

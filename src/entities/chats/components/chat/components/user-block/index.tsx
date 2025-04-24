@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { useState } from 'react'
 import s from './index.module.scss'
 import { Link } from 'react-router-dom'
 
@@ -15,12 +15,13 @@ import { useGetAvatar } from '@/shared/hooks/details/useGetAvatar'
 import { IFriend } from '@/shared/interfaces/IFriend'
 
 import getChatApi from '@/shared/store/api/chats/chat/get-chat-api'
+import { observer } from 'mobx-react-lite'
 
 interface ChatUserBlockProps {
   chattingUser: IFriend
 }
 
-export const ChatUserBlock = memo(({ chattingUser }: ChatUserBlockProps) => {
+export const ChatUserBlock = observer(({ chattingUser }: ChatUserBlockProps) => {
   const { setChat, loading } = getChatApi
 
   const isMobile = useMobile()

@@ -16,7 +16,6 @@ class userApi {
   // USER STATES
   userInfo = {} as IUser
   loading = false
-  error = ''
 
   // USER ACTIONS
   getUser = async (id: string) => {
@@ -34,7 +33,6 @@ class userApi {
   //USER STATE MOVIES
   setUser = (user: IUser) => (this.userInfo = user)
   setLoading = (loading: boolean) => (this.loading = loading)
-  setError = (err: string) => (this.error = err)
 }
 
 export default new userApi()

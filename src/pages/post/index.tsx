@@ -13,7 +13,11 @@ import { useParams } from 'react-router-dom'
 import { setTitle } from '@/shared/constants/setTitle'
 
 const PostPage = observer(() => {
-  const { getPost, post, error, loading } = postApi
+  const {
+    getPost,
+    post: { post },
+    loading: { loading },
+  } = postApi
 
   const { postId } = useParams()
 
@@ -21,7 +25,7 @@ const PostPage = observer(() => {
     getPost(postId!)
   }, [])
 
-  if (error) return 'Error'
+  if (loading) return <PostWidget post={post as IPost} loadingPost />
 
   if (post) setTitle(`2la • ${post.value?.charAt(0).toUpperCase()}${post.value?.slice(1)}`)
 
@@ -29,11 +33,11 @@ const PostPage = observer(() => {
     <div className={s.postPage}>
       {post?.value ? (
         <>
-          <PostWidget post={post as IPost} loadingPost={loading} />
+          <PostWidget post={post as IPost} loadingPost={false} />
           <PostCommentsList comments={post?.comments} postId={`${postId}`} />
         </>
       ) : (
-        'Post is not found'
+        'Post was not found'
       )}
     </div>
   )

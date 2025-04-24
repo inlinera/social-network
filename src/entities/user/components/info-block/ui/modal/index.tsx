@@ -20,7 +20,9 @@ interface UserFriendModalProps {
 
 export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendModalProps) => {
   const [friendOption, setFriendOption] = useState(0)
-  const { userInfo } = userApi
+  const {
+    userInfo: { userInfo },
+  } = userApi
   const { user } = authApi
 
   const { t } = useTranslation()
@@ -28,7 +30,7 @@ export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendMo
 
   return (
     <Modal
-      title={t('profile.user_block.friends.modal._', { name: userInfo.displayName })}
+      title={t('profile.user_block.friends.modal._', { name: userInfo?.displayName })}
       open={isOpened}
       onCancel={() => setIsOpened(false)}
       footer={null}

@@ -1,14 +1,13 @@
 import { IMessage } from '@/shared/interfaces/IChat'
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
+import { mobxState } from 'mobx-toolbox'
 
 class InputState {
   constructor() {
     makeAutoObservable(this)
   }
 
-  // =================== VALUE STATE ===================
-  val = ''
-  setVal = (_: string) => (this.val = _)
+  val = mobxState('')('val')
 
   // =================== INPUT STATE ===================
   state = 'default' as 'default' | 'edit' | 'reply'
@@ -18,12 +17,12 @@ class InputState {
   actionMsg = null as IMessage | null
   setActionMsg = ($: IMessage | null) => (this.actionMsg = $)
 
-  //STATE MOVES
-  $null = () => {
-    this.setVal('')
-    this.setState('default')
-    this.setActionMsg(null)
-  }
+  $null = () =>
+    runInAction(() => {
+      this.val.setVal('')
+      this.setState('default')
+      this.setActionMsg(null)
+    })
 }
 
 export default new InputState()

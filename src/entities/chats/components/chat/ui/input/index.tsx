@@ -19,7 +19,9 @@ interface ChatInputUiProps {
 }
 
 export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: ChatInputUiProps) => {
-  const { val, setVal } = InputState
+  const {
+    val: { val, setVal },
+  } = InputState
   const { state, actionMsg, $null } = InputState
 
   const { t } = useTranslation()
@@ -37,8 +39,10 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage }: Chat
       {state !== 'default' && actionMsg && (
         <ChatCommonMsgViewUi id={actionMsg.id}>
           <div className={s.prev}>
-            <b>{t('chats.message')}:</b>
-            <p>{sliceStr(actionMsg.message, 15)}</p>
+            <b>{t('chats.window.message')}:</b>
+            <p>
+              {actionMsg.image && t('chats.photo')} {sliceStr(actionMsg.message, 15)}
+            </p>
             <button
               className="fz17"
               onClick={e => {
