@@ -14,7 +14,7 @@ const ChatsPage = observer(() => {
   const { user } = authApi
   const { getChats } = getChatsApi
 
-  setTitle('2la chats')
+  setTitle('chats')
 
   useEffect(() => {
     if (user?.displayName && user?.avatarUrl) {

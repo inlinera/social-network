@@ -4,7 +4,7 @@ import { rules } from '@/shared/data/posts_rules'
 import { setTitle } from '@/shared/constants/setTitle'
 
 const RulesPage = () => {
-  setTitle('2la rules')
+  setTitle('rules')
 
   return (
     <div className={`${s.rules} flex fdc jcc`}>

@@ -31,7 +31,7 @@ const UserPage = observer(() => {
     setIsOpenedFriend(false)
   }, [userId])
 
-  setTitle(`2la • ${userInfo.displayName}`)
+  setTitle(userInfo?.displayName)
 
   return (
     <div className={`${s.userBlock} flex fdc`}>

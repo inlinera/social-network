@@ -7,7 +7,7 @@ import { setTitle } from '@/shared/constants/setTitle'
 
 const SettingsPage = observer(() => {
   const [activeType, setActiveType] = useState(0)
-  setTitle('2la settings')
+  setTitle('settings')
 
   return (
     <div className={'flex fdc aic'}>

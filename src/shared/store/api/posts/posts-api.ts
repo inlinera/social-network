@@ -41,7 +41,7 @@ class PostsStore {
 
   // ALL POSTS ACTIONS
   getPosts = async () => {
-    if (this.loading.loading) return
+    if (this.loading.loading || authApi.loading) return
     this.loading.setLoading(true)
     try {
       const q = query(

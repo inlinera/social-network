@@ -55,6 +55,10 @@ export const AuthRegEntity = () => {
               value: 5,
               message: 'Тег должен содержать минимум 5 символов',
             },
+            pattern: {
+              value: /^[a-zA-Z]+$/,
+              message: 'Тег может содержать только английские буквы'
+            }
           })}
           onBlur={e => handleBlur(e, setValue)}
         />

@@ -16,7 +16,7 @@ const PostsPage = observer(() => {
     posts: { posts },
     loading: { loading },
   } = postsApi
-  setTitle('2la')
+  setTitle('', true)
 
   const isLoading = !posts && loading
 

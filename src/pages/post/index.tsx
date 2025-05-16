@@ -27,7 +27,8 @@ const PostPage = observer(() => {
 
   if (loading) return <PostWidget post={post as IPost} loadingPost />
 
-  if (post) setTitle(`2la • ${post.value?.charAt(0).toUpperCase()}${post.value?.slice(1)}`)
+  if (!post) setTitle('Not Found')
+  if (post) setTitle(`${post.value?.charAt(0).toUpperCase()}${post.value?.slice(1)}`)
 
   return (
     <div className={s.postPage}>
