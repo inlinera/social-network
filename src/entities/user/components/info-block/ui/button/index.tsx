@@ -20,6 +20,7 @@ import userApi from '@/shared/store/api/user/profile/user-api'
 import { myUserFriend } from '@/shared/constants/users/my-user-info'
 import { AcceptFriend } from '@/features/users/add-friend'
 import { NavChatFeature } from '@/features/users/nav-chat'
+import s from './index.module.scss'
 
 interface InfoBlockFriendButtons {
   userInfoFriend: IFriend
@@ -43,7 +44,7 @@ export const InfoBlockButton = observer(({ userInfoFriend }: InfoBlockFriendButt
 
   return (
     user && (
-      <div>
+      <div className={`${s.infoBlockButton} flex jcc aic`}>
         {!isMyPage ? (
           isUserFriend ? (
             <NavChatFeature userInfo={userInfo} />

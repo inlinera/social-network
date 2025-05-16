@@ -21,7 +21,6 @@ export const profile = () => {
 
   const [userAvatar, setUserAvatar] = useState<string | null>(user?.avatarUrl ?? null)
   const [name, setName] = useState(user?.name ?? '')
-  const [username, setUsername] = useState(user?.displayName ?? '')
   const [description, setDescription] = useState(user?.description ?? '')
 
   const handleChangeAvatar = useCallback(
