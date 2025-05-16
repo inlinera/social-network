@@ -14,6 +14,8 @@ import { isVisible } from '@/shared/constants/isContentVisible'
 
 import { useTranslation } from 'react-i18next'
 
+import { useMobile } from '@/shared/hooks/useMobile'
+
 interface UserBlockProps {
   loading: boolean
   setIsOpenedFriend: (_: boolean) => void
@@ -30,9 +32,20 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
 
   const { t } = useTranslation()
 
+  const isMobile = useMobile()
+
   return (
     <div className={`${s.userInfo_meta} flex fdc jcc`}>
-      <div className={`${s.userInfo_meta_info}`} />
+      <div
+        className={s.userInfo_meta_banner}
+        style={
+          !isMobile
+            ? { background: 'transparent' }
+            : !user?.bannerUrl
+            ? { background: '#dd6e13' }
+            : { backgroundImage: `url(${user?.bannerUrl})` }
+        }
+      />
 
       <div className={`${s.userInfo_meta_block} flex aic ${user && 'jcsb'}`}>
         <div className={`${s.avatar} flex aic jcc`}>

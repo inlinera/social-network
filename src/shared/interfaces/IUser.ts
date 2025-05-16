@@ -9,6 +9,7 @@ export interface IUser extends firebase.User {
   description: string | null
   friends: IFriend[]
   avatarUrl: string | null
+  bannerUrl: string | null
   incomingReq: IFriend[]
   outgoingReq: IFriend[]
   chats: string[]

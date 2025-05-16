@@ -1,63 +1,34 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import s from './profile.module.scss'
 
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import EditPrivacySettings from '@/shared/store/api/user/profile/details/change-field-api'
-import storageApi from '@/shared/store/api/storage/storage-api'
-import { Pencil } from 'lucide-react'
-import { AvatarUI } from '@/shared/ui/avatar'
 import { InputUi } from '@/shared/ui/input'
 import { RedButtonUI } from '@/shared/ui/buttons/red-button'
 import TextArea from 'antd/es/input/TextArea'
 import { useTranslation } from 'react-i18next'
-import { useUploadImg } from '@/shared/hooks/details/useUploadImg'
+import { AvatarSetting } from './components/avatar'
+import { BannerSetting } from './components/banner'
 
 export const profile = () => {
-  const { user, loading } = authApi
+  const { user } = authApi
   const { editField } = EditPrivacySettings
-  const { deleteImage } = storageApi
 
   const { t } = useTranslation()
 
-  const [userAvatar, setUserAvatar] = useState<string | null>(user?.avatarUrl ?? null)
   const [name, setName] = useState(user?.name ?? '')
   const [description, setDescription] = useState(user?.description ?? '')
-
-  const handleChangeAvatar = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault()
-      const avatar = e.target.files?.[0]
-      if (!avatar) return
-
-      const url = (await useUploadImg(avatar)) as string
-
-      await deleteImage(`${userAvatar}`)
-      await editField(url, 'avatarUrl')
-      setUserAvatar(url)
-    },
-    [userAvatar]
-  )
 
   return {
     name: t('settings.profile._'),
     content: [
       {
         name: t('settings.profile.avatar'),
-        content: (
-          <form className="flex fdc">
-            <input type="file" id="avatar" hidden accept="image/*" onChange={handleChangeAvatar} />
-            <label htmlFor="avatar" className={s.editAvatar}>
-              <AvatarUI loading={loading} src={userAvatar} userName={`${user?.displayName}`} size={175} />
-              <button
-                type="button"
-                className="flex jcc aic"
-                onClick={() => document.getElementById('avatar')?.click()}
-              >
-                <Pencil />
-              </button>
-            </label>
-          </form>
-        ),
+        content: <AvatarSetting />,
+      },
+      {
+        name: t('settings.profile.banner._'),
+        content: <BannerSetting />,
       },
       {
         name: t('settings.profile.name._'),

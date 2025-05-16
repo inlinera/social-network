@@ -126,6 +126,10 @@ export const en = {
           _: 'Your description',
           btn: 'Change',
         },
+        banner: {
+          _: 'Banner (only for mobile phones)',
+          btn: 'Edit',
+        },
       },
       privacy: {
         _: 'Privacy',
