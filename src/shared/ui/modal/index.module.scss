@@ -18,7 +18,6 @@
   .modal {
     position: relative;
     width: 70%;
-    min-height: min-content;
     max-width: max-content;
     max-height: max-content;
     border-radius: 12px;
@@ -35,6 +34,6 @@
 @media (max-width: 768px) {
   .modal {
     width: 90% !important;
-    height: 100% !important;
+    max-height: max-content;
   }
 }

@@ -1,17 +1,9 @@
 import s from './index.module.scss'
-import { Spin } from 'antd'
 
-interface LoadingUIProps {
-  children: React.ReactNode
-}
-
-export const LoadingUI = ({ children }: LoadingUIProps) => {
+export const LoadingUI = () => {
   return (
-    <div className="flex fdc jcc aic ">
-      <Spin size="large" />
-      <p style={{ marginTop: '5px' }} className={s.loading}>
-        {children}
-      </p>
+    <div className={`${s.loading} flex aic jcc`}>
+      <div className={s.loading__circle} />
     </div>
   )
 }

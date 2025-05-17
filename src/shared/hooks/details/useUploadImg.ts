@@ -16,6 +16,10 @@ export const useUploadImg = async (file: File): Promise<string | null> => {
   return url
 }
 
+export const useDeleteImage = async (url: string) => {
+  await deleteImage(`${url}`)
+}
+
 export const useChangeImage = async (
   e: React.ChangeEvent<HTMLInputElement>,
   setImage: (url: string) => void,

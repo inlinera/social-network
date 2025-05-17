@@ -9,17 +9,24 @@ import EditPrivacySettings from '@/shared/store/api/user/profile/details/change-
 
 import { AvatarUI } from '@/shared/ui/avatar'
 import { Pencil } from 'lucide-react'
+import { LoadingUI } from '@/shared/ui/loading'
 
 export const AvatarSetting = observer(() => {
   const { user, loading } = authApi
   const { editField } = EditPrivacySettings
 
   const [userAvatar, setUserAvatar] = useState<string | null>(user?.avatarUrl ?? null)
+  const [isAvatarLoading, setIsAvatarLoading] = useState(false)
 
   const handleChangeAvatar = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault()
-      await editField(`${await useChangeImage(e, setUserAvatar, userAvatar)}`, 'avatarUrl')
+      setIsAvatarLoading(true)
+      try {
+        await editField(`${await useChangeImage(e, setUserAvatar, userAvatar)}`, 'avatarUrl')
+      } finally {
+        setIsAvatarLoading(false)
+      }
     },
     [userAvatar]
   )
@@ -28,8 +35,14 @@ export const AvatarSetting = observer(() => {
     <form className="flex fdc">
       <input type="file" id="avatar" hidden accept="image/*" onChange={handleChangeAvatar} />
       <label htmlFor="avatar" className={s.editAvatar}>
+        {isAvatarLoading && <LoadingUI />}
         <AvatarUI loading={loading} src={userAvatar} userName={`${user?.displayName}`} size={175} />
-        <button type="button" className="flex jcc aic" onClick={() => document.getElementById('avatar')?.click()}>
+        <button
+          type="button"
+          className="flex jcc aic"
+          onClick={() => document.getElementById('avatar')?.click()}
+          disabled={isAvatarLoading}
+        >
           <Pencil />
         </button>
       </label>
