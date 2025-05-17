@@ -41,9 +41,9 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
         style={
           !isMobile
             ? { background: 'transparent' }
-            : !user?.bannerUrl
-            ? { background: '#dd6e13' }
-            : { backgroundImage: `url(${user?.bannerUrl})` }
+            : !userInfo?.bannerUrl
+            ? { background: 'linear-gradient(45deg, #4b0404, #e66a39)' }
+            : { backgroundImage: `url(${userInfo?.bannerUrl})` }
         }
       />
 
