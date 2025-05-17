@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useParams } from 'react-router-dom'
 import s from './index.module.scss'
+
 // MOBX
 import authApi from '@/shared/store/api/user/auth/auth-api'
 import userStore from '@/shared/store/api/user/profile/user-api'
 import userPostsApi from '@/shared/store/api/user/profile/user-posts-api'
+
 // COMPONENTS
 import { PostListWidget } from '@/widgets/posts'
 import { UserBlock, UserFriendModal, AddPostBlockEntity } from '@/entities/user/'
+import { UserHeader } from './ui/header'
 
 import { isVisible } from '@/shared/constants/isContentVisible'
 import { setTitle } from '@/shared/constants/setTitle'
@@ -22,7 +25,6 @@ const UserPage = observer(() => {
   } = userPostsApi
 
   const { userId } = useParams()
-
   const [isOpenedFriend, setIsOpenedFriend] = useState(false)
 
   useEffect(() => {
@@ -35,6 +37,8 @@ const UserPage = observer(() => {
 
   return (
     <div className={`${s.userBlock} flex fdc`}>
+      <UserHeader />
+
       {userInfo ? (
         <>
           <UserFriendModal isOpened={isOpenedFriend} setIsOpened={setIsOpenedFriend} />

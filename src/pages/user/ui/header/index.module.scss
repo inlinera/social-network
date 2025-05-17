@@ -1,0 +1,26 @@
+.userHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  padding: 5px 30px;
+  padding-right: 40px;
+  background-color: var(--post-color);
+  z-index: 10;
+
+  .userHeader__info {
+    gap: 10px;
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      border: 1px solid var(--default);
+    }
+
+    strong {
+      font-size: 15px;
+    }
+  }
+}
