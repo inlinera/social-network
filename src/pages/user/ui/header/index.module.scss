@@ -17,6 +17,11 @@
       height: 40px;
       border-radius: 100%;
       border: 1px solid var(--default);
+
+      * {
+        width: 100% !important;
+        height: 100% !important;
+      }
     }
 
     strong {
