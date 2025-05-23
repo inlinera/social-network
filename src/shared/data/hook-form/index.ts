@@ -1,3 +1,4 @@
+import React from 'react'
 import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form'
 
 /**
@@ -7,8 +8,11 @@ import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form'
  * @example onBlur={e => handleBlur(e, setValue)}
  */
 
-export const handleBlur = <I extends FieldValues>(
-  e: React.FocusEvent<HTMLInputElement>,
+export const handleBlur = <
+  I extends FieldValues,
+  T extends React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+>(
+  e: T,
   setValue: UseFormSetValue<I>
 ) => {
   const value = e.target.value.trim()

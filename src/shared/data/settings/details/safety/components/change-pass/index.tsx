@@ -1,43 +1,50 @@
-import authApi from '@/shared/store/api/user/auth/auth-api'
-import { InputUi } from '@/shared/ui/input'
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
+
+import { handleBlur, password } from '@/shared/data/hook-form'
+
+import authApi from '@/shared/store/api/user/auth/auth-api'
+
+import { InputUi } from '@/shared/ui/input'
+
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 const path = 'settings.safety.'
+
+interface FormData {
+  currentPassword: string
+  newPassword: string
+}
 
 export const ChangePassComponent = observer(() => {
   const { changePassword } = authApi
   const { t } = useTranslation()
 
-  const [pass, setPass] = useState('')
-  const [currPass, setCurrPass] = useState('')
+  const { register, handleSubmit, reset, setValue } = useForm<FormData>()
 
-  const handleChangePassword = () =>
-    changePassword(pass, currPass).then(() => {
-      setPass('')
-      setCurrPass('')
+  const onSubmit = (data: FormData) => {
+    changePassword(data.newPassword, data.currentPassword).then(() => {
+      reset()
     })
+  }
 
   return (
-    <div className="flex fdc">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex fdc">
       <InputUi
-        value={currPass}
-        setVal={setCurrPass}
-        minLength={6}
-        maxLength={25}
+        {...register('currentPassword', password)}
         placeholder={t(`${path}pass.currPass`)}
+        maxLength={30}
+        onBlur={e => handleBlur(e, setValue)}
       />
       <div className="flex jcc aic">
         <InputUi
-          value={pass}
-          setVal={setPass}
-          minLength={6}
-          maxLength={25}
+          {...register('newPassword', password)}
           placeholder={t(`${path}pass.newPass`)}
+          maxLength={30}
+          onBlur={e => handleBlur(e, setValue)}
         />
-        <button onClick={handleChangePassword}>{t(`${path}pass.btn`)}</button>
+        <button type="submit">{t(`${path}pass.btn`)}</button>
       </div>
-    </div>
+    </form>
   )
 })

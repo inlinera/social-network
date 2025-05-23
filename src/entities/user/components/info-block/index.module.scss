@@ -1,8 +1,8 @@
 .userInfo_meta {
   position: relative;
-  min-width: 92%;
+  min-width: 250px;
   height: max-content;
-  padding: 5px 20px;
+  padding: 5px 0px;
   background-color: var(--post-color);
   border-radius: 12px;
   font-family: 'Inter', serif;
@@ -40,7 +40,6 @@
   .userInfo_meta_block {
     margin-top: 10px;
     padding: 0;
-    padding-right: 10px;
   }
 
   div {
@@ -99,10 +98,14 @@
     margin: 5px auto;
 
     div {
-      grid-template-columns: 100px auto;
+      grid-template-columns: 100px 1fr;
       grid-template-rows: 1fr;
-      gap: 15px;
-      word-break: break-all;
+      gap: 10px;
+      word-break: break-word;
+    }
+
+    .userInfo_meta_block {
+      padding-right: 5px;
     }
   }
 }
@@ -111,7 +114,20 @@
   .userInfo_meta {
     padding: 5px 10px;
 
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(to top, transparent, var(--body-color));
+      z-index: 2;
+    }
+
     .userInfo_meta_block {
+      padding-right: 10px;
+
       p {
         margin-right: 8vw;
       }
