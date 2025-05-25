@@ -17,23 +17,22 @@ class CreatePostApi {
     if (userPostsApi.posts.posts.length >= 10) return error('Максимальное кол-во постов: 10')
     try {
       const newPostRef = doc(collection(db, 'posts'))
-      await setDoc(
-        newPostRef,
-        {
-          uid: authApi.user?.uid,
-          id: newPostRef.id,
-          userName: authApi.user?.displayName,
-          userAvatar: authApi.user?.avatarUrl,
-          value: value,
-          likes: [],
-          images: images ? images : [],
-          comments: [] as IComment[],
-          time: new Date().getTime(),
-          tags: tags,
-        } as IPost,
-        { merge: true }
-      )
-    } catch {
+
+      const postData = {
+        uid: authApi.user?.uid,
+        id: newPostRef.id,
+        userName: authApi.user?.displayName,
+        userAvatar: authApi.user?.avatarUrl ?? null,
+        value,
+        likes: [],
+        images: images ?? [],
+        comments: [] as IComment[],
+        time: new Date().getTime(),
+        tags,
+      } as IPost
+
+      await setDoc(newPostRef, postData, { merge: true })
+    } catch (e) {
       error(`Невозможно создать пост`)
     }
   }

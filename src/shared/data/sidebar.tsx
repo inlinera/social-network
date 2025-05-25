@@ -1,5 +1,4 @@
 import { HomeOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons'
-import authApi from '../store/api/user/auth/auth-api'
 import { useTranslation } from 'react-i18next'
 
 interface IItem {
@@ -8,15 +7,14 @@ interface IItem {
   path: string
 }
 
-export const useSidebar = (): IItem[] => {
-  const { user } = authApi
+export const useSidebar = (displayName?: string): IItem[] => {
   const { t } = useTranslation()
 
   return [
     {
       title: t('sidebar.profile'),
       icon: <UserOutlined />,
-      path: user ? `user/${user?.displayName}` : `/auth`,
+      path: displayName ? `user/${displayName}` : `/auth`,
     },
     {
       title: t('sidebar.home'),

@@ -12,7 +12,7 @@ export const SidebarUI = observer(() => {
   const currentLocation = useLocation()
   const { user } = authApi
 
-  const sidebarInfo = useSidebar()
+  const sidebarInfo = useSidebar(user?.displayName)
 
   const isUserLoc = currentLocation.pathname == `/user/${user?.displayName}`
   const selectedItems = [isUserLoc ? sidebarInfo[0].path : currentLocation.pathname]
