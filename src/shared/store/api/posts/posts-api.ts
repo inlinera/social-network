@@ -66,7 +66,7 @@ class PostsStore {
 
       runInAction(() => {
         this._lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
-        this.posts.setPosts(Array.isArray(this.posts) ? [...this.posts, ...newPosts] : newPosts)
+        this.posts.setPosts(Array.isArray(this.posts.posts) ? [...this.posts.posts, ...newPosts] : newPosts)
       })
     } catch {
       error('Посты не были получены')
