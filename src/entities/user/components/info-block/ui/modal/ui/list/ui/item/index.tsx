@@ -15,13 +15,14 @@ import { InView } from 'react-intersection-observer'
 import { items } from './constants'
 
 import { AvatarT, handleView } from '@/shared/constants/components-observer/handleView'
+import { observer } from 'mobx-react-lite'
 
 interface UserFriendProps {
   item: IFriend
   listType: number
 }
 
-export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
+export const UserFriendItem = observer(({ item, listType }: UserFriendProps) => {
   const { user } = authApi
   const { userInfo } = userApi
 
@@ -49,4 +50,4 @@ export const UserFriendItem = ({ item, listType }: UserFriendProps) => {
       <div>{user?.displayName === userInfo?.displayName && items(item)[listType].item}</div>
     </List.Item>
   )
-}
+})

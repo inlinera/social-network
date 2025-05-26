@@ -1,8 +1,11 @@
 import { IFriend } from '../interfaces/IFriend'
+import { IUser } from '../interfaces/IUser'
 
-const getUserInformation = (user: IFriend): IFriend => ({ displayName: user.displayName })
+type T = IFriend | IUser
 
-export const useGetFriends = (targetUserInfo: IFriend, myUserInfo: IFriend) => {
+const getUserInformation = (user: T): IFriend => ({ displayName: `${user?.displayName}` })
+
+export const useGetFriends = (targetUserInfo: T, myUserInfo: T) => {
   const targetUserInformation = getUserInformation(targetUserInfo)
   const myUserInformation = getUserInformation(myUserInfo)
 

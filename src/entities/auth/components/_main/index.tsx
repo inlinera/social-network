@@ -14,7 +14,7 @@ export const AuthEntity = observer(({ isReg, setIsReg }: AuthEntityProps) => {
   return (
     <div className={`${s.authEntity} flex`}>
       <div className={`${s.authEntity__content} flex fdc aic`}>
-        <h1>{isReg ? 'Регистрация' : 'Вход'}</h1>
+        <h2>{isReg ? 'Регистрация' : 'Вход'}</h2>
         {isReg ? <AuthRegEntity /> : <AuthLoginEntity />}
         <CommonRouteBlock>
           {isReg ? (

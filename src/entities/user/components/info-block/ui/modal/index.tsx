@@ -23,8 +23,10 @@ export const UserFriendModal = observer(({ isOpened, setIsOpened }: UserFriendMo
   const { userInfo } = userApi
   const { user } = authApi
 
+  const isMyPage = userInfo?.displayName === user?.displayName
+
   const { t } = useTranslation()
-  const options = useItems()
+  const options = useItems(isMyPage ? user : userInfo)
 
   return (
     <Modal

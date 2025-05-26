@@ -59,11 +59,7 @@ export const UserBlock = observer(({ setIsOpenedFriend, loading }: UserBlockProp
         <TextUi loading={loading} lines={1}>
           <p style={{ whiteSpace: 'nowrap' }}>{userInfo?.displayName}</p>
         </TextUi>
-        <InfoBlockButton
-          userInfoFriend={{
-            displayName: `${userInfo?.displayName}`,
-          }}
-        />
+        <InfoBlockButton />
       </div>
       <div className={`${s.userInfo_meta_someInfo}`}>
         {userInfo?.description && (

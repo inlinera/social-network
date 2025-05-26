@@ -3,9 +3,9 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { db } from '@/app/_providers/firebase'
 //INTERFACES
 import { IChat } from '@/shared/interfaces/IChat'
-import { IFriend } from '@/shared/interfaces/IFriend'
 import { error } from '@/shared/data/toastify'
 import { mobxState } from 'mobx-toolbox'
+import { myUserFriend } from '@/shared/constants/users/my-user-info'
 
 class getChatsApi {
   constructor() {
@@ -19,7 +19,7 @@ class getChatsApi {
   loading = mobxState(false)('loading')
 
   // GET CHATS ACTIONS
-  getChats = async (user: IFriend) => {
+  getChats = async (user = myUserFriend()) => {
     this.loading.setLoading(true)
     try {
       const q = query(collection(db, 'chats'), where('people', 'array-contains', user))

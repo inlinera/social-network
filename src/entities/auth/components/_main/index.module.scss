@@ -9,7 +9,7 @@
   border-radius: 12px;
   background-color: var(--post-color);
 
-  h1 {
+  h2 {
     margin-bottom: 10px;
   }
 
@@ -37,19 +37,20 @@
 
 @media (max-width: 768px) {
   .authEntity {
+    width: 98vw;
+    background-color: transparent;
+
     * {
-      font-size: 11px !important;
-      font-weight: 200;
+      font-size: 13px !important;
+      font-weight: 300;
     }
 
-    .imgBlock {
-      div {
-        font-size: 10px;
-      }
+    h2 {
+      font-size: 15px !important;
+    }
 
-      button {
-        padding: 4px;
-      }
+    input {
+      background-color: var(--gray-color);
     }
   }
 }

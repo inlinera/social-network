@@ -1,5 +1,6 @@
 import { IFriend } from '@/shared/interfaces/IFriend'
-import userApi from '@/shared/store/api/user/profile/user-api'
+import { IUser } from '@/shared/interfaces/IUser'
+
 import { useTranslation } from 'react-i18next'
 
 interface IOption {
@@ -10,8 +11,7 @@ interface IOption {
 
 const path = 'profile.user_block.friends.modal.dropdown.'
 
-export const useItems = (): IOption[] => {
-  const { userInfo } = userApi
+export const useItems = (userInfo: IUser): IOption[] => {
   const { t } = useTranslation()
 
   return [

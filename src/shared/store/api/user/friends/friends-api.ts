@@ -1,10 +1,17 @@
 import { makeAutoObservable } from 'mobx'
 //FIREBASE
 import { db } from '@/app/_providers/firebase'
-import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { arrayRemove, arrayUnion, doc, getDoc, updateDoc, FieldValue } from 'firebase/firestore'
 //INTERFACES
 import { IFriend } from '@/shared/interfaces/IFriend'
 import { error } from '@/shared/data/toastify'
+
+type UpdateUserT = {
+  userId: string
+  data: {
+    [key: string]: FieldValue
+  }
+}
 
 class FriendsApi {
   constructor() {
@@ -16,98 +23,99 @@ class FriendsApi {
   //ALL FRIENDS STATES
   loading = false
 
-  //ALL FRIENDS ACTIONS
-  sendFriendRequest = async (userInfo: IFriend, myUserInfo: IFriend) => {
+  private async updateUsers(updates: UpdateUserT[]) {
     this.setLoading(true)
     try {
-      await Promise.all([
-        updateDoc(doc(db, 'users', myUserInfo.displayName), {
-          outgoingReq: arrayUnion(userInfo),
-        }),
-        updateDoc(doc(db, 'users', userInfo?.displayName), {
-          incomingReq: arrayUnion(myUserInfo),
-        }),
-      ])
+      await Promise.all(updates.map(update => updateDoc(doc(db, 'users', update.userId), update.data)))
     } catch (e) {
-      error('Упс, произошла ошибка')
+      console.error('Error updating users:', e)
+      error(e instanceof Error ? e.message : 'Упс, произошла ошибка')
     } finally {
       this.setLoading(false)
     }
+  }
+
+  private async getUserData(userId: string) {
+    const userDoc = await getDoc(doc(db, 'users', userId))
+    return userDoc.data()
+  }
+
+  private hasUserInArray(user: IFriend, array?: IFriend[]) {
+    return array?.some(item => item.displayName === user.displayName) ?? false
+  }
+
+  //ALL FRIENDS ACTIONS
+  sendFriendRequest = async (userInfo: IFriend, myUserInfo: IFriend) => {
+    if (this.loading) return
+
+    const [userData, myUserData] = await Promise.all([
+      this.getUserData(userInfo.displayName),
+      this.getUserData(myUserInfo.displayName),
+    ])
+
+    if (
+      this.hasUserInArray(myUserInfo, userData?.friends) ||
+      this.hasUserInArray(userInfo, myUserData?.friends) ||
+      this.hasUserInArray(myUserInfo, userData?.incomingReq) ||
+      this.hasUserInArray(userInfo, myUserData?.outgoingReq)
+    ) {
+      return
+    }
+
+    await this.updateUsers([
+      { userId: myUserInfo.displayName, data: { outgoingReq: arrayUnion(userInfo) } },
+      { userId: userInfo.displayName, data: { incomingReq: arrayUnion(myUserInfo) } },
+    ])
   }
 
   acceptFriendRequest = async (userInfo: IFriend, myUserInfo: IFriend) => {
-    this.setLoading(true)
-    try {
-      await Promise.all([
-        this.removeFromIncFriends(userInfo, myUserInfo),
-        updateDoc(doc(db, 'users', myUserInfo.displayName), {
+    await this.updateUsers([
+      {
+        userId: myUserInfo.displayName,
+        data: {
+          incomingReq: arrayRemove(userInfo),
           friends: arrayUnion(userInfo),
-        }),
-        updateDoc(doc(db, 'users', userInfo?.displayName), {
+        },
+      },
+      {
+        userId: userInfo.displayName,
+        data: {
+          outgoingReq: arrayRemove(myUserInfo),
           friends: arrayUnion(myUserInfo),
-        }),
-      ])
-    } catch (e) {
-      error('Упс, произошла ошибка')
-    } finally {
-      this.setLoading(false)
-    }
+        },
+      },
+    ])
   }
 
   removeFromIncFriends = async (userInfo: IFriend, myUserInfo: IFriend) => {
-    this.setLoading(true)
-    try {
-      await Promise.all([
-        updateDoc(doc(db, 'users', myUserInfo.displayName), {
-          incomingReq: arrayRemove(userInfo),
-        }),
-        updateDoc(doc(db, 'users', userInfo?.displayName), {
-          outgoingReq: arrayRemove(myUserInfo),
-        }),
-      ])
-    } catch (e) {
-      alert(e)
-    } finally {
-      this.setLoading(false)
-    }
+    await this.updateUsers([
+      { userId: myUserInfo.displayName, data: { incomingReq: arrayRemove(userInfo) } },
+      { userId: userInfo.displayName, data: { outgoingReq: arrayRemove(myUserInfo) } },
+    ])
   }
 
   removeFromOutFriends = async (userInfo: IFriend, myUserInfo: IFriend) => {
-    this.setLoading(true)
-    try {
-      await Promise.all([
-        updateDoc(doc(db, 'users', myUserInfo.displayName), {
-          outgoingReq: arrayRemove(userInfo),
-        }),
-        updateDoc(doc(db, 'users', userInfo?.displayName), {
-          incomingReq: arrayRemove(myUserInfo),
-        }),
-      ])
-    } catch (e) {
-      alert(e)
-    } finally {
-      this.setLoading(false)
-    }
+    await this.updateUsers([
+      {
+        userId: myUserInfo.displayName,
+        data: {
+          outgoingReq: arrayRemove({ displayName: userInfo.displayName }),
+        },
+      },
+      {
+        userId: userInfo.displayName,
+        data: {
+          incomingReq: arrayRemove({ displayName: myUserInfo.displayName }),
+        },
+      },
+    ])
   }
 
   removeFromFriends = async (userInfo: IFriend, myUserInfo: IFriend) => {
-    this.setLoading(true)
-    try {
-      await Promise.all([
-        updateDoc(doc(db, 'users', myUserInfo.displayName), {
-          friends: arrayRemove(userInfo),
-          incomingReq: arrayUnion(userInfo),
-        }),
-        updateDoc(doc(db, 'users', userInfo?.displayName), {
-          friends: arrayRemove(myUserInfo),
-          outgoingReq: arrayUnion(myUserInfo),
-        }),
-      ])
-    } catch (e) {
-      alert(e)
-    } finally {
-      this.setLoading(false)
-    }
+    await this.updateUsers([
+      { userId: myUserInfo.displayName, data: { friends: arrayRemove(userInfo) } },
+      { userId: userInfo.displayName, data: { friends: arrayRemove(myUserInfo) } },
+    ])
   }
 
   //ALL FRIENDS STATES MOVES

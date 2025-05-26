@@ -39,3 +39,12 @@
     }
   }
 }
+
+.unavailable {
+  position: relative;
+  width: 98%;
+  height: 35px;
+  margin: 10px 1%;
+  border-radius: 10px;
+  background-color: var(--gray-color);
+}

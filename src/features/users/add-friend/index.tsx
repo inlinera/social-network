@@ -10,6 +10,7 @@ interface AcceptFriendProps {
 
 export const AcceptFriend = ({ userInfo }: AcceptFriendProps) => {
   const { acceptFriendRequest } = friendsApi
+
   return (
     <button className={s.acceptFriend} onClick={() => acceptFriendRequest(userInfo, myUserFriend())}>
       <UserAddOutlined />

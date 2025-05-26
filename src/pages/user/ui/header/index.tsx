@@ -8,6 +8,7 @@ import { AvatarUI } from '@/shared/ui/avatar'
 
 import { useButton } from '@/shared/hooks/user/button/useButton'
 import { useMobile } from '@/shared/hooks/useMobile'
+import authApi from '@/shared/store/api/user/auth/auth-api'
 
 const el = document.querySelector('main')
 
@@ -19,12 +20,9 @@ const scrollTop = () => {
 }
 
 export const UserHeader = observer(() => {
+  const { user } = authApi
   const { userInfo, loading } = userStore
   const isMobile = useMobile()
-
-  const userInfoFriend = {
-    displayName: userInfo?.displayName,
-  }
 
   const [opacity, setOpacity] = useState<number | undefined>(0)
 
@@ -51,7 +49,7 @@ export const UserHeader = observer(() => {
           </div>
           <strong>@{userInfo?.displayName}</strong>
         </button>
-        {useButton(userInfoFriend)}
+        {useButton(userInfo, user!)}
       </div>
     )
   )

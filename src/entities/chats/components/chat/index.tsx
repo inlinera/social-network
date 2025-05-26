@@ -29,7 +29,7 @@ export const ChatWindow = observer(() => {
   if (isMobile && !chat) return
 
   const { isChat } = chatState
-  const chattingUser = chat?.people.filter(p => p.displayName != authApi.user?.displayName)[0]
+  const chattingUser = chat?.people.filter(p => p.displayName !== authApi.user?.displayName)[0]
 
   return (
     <div className={`${s.chatWindow} flex fdc ${!chat && 'jcc aic'}`}>
@@ -42,7 +42,7 @@ export const ChatWindow = observer(() => {
             {img && <ChatAddMediaBlock image={img} setImage={setImg} />}
             <ChatUserBlock chattingUser={chattingUser!} />
             <ChatMessagesBlock chattingUser={chattingUser!} setSelectedImg={setSelectedImg} />
-            <ChatInputUI isAttachmentView image={img} setImage={setImg} />
+            <ChatInputUI isAttachmentView image={img} setImage={setImg} chattingUser={chattingUser?.displayName} />
           </>
         ) : (
           <PinnedMsgsList pin={chat?.pinned} />
