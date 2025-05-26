@@ -62,7 +62,7 @@ export const BannerSetting = observer(() => {
 
   return (
     <div className={`${s.banner} flex aic jcc fdc`}>
-      <input type="file" id="banner" hidden accept="image/*" onChange={handleTestChangeBanner} />
+      <input type="file" id="banner" hidden accept=".png,.jpg,.jpeg,.gif" onChange={handleTestChangeBanner} />
       <label htmlFor="banner" className={s.bannerLabel}>
         <div
           className={s.bannerImage}

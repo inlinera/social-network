@@ -12,6 +12,7 @@ import { IPost } from '@/shared/interfaces/IPost'
 import { error } from '@/shared/data/toastify'
 import { observer } from 'mobx-react-lite'
 import { postState } from '@/shared/store/functional/posts/edit-state'
+import { LoadingUI } from '@/shared/ui/loading'
 
 interface PostEditProps {
   post: IPost
@@ -19,11 +20,14 @@ interface PostEditProps {
 
 export const PostEdit = observer(({ post }: PostEditProps) => {
   const { submitChanges, loading } = editPostApi
-  const {editPost: {setEditPost}} = postState
+  const {
+    editPost: { setEditPost },
+  } = postState
 
   // eslint-disable-next-line no-unsafe-optional-chaining
   const [images, setImages] = useState<string[]>([...post?.images!])
   const [postVal, setPostVal] = useState(post?.value)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -44,9 +48,9 @@ export const PostEdit = observer(({ post }: PostEditProps) => {
       />
       <div className="flex aic">
         <RedButtonUI disabled={loading}>done</RedButtonUI>
-        {/*НАДО ПЕРЕНАПРАВЛЯТЬ НА СТРАНИЦУ ПОСТА И ТАМ УЖЕ РЕДАКТИРОВАТЬ*/}
-        <AddPostImageFeature imgList={images} setImgList={setImages} />
+        <AddPostImageFeature imgList={images} setImgList={setImages} setIsLoading={setIsLoading} />
       </div>
+      <div className={`${s.editPost__loader} flex aic jcc`}>{isLoading && <LoadingUI size={'30px'} />}</div>
       {post?.images && post.images.length > 0 && (
         <div className={s.images}>
           <CarouselUI images={images} setImages={setImages} height={200} edit borderRadius={10} />

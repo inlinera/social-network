@@ -5,28 +5,27 @@ import { observer } from 'mobx-react-lite'
 
 interface AddPostImageFeatureProps {
   imgList: string[]
-  setImgList: (_: string[]) => void
+  setImgList: (urls: string[]) => void
+  setIsLoading: (_: boolean) => void
 }
 
-export const AddPostImageFeature = observer(({ imgList, setImgList }: AddPostImageFeatureProps) => {
+export const AddPostImageFeature = observer(({ imgList, setImgList, setIsLoading }: AddPostImageFeatureProps) => {
   const handleUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsLoading(true)
     const files = e.target.files
     if (!files) return
 
-    // eslint-disable-next-line prefer-const
-    let newImages: string[] = []
+    const uploadPromises = Array.from(files).map(file => useUploadImg(file))
+    const uploadedUrls = await Promise.all(uploadPromises)
+    const validUrls = uploadedUrls.filter(url => url !== null)
 
-    for (let i = 0; i < files.length; i++) {
-      const url = await useUploadImg(files[i])
-      newImages.push(url!)
-    }
-
-    setImgList([...imgList, ...newImages])
+    setImgList([...imgList, ...validUrls])
+    setIsLoading(false)
   }
 
   return (
     <div>
-      <input type="file" id="file" accept="image/*" hidden onChange={handleUpdate} multiple />
+      <input type="file" id="file" accept=".png,.jpg,.jpeg,.gif" hidden onChange={handleUpdate} multiple />
       <label htmlFor="file" className={`${s['add-post-img']} flex jcc aic`} title="Add Image">
         <ImagePlus />
       </label>

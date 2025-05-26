@@ -18,6 +18,7 @@ import { error } from '@/shared/data/toastify'
 
 import { useTranslation } from 'react-i18next'
 import { TagT } from '@/shared/interfaces/IPost'
+import { LoadingUI } from '@/shared/ui/loading'
 
 export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
   const { createPost } = createPostApi
@@ -26,6 +27,7 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
   const [value, setValue] = useState('')
   const [selectedTags, setSelectedTags] = useState<TagT[]>([])
   const [imgList, setImgList] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     e.preventDefault()
@@ -55,15 +57,16 @@ export const UserAddPostModal = ({ isOpened, setIsOpened }: ModalUiProps) => {
             style={{ margin: '20px', resize: 'none' }}
           />
         </div>
-        {imgList.length > 0 && (
-          <div className={`${s.carousel}`}>
+        <div className={`${s.carousel}`}>
+          {isLoading && <LoadingUI size={'25px'} />}
+          {imgList.length > 0 && (
             <CarouselUI images={imgList} height={200} borderRadius={16} setImages={setImgList} edit />
-          </div>
-        )}
+          )}
+        </div>
         <div className={`${s.buttons} flex aic jcsb`}>
           <SearchDropdownUi items={tags} selectedItems={selectedTags} setSelectedItems={setSelectedTags} />
           <div className="flex aic">
-            <AddPostImageFeature imgList={imgList} setImgList={setImgList} />
+            <AddPostImageFeature imgList={imgList} setImgList={setImgList} setIsLoading={setIsLoading} />
             <RedButtonUI onClick={handleSubmit}>{t('profile.posts.add_post.modal.send')}</RedButtonUI>
           </div>
         </div>

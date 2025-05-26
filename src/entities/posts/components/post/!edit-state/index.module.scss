@@ -9,6 +9,11 @@
   .images {
     width: 45vw;
   }
+
+  .editPost__loader {
+    position: relative;
+    height: 35px;
+  }
 }
 
 @media (max-width: 768px) {

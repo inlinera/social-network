@@ -33,7 +33,7 @@ export const AvatarSetting = observer(() => {
 
   return (
     <form className="flex fdc">
-      <input type="file" id="avatar" hidden accept="image/*" onChange={handleChangeAvatar} />
+      <input type="file" id="avatar" hidden accept=".png,.jpg,.jpeg,.gif" onChange={handleChangeAvatar} />
       <label htmlFor="avatar" className={s.editAvatar}>
         {isAvatarLoading && <LoadingUI />}
         <AvatarUI loading={loading} src={userAvatar} userName={`${user?.displayName}`} size={175} />

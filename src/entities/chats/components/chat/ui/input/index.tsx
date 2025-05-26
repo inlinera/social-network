@@ -75,7 +75,7 @@ export const ChatInputUI = observer(({ isAttachmentView, image, setImage, chatti
           <div className={`${s.inputEnd} flex aic`}>
             {isAttachmentView && (
               <>
-                <input type="file" id="file" accept="image/*" hidden onChange={handleUploadImg} />
+                <input type="file" id="file" accept=".png,.jpg,.jpeg,.gif" hidden onChange={handleUploadImg} />
                 <label htmlFor="file" className="fz17">
                   <PaperClipOutlined style={{ color: 'gray' }} />
                 </label>

@@ -2,6 +2,11 @@
   position: relative;
   width: 65vw;
 
+  .carousel {
+    position: relative;
+    min-height: 30px;
+  }
+
   .buttons {
     width: 100%;
 
