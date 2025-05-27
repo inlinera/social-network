@@ -28,7 +28,7 @@ interface ChatComponentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const ChatComponent = observer(
-  ({ loading, chatUser, lastMessage, msgDate, currChat, isTimeVisible }: ChatComponentProps) => {
+  ({ loading, chatUser, lastMessage, msgDate, currChat, isTimeVisible = true }: ChatComponentProps) => {
     const { getChat, chat } = getChatApi
     const { setIsChat } = chatState
     const [avatar, setAvatar] = useState<AvatarT>(null)
@@ -47,27 +47,31 @@ export const ChatComponent = observer(
 
     return (
       <div
-        className={`${s.chatElement} ${isActive && s.active} flex aic jcsb`}
+        className={`${s.chatElement} ${isActive && s.active} flex aic`}
         key={currChat?.messages[0]?.time}
         onClick={handleGetChat}
       >
         <InView
           as="div"
           onChange={inView => handleView(`${chatUser}`, inView, avatar, setAvatar)}
-          className="flex aic jcsb"
+          className={`flex aic`}
         >
           <AvatarUI loading={loading} src={avatar} userName={`${chatUser}`} size={50} />
           <div className="flex fdc">
             <TextUi loading={loading} lines={1}>
               <h4>@{chatUser}</h4>
             </TextUi>
-            {lastMessage && (
-              <TextUi loading={loading} lines={1}>
-                <p className={s.lastMsg}>
-                  {lastMessage.image && t('chats.photo')} {lastMessage.message}
-                </p>
-              </TextUi>
-            )}
+            <TextUi loading={loading} lines={1}>
+              <p className={s.lastMsg}>
+                {lastMessage ? (
+                  <>
+                    {lastMessage.image && t('chats.photo')} {lastMessage.message}
+                  </>
+                ) : (
+                  '...'
+                )}
+              </p>
+            </TextUi>
           </div>
         </InView>
         {isTimeVisible && (

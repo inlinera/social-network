@@ -11,9 +11,10 @@ import { CircleX } from 'lucide-react'
 interface ChatAddMediaBlockProps {
   image: string | null
   setImage: (_: string | null) => void
+  chattingUser?: string
 }
 
-export const ChatAddMediaBlock = ({ image, setImage }: ChatAddMediaBlockProps) => {
+export const ChatAddMediaBlock = ({ image, setImage, chattingUser }: ChatAddMediaBlockProps) => {
   const { deleteImage } = storageApi
   const { $null } = InputState
 
@@ -32,7 +33,7 @@ export const ChatAddMediaBlock = ({ image, setImage }: ChatAddMediaBlockProps) =
         <div className={`${s.image} flex jcc aic`}>
           <ImageUI src={`${image}`} alt="" borderRadius={12} />
         </div>
-        <ChatInputUI isAttachmentView={false} image={image} setImage={setImage} />
+        <ChatInputUI isAttachmentView={false} image={image} setImage={setImage} chattingUser={chattingUser} />
       </div>
     </div>
   )

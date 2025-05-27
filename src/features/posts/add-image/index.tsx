@@ -30,7 +30,7 @@ export const AddPostImageFeature = observer(({ imgList, setImgList, setIsLoading
 
   return (
     <div>
-      <input type="file" id="file" accept=".png,.jpg,.jpeg,.gif" hidden onChange={handleUpdate} multiple />
+      <input type="file" id="file" accept=".png,.jpg,.jpeg,.gif" hidden onChange={handleUpdate} />
       <label htmlFor="file" className={`${s['add-post-img']} flex jcc aic`} title="Add Image">
         <ImagePlus />
       </label>

@@ -15,12 +15,17 @@ import {
   deleteUser,
   updateProfile,
 } from 'firebase/auth'
-import { collection, deleteDoc, doc, getDocs, onSnapshot, query, setDoc, where } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, where } from 'firebase/firestore'
 // INTERFACES
 import { IUser } from '@/shared/interfaces/IUser'
 import storageApi from '../../storage/storage-api'
 // DATA
 import { error, success } from '@/shared/data/toastify'
+import deleteChatApi from '../../chats/chat/actions/delete-chat-api'
+import { IFriend } from '@/shared/interfaces/IFriend'
+import friendsApi from '../../user/friends/friends-api'
+import { myUserFriend } from '@/shared/constants/users/my-user-info'
+import deletePostApi from '../../posts/post/actions/delete-post-api'
 
 const handleRegError = (e: unknown) => {
   if (e instanceof Error) {
@@ -36,6 +41,21 @@ const handleRegError = (e: unknown) => {
     }
   } else {
     error('Произошла неизвестная ошибка')
+  }
+}
+
+const handleDeleteError = (e: unknown) => {
+  if (e instanceof Error) {
+    if (e.message.includes('auth/requires-recent-login')) {
+      error('Ошибка с сервера. Все данные были удалены, но почта будет занята')
+    } else if (e.message.includes('storage/object-not-found')) {
+      // Ignore storage errors as files might not exist
+      console.log('Some media files were not found during deletion')
+    } else {
+      error('Произошла ошибка при удалении аккаунта: ' + e.message)
+    }
+  } else {
+    error('Произошла неизвестная ошибка при удалении аккаунта')
   }
 }
 
@@ -144,10 +164,55 @@ class AuthorizationStore {
       const user = auth.currentUser
 
       if (!user) return error('Не удалось определить пользователя.')
-      const q = query(collection(db, 'posts'), where('userName', '==', user.displayName))
-      const querySnapshot = await getDocs(q)
-      const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref))
-      await Promise.all(deletePromises)
+
+      // Get user's friends
+      const userDoc = await getDoc(doc(db, 'users', `${user.displayName}`))
+      if (userDoc.exists()) {
+        const userData = userDoc.data()
+
+        // Remove all friends
+        if (userData.friends?.length > 0) {
+          const removeFriendsPromises = userData.friends.map((friend: IFriend) =>
+            friendsApi.removeFromFriends(friend, myUserFriend())
+          )
+          await Promise.all(removeFriendsPromises)
+        }
+
+        // Delete user's posts
+        const postsQuery = query(collection(db, 'posts'), where('userName', '==', user.displayName))
+        const postsSnapshot = await getDocs(postsQuery)
+        const deletePostsPromises = postsSnapshot.docs.map(doc => deletePostApi.deletePost(doc.id))
+        await Promise.all(deletePostsPromises)
+
+        // Delete user's chats
+        const chatsQuery = query(
+          collection(db, 'chats'),
+          where('people', 'array-contains', { displayName: user.displayName })
+        )
+        const chatsSnapshot = await getDocs(chatsQuery)
+
+        const deleteChatsPromises = chatsSnapshot.docs.map(doc => {
+          const chatData = doc.data()
+          const otherUser = chatData.people.find((p: IFriend) => p.displayName !== user.displayName)
+          return deleteChatApi.deleteChat(doc.id, otherUser.displayName)
+        })
+
+        await Promise.all(deleteChatsPromises)
+
+        // Delete user's avatar and banner if they exist
+        const deleteMediaPromises = []
+
+        if (userData.avatarUrl) {
+          deleteMediaPromises.push(storageApi.deleteImage(userData.avatarUrl))
+        }
+        if (userData.bannerUrl) {
+          deleteMediaPromises.push(storageApi.deleteImage(userData.bannerUrl))
+        }
+
+        if (deleteMediaPromises.length > 0) {
+          await Promise.all(deleteMediaPromises)
+        }
+      }
 
       await deleteDoc(doc(db, 'users', `${user.displayName}`))
 
@@ -157,8 +222,8 @@ class AuthorizationStore {
       await this.initializeAuth()
 
       success('Надеюсь вы вернётесь сюда снова')
-    } catch {
-      error('Упс, произошла ошибка')
+    } catch (e) {
+      handleDeleteError(e)
     }
   }
 

@@ -1,6 +1,8 @@
 .chatElement {
+  position: relative;
   width: 100%;
   height: max-content;
+  padding: 3px;
   cursor: pointer;
   color: var(--default);
   border-bottom: 1px solid var(--gray-color);
@@ -35,7 +37,8 @@
 @media (max-width: 768px) {
   .chatElement {
     width: 100% !important;
-    justify-content: space-around;
+    gap: 10px;
+    justify-content: space-between;
 
     .lastMsg {
       width: 35vw;
