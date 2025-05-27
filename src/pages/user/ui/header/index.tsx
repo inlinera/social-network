@@ -24,7 +24,7 @@ export const UserHeader = observer(() => {
   const { userInfo, loading } = userStore
   const isMobile = useMobile()
 
-  const [opacity, setOpacity] = useState<number | undefined>(0)
+  const [opacity, setOpacity] = useState<number>(0)
 
   const handleScroll = () => {
     const scrollTop = el?.scrollTop || 0
@@ -42,7 +42,10 @@ export const UserHeader = observer(() => {
 
   return (
     isMobile && (
-      <div className={`${s.userHeader} flex aic jcsb`} style={{ opacity }}>
+      <div
+        className={`${s.userHeader} flex aic jcsb`}
+        style={{ opacity, pointerEvents: opacity > 0 ? 'all' : 'none' }}
+      >
         <button className={`${s.userHeader__info} flex aic`} onClick={scrollTop}>
           <div className={`${s.avatar} flex aic jcc`}>
             <AvatarUI src={userInfo?.avatarUrl} userName={userInfo?.displayName} size={40} loading={loading} />

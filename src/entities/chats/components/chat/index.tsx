@@ -17,6 +17,8 @@ import { ImageModal } from '@/shared/ui/image-modal'
 
 export const ChatWindow = observer(() => {
   const { chat } = getChatApi
+  const { isChat } = chatState
+
   const [img, setImg] = useState<string | null>(null)
   const [selectedImg, setSelectedImg] = useState<string | null>(null)
 
@@ -28,7 +30,6 @@ export const ChatWindow = observer(() => {
 
   if (isMobile && !chat) return
 
-  const { isChat } = chatState
   const chattingUser = chat?.people.filter(p => p.displayName !== authApi.user?.displayName)[0]
 
   return (
