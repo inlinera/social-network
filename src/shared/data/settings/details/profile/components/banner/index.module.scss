@@ -40,8 +40,12 @@
     }
   }
 
-  button {
-    max-width: max-content;
+  .bannerActionBtns {
     margin-left: auto;
+    gap: 5px;
+
+    button {
+      max-width: max-content;
+    }
   }
 }

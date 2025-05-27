@@ -4,12 +4,15 @@
   border-radius: 100%;
   border: 1px solid #000;
 
-  button {
+  .editAvatarButton {
     position: absolute;
-    right: 10px;
     bottom: 10px;
-    padding: 6px;
-    background-color: var(--body-color);
-    border-radius: 100%;
+    gap: 3px;
+
+    button {
+      padding: 6px;
+      background-color: var(--body-color);
+      border-radius: 100%;
+    }
   }
 }

@@ -2,6 +2,7 @@ import { useUploadImg } from '@/shared/hooks/details/useUploadImg'
 import s from './index.module.scss'
 import { ImagePlus } from 'lucide-react'
 import { observer } from 'mobx-react-lite'
+import { error } from '@/shared/data/toastify'
 
 interface AddPostImageFeatureProps {
   imgList: string[]
@@ -12,14 +13,18 @@ interface AddPostImageFeatureProps {
 export const AddPostImageFeature = observer(({ imgList, setImgList, setIsLoading }: AddPostImageFeatureProps) => {
   const handleUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoading(true)
-    const files = e.target.files
-    if (!files) return
+    try {
+      const files = e.target.files
+      if (!files) return
 
-    const uploadPromises = Array.from(files).map(file => useUploadImg(file))
-    const uploadedUrls = await Promise.all(uploadPromises)
-    const validUrls = uploadedUrls.filter(url => url !== null)
+      const uploadPromises = Array.from(files).map(file => useUploadImg(file))
+      const uploadedUrls = await Promise.all(uploadPromises)
+      const validUrls = uploadedUrls.filter(url => url !== null)
 
-    setImgList([...imgList, ...validUrls])
+      setImgList([...imgList, ...validUrls])
+    } catch (e) {
+      error(`${e}`)
+    }
     setIsLoading(false)
   }
 

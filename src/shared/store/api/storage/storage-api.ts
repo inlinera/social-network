@@ -15,7 +15,7 @@ class StorageApi {
   image? = null as null | string | File
 
   //ALL STORAGE ACTIONS
-  uploadImage = async (file: File, dir: string) => {
+  uploadImage = async <T extends Blob | ArrayBuffer | Uint8Array<ArrayBufferLike>>(file: T, dir: string) => {
     const imgRef = ref(storage, `files/${dir}/${v4()}`)
     try {
       await uploadBytes(imgRef, file)
@@ -33,7 +33,8 @@ class StorageApi {
       const imgRef = ref(storage, url)
 
       await deleteObject(imgRef)
-    } catch {
+    } catch (e) {
+      console.log(e)
       error('Ошибка удаления изображения')
     }
   }

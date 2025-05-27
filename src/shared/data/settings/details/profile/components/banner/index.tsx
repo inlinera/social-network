@@ -26,7 +26,7 @@ export const BannerSetting = observer(() => {
       e.preventDefault()
       setIsBannerLoading(true)
       try {
-        await useDeleteImage(`${banner}`)
+        if (banner) await useDeleteImage(`${banner}`)
         await editField(`${newBanner}`, 'bannerUrl')
         setBanner(newBanner)
         setNewBanner(null)
@@ -60,6 +60,16 @@ export const BannerSetting = observer(() => {
     [newBanner]
   )
 
+  const handleDelete = useCallback(
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault()
+      if (banner) useDeleteImage(banner)
+      await editField(null, 'bannerUrl')
+      setBanner(null)
+    },
+    [banner]
+  )
+
   return (
     <div className={`${s.banner} flex aic jcc fdc`}>
       <input type="file" id="banner" hidden accept=".png,.jpg,.jpeg,.gif" onChange={handleTestChangeBanner} />
@@ -86,13 +96,20 @@ export const BannerSetting = observer(() => {
         </div>
       </label>
       {!newBanner && (
-        <RedButtonUI
-          type="button"
-          onClick={() => document.getElementById('banner')?.click()}
-          disabled={isBannerLoading}
-        >
-          {t('settings.profile.banner.btn')}
-        </RedButtonUI>
+        <div className={`${s.bannerActionBtns} flex aic`}>
+          {banner && (
+            <RedButtonUI type="button" onClick={handleDelete} disabled={isBannerLoading}>
+              Delete
+            </RedButtonUI>
+          )}
+          <RedButtonUI
+            type="button"
+            onClick={() => document.getElementById('banner')?.click()}
+            disabled={isBannerLoading}
+          >
+            {t('settings.profile.banner.btn')}
+          </RedButtonUI>
+        </div>
       )}
     </div>
   )

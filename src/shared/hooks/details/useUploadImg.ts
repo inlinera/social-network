@@ -1,8 +1,6 @@
 import { error } from '@/shared/data/toastify'
 import storageApi from '@/shared/store/api/storage/storage-api'
 
-const { deleteImage } = storageApi
-
 export const useUploadImg = async (file: File): Promise<string | null> => {
   const { uploadImage } = storageApi
 
@@ -17,14 +15,18 @@ export const useUploadImg = async (file: File): Promise<string | null> => {
 }
 
 export const useDeleteImage = async (url: string) => {
+  const { deleteImage } = storageApi
+
   await deleteImage(`${url}`)
 }
 
-export const useChangeImage = async (
-  e: React.ChangeEvent<HTMLInputElement>,
+export const useChangeImage = async <E extends React.ChangeEvent<HTMLInputElement>>(
+  e: E,
   setImage: (url: string) => void,
   currentImage?: string | null
 ) => {
+  const { deleteImage } = storageApi
+
   const image = e.target.files?.[0]
   if (!image) return
 
