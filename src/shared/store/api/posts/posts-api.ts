@@ -37,6 +37,7 @@ class PostsStore {
   posts = mobxState<IPost[] | null>(null)('posts')
   loading = mobxState(false)('loading')
   tag = mobxState<TagT | null>(null)('tag')
+  empty = mobxState(false)('empty')
   private _lastDoc = null as QueryDocumentSnapshot | null
 
   // ALL POSTS ACTIONS
@@ -56,7 +57,8 @@ class PostsStore {
       const querySnapshot = await getDocs(q)
 
       if (querySnapshot.empty) {
-        return info('Посты закончились')
+        if (!this.empty.empty) info('Посты закончились')
+        return this.empty.setEmpty(true)
       }
 
       const newPosts = querySnapshot.docs.map(doc => ({
@@ -79,6 +81,7 @@ class PostsStore {
     runInAction(() => {
       this.posts.setPosts(null)
       this._lastDoc = null
+      this.empty.setEmpty(false)
       this.getPosts()
     })
 }

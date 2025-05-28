@@ -13,18 +13,18 @@ interface PostListWidgetProps {
   posts?: IPost[]
   loading: boolean
   isUserPosts?: boolean
+  empty?: boolean
 }
 
-export const PostListWidget = observer(({ posts, loading, isUserPosts }: PostListWidgetProps) => {
+export const PostListWidget = observer(({ posts, loading, isUserPosts, empty }: PostListWidgetProps) => {
   const { userInfo } = userApi
   const { t } = useTranslation()
 
   return (
     <div className={`${s.postsList} flex fdc`}>
       {isUserPosts && <h1>{t('profile.posts._', { name: `@${userInfo.displayName}` })}</h1>}
-      {posts
-        ? postsMap(posts, loading, isUserPosts)
-        : Array.from({ length: 5 }, (_, index) => <PostWidget loadingPost key={index} />)}
+      {postsMap(posts, isUserPosts)}
+      {!empty && loading && Array.from({ length: 5 }, (_, index) => <PostWidget loadingPost key={index} />)}
     </div>
   )
 })

@@ -15,10 +15,9 @@ const PostsPage = observer(() => {
     getPosts,
     posts: { posts },
     loading: { loading },
+    empty: { empty },
   } = postsApi
   setTitle('', true)
-
-  const isLoading = !posts && loading
 
   useEffect(() => {
     if (!posts) getPosts()
@@ -27,13 +26,14 @@ const PostsPage = observer(() => {
   return (
     <div className={`${s.postListPage} flex fdc aic jcc`}>
       <PostsPageHeader />
-      <PostListWidget posts={posts!} loading={isLoading} isUserPosts={false} />
+      <PostListWidget posts={posts!} loading={loading} isUserPosts={false} empty={empty} />
+      {empty && <img src="https://i.postimg.cc/vmx8V37m/20250420-115413.png" alt="2la" width={125} height={125} />}
       <InView
         as="div"
         onChange={inView => inView && !loading && getPosts()}
-        style={{ height: 20, width: '100%' }}
-        threshold={0.1}
-      />
+        style={{ height: 10, width: '100%' }}
+        threshold={0.5}
+      />{' '}
     </div>
   )
 })
