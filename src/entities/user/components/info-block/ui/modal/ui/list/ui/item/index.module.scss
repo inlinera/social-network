@@ -1,0 +1,13 @@
+.friendItem {
+  position: relative;
+  width: 100%;
+
+  .friendItem__meta {
+    gap: 14px;
+    font-weight: 600;
+
+    span {
+      white-space: nowrap;
+    }
+  }
+}

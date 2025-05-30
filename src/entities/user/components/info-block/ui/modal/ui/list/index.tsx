@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 
-import { List } from 'antd'
+import s from './index.module.scss'
+
 import { UserFriendItem } from './ui/item'
 
 import { IFriend } from '@/shared/interfaces/IFriend'
@@ -12,10 +13,15 @@ interface UserFriendListProps {
 
 export const UserFriendList = observer(({ arr, listType }: UserFriendListProps) => {
   return (
-    <List
-      itemLayout="horizontal"
-      dataSource={arr}
-      renderItem={(item: IFriend) => <UserFriendItem item={item} listType={listType} />}
-    />
+    <ul className={`${s.friendList} flex fdc aic jcc`}>
+      {arr.length > 0 ? (
+        arr.map((item: IFriend) => <UserFriendItem item={item} listType={listType} key={item.displayName} />)
+      ) : (
+        <div className="flex fdc tac">
+          <img src="https://i.postimg.cc/vmx8V37m/20250420-115413.png" alt="2la" width={125} height={125} />
+          <b>No data</b>
+        </div>
+      )}
+    </ul>
   )
 })
