@@ -9,7 +9,7 @@ import { useVirtualizer } from '@tanstack/react-virtual'
 
 import { useTranslation } from 'react-i18next'
 import { useRef } from 'react'
-import { PostComment } from './ui/list/comment'
+import { PostsList } from './ui/list'
 
 interface PostListWidgetProps {
   posts?: IPost[]
@@ -37,39 +37,8 @@ export const PostListWidget = observer(({ posts, loading, isUserPosts, empty }: 
     <div className={`${s.postsList} flex fdc`}>
       {isUserPosts && <h1>{t('profile.posts._', { name: `@${userInfo.displayName}` })}</h1>}
 
-      <div ref={parentRef} style={{ height: '100%', overflowY: 'hidden' }}>
-        <div
-          key={posts?.map(post => post.id).join('-')}
-          style={{
-            height: `${rowVirtualizer.getTotalSize()}px`,
-            width: '100%',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          {rowVirtualizer.getVirtualItems().map((virtualRow, id) => {
-            const post = posts?.[virtualRow.index]
-            const isEven2 = id % 2 === 0
-
-            return (
-              <div
-                key={virtualRow.index}
-                data-index={virtualRow.index}
-                ref={rowVirtualizer.measureElement}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  transform: `translateY(${virtualRow.start}px)`,
-                }}
-              >
-                <PostWidget post={post} loadingPost={false} />
-                {isEven2 && !isUserPosts && <PostComment post={post!} />}
-              </div>
-            )
-          })}
-        </div>
+      <div ref={parentRef} style={{ height: '100%' }}>
+        <PostsList rowVirtualizer={rowVirtualizer} posts={posts} isUserPosts={isUserPosts} />
       </div>
 
       {!empty && loading && Array.from({ length: 5 }, (_, index) => <PostWidget loadingPost key={index} />)}

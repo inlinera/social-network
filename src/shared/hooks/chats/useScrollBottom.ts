@@ -1,7 +1,7 @@
-export const useScrollBottom = () => {
-  const endElement = document.getElementById('endRef')
+export const useScrollBottom = (id: string) => {
+  const endElement = document.getElementById(id)
 
   if (endElement) {
-    endElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    endElement.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }
 }

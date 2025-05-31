@@ -34,7 +34,7 @@ export const useSendMsg = <T extends string | null>(image?: T, setImage?: (_: T)
     } as Omit<IMessage, 'time'>
 
     if (msg.message || image) {
-      if (state !== 'edit') sendMessage(msg).then(() => useScrollBottom())
+      if (state !== 'edit') sendMessage(msg).then(() => useScrollBottom(msg.id))
       else editMessage({ ...actionMsg!, ...msg }).then(() => useScrollToMsg(`${actionMsg?.id}`))
       setImage?.(null as T)
       $null()

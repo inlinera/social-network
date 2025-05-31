@@ -7,26 +7,10 @@
   i {
     margin: 10px;
   }
-
-  .chat_bottom {
-    position: fixed;
-    bottom: calc(50px + 20px);
-    right: 35px;
-    height: 40px;
-    width: 40px;
-    border: 1px solid var(--gray-color);
-    background-color: var(--post-color);
-    border-radius: 100%;
-  }
 }
 
 @media (max-width: 768px) {
   .chat {
     height: inherit;
-
-    .chat_bottom {
-      bottom: calc(50px + 10px);
-      right: 15px;
-    }
   }
 }
