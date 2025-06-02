@@ -39,7 +39,6 @@ export const ChatMessagesList = observer(({ setSelectedImg }: ChatMessagesListPr
       style={{
         height: `${rowVirtualizer.getTotalSize()}px`,
         width: '100%',
-        position: 'relative',
       }}
     >
       {rowVirtualizer.getVirtualItems().map(message => {
