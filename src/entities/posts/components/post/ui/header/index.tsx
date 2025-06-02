@@ -30,12 +30,10 @@ export const PostHeader = observer(({ loadingPost, post }: PostWidgetProps) => {
   const { t } = useTranslation()
 
   const [avatar, setAvatar] = useState<AvatarT>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
 
   const handleChange = useCallback(
     (inView: boolean) => {
-      if (!isLoaded) handleView(`${post?.userName}`, inView, avatar, setAvatar)
-      setIsLoaded(true)
+      handleView(`${post?.userName}`, inView, avatar, setAvatar)
     },
     [avatar]
   )
@@ -44,7 +42,7 @@ export const PostHeader = observer(({ loadingPost, post }: PostWidgetProps) => {
     <div className={`${s.post__header} flex aic`}>
       <InView as="div" onChange={handleChange} className="flex fdc aic">
         <Link to={`/user/${post?.userName}`} className={`${s.post_user} flex aic`}>
-          <AvatarUI loading={!isLoaded} src={avatar} size={45} userName={`${post?.userName}`} />
+          <AvatarUI loading={loadingPost} src={avatar} size={45} userName={`${post?.userName}`} />
           <div className="flex fdc">
             <TextUi loading={loadingPost} lines={1}>
               <p style={{ fontSize: document.body.style.fontSize }}>{post?.userName}</p>
