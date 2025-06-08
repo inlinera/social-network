@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite'
+import { createPortal } from 'react-dom'
 
 import authApi from '@/shared/store/api/user/auth/auth-api'
 
@@ -22,16 +23,17 @@ export const PostBtnLine = observer(({ id, comments, likes }: PostBtnLineProps) 
 
   return (
     <>
-      <AuthModal isOpened={isAuthModalOpened} setIsOpened={setIsAuthModalOpened} />
+      {isAuthModalOpened &&
+        createPortal(<AuthModal isOpened={isAuthModalOpened} setIsOpened={setIsAuthModalOpened} />, document.body)}
       <div className="flex aic">
         <PostBtn onClick={() => !loading && handleLike()} loading={loading} disabled={loading}>
           {postLikes?.includes(`${user?.displayName}`) ? <HeartFilled /> : <HeartOutlined />}
           {postLikes?.length}
         </PostBtn>
-          <PostBtn onClick={navigate}>
-            <CommentOutlined />
-            {comments?.length}
-          </PostBtn>
+        <PostBtn onClick={navigate}>
+          <CommentOutlined />
+          {comments?.length}
+        </PostBtn>
       </div>
     </>
   )

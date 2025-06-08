@@ -26,6 +26,6 @@
     }
   },
 
-  "include": ["src"],
+  "include": ["src", "src/shared/store/api/.gpt"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
