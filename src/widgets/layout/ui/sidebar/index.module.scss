@@ -1,14 +1,14 @@
-$hover-color: #777777d8;
+$hover-color: #555555d8;
 
 .toggle {
-  background-color: $hover-color;
+  background: linear-gradient(90deg, $hover-color, #6f5a5a, $hover-color);
 }
 
 .sider {
   position: fixed;
   height: 100vh;
   width: inherit;
-  min-width: 200px;
+  min-width: 240px;
   max-width: 500px;
   left: 0;
   inset-inline-start: 0;
@@ -25,10 +25,11 @@ $hover-color: #777777d8;
   .sider_sidebar {
     width: 100%;
     height: max-content;
-    margin-top: calc(60px + 20px);
+    margin-top: 85px;
+    margin-left: 1vw;
     padding: 5px;
     border-radius: 10px;
-    background-color: var(--body-color);
+    background: linear-gradient(120deg, var(--body-color), var(--post-color));
 
     .sider_sidebar__button {
       margin: 2px;
@@ -85,6 +86,6 @@ $hover-color: #777777d8;
   }
 
   .toggle {
-    @include bgtransparent;
+    background: transparent !important;
   }
 }

@@ -124,8 +124,8 @@ body {
 
   main {
     flex: 1;
-    margin: 60px 0 0 200px;
-    padding: 20px 10px 0 5px;
+    margin: 0px 0 0px 240px;
+    padding: 85px 10px 0 5px;
     overflow-y: auto;
     align-items: stretch;
   }
@@ -134,5 +134,6 @@ body {
 @media (max-width: 768px) {
   main {
     margin: 0 0 70px 0 !important;
+    padding: 20px 0px !important;
   }
 }
