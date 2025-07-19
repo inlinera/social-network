@@ -31,10 +31,9 @@ const PostsPage = observer(() => {
       <div className={`${s.posts} flex fdc`}>
         <PostsPageHeader />
         <PostListWidget posts={posts!} loading={loading} isUserPosts={false} empty={empty} />
-        {empty && (
+        {empty ? (
           <img src="https://i.postimg.cc/vmx8V37m/20250420-115413.png" alt="2la" width={125} height={125} />
-        )}
-        {!empty && (
+        ) : (
           <InView
             as="div"
             onChange={inView => inView && !loading && getPosts()}
