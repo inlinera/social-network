@@ -10,6 +10,7 @@ import { PostsPageHeader } from './ui/header'
 
 import { setTitle } from '@/shared/constants/setTitle'
 import { PostsSider } from './ui/sider'
+import { useMobile } from '@/shared/hooks/useMobile'
 
 const PostsPage = observer(() => {
   const {
@@ -19,6 +20,7 @@ const PostsPage = observer(() => {
     empty: { empty },
   } = postsApi
   setTitle('', true)
+  const isMobile = useMobile()
 
   useEffect(() => {
     if (!posts) getPosts()
@@ -41,7 +43,7 @@ const PostsPage = observer(() => {
           />
         )}
       </div>
-      <PostsSider />
+      {!isMobile && <PostsSider />}
     </div>
   )
 })

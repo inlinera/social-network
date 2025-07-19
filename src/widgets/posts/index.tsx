@@ -3,11 +3,9 @@ import s from './index.module.scss'
 import { PostWidget } from '@/entities/posts/components/post'
 import { IPost } from '@/shared/interfaces/IPost'
 
-import userApi from '@/shared/store/api/user/profile/user-api'
 import { observer } from 'mobx-react-lite'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
-import { useTranslation } from 'react-i18next'
 import { useRef } from 'react'
 import { PostsList } from './ui/list'
 
@@ -19,8 +17,6 @@ interface PostListWidgetProps {
 }
 
 export const PostListWidget = observer(({ posts, loading, isUserPosts, empty }: PostListWidgetProps) => {
-  const { userInfo } = userApi
-  const { t } = useTranslation()
   const parentRef = useRef<HTMLDivElement>(null)
 
   const rowVirtualizer = useVirtualizer({
