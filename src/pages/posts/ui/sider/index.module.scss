@@ -1,5 +1,8 @@
 .sider {
-  width: max-content;
+  position: fixed;
+  right: 1.5vw;
+  min-width: 240px;
+  max-width: 500px;
   height: max-content;
   padding: 7px;
   background-color: var(--post-color);
