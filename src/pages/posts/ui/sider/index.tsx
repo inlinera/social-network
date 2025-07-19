@@ -30,7 +30,7 @@ export const PostsSider = observer(() => {
             </button>
           </>
         ) : (
-          <div className="flex aic" style={{ padding: '0vw 0.5vw', gap: '2vw', letterSpacing: 1.5 }}>
+          <div className="flex aic" style={{ letterSpacing: 1.5 }}>
             <Telegram />
             <strong>Telegram</strong>
           </div>

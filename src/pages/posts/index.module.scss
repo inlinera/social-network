@@ -13,3 +13,9 @@
     gap: 1vw;
   }
 }
+
+@media (max-width: 1000px) {
+  .postListPage {
+    padding: 0px 10px !important;
+  }
+}
