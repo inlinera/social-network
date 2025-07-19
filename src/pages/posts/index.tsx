@@ -9,6 +9,7 @@ import { InView } from 'react-intersection-observer'
 import { PostsPageHeader } from './ui/header'
 
 import { setTitle } from '@/shared/constants/setTitle'
+import { PostsSider } from './ui/sider'
 
 const PostsPage = observer(() => {
   const {
@@ -24,18 +25,23 @@ const PostsPage = observer(() => {
   }, [])
 
   return (
-    <div className={`${s.postListPage} flex fdc aic jcc`}>
-      <PostsPageHeader />
-      <PostListWidget posts={posts!} loading={loading} isUserPosts={false} empty={empty} />
-      {empty && <img src="https://i.postimg.cc/vmx8V37m/20250420-115413.png" alt="2la" width={125} height={125} />}
-      {!empty && (
-        <InView
-          as="div"
-          onChange={inView => inView && !loading && getPosts()}
-          style={{ height: 10, width: '100%' }}
-          threshold={0.5}
-        />
-      )}
+    <div className={`${s.postListPage} flex jcc`}>
+      <div className={`${s.posts} flex fdc`}>
+        <PostsPageHeader />
+        <PostListWidget posts={posts!} loading={loading} isUserPosts={false} empty={empty} />
+        {empty && (
+          <img src="https://i.postimg.cc/vmx8V37m/20250420-115413.png" alt="2la" width={125} height={125} />
+        )}
+        {!empty && (
+          <InView
+            as="div"
+            onChange={inView => inView && !loading && getPosts()}
+            style={{ height: 10, width: '100%' }}
+            threshold={0.5}
+          />
+        )}
+      </div>
+      <PostsSider />
     </div>
   )
 })

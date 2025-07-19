@@ -7,7 +7,9 @@ export const HeaderUi = () => {
 
   return (
     <header className={`${s.header} flex`}>
-      <img src={src} onClick={navigate} draggable={false} />
+      <button onClick={navigate}>
+        <img src={src} draggable={false} />
+      </button>
     </header>
   )
 }

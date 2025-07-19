@@ -1,0 +1,18 @@
+.sider {
+  width: max-content;
+  height: max-content;
+  padding: 7px;
+  background-color: var(--post-color);
+  border-radius: 10px;
+
+  .userBlock {
+    position: relative;
+    padding: 0.5vw;
+    gap: 2vw;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #555555d8, #6f5a5a, #555555d8);
+    color: var(--default);
+    font-family: 'Montserrat', serif;
+    font-size: clamp(14px, 0.9vw, 20px);
+  }
+}

@@ -35,8 +35,6 @@ export const PostListWidget = observer(({ posts, loading, isUserPosts, empty }: 
 
   return (
     <div className={`${s.postsList} flex fdc`}>
-      {isUserPosts && <h1>{t('profile.posts._', { name: `@${userInfo.displayName}` })}</h1>}
-
       <div ref={parentRef} style={{ height: '100%' }}>
         <PostsList rowVirtualizer={rowVirtualizer} posts={posts} isUserPosts={isUserPosts} />
       </div>

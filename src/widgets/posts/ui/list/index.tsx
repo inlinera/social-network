@@ -38,8 +38,10 @@ export const PostsList = ({ rowVirtualizer, posts, isUserPosts }: PostsListProps
               transform: `translateY(${virtualRow.start}px)`,
             }}
           >
-            <PostWidget post={post} loadingPost={false} />
-            {isEven2 && !isUserPosts && <PostComment post={post!} />}
+            <div style={{ paddingBottom: '16px' }}>
+              <PostWidget post={post} loadingPost={false} />
+              {isEven2 && !isUserPosts && <PostComment post={post!} />}
+            </div>
           </div>
         )
       })}

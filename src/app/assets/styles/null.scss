@@ -125,7 +125,7 @@ body {
   main {
     flex: 1;
     margin: 0px 0 0px 240px;
-    padding: 85px 10px 0 5px;
+    padding: calc(75px + 1vw) 10px 0 5px;
     overflow-y: auto;
     align-items: stretch;
   }

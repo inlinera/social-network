@@ -5,7 +5,7 @@
   padding: 3px;
   cursor: pointer;
   color: var(--default);
-  border-bottom: 1px solid var(--gray-color);
+  border-bottom: 2px solid var(--body-color);
 
   * {
     margin: 3px;
@@ -39,6 +39,7 @@
     width: 100% !important;
     gap: 10px;
     justify-content: space-between;
+    border-bottom: 1px solid var(--gray-color);
 
     .lastMsg {
       width: 35vw;

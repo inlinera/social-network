@@ -5,4 +5,10 @@
   justify-content: space-between;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
+  gap: 1vw;
+
+  .posts {
+    width: 100%;
+    gap: 1vw;
+  }
 }

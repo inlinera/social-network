@@ -1,13 +1,8 @@
 .postsList {
   position: relative;
   width: inherit;
-  padding: 10px 0px;
   padding-bottom: 50px;
   border-radius: 16px;
   font-family: 'Inter', serif;
-
-  h1 {
-    font-size: 17px;
-    color: var(--default);
-  }
+  gap: 1vw;
 }
