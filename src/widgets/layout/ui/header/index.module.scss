@@ -1,10 +1,20 @@
+.blackBlock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 6px);
+  height: calc(60px + 1vw);
+  background-color: var(--body-color);
+  z-index: 998;
+}
+
 .header {
   position: fixed;
-  width: 98vw;
+  width: 97.5vw;
   height: 60px;
   top: 1vw;
   left: 0;
-  margin: 0 0.5vw;
+  margin: 0vw 0.5vw 0vw 1vw;
   align-items: center;
   justify-content: space-around;
   background: linear-gradient(165deg, rgba(7, 7, 8, 1) 0%, rgba(71, 16, 16, 1) 50%, rgba(89, 0, 0, 1) 100%);

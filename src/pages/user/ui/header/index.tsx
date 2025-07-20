@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import s from './index.module.scss'
 import { observer } from 'mobx-react-lite'
 
@@ -9,36 +8,15 @@ import { AvatarUI } from '@/shared/ui/avatar'
 import { useButton } from '@/shared/hooks/user/button/useButton'
 import { useMobile } from '@/shared/hooks/useMobile'
 import authApi from '@/shared/store/api/user/auth/auth-api'
+import { useScroll } from '@/pages/user/hooks/useScroll'
 
 const el = document.querySelector('main')
-
-const scrollTop = () => {
-  el?.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  })
-}
 
 export const UserHeader = observer(() => {
   const { user } = authApi
   const { userInfo, loading } = userStore
   const isMobile = useMobile()
-
-  const [opacity, setOpacity] = useState<number>(0)
-
-  const handleScroll = () => {
-    const scrollTop = el?.scrollTop || 0
-    const newOpacity = Math.min(scrollTop / 150, 1).toFixed(1)
-    setOpacity(parseFloat(newOpacity))
-  }
-
-  useEffect(() => {
-    el?.addEventListener('scroll', handleScroll)
-
-    return () => {
-      el?.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  const { opacity, scrollTop } = useScroll(el, 150)
 
   return (
     isMobile && (
